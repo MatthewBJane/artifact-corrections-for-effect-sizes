@@ -1,0 +1,100 @@
+# Introduction
+
+## Effect Sizes
+
+### Correlations
+
+A correlation describes the relationship between two continuous variables. The correlation coefficient was first introduced 1904 by Charles Spearman
+
+#### Technical Overview {.unnumbered}
+
+If we draw a sample of $n$ observations from a population, we can estimate the population correlation between variables $x$ and $y$ using a reasonably unbiased estimator, $r$,
+
+$$
+r = \frac{
+\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})
+}{
+\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+}
+$$This formulation is commonly referred to as the Pearson correlation coefficient [@pe] . To see under the hood of this seemingly complex mathematical formulation. Since the correlation is simply the the standardized covariance between two variables, x and y, we can first define the covariance as the product of the squared errors between ($x_i - \bar{x}$) and y ($y_i - \bar{y}$),
+
+$$
+\sigma_{xy} =\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})
+$$
+
+Then we can find the variance for x and y by taking the average squared error from the mean for x and y,
+
+$$
+\sigma_x = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})}
+$$
+
+$$
+\sigma_y = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})}
+$$
+
+Now with each of these components, we can standardized the covariance by dividing by the standard deviations of x and y (i.e., square root of the variance). It can be now seen that the $\frac{1}{n-1}$ term cancels out in the numerator and denominator and thus will give us the original formula for the sample correlation coefficient.
+
+$$
+r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}
+$$ {#eq-1}
+
+Since $r$ is the observed sample correlation, it is important to note that, in the absence of artifacts, $r$ provides an unbiased estimate of the true population correlation $\rho$ ($r =\hat{\rho}$). Therefore, in conditions uncontaminated by artifacts, differences between the observed sample correlation and the true population correlation are attributable to sampling error ($\varepsilon$) such that,
+
+$$
+\rho = \hat{\rho} + \varepsilon = r + \varepsilon
+$$ {#eq-2} Where $se_r$ is the standard error of the observed correlation. The standard error can be calculated from the sample size ($n$) and the observed correlation, $$
+se_r =\sqrt{\frac{1 - r^2}{n-2}} 
+$$ {#eq-3}
+
+### Standardized Mean Differences
+
+Standardized mean differences are used to quantify the average difference between groups along some variable. Standardizing the mean difference allows researchers to compare results between
+
+#### Technical Overview {.unnumbered}
+
+If we draw a sample of $n_A$ subjects from group $A$ and $n_B$ subjects from group $B$, the mean difference between groups ($d$) on variable $y$ can be defined as,
+
+$$
+d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_y^{*}}
+$$
+
+Where the standardizer, $\sigma_y^*$ is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom.
+
+$$
+\sigma_y^*=\sqrt{\frac{(n_A-1)\sigma^2_{y,A} + (n_B-1)\sigma^2_{y,B}}{n_A + n_B - 2}}
+$$
+
+Where $\sigma_{y,A}$ and $\sigma_{y,B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This estimator is commonly referred to as Cohen's $d$, however to avoid the use of jargon labels, $d$ will be referred to as the standardized mean difference (SMD). The standard error of $d$ is,
+
+$$
+s_d = \sqrt{ \frac{n_A + n_B}{n_An_B} + \frac{d^2}{2(n_A+n_B)}}
+$$
+
+The standardized mean difference assumes equal variance between groups, therefore in cases with unequal variance, the standardizer can simply be the standard deviation of just one of the groups. This is mostly used when the group comparison is between treatment and control groups since the control group standard deviation tends to be a better estimate of the baseline population standard deviation.
+
+$$
+d_{\Delta}=\frac{\bar{y}_A-\bar{y}_B}{\sigma_{\text{control}}}
+$$
+
+Since this equation only utilizes the standard deviation from just one group, the sampling error will be slightly larger.
+
+$$
+s_{d_\Delta} = \sqrt{ \frac{n_\text{control} + n_\text{treatment}}{n_\text{control}n_\text{treatment}} + \frac{d_{\Delta}^2}{2(n_{\text{control}}-1)}}
+$$
+
+### Standardized Mean Change
+
+Standardized mean change quantifies the average within-person change between time-points (e.g., pre-treatment vs post-treatment).
+
+#### Technical Overview {.unnumbered}
+
+Standardized mean
+
+## Bias induced by Statistical Artifacts
+
+[@roth2015]
+
+[@vanaarde2017]
+
+[@hunter]

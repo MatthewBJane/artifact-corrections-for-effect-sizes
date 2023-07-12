@@ -1,0 +1,38 @@
+project:
+  type: book
+
+book:
+  title: "Correcting Effect Sizes for Statistical Artifacts"
+  subtitle: "Application in Meta-Analysis and Implementation in R and Python"
+  page-navigation: true
+  author: "Matthew B. Jané"
+  date: "6/13/2023"
+  chapters:
+    - index.qmd
+    - dedication.qmd
+    - intro.qmd
+    - part: "Artifact Corrections"
+      chapters:
+        - small_samples.qmd
+        - unreliability.qmd
+        - misclassification.qmd
+        - artificial_dichotomization.qmd
+        - scale_coarseness.qmd
+        - direct_range_restriction.qmd
+        - indirect_range_restriction.qmd
+    - part: "Application to Meta-Analysis"
+      chapters:
+        - metaanalysis_intro.qmd
+        - artifact_correction_metaanalysis.qmd
+    - references.qmd
+    
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

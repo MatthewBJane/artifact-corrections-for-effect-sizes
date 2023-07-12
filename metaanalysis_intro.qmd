@@ -1,0 +1,13 @@
+# Introduction to Meta-Analysis Methods
+
+## Fixed Effects Model
+
+## Random Effects Model
+
+[@borenstein2010]
+
+[@hartung1999]
+
+[@thehand2009]
+
+[@dersimonian2007]
