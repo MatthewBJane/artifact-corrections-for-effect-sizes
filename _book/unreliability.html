@@ -328,14 +328,14 @@ x_{pf} = t_p+e_{pf}
 <p><span id="eq-reliability"><span class="math display">\[
 r_{xx'} =r^2_{xt} = \frac{\sigma_t^2}{\sigma_t^2+\sigma_{e}^2} = \frac{\sigma_t^2}{\sigma_{x}^2}
 \tag{5.2}\]</span></span></p>
-<p>In the literature, the correlation between observed and true scores, <span class="math inline">\(r_{xt}\)</span>, is often referred to as the “measure quality index” <span class="citation" data-cites="hunter1990a">(<a href="references.html#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span>, however measure quality encompasses both reliability <em>and</em> validity. Validity A measure can demonstrate high reliability even though the scores produced by the measure do not accurately reflect the measurand (the quantity that we are intending to measure). For example, if an individual were to step on a weight scale with shoes on, the weight presented on the scale would be highly reliable, namely, if the individual were to repeat this process, they would achieve highly similar results. Nevertheless, the observed weight is systematically biased upward by the weight of the shoes. Therefore if a measure is reliable it does not logically follow that the measure is necessarily valid.</p>
+<p>In the literature, the correlation between observed and true scores, <span class="math inline">\(r_{xt}\)</span>, is often referred to as the “measure quality index” <span class="citation" data-cites="hunter1990a">(<a href="#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span>, however measure quality encompasses both reliability <em>and</em> validity. Validity A measure can demonstrate high reliability even though the scores produced by the measure do not accurately reflect the measurand (the quantity that we are intending to measure). For example, if an individual were to step on a weight scale with shoes on, the weight presented on the scale would be highly reliable, namely, if the individual were to repeat this process, they would achieve highly similar results. Nevertheless, the observed weight is systematically biased upward by the weight of the shoes. Therefore if a measure is reliable it does not logically follow that the measure is necessarily valid.</p>
 </section>
 <section id="estimating-reliability" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="estimating-reliability"><span class="header-section-number">5.3</span> Estimating Reliability</h2>
 <p>In practice, reliability must be estimated through indirect methods, since true scores and errors are unknown. Their are many estimators that can be used however, we will go over three of the most common approaches: coefficient alpha, split-half, and test-retest reliability.</p>
 <section id="internal-consistency-estimators" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="internal-consistency-estimators">Internal Consistency Estimators</h3>
-<p>Maybe the most conventionally reported reliability estimator in the psychological sciences is coefficient alpha, also referred to as Cronbach’s alpha or internal consistency. Alpha has the benefit of being computationally convenient, but it also brings along many assumptions that are often violated in practice <span class="citation" data-cites="haertel2006 sijtsma2009">(<a href="references.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>; <a href="references.html#ref-sijtsma2009" role="doc-biblioref">Sijtsma 2009</a>)</span>. Cronbach’s alpha, along with other internal consistency estimators, serves the purpose of assessing the reliability of composite measures comprising multiple components. Taking multiple measurements and then averaging tends to provide a better estimate of true values. For instance, let’s consider the case of Francis Galton <span class="citation" data-cites="galton1907">(<a href="references.html#ref-galton1907" role="doc-biblioref">Galton 1907</a>)</span>, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person’s estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the actual value. Averaging a number of noisy estimates provides a much more stable and reliable estimate. So to create a more stable composite score (<span class="math inline">\(X\)</span>), we can take the score (<span class="math inline">\(x_m\)</span>) from <span class="math inline">\(k\)</span> measurements and average them such that, <span class="math display">\[
+<p>Maybe the most conventionally reported reliability estimator in the psychological sciences is coefficient alpha, also referred to as Cronbach’s alpha or internal consistency. Alpha has the benefit of being computationally convenient, but it also brings along many assumptions that are often violated in practice <span class="citation" data-cites="haertel2006 sijtsma2009">(<a href="#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>; <a href="#ref-sijtsma2009" role="doc-biblioref">Sijtsma 2009</a>)</span>. Cronbach’s alpha, along with other internal consistency estimators, serves the purpose of assessing the reliability of composite measures comprising multiple components. Taking multiple measurements and then averaging tends to provide a better estimate of true values. For instance, let’s consider the case of Francis Galton <span class="citation" data-cites="galton1907">(<a href="#ref-galton1907" role="doc-biblioref">Galton 1907</a>)</span>, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person’s estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the actual value. Averaging a number of noisy estimates provides a much more stable and reliable estimate. So to create a more stable composite score (<span class="math inline">\(X\)</span>), we can take the score (<span class="math inline">\(x_m\)</span>) from <span class="math inline">\(k\)</span> measurements and average them such that, <span class="math display">\[
 X = \frac{1}{k}(x_1 + x_2 +...+x_k)= \frac{1}{k}\sum^k_{m=1}x_m
 \]</span> Coefficient alpha is represents the reliability of this composite scores. Coefficient alpha only requires three parameters to calculate, the number of measurements (<span class="math inline">\(k\)</span>), the variances of each items ( <span class="math inline">\(\sigma^2_{x_m}\)</span>), and the variance of the composite score (<span class="math inline">\(\sigma^2_{X}\)</span>),</p>
 <p><span class="math display">\[
@@ -346,7 +346,7 @@ _\alpha r_{X X'} = \frac{k}{k-1}\left( 1 - \frac{\sum_{m=1}^k \sigma^2_{x_m}}{\s
 <p><img src="unreliability_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>With tighter assumptions <span class="citation" data-cites="haertel2006">(i.e., strictly parallel forms, <a href="references.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>, the formula for coefficient alpha can be simplified to just two parameters: the number of measurements and the average correlation between measured scores (<span class="math inline">\(\bar{r}_{x_i x_j}\)</span>, where <span class="math inline">\(i\neq j\)</span>). This formula is known as Spearman-Brown’s prophecy,</p>
+<p>With tighter assumptions <span class="citation" data-cites="haertel2006">(i.e., strictly parallel forms, <a href="#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>, the formula for coefficient alpha can be simplified to just two parameters: the number of measurements and the average correlation between measured scores (<span class="math inline">\(\bar{r}_{x_i x_j}\)</span>, where <span class="math inline">\(i\neq j\)</span>). This formula is known as Spearman-Brown’s prophecy,</p>
 <p><span class="math display">\[
 _\text{sb} r_{XX'}= \frac{k \bar{r}_{x_i x_j}}{1+(k-1)\bar{r}_{x_i x_j}}
 \]</span></p>
@@ -650,7 +650,7 @@ _\text{tr}r_{xx'}= r_{x_{T_1}x_{T_2}}
 </section>
 <section id="sources-of-measurement-error" class="level3" data-number="5.3.2">
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="sources-of-measurement-error"><span class="header-section-number">5.3.2</span> Sources of Measurement Error</h3>
-<p>There are many estimators of reliability beyond internal consistency and test-retest that account for different sources of error and hold different assumptions. There are many sources of measurement error that different estimators of reliability account for adapted from table 1 of <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="references.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span> :</p>
+<p>There are many estimators of reliability beyond internal consistency and test-retest that account for different sources of error and hold different assumptions. There are many sources of measurement error that different estimators of reliability account for adapted from table 1 of <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="#ref-wiernik2020" role="doc-biblioref">2020</a>)</span> :</p>
 <ul>
 <li><p>Random Response Error: Genuine randomness in responses. Examples include: motor errors and variation in response time.</p></li>
 <li><p>Time/Environment-Specific (Transient) Error: Fluctuations in scores as a result of the specific time or environment of the measurement. For instance, if researchers administered an ability test to a sample of undergraduate students throughout the course of a day, the student’s who complete the test at the end of the day will likely perform worse than participant’s who completed due to fatigue rather than ability. Errors due to illness, mood, hunger, environmental distractors, etc. all fall under the umbrella of transient errors.</p></li>
@@ -757,7 +757,7 @@ _\text{tr}r_{xx'}= r_{x_{T_1}x_{T_2}}
 </section>
 <section id="bias-in-correlation-coefficients" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="bias-in-correlation-coefficients"><span class="header-section-number">5.4</span> Bias in Correlation Coefficients</h2>
-<p>Unreliability induces systematic bias in effect size estimates such as correlation coefficients <span class="citation" data-cites="hunter1990a">Spearman (<a href="references.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. Lets say we have two observed scores $x$ and $y$,</p>
+<p>Unreliability induces systematic bias in effect size estimates such as correlation coefficients <span class="citation" data-cites="hunter1990a">Spearman (<a href="#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. Lets say we have two observed scores $x$ and $y$,</p>
 <p><span class="math display">\[
 x=x_t+e
 \]</span></p>
@@ -767,11 +767,11 @@ y=y_t+e
 <p>In most research contexts, we would like to estimate the correlation between true scores where the correlation between true scores, <span class="math inline">\(x_t\)</span> and <span class="math inline">\(y_t\)</span> is <span class="math display">\[
 \rho=\frac{\sigma_{x_ty_t}}{\sigma_{x_t} \sigma_{y_t}}
 \]</span></p>
-<p>The observed correlation differs only in that it standardizes the covariance by the product of the standard deviations of observed scores rather than true scores. The covariance of observed scores will be equivalent to the covariance of true scores assuming <span class="math inline">\(\sigma_{e_x e_y}=0\)</span> (see <a href="#sec-true-score-theory"><span>Section&nbsp;5.2</span></a>).</p>
+<p>The observed correlation differs only in that it standardizes the covariance by the product of the standard deviations of observed scores rather than true scores. The covariance of observed scores will be equivalent to the covariance of true scores assuming <span class="math inline">\(\sigma_{e_x e_y}=0\)</span> (see <a href="#sec-true-score-theory"><span class="quarto-unresolved-ref">sec-true-score-theory</span></a>).</p>
 <p><span id="eq-bias"><span class="math display">\[
 r=\frac{\sigma_{xy}}{\sigma_x \sigma_y} = \frac{\sigma_{x_ty_t}}{\sigma_x \sigma_y}
 \tag{5.3}\]</span></span></p>
-<p>In the presence of measurement error, the observed standard deviations (<span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span>) will be larger than the true standard deviations (<span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span>). Since the reliability is defined as the ratio of true variance to total observed variance (see <a href="#eq-reliability">Equation&nbsp;<span>5.2</span></a> ), we can see how reliability inflates the true standard deviation</p>
+<p>In the presence of measurement error, the observed standard deviations (<span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span>) will be larger than the true standard deviations (<span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span>). Since the reliability is defined as the ratio of true variance to total observed variance (see <a href="#eq-reliability">Equation&nbsp;<span class="quarto-unresolved-ref">eq-reliability</span></a> ), we can see how reliability inflates the true standard deviation</p>
 <p><span class="math display">\[
 \sigma^2_x =\sigma^2_{x_t} \cdot \frac{\sigma^2_{x}}{\sigma^2_{x_t}} = \sigma^2_{x_t}\cdot\frac{1}{r_{xx'}} = \frac{\sigma^2_{xt}}{r_{xx'}}
 \]</span></p>
@@ -779,7 +779,7 @@ r=\frac{\sigma_{xy}}{\sigma_x \sigma_y} = \frac{\sigma_{x_ty_t}}{\sigma_x \sigma
 <p><span class="math display">\[
 \sigma_x = \frac{\sigma_{x_t}}{\sqrt{r_{xx'}}}
 \]</span></p>
-<p>If we plug this back into equation <a href="#eq-bias">Equation&nbsp;<span>5.3</span></a> then we can see how the observed correlation changes as a function of reliability and how it is biased from the true score correlation <span class="math inline">\(\rho\)</span>:</p>
+<p>If we plug this back into equation <a href="#eq-bias">Equation&nbsp;<span class="quarto-unresolved-ref">eq-bias</span></a> then we can see how the observed correlation changes as a function of reliability and how it is biased from the true score correlation <span class="math inline">\(\rho\)</span>:</p>
 <p><span class="math display">\[
 \begin{align}
 r &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x} \sigma_{y}}
@@ -787,7 +787,7 @@ r &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x} \sigma_{y}}
 \\ &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x_t}\sigma_{y_t}} \cdot \sqrt{r_{yy'}}\sqrt{r_{xx'}}
 \\ &amp;= \rho\sqrt{r_{yy'}}\sqrt{r_{xx'}}
 \end{align}
-\]</span> This equation was first provided by <span class="citation" data-cites="spearman1904">Spearman (<a href="references.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span> For cases where measurement error only affects one of the two variables, the attenuation</p>
+\]</span> This equation was first provided by <span class="citation" data-cites="spearman1904">Spearman (<a href="#ref-spearman1904" role="doc-biblioref">1904</a>)</span> For cases where measurement error only affects one of the two variables, the attenuation</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">=</span> .<span class="dv">5</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>X_true <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">50</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
@@ -806,7 +806,7 @@ r &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x} \sigma_{y}}
 <span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> panel_color_blue),</span>
 <span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="fl">1.2</span>),</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>,<span class="at">family =</span> <span class="st">"Arial"</span>, <span class="at">color =</span> text_color_blue),</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>, <span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="dv">1</span>),</span>
@@ -828,7 +828,7 @@ r &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x} \sigma_{y}}
 <span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> panel_color_blue),</span>
 <span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="fl">1.2</span>),</span>
-<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>,<span class="at">family =</span> <span class="st">"Arial"</span>, <span class="at">color =</span> text_color_blue),</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>, <span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
 <span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="dv">1</span>),</span>
@@ -844,7 +844,7 @@ r &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x} \sigma_{y}}
 <p><img src="unreliability_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="768"></p>
 </div>
 </div>
-<p>Ultimately, the inflation of the observed standard deviation As described in <a href="#eq-reliability">Equation&nbsp;<span>5.2</span></a>, the reliability can be interpreted as the ratio of total observed variance to</p>
+<p>Ultimately, the inflation of the observed standard deviation As described in <a href="#eq-reliability">Equation&nbsp;<span class="quarto-unresolved-ref">eq-reliability</span></a>, the reliability can be interpreted as the ratio of total observed variance to</p>
 <p>Fortunately, there are corrections that can be applied to effect size estimates to account for bias.</p>
 </section>
 <section id="corrections-for-bias-in-correlations" class="level2" data-number="5.5">
@@ -863,20 +863,20 @@ r &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x} \sigma_{y}}
 </section>
 <section id="repeated-measures-standardized-mean-difference" class="level4" data-number="5.6.2.2">
 <h4 data-number="5.6.2.2" class="anchored" data-anchor-id="repeated-measures-standardized-mean-difference"><span class="header-section-number">5.6.2.2</span> Repeated Measures Standardized Mean Difference</h4>
-<p><span class="citation" data-cites="haertel2006">(<a href="references.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span></p>
-<p><span class="citation" data-cites="schmidt2003">(<a href="references.html#ref-schmidt2003" role="doc-biblioref">Schmidt, Le, and Ilies 2003</a>)</span></p>
-<p><span class="citation" data-cites="gliem2003">(<a href="references.html#ref-gliem2003" role="doc-biblioref">Gliem and Gliem 2003</a>)</span></p>
-<p><span class="citation" data-cites="bobko2001">(<a href="references.html#ref-bobko2001" role="doc-biblioref">Bobko, Roth, and Bobko 2001</a>)</span></p>
-<p><span class="citation" data-cites="mendoza1987">(<a href="references.html#ref-mendoza1987" role="doc-biblioref">Mendoza and Mumford 1987</a>)</span></p>
-<p><span class="citation" data-cites="brennan2010">(<a href="references.html#ref-brennan2010" role="doc-biblioref">Brennan 2010</a>)</span></p>
-<p><span class="citation" data-cites="viswanathan2005">(<a href="references.html#ref-viswanathan2005" role="doc-biblioref">Viswanathan 2005</a>)</span></p>
-<p><span class="citation" data-cites="viswesvaran2014">(<a href="references.html#ref-viswesvaran2014" role="doc-biblioref">Viswesvaran et al. 2014</a>)</span></p>
-<p><span class="citation" data-cites="sijtsma2009">(<a href="references.html#ref-sijtsma2009" role="doc-biblioref">Sijtsma 2009</a>)</span></p>
-<p><span class="citation" data-cites="charles2005">(<a href="references.html#ref-charles2005" role="doc-biblioref">Charles 2005</a>)</span></p>
-<p><span class="citation" data-cites="spearman1904">(<a href="references.html#ref-spearman1904" role="doc-biblioref">Spearman 1904</a>)</span></p>
+<p><span class="citation" data-cites="haertel2006">(<a href="#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span></p>
+<p><span class="citation" data-cites="schmidt2003">(<a href="#ref-schmidt2003" role="doc-biblioref">Schmidt, Le, and Ilies 2003</a>)</span></p>
+<p><span class="citation" data-cites="gliem2003">(<a href="#ref-gliem2003" role="doc-biblioref">Gliem and Gliem 2003</a>)</span></p>
+<p><span class="citation" data-cites="bobko2001">(<a href="#ref-bobko2001" role="doc-biblioref">Bobko, Roth, and Bobko 2001</a>)</span></p>
+<p><span class="citation" data-cites="mendoza1987">(<a href="#ref-mendoza1987" role="doc-biblioref">Mendoza and Mumford 1987</a>)</span></p>
+<p><span class="citation" data-cites="brennan2010">(<a href="#ref-brennan2010" role="doc-biblioref">Brennan 2010</a>)</span></p>
+<p><span class="citation" data-cites="viswanathan2005">(<a href="#ref-viswanathan2005" role="doc-biblioref">Viswanathan 2005</a>)</span></p>
+<p><span class="citation" data-cites="viswesvaran2014">(<a href="#ref-viswesvaran2014" role="doc-biblioref">Viswesvaran et al. 2014</a>)</span></p>
+<p><span class="citation" data-cites="sijtsma2009">(<a href="#ref-sijtsma2009" role="doc-biblioref">Sijtsma 2009</a>)</span></p>
+<p><span class="citation" data-cites="charles2005">(<a href="#ref-charles2005" role="doc-biblioref">Charles 2005</a>)</span></p>
+<p><span class="citation" data-cites="spearman1904">(<a href="#ref-spearman1904" role="doc-biblioref">Spearman 1904</a>)</span></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-bobko2001" class="csl-entry" role="listitem">
 Bobko, Philip, Philip Roth, and Christopher Bobko. 2001. <span>“Correcting the Effect Size of d for Range Restriction and Unreliability.”</span> <em>Organizational Research Methods - ORGAN RES METHODS</em> 4 (January): 46–61. <a href="https://doi.org/10.1177/109442810141003">https://doi.org/10.1177/109442810141003</a>.
 </div>

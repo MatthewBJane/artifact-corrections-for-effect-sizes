@@ -72,7 +72,7 @@ $$
 _\alpha r_{X X'} = \frac{k}{k-1}\left( 1 - \frac{\sum_{m=1}^k \sigma^2_{x_m}}{\sigma^2_{X}} \right)
 $$
 
-```{r, echo = FALSE, fig.height=4,warning=FALSE,message=FALSE}
+```{r echo=FALSE, fig.height=4, message=FALSE, warning=FALSE}
 
 set.seed(343)
 # simulate 70 true scores
@@ -91,10 +91,10 @@ h1 = ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
   theme(aspect.ratio = 1,
         panel.grid.minor = element_blank(),
         panel.grid.major = element_blank(),
-        title = element_text(color = text_color_red),
+        plot.title = element_text(color = text_color_red),
         panel.background = element_rect(fill = panel_color_red),
         panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
-        axis.title = element_text(size=15,family = "Arial", color = text_color_red),
+        axis.title = element_text(size=15, color = text_color_red),
         axis.text.x = element_text(size=13, color = text_color_red),
         axis.text.y = element_text(size=17, color = text_color_red),
         axis.ticks = element_line(color = border_color_red,linewidth=1)) +
@@ -114,10 +114,10 @@ h2 = ggplot(data=NULL, aes(x = 1:k, y = scores2)) +
   theme(aspect.ratio = 1,
         panel.grid.minor = element_blank(),
         panel.grid.major = element_blank(),
-        title = element_text(color = text_color_blue),
+        plot.title = element_text(color = text_color_blue),
         panel.background = element_rect(fill = panel_color_blue),
         panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
-        axis.title = element_text(size=15,family = "Arial", color = text_color_blue),
+        axis.title = element_text(size=15, color = text_color_blue),
         axis.text.x = element_text(size=13, color = text_color_blue),
         axis.text.y = element_text(size=17, color = text_color_blue),
         axis.ticks = element_line(color = border_color_blue,linewidth=1)) +
@@ -361,7 +361,7 @@ h1 = ggplot(data=NULL, aes(x = xT1, y = xT2)) +
         title = element_text(color = text_color_red),
         panel.background = element_rect(fill = panel_color_red),
         panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
-        axis.title = element_text(size=15,family = "Arial", color = text_color_red),
+        axis.title = element_text(size=15, color = text_color_red),
         axis.text = element_text(size=13, color = text_color_red),
         axis.ticks = element_line(color = border_color_red,linewidth=1)) +
   ylim(-3,3) +
@@ -386,7 +386,7 @@ h2 = ggplot(data=NULL, aes(x = yT1, y = yT2)) +
         title = element_text(color = text_color_blue),
         panel.background = element_rect(fill = panel_color_blue),
         panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
-        axis.title = element_text(size=15,family = "Arial", color = text_color_blue),
+        axis.title = element_text(size=15, color = text_color_blue),
         axis.text = element_text(size=13, color = text_color_blue),
         axis.ticks = element_line(color = border_color_blue,linewidth=1)) +
   ylim(-3,3) +
@@ -409,7 +409,7 @@ f1 = ggplot(data=NULL, aes(x = time, y = x_scores, group = id)) +
         title = element_text(color = text_color_red),
         panel.background = element_rect(fill = panel_color_red),
         panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
-        axis.title = element_text(size=15,family = "Arial", color = text_color_red),
+        axis.title = element_text(size=15, color = text_color_red),
         axis.text = element_text(size=13, color = text_color_red),
         axis.ticks = element_line(color = border_color_red,linewidth=1)) +
   ylim(-3,3) +
@@ -425,7 +425,7 @@ f2 = ggplot(data=NULL, aes(x = time, y = y_scores, group = id)) +
         title = element_text(color = text_color_blue),
         panel.background = element_rect(fill = panel_color_blue),
         panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
-        axis.title = element_text(size=15,family = "Arial", color = text_color_blue),
+        axis.title = element_text(size=15, color = text_color_blue),
         axis.text = element_text(size=13, color = text_color_blue),
         axis.ticks = element_line(color = border_color_blue,linewidth=1)) +
   ylim(-3,3) +
@@ -605,7 +605,7 @@ h1 <- ggplot(data = NULL, aes(x = X_true, y = Y_true)) +
           title = element_text(color = text_color_blue),
           panel.background = element_rect(fill = panel_color_blue),
           panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
-          axis.title = element_text(size=14,family = "Arial", color = text_color_blue),
+          axis.title = element_text(size=14, color = text_color_blue),
           axis.text.x = element_text(size=12, color = text_color_blue),
           axis.text.y = element_text(size=12, color = text_color_blue),
           axis.ticks = element_line(color = border_color_blue,linewidth=1),
@@ -627,7 +627,7 @@ h4 <- ggplot(data = NULL, aes(x = X_obs, y = Y_obs)) +
           title = element_text(color = text_color_blue),
           panel.background = element_rect(fill = panel_color_blue),
           panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
-          axis.title = element_text(size=14,family = "Arial", color = text_color_blue),
+          axis.title = element_text(size=14, color = text_color_blue),
           axis.text.x = element_text(size=12, color = text_color_blue),
           axis.text.y = element_text(size=12, color = text_color_blue),
           axis.ticks = element_line(color = border_color_blue,linewidth=1),
@@ -677,7 +677,7 @@ h1 = ggplot(data=NULL, aes(x = rel, y = r, group = rho, color = rho)) +
         title = element_text(color = text_color_red),
         panel.background = element_rect(fill = panel_color_red),
         panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
-        axis.title = element_text(size=14,family = "Arial", color = text_color_red),
+        axis.title = element_text(size=14, color = text_color_red),
         axis.text.x = element_text(size=12, color = text_color_red),
         axis.text.y = element_text(size=12, color = text_color_red),
         axis.ticks = element_line(color = border_color_red,linewidth=1),
@@ -736,7 +736,7 @@ h2 <- ggplot(data = df, aes(x = x, y = y,z = layer, fill = layer, color = layer)
           title = element_text(color = text_color_red),
           panel.background = element_rect(fill = panel_color_red),
           panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
-          axis.title = element_text(size=14,family = "Arial", color = text_color_red),
+          axis.title = element_text(size=14, color = text_color_red),
           axis.text.x = element_text(size=12, color = text_color_red),
           axis.text.y = element_text(size=12, color = text_color_red),
           axis.ticks = element_line(color = border_color_red,linewidth=1),
