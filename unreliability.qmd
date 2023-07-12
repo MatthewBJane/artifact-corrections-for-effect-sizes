@@ -6,6 +6,9 @@ library(raster)
 library(metR)
 library(isoband)
 library(latex2exp)
+library(extrafont)
+library(ggplot2)
+library(patchwork)
 
 
 text_color_blue      = '#326982ff'
@@ -70,9 +73,7 @@ _\alpha r_{X X'} = \frac{k}{k-1}\left( 1 - \frac{\sum_{m=1}^k \sigma^2_{x_m}}{\s
 $$
 
 ```{r, echo = FALSE, fig.height=4,warning=FALSE,message=FALSE}
-library(extrafont)
-library(ggplot2)
-library(patchwork)
+
 set.seed(343)
 # simulate 70 true scores
 k = 10
