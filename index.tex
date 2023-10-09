@@ -238,14 +238,13 @@
   \apptocmd{\@title}{\par {\large #1 \par}}{}{}
 }
 \makeatother
-\subtitle{Application in Meta-Analysis and Implementation in R and
-Python}
+\subtitle{Implementation in R and Application to Meta-Analysis}
 \author{Matthew B. Jané}
-\date{2023-06-13}
+\date{2023-10-08}
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, borderline west={3pt}{0pt}{shadecolor}, enhanced, sharp corners, boxrule=0pt, interior hidden, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, enhanced, frame hidden, sharp corners, interior hidden, breakable, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -255,10 +254,26 @@ Python}
 }
 \bookmarksetup{startatroot}
 
-\hypertarget{preface}{%
-\chapter{Preface}\label{preface}}
+\hypertarget{greetings}{%
+\chapter{Greetings}\label{greetings}}
 
-Preface page still in progress
+Welcome to the open source textbook \textbf{Correcting Effect Sizes for
+Statistical Artifacts}. This textbook covers all the essential equations
+and code needed to correct for biases in our effect size estimates. It
+will also hopefully provide readers with a deeper understanding,
+appreciation, and intuition for these seemingly complex formulas. It
+also covers how to apply these corrections to meta-analysis in order to
+enhance the precision of our results.
+
+\hypertarget{what-are-statistical-artifacts}{%
+\subsubsection*{What are Statistical
+Artifacts?}\label{what-are-statistical-artifacts}}
+\addcontentsline{toc}{subsubsection}{What are Statistical Artifacts?}
+
+I will define statistical artifacts broadly as \textbf{any source of
+contamination that induces bias in research findings}. Specifically
+within the context of this textbook, the term ``research findings'' is
+more narrowly referred to as effect sizes.
 
 \bookmarksetup{startatroot}
 
@@ -267,8 +282,8 @@ Preface page still in progress
 
 In Loving Memory of Haley Jané
 
-My companion whose unwavering presence and unconditional love provided
-me with stability and solace in life's ever-changing journey
+My companion, whose love and presence have filled my life with joy and
+comfort.
 
 \begin{figure}
 
@@ -664,7 +679,9 @@ artifactual bias (\(a\)), \[
 \delta_o = a\delta.
 \] Therefore the observed study/sample \(d\) value can be defined as a
 function of the observed population value \emph{or} the true population
-value plus artifactual bias: \[
+value plus artifactual bias:
+
+\[
 d = \delta_o + \varepsilon_o = a\delta + \varepsilon_o.
 \]
 
@@ -681,24 +698,293 @@ d_c = \frac{d_o}{a}
 
 \part{Artifact Corrections}
 
-\hypertarget{sec-small_samples}{%
-\chapter{Small Samples}\label{sec-small_samples}}
+\hypertarget{small-samples}{%
+\chapter{Small Samples}\label{small-samples}}
 
-(Hedges 1989)
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
-(Lin 2018)
+The purpose of sample statistics such as correlations and standardized
+mean differences is to draw meaningful inferences about the population.
+However, effect sizee estimators such as Pearson's correlation
+coefficient and Cohen's \(d\) are biased in small sample sizes. This
+small sample bias will impair our ability to draw inferences about the
+population.
 
-(Hedges 1981)
+\hypertarget{when-correcting-alongside-other-artifacts}{%
+\section{When Correcting alongside other
+Artifacts}\label{when-correcting-alongside-other-artifacts}}
 
-(Fisher 1915)
+The small sample bias should always be corrected for prior to applying
+any other artifact correction. It is independent of all other artifact
+corrections and therefore the corrected effect sizes in this section can
+be treated as the observed effect sizes in other sections.
 
-(Olkin and Pratt 1958)
+\hypertarget{correcting-for-small-sample-bias-in-standardized-mean-differences}{%
+\section{Correcting for Small Sample Bias in Standardized Mean
+Differences}\label{correcting-for-small-sample-bias-in-standardized-mean-differences}}
+
+\hypertarget{defining-our-estimand}{%
+\subsection{Defining our Estimand}\label{defining-our-estimand}}
+
+Our quantity of interest is the population standardized mean difference,
+\(\delta\), between groups \(A\) and \(B\) on variable, \(y\). We can
+model the relationship between the population standardized mean
+difference and our observed standardized mean difference (\(d_o\)) with,
+
+\[
+d_o = a\delta+\varepsilon
+\] Where \(a\) is our small sample biasing factor and \(\varepsilon\) is
+our sampling error term. Ultimately, we can obtain an unbiased estimate
+of the population standardized mean difference by correcting the
+observed standardized mean difference as follows,
+
+\[
+d_c = \frac{d_o}{a}
+\]
+
+\hypertarget{artifact-correction-for-small-sample-bias}{%
+\subsection{Artifact Correction for Small Sample
+Bias}\label{artifact-correction-for-small-sample-bias}}
+
+As the sample size approaches infinity, Cohen's standardized mean
+difference estimator is an unbiased estimator of the population
+standardized mean difference. However, in small sample sizes Cohen's
+estimator is biased upward, that is, on average, it overestimates the
+population standardized mean difference. To see why this is the case, we
+can first define the mean difference between group \(A\) and group \(B\)
+such that,
+
+\[
+d = \frac{\bar{y_A}-\bar{y}_B}{\sigma_p}
+\]
+
+Where \(\bar{y}_A\) and \(\bar{y}_B\) are the observed arithmetic means
+of group \(A\) and group \(B\), respectively. The difference between
+these two means will be unbiased, since the arithmetic means themselves
+are unbiased estimators at all sample sizes. However, the pooled
+standard deviation, \(\sigma_p\), is biased when sample sizes are small.
+Statisticians ultimately had to choose whether the estimator of the
+standard deviation or the variance (the square of the standard
+deviation) would be unbiased. Since the variance has more utility in
+much of statistics, it was more important for the estimator of variance
+to be unbiased. Therefore the resulting bias in the standard deviation
+will bleed over into the equation for standardized mean differences.
+This bias can be visualized in the figure below. Notice that the sample
+standard deviation is under-estimated in small sample sizes (left plot),
+and the standardized mean difference is over-estimated in small sample
+sizes (right plot).
+
+\begin{figure}
+
+{\centering \includegraphics{small_samples_files/figure-pdf/unnamed-chunk-1-1.pdf}
+
+}
+
+\caption{\emph{Note}. dotted lines in both plots indicate the population
+value and the dots indicate the sample value at each sample size integer
+(n=1,2,3,\ldots)}
+
+\end{figure}
+
+To obtain an unbiased estimate of the population standardized mean
+difference, we need to estimate a correction factor that can account for
+this bias. The small sample correction factor has been derived
+previously by Hedges (1989). When applied to a \(d\) value, it is common
+convention to refer to it as ``Hedges' \(g\)'', to give credit to the
+originator and to keep it similar in style to the conventionally termed
+``Cohen's \(d\)''. However this convention will not be used here,
+instead we will denote it in this section as the small sample corrected
+\(d\) value (\(d_c\)). We can compute the artifact biasing factor,
+\(a\), with the total sample size (\(n=n_A+n_B\)) and Gamma functions
+(\(\Gamma(\cdot)\)),
+
+\[
+a = \frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}
+\] So then to correct the observed standardized mean difference for
+small sample bias we can do this by dividing by \(a\),
+
+\[
+d_c = \frac{d_o}{a} = \frac{d_o}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}
+\] It is important to point out that there is not sample size threshold
+in which this correction does not apply, therefore common suggestions
+such as ``small sample correction should be applied when n\textless30''
+is misguided since this correction can (and should) be applied at any
+sample size. Since the formula is quite complicated, there is also a
+simpler approximation of the this formula also given by Hedges (1989),
+\(a\approx 1-\frac{3}{4n-3}\). When this correction is made, we must
+also adjust the sampling variance (\(\sigma_{\varepsilon_o}\)),
+
+\[
+\sigma_{\varepsilon_c} = \frac{\sigma_{\varepsilon_o}}{a^2} =\frac{\sigma_{\varepsilon_o}}{\left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]^2}
+\]
+
+\hypertarget{correcting-d-value-in-r}{%
+\subsection{\texorpdfstring{Correcting \emph{d} value in
+R}{Correcting d value in R}}\label{correcting-d-value-in-r}}
+
+To compute the correction in R, we can first simulate 20 data points, 10
+in group \(A\) and 10 in group \(B\). Then we can calculate the observed
+\(d\) value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# set seed}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{120}\NormalTok{)}
+
+\CommentTok{\# define parameters}
+\NormalTok{nA }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{nB }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{n }\OtherTok{\textless{}{-}}\NormalTok{ nA }\SpecialCharTok{+}\NormalTok{ nB}
+\NormalTok{delta }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{5}
+
+\CommentTok{\# simulate data}
+\NormalTok{yA }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(nA,delta,}\DecValTok{1}\NormalTok{)}
+\NormalTok{yB }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(nB,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# calculate observed d value}
+\NormalTok{SD\_pooled }\OtherTok{=}\NormalTok{ ((nA}\DecValTok{{-}1}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{var}\NormalTok{(yA) }\SpecialCharTok{+}\NormalTok{ (nB}\DecValTok{{-}1}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{var}\NormalTok{(yB)) }\SpecialCharTok{/}\NormalTok{ (nA}\SpecialCharTok{+}\NormalTok{nB}\DecValTok{{-}2}\NormalTok{)}
+\NormalTok{do }\OtherTok{=}\NormalTok{ (}\FunctionTok{mean}\NormalTok{(yA) }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(yB)) }\SpecialCharTok{/}\NormalTok{ SD\_pooled}
+\end{Highlighting}
+\end{Shaded}
+
+Once we have obtained \(d_o\), we can then correct it with the equations
+in the previous section.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate bias factor}
+\NormalTok{a }\OtherTok{\textless{}{-}}\NormalTok{ (}\FunctionTok{gamma}\NormalTok{((n}\DecValTok{{-}3}\NormalTok{)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{((n}\DecValTok{{-}2}\NormalTok{)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{/} \FunctionTok{gamma}\NormalTok{((n}\DecValTok{{-}2}\NormalTok{)}\SpecialCharTok{/}\DecValTok{2}\NormalTok{) }
+
+\CommentTok{\# correct d value}
+\NormalTok{dc }\OtherTok{=}\NormalTok{ do }\SpecialCharTok{/}\NormalTok{ a}
+
+\CommentTok{\# print results}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Observed: do = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(do,}\DecValTok{3}\NormalTok{)),}
+      \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Corrected: dc = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(dc,}\DecValTok{3}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]                   
+[1,] "Observed: do = 0.889" 
+[2,] "Corrected: dc = 0.851"
+\end{verbatim}
+
+You will notice that the small sample correction reduced the observed
+\(d\) value however it is still far away from the true value. This is
+simply due to the fact that there is a large amount of sampling error on
+top of the bias.
+
+\hypertarget{correcting-for-small-sample-bias-in-correlations}{%
+\section{Correcting for Small Sample Bias in
+Correlations}\label{correcting-for-small-sample-bias-in-correlations}}
+
+\hypertarget{defining-our-estimand-1}{%
+\subsection{Defining our Estimand}\label{defining-our-estimand-1}}
+
+Our quantity of interest is the population correlation, \(\rho\),
+between independent variable, \(x\) and dependent variable, \(y\). We
+can model the relationship between the population standardized mean
+difference and our observed standardized mean difference (\(r_o\)) with,
+
+\[
+r_o = a\rho+\varepsilon
+\] Where \(a\) is our small sample biasing factor and \(\varepsilon\) is
+our sampling error term. Ultimately, we can obtain an unbiased estimate
+of the population standardized mean difference by correcting the
+observed standardized mean difference as follows,
+
+\[
+r_c = \frac{r_o}{a}
+\]
+
+\hypertarget{artifact-corrections-1}{%
+\subsection{Artifact Corrections}\label{artifact-corrections-1}}
+
+Correlation coefficients also are biased in small sample sizes (Olkin
+and Pratt 1958). As opposed to standardized mean differences,
+correlations are under-estimated in small samples. The bias is quite
+small, however we can apply a correction factor to obtain unbiased
+estimates. Because the bias is so small and the exact formula is a
+hypergometric function using infinite power series, we will instead
+focus on the extremely close approximation provided in Olkin and Pratt
+(1958). The biasing factor can be calculated such that,
+
+\[
+a \approx \frac{1}{1+\frac{1-r_o^2}{2(n-3)}} 
+\] Then we can correct the point-estimate the sampling variance for
+small sample bias \[
+r_c = r_o\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]
+\]
+
+\[
+\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]^2
+\]
+
+\hypertarget{correcting-d-value-in-r-1}{%
+\subsection{\texorpdfstring{Correcting \emph{d} value in
+R}{Correcting d value in R}}\label{correcting-d-value-in-r-1}}
+
+To compute the correction in R, we can first simulate 10 correlated data
+points. Then we can calculate the observed correlation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# load packages}
+\CommentTok{\# install.packages(\textquotesingle{}MASS\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(MASS)}
+
+\CommentTok{\# set seed}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# define parameters}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{rho }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{5}
+
+\CommentTok{\# simulate data}
+\NormalTok{data }\OtherTok{=} \FunctionTok{mvrnorm}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{,}
+               \AttributeTok{mu=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{),}
+               \AttributeTok{Sigma =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,rho),}\AttributeTok{x=}\FunctionTok{c}\NormalTok{(rho,}\DecValTok{1}\NormalTok{)))}
+
+\CommentTok{\# calculate observed d value}
+\NormalTok{ro }\OtherTok{=} \FunctionTok{cor}\NormalTok{(data[,}\DecValTok{1}\NormalTok{],data[,}\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Once we have obtained \(d_o\), we can then correct it with the equations
+in the previous section.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate bias factor}
+\NormalTok{a }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{ro}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{2}\SpecialCharTok{*}\NormalTok{(n}\DecValTok{{-}3}\NormalTok{)))}
+
+\CommentTok{\# correct d value}
+\NormalTok{rc }\OtherTok{=}\NormalTok{ ro }\SpecialCharTok{/}\NormalTok{ a}
+
+\CommentTok{\# print results}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Observed: ro = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(ro,}\DecValTok{3}\NormalTok{)),}
+      \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Corrected: rc = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rc,}\DecValTok{3}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]                   
+[1,] "Observed: ro = 0.247" 
+[2,] "Corrected: rc = 0.264"
+\end{verbatim}
+
+You will notice that the small sample correction increases the observed
+\(d\) value however it is still far away from the true value. This is
+simply due to the fact that there is a large amount of sampling error on
+top of the bias.
 
 \hypertarget{unreliability}{%
 \chapter{Unreliability}\label{unreliability}}
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\hypertarget{introduction-1}{%
+\section{Introduction}\label{introduction-1}}
 
 In general terms, measurement is the process of quantifying an attribute
 or characteristic of something. In scientific measurement, the measurand
@@ -714,7 +1000,7 @@ scores. This section will review what reliability is in theory, how to
 estimate reliability, and how to correct effect sizes for measurement
 error.
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, coltitle=black, colbacktitle=quarto-callout-note-color!10!white, opacityback=0, bottomrule=.15mm, colback=white, leftrule=.75mm, breakable, rightrule=.15mm, bottomtitle=1mm, opacitybacktitle=0.6, title={\faIcon{bolt} Too long didn't read?}, arc=.35mm, colframe=quarto-callout-note-color-frame, toprule=.15mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, arc=.35mm, colback=white, left=2mm, colframe=quarto-callout-note-color-frame, opacitybacktitle=0.6, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, breakable, rightrule=.15mm, leftrule=.75mm, title={\faIcon{bolt} Too long didn't read?}, opacityback=0, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, bottomrule=.15mm, toprule=.15mm]
 
 Correction for correlations (\(r\))
 
@@ -1963,8 +2249,8 @@ respectively.
 \hypertarget{group-misclassification}{%
 \chapter{Group Misclassification}\label{group-misclassification}}
 
-\hypertarget{introduction-1}{%
-\section{Introduction}\label{introduction-1}}
+\hypertarget{introduction-2}{%
+\section{Introduction}\label{introduction-2}}
 
 Group misclassification describes a situation where true group
 membership (e.g., people with a disorder) does not perfectly match the
@@ -2037,15 +2323,15 @@ sample of patients.
 \end{longtable}
 
 To obtain the reliability of the group assignments, we can calculate the
-correlation coefficient between \(G\) and \(G'\). Since both variables
+correlation coefficient between \(g\) and \(g'\). Since both variables
 are categorical, a Pearson correlation coefficient would not be an
 appropriate correlation estimator, instead, we must compute the phi
 coefficient. The phi coefficient is often referred to as Matthew's
 correlation coefficient and is most frequently used as an index of
 performance of a binary classifier in machine learning. For the sake of
 consistency, the phi coefficient will be denoted with the letter \(r\),
-and thus the reliability (i.e., the correlation between \(G\) and
-\(G'\)) is denoted with \(r_{GG'}\).
+and thus the reliability (i.e., the correlation between \(g\) and
+\(g'\)) is denoted with \(r_{gg'}\).
 
 There are a few ways we can calculate the phi coefficient. The first way
 is to calculate phi directly from the contingency table,
@@ -2061,7 +2347,9 @@ the phi coefficient from the \(\chi^2\)-statistic,
 
 \[
 r_{gg'} = \sqrt{\frac{\chi^2}{n}}.
-\] Where \(n\) is the total sample size. If the \(\chi^2\)-statistic is
+\]
+
+Where \(n\) is the total sample size. If the \(\chi^2\)-statistic is
 unavailable, we can approximate the phi coefficient from the accuracy
 (\(p_{\text{acc}}\)) or the proportion of people misclassified
 (\(p_{\text{mis}}\)),
@@ -2075,11 +2363,11 @@ This approximation assumes that the group sizes are approximately equal
 groups. Otherwise, \(r_{gg'}\) will be overestimated (Wiernik and Dahlke
 2020).
 
-In the chapter on unreliability, we discussed the relationship between
-reliability and the correlation between observed and true scores. The
-classification reliability will also be related similarly to the
-correlation between observed group membership and true group membership
-(\(r_{gG}\)) such that,
+In the chapter \emph{unreliability}, we discussed the relationship
+between reliability and the correlation between observed and true
+scores. The classification reliability will also be related similarly to
+the correlation between observed group membership and true group
+membership (\(r_{gG}\)) such that,
 
 \[
 r_{gG}=\sqrt{r_{gg'}}
@@ -2157,16 +2445,7 @@ Revelle (2017).
 \CommentTok{\# load in psych package (make sure it is installed first: install.packages(\textquotesingle{}psych\textquotesingle{}))}
 \FunctionTok{library}\NormalTok{(psych)}
 \NormalTok{rgg }\OtherTok{=} \FunctionTok{phi}\NormalTok{(con\_table,}\AttributeTok{digits =} \DecValTok{3}\NormalTok{)}
-\FunctionTok{print}\NormalTok{(rgg)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-[1] 0.6
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \DocumentationTok{\#\# Strategy 2: calculate from contingency table values}
 \NormalTok{numerator }\OtherTok{\textless{}{-}}\NormalTok{ con\_table[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{]}\SpecialCharTok{*}\NormalTok{con\_table[}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ con\_table[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{]}\SpecialCharTok{*}\NormalTok{con\_table[}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{]}
 \NormalTok{denominator }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(con\_table[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{]}\SpecialCharTok{+}\NormalTok{con\_table[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{]) }\SpecialCharTok{*}
@@ -2175,29 +2454,11 @@ Revelle (2017).
                \FunctionTok{sqrt}\NormalTok{(con\_table[}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{]}\SpecialCharTok{+}\NormalTok{con\_table[}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{])}
 
 \NormalTok{rgg }\OtherTok{\textless{}{-}}\NormalTok{ numerator }\SpecialCharTok{/}\NormalTok{ denominator}
-\FunctionTok{print}\NormalTok{(rgg)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-[1] 0.6
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \DocumentationTok{\#\# Strategy 3: calculate from chi{-}square test}
 \NormalTok{chi2 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{chisq.test}\NormalTok{(con\_table)}\SpecialCharTok{$}\NormalTok{statistic)}
 \NormalTok{rgg }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(chi2}\SpecialCharTok{/}\NormalTok{n)}
-\FunctionTok{print}\NormalTok{(rgg)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-[1] 0.58
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \DocumentationTok{\#\# Strategy 4: calculate from proportion of people misclassified}
 \NormalTok{rgg }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1{-}2}\SpecialCharTok{*}\NormalTok{p\_mis)}\SpecialCharTok{\^{}}\DecValTok{2}
 \FunctionTok{print}\NormalTok{(rgg)}
@@ -2208,16 +2469,46 @@ Revelle (2017).
 [1] 0.64
 \end{verbatim}
 
-\hypertarget{bias-in-standardized-mean-difference}{%
-\section{Bias in Standardized Mean
-Difference}\label{bias-in-standardized-mean-difference}}
+\hypertarget{correcting-for-group-misclassification-in-d-values}{%
+\section{\texorpdfstring{Correcting for Group Misclassification in
+\emph{d}
+values}{Correcting for Group Misclassification in d values}}\label{correcting-for-group-misclassification-in-d-values}}
 
-Standardized mean differences will become biased when subject's assigned
-groups differ from their actual group. This is largely due to the fact
-that the means of each group are driven closer to one another. Let us
-suppose that, on average, group \(A\) and group \(B\) score differently
-on some outcome, \(y\). The true mean of \(y\) for groups \(A\) and
-\(B\) can be denoted as \(\bar{y}^*_{A}\) and \(\bar{y}^*_{B}\),
+\hypertarget{defining-our-estimand-2}{%
+\subsection{Defining our Estimand}\label{defining-our-estimand-2}}
+
+Our quantity of interest is the true population standardized mean
+difference, \(\delta\), between members of group \(A\) and group \(B\)
+on the scores of the dependent variable, \(y\). However, the observed
+sample standardized mean difference (\(d_o\)) is estimating the
+difference between individuals who are assigned group to \(A\) and group
+\(B\). Error in the assignment of groups (i.e., group misclassification)
+will bias the observed correlation by a factor we will label as \(a\).
+The relationship between the observed study standardized mean difference
+and the true population standardized mean difference
+
+\[
+d_o = a\delta + \varepsilon
+\] Where \(\varepsilon\) denotes the sampling error. Therefore an
+unbiased (corrected) estimate of the true population correlation would
+be:
+
+\[
+r_c = \frac{r_o}{a}
+\]
+
+\hypertarget{artifact-correction-for-d-values}{%
+\subsection{\texorpdfstring{Artifact Correction for \emph{d}
+values}{Artifact Correction for d values}}\label{artifact-correction-for-d-values}}
+
+Our estimand in this section is the standardized mean difference in the
+dependent variable between Standardized mean differences will become
+biased when subject's assigned groups differ from their actual group.
+This is largely due to the fact that the means of each group are driven
+closer to one another. Let us suppose that, on average, group \(A\) and
+group \(B\) score differently on some outcome, \(y\). The true mean of
+\(y\) for groups \(A\) and \(B\) can be denoted as
+\(\bar{y}^\text{true}_{A}\) and \(\bar{y}^\text{true}_{B}\),
 respectively. Nonetheless, when some subjects are erroneously assigned
 to the wrong group, the \emph{observed} mean within each group will
 reflect a weighted average of the respective means. This is due to the
@@ -2227,11 +2518,11 @@ groups we must incorporate the true mean of the correctly classified
 subjects and the misclassified subjects
 
 \[
-\bar{y}_A = \left(\frac{n_{AA}}{n_{AA}+n_{BA}}\right)\bar{y}^*_A + \left(\frac{n_{BA}}{n_{AA}+n_{BA}}\right)\bar{y}^*_B
+\bar{y}^\text{obs}_A = \left(\frac{n_{AA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_A + \left(\frac{n_{BA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_B
 \]
 
 \[
-\bar{y}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^*_B + \left(\frac{n_{BA}}{n_{BB}+n_{BA}}\right)\bar{y}^*_A
+\bar{y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_B + \left(\frac{n_{BA}}{n_{BB}+n_{BA}}\right)\bar{y}^\text{true}_A
 \]
 
 From the above equations, it becomes evident that as the number of
@@ -2257,9 +2548,9 @@ due to sampling error.}
 
 If some individual's are assigned to the incorrect group, then we will
 see attenuation in the standardized mean difference as the means
-converge. Figure~\ref{fig-mis} shows what happens when the
-misclassification rate is 10\%. A misclassification rate of 10\% is
-equivalent to a classification reliability of \(r_{GG'}=.60\).
+converge. Figure~\ref{fig-mis} shows what happens when the group
+misclassification rate is 10\%. A group misclassification rate of 10\%
+is equivalent to a classification reliability of \(r_{gg'}=.60\).
 
 \begin{figure}
 
@@ -2279,19 +2570,19 @@ The bias in the standardized mean difference can be expressed as a
 function of the classification reliability (\(r_{gg'}\)). To illuminate
 this bias, we must first convert the true SMD to a point-biserial
 correlation coefficient (\(\rho\)) using the proportion of individuals
-in group \(A\) (\(p_A\)) and group \(B\) (\(p_B\)),
+in group \(A\) (\(p_A\)) and group \(B\) (\(1-p\)),
 
 \[
-\rho = \frac{\delta}{\sqrt{\frac{1}{p_Ap_B}-\delta^2}}
+\rho = \frac{\delta}{\sqrt{\frac{1}{p(1-p)}-\delta^2}}
 \]
 
 Then attenuation of the correlation is similar to the attenuation of
 correlation coefficients in the section on unreliability
 (\(r = \rho\sqrt{r_{xx'}}\)). However in this case, we also need to
-convert the point-biserial correlation to the SMD:
+convert the point-biserial correlation to the observed SMD:
 
 \[
-d =\frac{ \rho \sqrt{r_{gg'}} }{\sqrt{p_A p_B\left(1- r_{gg'} r^2\right) }}.
+\delta_o =\frac{ \rho \sqrt{r_{gg'}} }{\sqrt{p (p-1)\left(1- r_{gg'} \rho^2\right) }}.
 \]
 
 It is important to note that for many of the biasing effects and
@@ -2299,57 +2590,57 @@ corrections, converting the standardized mean difference to a
 point-biserial correlation is often a necessary step. However once the
 corrected point-biserial correlation is obtained, the correlation can
 then be converted back into a standardized mean difference like we see
-in the last equation.
-
-\hypertarget{sec-corrections}{%
-\subsection{Correction for Bias in Standardized Mean
-Difference}\label{sec-corrections}}
-
-To correct for bias induced by misclassification we first need to
-convert the observed standardized mean difference to a point-biserial
-correlation coefficient by using the observed proportion of the sample
-that has been assigned to either group \(A\) or group \(B\) (\(p\)). The
-group proportion \(p\) in the following equations will only show up in
-the term \(p(1-p)\) so it will not matter which group is used.
-Converting \(d\) to \(r\):
+in the last equation. To correct for bias induced by misclassification
+we first need to convert the observed standardized mean difference to a
+point-biserial correlation coefficient by using the observed proportion
+of the sample that has been assigned to either group \(A\) or group
+\(B\) (\(p\)). The group proportion \(p\) in the following equations
+will only show up in the term \(p(1-p)\) so it will not matter which
+group is used. Converting \(d\) to \(r\):
 
 \[
-r = \frac{d}{\sqrt{\frac{1}{p(1-p)}-d^2}}.
+r_o = \frac{d_o}{\sqrt{\frac{1}{p(1-p)}-d_o^2}}.
 \]
 
 We can then correct the point-biserial correlation for group
-misclassification with the classification reliability:
+misclassification with the square root of the classification
+reliability:
 
 \[
-\hat{\rho} = \frac{r}{\sqrt{r_{gg'}}}
+r_c = \frac{r_o}{\sqrt{r_{gg'}}}
+\] If we also wanted to correct for measurement error in the dependent
+variable \(y\), we can use the correction formula used in the chapter,
+\emph{Unreliability}.
+
+\[
+r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
 \]
 
-Now we can convert the corrected point-biserial correlation
-(\(\hat{\rho}\)) into a corrected standardized mean difference
-(\(\hat{\delta}\)). When converting back to a standardized mean
-difference, we need to use the true group proportions, \(p^*\). Although
-if we are to assume equal misclassification rates between groups, then
-the observed proportion can be used \(p\):
+Now we can convert the corrected point-biserial correlation into a
+corrected standardized mean difference (\(d_c\)). When converting back
+to a standardized mean difference, we need to use the true group
+proportions, \(p^*\). Although if we are to assume equal
+misclassification rates between groups, then the observed proportion can
+be used \(p\):
 
 \[
-\hat{\delta} = \frac{\hat{\rho}}{\sqrt{p^*\left(1-p^*\right)\left(1-\hat{\rho}^2\right)}}
+\hat{\delta} = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}
 \]
 
-The sampling variance of \(\hat{\delta}\) (\(s_{\hat{\delta}}\)) will
-need to be adjusted accordingly. The three-step process for converting
-to a correlation, correcting, and converting back to a standardized mean
-difference can instead be done in a single step. Therefore the adjusted
-sampling variance (squared standard error) can be calculated as,
+The s converting to a point-biserial correlation, correcting, and
+converting back to a standardized mean difference. This time we will do
+this in a single step. Therefore the adjusted sampling variance (squared
+standard error) can be calculated as,
 
 \[
-s^2_{\hat{\delta}} = \frac {s_d\left(\frac{\hat{\rho}}{r}\right)^2} {\left(1+d^2p[1-p]\right)^2\left(d^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-\hat{\rho}^2)^3}
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}
 \]
 
 This can be simplified if we assume that misclassification rates are
 equal between groups,
 
 \[
-s^2_{\hat{\delta}} = \frac {s_d\left(\frac{\hat{\rho}}{r}\right)^2} {\left(1+d^2p[1-p]\right)^3(1-\hat{\rho}^2)^3}
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{\hat{\rho}}{r}\right)^2} {\left(1+d_o^2p[1-p]\right)^3(1-r_c^2)^3}
 \]
 
 \hypertarget{correcting-for-misclassification-in-r}{%
@@ -2420,7 +2711,7 @@ The output provides the corrected standardized mean difference
 \addcontentsline{toc}{subsubsection}{Correcting by hand}
 
 To calculate the corrected standardized mean difference, we can use the
-equations in Section~\ref{sec-corrections}.
+equations in \textbf{?@sec-corrections}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2441,26 +2732,20 @@ equations in Section~\ref{sec-corrections}.
 \CommentTok{\# step 2: adjust sampling variance for correction}
 \NormalTok{v\_delta }\OtherTok{=}\NormalTok{ (v\_d }\SpecialCharTok{*}\NormalTok{ (rho}\SpecialCharTok{/}\NormalTok{r)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ ((}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ d}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{3} \SpecialCharTok{*}\NormalTok{ p}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p) }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{rho}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{3}\NormalTok{)}
 
-\CommentTok{\# print results}
-\FunctionTok{print}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}delta hat = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(delta,}\DecValTok{3}\NormalTok{),}\StringTok{\textquotesingle{},  var = \textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(v\_delta,}\DecValTok{3}\NormalTok{)))}
+\CommentTok{\# print corrected values}
+\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}corrected: d = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(delta,}\DecValTok{3}\NormalTok{),}\StringTok{\textquotesingle{},  var = \textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(v\_delta,}\DecValTok{3}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-[1] "delta hat = 0.605,  var = 0.168"
+[1] "corrected: d = 0.605,  var = 0.168"
 \end{verbatim}
-
-(Chyou 2007)
-
-(Wiernik and Dahlke 2020)
-
-(J. E. Hunter and Schmidt 1990)
 
 \hypertarget{artificial-dichotomization}{%
 \chapter{Artificial Dichotomization}\label{artificial-dichotomization}}
 
-\hypertarget{introduction-2}{%
-\section{Introduction}\label{introduction-2}}
+\hypertarget{introduction-3}{%
+\section{Introduction}\label{introduction-3}}
 
 Primary studies sometimes will splitting naturally continuous variables
 into two discrete groups to increase interpretability or conduct
@@ -2503,8 +2788,8 @@ scores and the underlying continuous scores (\(r_{x_\ddagger x}\)).
 \section{Correcting Correlations for Artificial
 Dichotomization}\label{correcting-correlations-for-artificial-dichotomization}}
 
-\hypertarget{defining-our-estimand}{%
-\subsection{Defining our estimand}\label{defining-our-estimand}}
+\hypertarget{defining-our-estimand-3}{%
+\subsection{Defining our estimand}\label{defining-our-estimand-3}}
 
 Ultimately, we would like to know the correlation coefficient between
 two naturally continuous variables. Sticking with our notation for true
@@ -2806,8 +3091,8 @@ Section~\ref{sec-corr-smd}.
 \section{Correcting Standardized Mean Differences for Artificial
 Dichotomization}\label{correcting-standardized-mean-differences-for-artificial-dichotomization}}
 
-\hypertarget{defining-our-estimand-1}{%
-\subsection{Defining our estimand}\label{defining-our-estimand-1}}
+\hypertarget{defining-our-estimand-4}{%
+\subsection{Defining our estimand}\label{defining-our-estimand-4}}
 
 We would like to know the group difference between scores of a naturally
 continuous variable. Our estimand can thus be defined as the population
@@ -2945,17 +3230,299 @@ Section~\ref{sec-corr-smd}.
 \hypertarget{scale-coarseness}{%
 \chapter{Scale Coarseness}\label{scale-coarseness}}
 
-(Symonds 1924)
+\hypertarget{introduction-4}{%
+\section{Introduction}\label{introduction-4}}
 
-(Aguinis, Pierce, and Culpepper 2009)
+Scale coarseness describes a situation where a variable that is
+naturally continuous (e.g., happiness) is binned into discrete values
+(e.g., happiness measured on a scale of 1-10). This situation is quite
+common in the social and psychological sciences where Likert items or
+dichotomous yes/no responses are aggregated to form a coarse total score
+for a naturally continuous construct. When coarseness is present,
+measurement error is introduced into the observed scores and those
+scores lose information. Unlike dichotomization, coarseness is an
+artifact that occurs due to the design of the study rather than during
+the analysis phase (Aguinis, Pierce, and Culpepper 2009). Particularly,
+dichotomization occurs after scores are obtained (e.g., splitting a
+group into high scorers and low scorers), whereas coarseness occurs as
+an artifact of the measurement device itself. The primary issue with
+coarseness is that it limits the set of possible values a score can be
+which introduces error when the variable is naturally continuous. Lets
+visualize how this occurs by sampling 500 data points from a normal
+distribution, and binning the scores into 5 equal-interval scale points.
+Now the figure below shows the relationship between the coarse scores
+and the true underlying continuous scores.
 
-(Krieg 1999)
+\includegraphics{scale_coarseness_files/figure-pdf/unnamed-chunk-1-1.pdf}
+
+Notice that the correlation between coarse and continuous scores is not
+perfect, indicating that the coarse scores do not perfectly capture the
+underlying continuous scores.
+
+\hypertarget{correcting-for-coarseness-in-correlations}{%
+\section{Correcting for Coarseness in
+Correlations}\label{correcting-for-coarseness-in-correlations}}
+
+\hypertarget{defining-our-estimand-5}{%
+\subsection{Defining our Estimand}\label{defining-our-estimand-5}}
+
+Our quantity of interest is the population correlation, \(\rho\),
+between continuous independent variable, \(x\), and continuous dependent
+variable, \(y\). We can model the relationship between the observed
+sample correlation on coarse scores and the true population correlation,
+
+\[
+r_o = a\rho+\varepsilon
+\]
+
+Where \(a\) is our coarseness biasing factor and \(\varepsilon\) is our
+sampling error term. Ultimately, we can obtain an unbiased estimate of
+the true (continuous) population correlation by correcting the observed
+standardized mean difference as follows,
+
+\[
+r_c = \frac{r_o}{a}
+\]
+
+\hypertarget{sec-coarse-cor}{%
+\subsection{Artifact Correction for Coarseness}\label{sec-coarse-cor}}
+
+To correct the correlation between coarse scores for \(x\) and \(y\), we
+need to know the correlation between coarse scores and their underlying
+continuous scores. These correlations between coarse scores and their
+underlying continuous scores do not have a specific closed form equation
+as of now (Aguinis, Pierce, and Culpepper 2009). To find this we need to
+make a couple of assumptions:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  The shape of the underlying distribution (i.e., normal or uniform).
+\item
+  The intervals between scale-points are equal.
+\end{enumerate}
+
+Peters and Voorhis (1940) constructed a table based on these assumptions
+that is also reported more recently by Aguinis, Pierce, and Culpepper
+(2009). The table below shows the correction factor for a given number
+of scale points and underlying distribution shape. The correction factor
+is equal to the square of the correlation between coarse scores and the
+underlying continuous normal (or uniform) distribution. For the normal
+distribution correction, its been shown that even in cases of extreme
+skew, these correction factors perform well Wylie (1976).
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1972}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3944}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4085}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+Scale Points
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Correction Factor (normal)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Correction Factor (uniform)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+2 & .816 & .866 \\
+3 & .859 & .943 \\
+4 & .916 & .968 \\
+5 & .943 & .980 \\
+6 & .960 & .986 \\
+7 & .970 & .990 \\
+8 & .977 & .992 \\
+9 & .982 & .994 \\
+10 & .985 & .995 \\
+11 & .988 & .996 \\
+12 & .990 & .997 \\
+13 & .991 & .997 \\
+14 & .992 & .997 \\
+15 & .994 & .998 \\
+\end{longtable}
+
+These correction factors can be applied similarly to the correction
+formula for reliability (see chapter 5),
+
+\[
+r_c = \frac{r_o}{a_x a_y}
+\] Where \(a_x\) and \(a_y\) are the appropriate correction factors from
+the table for \(x\) and \(y\). We must also adjust the sampling variance
+as well,
+
+\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_x a_y}
+\]
+
+\hypertarget{correcting-correlations-in-r-1}{%
+\subsection{Correcting Correlations in
+R}\label{correcting-correlations-in-r-1}}
+
+To correct scale coarseness in R, we can use the table in
+Section~\ref{sec-coarse-cor}. Lets start by simulating a coarse data (5
+scale-points for x and 7 scale-points for y) set of 500 individuals with
+a true population correlation of \(\rho = .50\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# set seed}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{343}\NormalTok{)}
+
+\CommentTok{\# load packages}
+\CommentTok{\# install.packages(\textquotesingle{}MASS\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(MASS)}
+
+\CommentTok{\# simulate data}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{500}
+\NormalTok{rho }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{50}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{mvrnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n,}
+                \AttributeTok{mu =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{),}
+                \AttributeTok{Sigma =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,rho),}\AttributeTok{y=}\FunctionTok{c}\NormalTok{(rho,}\DecValTok{1}\NormalTok{)),}
+                \AttributeTok{empirical =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# obtain simulated continuous data}
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\DecValTok{2}\NormalTok{]}
+
+\CommentTok{\# get coarse data}
+\NormalTok{x\_coarse }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{cut}\NormalTok{(x,}\AttributeTok{breaks=}\DecValTok{5}\NormalTok{)) }
+\NormalTok{y\_coarse }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{cut}\NormalTok{(y,}\AttributeTok{breaks=}\DecValTok{7}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+Now we can calculate the observed standardized mean difference and apply
+the correction factor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate observed d value}
+\NormalTok{ro }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(x\_coarse,y\_coarse)}
+
+\CommentTok{\# correct observed do using table}
+\NormalTok{ax }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{943}
+\NormalTok{ay }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{970}
+
+\CommentTok{\# correct observed d value}
+\NormalTok{rc }\OtherTok{\textless{}{-}}\NormalTok{ ro}\SpecialCharTok{/}\NormalTok{(ax}\SpecialCharTok{*}\NormalTok{ay)}
+
+\CommentTok{\# print results}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Observed: ro = \textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(ro,}\DecValTok{3}\NormalTok{)),}
+      \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Corrected: rc = \textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(rc,}\DecValTok{3}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]                  
+[1,] "Observed: ro = 0.457"
+[2,] "Corrected: rc = 0.5" 
+\end{verbatim}
+
+\hypertarget{correcting-for-coarseness-in-d-values}{%
+\section{\texorpdfstring{Correcting for Coarseness in \emph{d}
+values}{Correcting for Coarseness in d values}}\label{correcting-for-coarseness-in-d-values}}
+
+\hypertarget{defining-our-estimand-6}{%
+\subsection{Defining our Estimand}\label{defining-our-estimand-6}}
+
+Our quantity of interest is the population standardized mean difference,
+\(\delta\), between groups \(A\) and \(B\) on variable, \(y\). We can
+model the relationship between the observed sample standardized mean
+difference on coarse scores and the true population standardized mean
+difference,
+
+\[
+d_o = a\delta+\varepsilon
+\]
+
+Where \(a\) is our coarseness biasing factor and \(\varepsilon\) is our
+sampling error term. Ultimately, we can obtain an unbiased estimate of
+the true (continuous) population standardized mean difference by
+correcting the observed standardized mean difference as follows,
+
+\[
+d_c = \frac{d_o}{a}
+\]
+
+\hypertarget{artifact-correction-for-coarseness}{%
+\subsection{Artifact Correction for
+Coarseness}\label{artifact-correction-for-coarseness}}
+
+To correct a standardized mean difference for coarseness in the outcome
+variable, \(y\), we can use the correction factors from the table in
+Section~\ref{sec-coarse-cor},
+
+\[
+d_c = \frac{d_o}{a_y}
+\] Where \(a_x\) and \(a_y\) are the appropriate correction factors from
+the table for \(x\) and \(y\). We must also adjust the sampling variance
+as well,
+
+\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_y}
+\]
+
+\hypertarget{correcting-d-values-in-r-1}{%
+\subsection{\texorpdfstring{Correcting \emph{d} values in
+R}{Correcting d values in R}}\label{correcting-d-values-in-r-1}}
+
+To correct scale coarseness in R, we can use the table in
+Section~\ref{sec-coarse-cor}. Lets start by simulating a coarse data (5
+scale-points) set of 1000 individuals with a true population
+standardized mean difference of \(\delta = .50\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# set seed}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{343}\NormalTok{)}
+
+\CommentTok{\# simulate data}
+\NormalTok{nA }\OtherTok{\textless{}{-}}\NormalTok{ nB }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{yA }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(nA,.}\DecValTok{5}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{yB }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(nB,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# concatenate data}
+\NormalTok{group }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{,nA),}\FunctionTok{rep}\NormalTok{(}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{,nB))}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(yA,yB)}
+
+\CommentTok{\# get coarse data}
+\NormalTok{y\_coarse }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{cut}\NormalTok{(y,}\AttributeTok{breaks=}\DecValTok{5}\NormalTok{)) }
+\end{Highlighting}
+\end{Shaded}
+
+Now we can calculate the observed standardized mean difference and apply
+the correction factor.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate observed d value}
+\NormalTok{do }\OtherTok{\textless{}{-}}\NormalTok{ ( }\FunctionTok{mean}\NormalTok{(y\_coarse[group}\SpecialCharTok{==}\StringTok{\textquotesingle{}A\textquotesingle{}}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(y\_coarse[group}\SpecialCharTok{==}\StringTok{\textquotesingle{}B\textquotesingle{}}\NormalTok{]) ) }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{((}\FunctionTok{var}\NormalTok{(y\_coarse) }\SpecialCharTok{+} \FunctionTok{var}\NormalTok{(y\_coarse))}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)}
+
+\CommentTok{\# correct observed do using table}
+\NormalTok{ay }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{943}
+
+\CommentTok{\# correct observed d value}
+\NormalTok{dc }\OtherTok{\textless{}{-}}\NormalTok{ do}\SpecialCharTok{/}\NormalTok{ay}
+
+\CommentTok{\# print results}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Observed: do = \textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(do,}\DecValTok{3}\NormalTok{)),}
+      \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Corrected: dc = \textquotesingle{}}\NormalTok{, }\FunctionTok{round}\NormalTok{(dc,}\DecValTok{3}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]                   
+[1,] "Observed: do = 0.499" 
+[2,] "Corrected: dc = 0.529"
+\end{verbatim}
 
 \hypertarget{sec-direct_range_restriction}{%
 \chapter{Direct Selection}\label{sec-direct_range_restriction}}
 
-\hypertarget{introduction-3}{%
-\section{Introduction}\label{introduction-3}}
+\hypertarget{introduction-5}{%
+\section{Introduction}\label{introduction-5}}
 
 Direct selection occurs when subjects are explicitly selected based on
 some eligibility criterion on the variables of interest (rather than a
@@ -3037,12 +3604,11 @@ coefficient from the unrestricted and selected sample can be used to
 estimate the \(u\)-ratio,
 
 \[
-u_x = \sqrt{\frac{1-r_{xx'_{\mathcal{U}}}}{1-r_{xx'_{\mathcal{S}}}}}
+u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}
 \]
 
-Where \(r_{xx'_{\mathcal{S}}}\) and \(r_{xx'_{\mathcal{U}}}\) are the
-reliability estimates within the selected and unrestricted groups
-respectively.
+Where \(r_{xx'_S}\) and \(r_{xx'}\) are the reliability estimates within
+the selected and unrestricted groups respectively.
 
 \includegraphics{direct_range_restriction_files/figure-pdf/unnamed-chunk-1-1.pdf}
 
@@ -3050,8 +3616,8 @@ respectively.
 \section{Correcting Correlations for Direct Range
 Restriction}\label{correcting-correlations-for-direct-range-restriction}}
 
-\hypertarget{defining-our-estimand-2}{%
-\subsection{Defining our Estimand}\label{defining-our-estimand-2}}
+\hypertarget{defining-our-estimand-7}{%
+\subsection{Defining our Estimand}\label{defining-our-estimand-7}}
 
 For our study we want to estimate the population correlation of the
 unrestricted scores of the independent (\(x_\mathcal{U}\)) and dependent
@@ -3085,15 +3651,18 @@ Range restriction (or enhancement) in either the independent or
 dependent variable will induce bias into the correlation coefficient.
 Let us consider a case where just the independent variable is restricted
 (or enhanced) such that \(u_x\neq 1\), but the dependent variable is not
-restricted such that \(u_y = 1\). Lets visualize the correlation between
-independent (\(x\)) and dependent (\(y\)) variables under this range
-restriction by only selecting individuals above some cut off. The scores
-of individuals that have been selected will show less variance than the
-entire pool of individuals. Specifically, the scenario below shows a
-\(u\)-ratio of about 0.69 in the independent variable. We see in the
-figure that the correlation in the restricted scores (\(\rho_{xy_S}\))
-is attenuated relative to the unrestricted (true) correlation
-(\(\rho_{xy}\)).
+restricted (directly). It is important to note, that if there is direct
+selection one of the two variables, then there will be indirect
+selection in the other variable if the two are correlated. This would
+suggest that if \(u_x\neq 1\) and \(\rho_{xy}\neq 0\) then
+\(u_y\neq 1\). Lets visualize the correlation between independent
+(\(x\)) and dependent (\(y\)) variables under this range restriction by
+only selecting individuals above some cut off. The scores of individuals
+that have been selected will show less variance than the entire pool of
+individuals. Specifically, the scenario below shows a \(u\)-ratio of
+about 0.69 in the independent variable. We see in the figure that the
+correlation in the restricted scores (\(\rho_{xy_S}\)) is attenuated
+relative to the unrestricted (true) correlation (\(\rho_{xy}\)).
 
 \includegraphics{direct_range_restriction_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
@@ -3186,9 +3755,9 @@ Where the sampling variance of the corrected correlation is,
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
 }\label{eq-biv-se}\end{equation}
 
-\hypertarget{correcting-correlations-in-r-1}{%
+\hypertarget{correcting-correlations-in-r-2}{%
 \subsection{Correcting Correlations in
-R}\label{correcting-correlations-in-r-1}}
+R}\label{correcting-correlations-in-r-2}}
 
 To correct correlations for range restriction we can start by simulating
 data from the the \texttt{mvrnorm} function in the \texttt{MASS}
@@ -3471,6 +4040,13 @@ Borsboom, Denny, Gideon J. Mellenbergh, and Jaap Van Heerden. 2004.
 {``The Concept of Validity.''} \emph{Psychological Review} 111 (4):
 1061--71. \url{https://doi.org/10.1037/0033-295X.111.4.1061}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-brannick2019}{}}%
+Brannick, Michael T., Sean M. Potter, Bryan Benitez, and Scott B.
+Morris. 2019. {``Bias and Precision of Alternate Estimators in
+Meta-Analysis: Benefits of Blending Schmidt-Hunter and Hedges
+Approaches.''} \emph{Organizational Research Methods} 22 (2): 490--514.
+\url{https://doi.org/10.1177/1094428117741966}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-bravais1844}{}}%
 Bravais, A. 1844. \emph{Analyse mathématique sur les probabilités des
 erreurs de situation d'un point}. Impr. Royale.
@@ -3492,21 +4068,9 @@ Measurement Error: Clarifying Concepts and Creating Confidence Sets.''}
 \emph{Psychological Methods} 10 (July): 206--26.
 \url{https://doi.org/10.1037/1082-989X.10.2.206}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-chyou2007}{}}%
-Chyou, Po-Huang. 2007. {``Patterns of Bias Due to Differential
-Misclassification by Case{\textendash}control Status in a
-Case{\textendash}control Study.''} \emph{European Journal of
-Epidemiology} 22 (1): 7--17.
-\url{https://doi.org/10.1007/s10654-006-9078-x}.
-
 \leavevmode\vadjust pre{\hypertarget{ref-cohen1988}{}}%
 Cohen, Jacob. 1988. \emph{Statistical Power Analysis for the Behavioral
 Sciences}. Academic Press.
-
-\leavevmode\vadjust pre{\hypertarget{ref-thehand2009}{}}%
-Cooper, Harris M., Larry V. Hedges, and Jeff C. Valentine, eds. 2009.
-\emph{The Handbook of Research Synthesis and Meta-Analysis}. 2nd ed. New
-York: Russell Sage Foundation.
 
 \leavevmode\vadjust pre{\hypertarget{ref-cronbach1955}{}}%
 Cronbach, Lee J., and Paul E. Meehl. 1955. {``Construct Validity in
@@ -3519,6 +4083,12 @@ Package for Psychometric Meta-Analysis.''} \emph{Applied Psychological
 Measurement} 43 (5): 415--16.
 \url{https://doi.org/10.1177/0146621618795933}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-dahlke2020}{}}%
+---------. 2020. {``Not Restricted to Selection Research: Accounting for
+Indirect Range Restriction in Organizational Research.''}
+\emph{Organizational Research Methods} 23 (4): 717--49.
+\url{https://doi.org/10.1177/1094428119859398}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-dersimonian2007}{}}%
 DerSimonian, Rebecca, and Raghu N. Kacker. 2007. {``Random-Effects Model
 for Meta-Analysis of Clinical Trials: An Update.''} \emph{NIST} 28
@@ -3529,12 +4099,6 @@ for Meta-Analysis of Clinical Trials: An Update.''} \emph{NIST} 28
 Digby, P. G. N. 1983. {``Approximating the Tetrachoric Correlation
 Coefficient.''} \emph{Biometrics} 39 (3): 753--57.
 \url{https://doi.org/10.2307/2531104}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-fisher1915}{}}%
-Fisher, R. A. 1915. {``Frequency Distribution of the Values of the
-Correlation Coefficient in Samples from an Indefinitely Large
-Population.''} \emph{Biometrika} 10 (4): 507--21.
-\url{https://doi.org/10.2307/2331838}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-galton1907}{}}%
 Galton, Francis. 1907. {``Vox Populi.''} \emph{Nature} 75 (1949):
@@ -3549,21 +4113,20 @@ For Likert-Type Scales.''}
 \leavevmode\vadjust pre{\hypertarget{ref-haertel2006}{}}%
 Haertel, Edward H. 2006. {``3. Reliability.''} In, 4th ed.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hartung1999}{}}%
-Hartung, Joachim. 1999. {``An Alternative Method for Meta-Analysis.''}
-\emph{Biometrical Journal} 41 (8): 901--16.
-\url{https://doi.org/10.1002/(SICI)1521-4036(199912)41:8\%3C901::AID-BIMJ901\%3E3.0.CO;2-W}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-hedges1981}{}}%
-Hedges, Larry V. 1981. {``Distribution Theory for Glass's Estimator of
-Effect Size and Related Estimators.''} \emph{Journal of Educational
-Statistics} 6 (2): 107--28.
-\url{https://doi.org/10.3102/10769986006002107}.
-
 \leavevmode\vadjust pre{\hypertarget{ref-hedges1989}{}}%
----------. 1989. {``An Unbiased Correction for Sampling Error in
+Hedges, Larry V. 1989. {``An Unbiased Correction for Sampling Error in
 Validity Generalization Studies.''} \emph{Journal of Applied Psychology}
 74 (3): 469--77. \url{https://doi.org/10.1037/0021-9010.74.3.469}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hedges2014}{}}%
+Hedges, Larry V., and Ingram Olkin. 2014. \emph{Statistical Methods for
+Meta-Analysis}. Academic press.
+\url{https://books.google.com/books?hl=en\&lr=\&id=7GviBQAAQBAJ\&oi=fnd\&pg=PP1\&dq=info:e6P1zfh2T6QJ:scholar.google.com\&ots=Dx-YqN6_9B\&sig=-39HgbYdWPp_BwSTzA9cRODs2Q0}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hedges1998}{}}%
+Hedges, Larry V., and Jack L. Vevea. 1998. {``Fixed- and Random-Effects
+Models in Meta-Analysis.''} \emph{Psychological Methods} 3 (4):
+486--504. \url{https://doi.org/10.1037/1082-989X.3.4.486}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-hunter1990a}{}}%
 Hunter, John E., and Frank L. Schmidt. 1990. \emph{Methods of
@@ -3576,19 +4139,21 @@ Variables: The Implications for Meta-Analysis.''} \emph{Journal of
 Applied Psychology} 75 (June): 334--49.
 \url{https://doi.org/10.1037/0021-9010.75.3.334}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-johnson1995}{}}%
+Johnson, Blair T., Brian Mullen, and Eduardo Salas. 1995. {``Comparison
+of Three Major Meta-Analytic Approaches.''} \emph{Journal of Applied
+Psychology} 80 (1): 94--106.
+\url{https://doi.org/10.1037/0021-9010.80.1.94}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-kelley1927}{}}%
 Kelley, Truman Lee. 1927. \emph{Interpretation of Educational
 Measurements}. World Book Company.
 
-\leavevmode\vadjust pre{\hypertarget{ref-krieg1999}{}}%
-Krieg, Edward F. 1999. {``Biases Induced by Coarse Measurement
-Scales.''} \emph{Educational and Psychological Measurement} 59 (5):
-749--66. \url{https://doi.org/10.1177/00131649921970125}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-lin2018}{}}%
-Lin, Lifeng. 2018. {``Bias Caused by Sampling Error in Meta-Analysis
-with Small Sample Sizes.''} \emph{PLOS ONE} 13 (9): e0204056.
-\url{https://doi.org/10.1371/journal.pone.0204056}.
+\leavevmode\vadjust pre{\hypertarget{ref-laird1990}{}}%
+Laird, Nan M., and Frederick Mosteller. 1990. {``Some Statistical
+Methods for Combining Experimental Results.''} \emph{International
+Journal of Technology Assessment in Health Care} 6 (1): 5--30.
+\url{https://doi.org/10.1017/S0266462300008916}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-maccallum2002}{}}%
 MacCallum, Robert C., Shaobo Zhang, Kristopher J. Preacher, and Derek D.
@@ -3601,11 +4166,24 @@ Maxwell, Scott, and Harold Delaney. 1993. {``Bivariate Median Splits and
 Spurious Statistical Significance.''} \emph{Psychological Bulletin} 113
 (January): 181--90. \url{https://doi.org/10.1037/0033-2909.113.1.181}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-mcdaniel1994}{}}%
+McDaniel, Michael A., Deborah L. Whetzel, Frank L. Schmidt, and Steven
+D. Maurer. 1994. {``The Validity of Employment Interviews: A
+Comprehensive Review and Meta-Analysis.''} \emph{Journal of Applied
+Psychology} 79 (4): 599--616.
+\url{https://doi.org/10.1037/0021-9010.79.4.599}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-mendoza1987}{}}%
 Mendoza, Jorge L., and Michael Mumford. 1987. {``Corrections for
 Attenuation and Range Restriction on the Predictor.''} \emph{Journal of
 Educational Statistics} 12 (3): 282--93.
 \url{https://doi.org/10.3102/10769986012003282}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-morris2014}{}}%
+Morris, Scott, Rebecca Daisley, Megan Wheeler, and Peggy Boyer. 2014.
+{``A Meta-Analysis of the Relationship Between Individual Assessments
+and Job Performance.''} \emph{The Journal of Applied Psychology} 100
+(May). \url{https://doi.org/10.1037/a0036938}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-murphy2003}{}}%
 Murphy, Kevin R. 2003. \emph{Validity Generalization: A Critical
@@ -3655,6 +4233,10 @@ Raju, Nambury, and Michael Burke. 1983. {``Two Procedures for Studying
 Validity Generalization.''} \emph{Journal of Applied Psychology} 68
 (August): 382--95. \url{https://doi.org/10.1037/0021-9010.68.3.382}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-roth2015}{}}%
+Roth, Bettina. 2015. {``Intelligence and School Grades: A
+Meta-Analysis.''}
+
 \leavevmode\vadjust pre{\hypertarget{ref-royston2006}{}}%
 Royston, Patrick, Douglas G. Altman, and Willi Sauerbrei. 2006.
 {``Dichotomizing Continuous Predictors in Multiple Regression: A Bad
@@ -3696,11 +4278,6 @@ Spearman, C. 1904. {``The Proof and Measurement of Association Between
 Two Things.''} \emph{International Journal of Epidemiology} 39 (5):
 1137--50. \url{https://doi.org/10.1093/ije/dyq191}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-symonds1924}{}}%
-Symonds, P. M. 1924. {``On the Loss of Reliability in Ratings Due to
-Coarseness of the Scale.''} \emph{Journal of Experimental Psychology} 7
-(6): 456--61. \url{https://doi.org/10.1037/h0074469}.
-
 \leavevmode\vadjust pre{\hypertarget{ref-taylor1976}{}}%
 Taylor, Erwin K., and Thomas Griess. 1976. {``The Missing Middle in
 Validation Research.''} \emph{Personnel Psychology} 29 (1): 5--11.
@@ -3717,6 +4294,15 @@ Vargha, András, Tamás Rudas, Harold D. Delaney, and Scott E. Maxwell.
 1996. {``Dichotomization, Partial Correlation, and Conditional
 Independence.''} \emph{Journal of Educational and Behavioral Statistics}
 21 (3): 264--82. \url{https://doi.org/10.2307/1165272}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-viechtbauer2010}{}}%
+Viechtbauer, Wolfgang. 2010. {``Conducting meta-analyses in R with the
+metafor package.''} \emph{Journal of Statistical Software} 36 (3):
+1--48. \url{https://doi.org/10.18637/jss.v036.i03}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-viechtbauer}{}}%
+---------. n.d. {``Fixed-Effects and Random-Effects Models in
+Meta-Analysis.''} \url{https://wviechtb.github.io/metafor/index.html}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-viswanathan2005}{}}%
 Viswanathan, Madhu. 2005. \emph{Measurement Error and Research Design}.
@@ -3736,9 +4322,20 @@ Psychometric Meta-Analyses.''} \emph{Industrial and Organizational
 Psychology} 7 (4): 507--18.
 \url{https://doi.org/10.1017/S1754942600006799}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-vos2022}{}}%
+Vos, Paul, and Don Holbert. 2022. {``Frequentist Statistical Inference
+Without Repeated Sampling.''} \emph{Synthese} 200 (2): 89.
+\url{https://doi.org/10.1007/s11229-022-03560-x}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-wechsler2008}{}}%
 Wechsler, David. 2008. \emph{Wechsler Adult Intelligence Scale--Fourth
 Edition}. 4th ed. \url{https://doi.org/10.1037/t15169-000}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-whitener1990}{}}%
+Whitener, Ellen M. 1990. {``Confusion of Confidence Intervals and
+Credibility Intervals in Meta-Analysis.''} \emph{Journal of Applied
+Psychology} 75 (3): 315--21.
+\url{https://doi.org/10.1037/0021-9010.75.3.315}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-wiernik2020}{}}%
 Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. {``Obtaining Unbiased
@@ -3746,13 +4343,19 @@ Results in Meta-Analysis: The Importance of Correcting for Statistical
 Artifacts.''} \emph{Advances in Methods and Practices in Psychological
 Science} 3 (1): 94--123. \url{https://doi.org/10.1177/2515245919885611}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-wylie1976}{}}%
+Wylie, Peter B. 1976. {``Effects of Coarse Grouping and Skewed Marginal
+Distributions on the Pearson Product Moment Correlation Coefficient.''}
+\emph{Educational and Psychological Measurement} 36 (1): 1--7.
+\url{https://doi.org/10.1177/001316447603600101}.
+
 \end{CSLReferences}
 
 \hypertarget{indirect-selection}{%
 \chapter{Indirect Selection}\label{indirect-selection}}
 
-\hypertarget{introduction-4}{%
-\section{Introduction}\label{introduction-4}}
+\hypertarget{introduction-6}{%
+\section{Introduction}\label{introduction-6}}
 
 Indirect range restriction/enhancement occurs when selection of sample
 participants is based on a variable that is correlated with the
@@ -3821,12 +4424,13 @@ full-scale IQ scores derived from the Wechsler Adult Intelligence Test
 has a standard deviation of 15 in the US population (Wechsler 2008). We
 can use this estimate as the standard deviation for the unrestricted
 population. Lets say we select a sample from members of Harvard
-students, , who are specifically selected on the basis high IQ scores.
-If the standard deviation of Mensa members is 5, then the \(u\)-ratio
-would be,
+students, who tend to have higher IQs than the general population (this
+is due to the fact that selection criterion, such as GPA and SAT scores
+are positively correlated with IQ). If the standard deviation of IQ in
+Harvard students is 10, then the \(u\)-ratio would be,
 
 \[
-u =  \frac{\sigma_{x_S}}{\sigma_x} = \frac{5}{15}= .33
+u =  \frac{\sigma_{x_S}}{\sigma_x} = \frac{10}{15}= .67
 \]
 
 However it is not always the case that an estimate of the unrestricted
@@ -3835,30 +4439,43 @@ coefficient from the unrestricted and selected sample can be used to
 estimate the \(u\)-ratio,
 
 \[
-u_x = \sqrt{\frac{1-r_{xx'_{\mathcal{U}}}}{1-r_{xx'_{\mathcal{S}}}}}
+u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}
 \]
 
-Where \(r_{xx'_{\mathcal{S}}}\) and \(r_{xx'_{\mathcal{U}}}\) are the
-reliability estimates within the selected and unrestricted groups
-respectively.
+Where \(r_{xx'_S}\) and \(r_{xx'}\) are the reliability estimates within
+the selected and unrestricted groups respectively. In the context of
+indirect range restriction, the selection does not occur directly on
+\(x\) (or \(y\)), instead it occurs on a selector variable, \(z\).
+Therefore we can see how the \(u\)-ratio of the selector variable
+(\(u_z\)) relates to the \(u\)-ratio of \(x\),
 
-\includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-1-1.pdf}
+\[
+u_x = \sqrt{\rho_{xz}^2u_z^2 -\rho_{xz}^2 + 1 }
+\]
+
+The formulation above is also dependent on the correlation between the
+selector, \(z\), and \(x\). If the correlation between \(z\) and \(x\)
+is \(\rho_{xz}=0\), then you will notice that \(u_x=u_z\). Notice that a
+correlation of \(\rho_{xz}=1\) would also simplify to a direct range
+restriction problem. A correlation of \(\rho_{xz}=0\), would effectively
+have no selection effect (i.e., restriction nor enhancement) since the
+equation would simplify to \(u_x=1\).
 
 \hypertarget{correcting-correlations-for-direct-range-restriction-1}{%
 \section{Correcting Correlations for Direct Range
 Restriction}\label{correcting-correlations-for-direct-range-restriction-1}}
 
-\hypertarget{defining-our-estimand-3}{%
-\subsection{Defining our Estimand}\label{defining-our-estimand-3}}
+\hypertarget{defining-our-estimand-8}{%
+\subsection{Defining our Estimand}\label{defining-our-estimand-8}}
 
 For our study we want to estimate the population correlation of the
-unrestricted scores of the independent (\(x_\mathcal{U}\)) and dependent
-variable (\(y_S\)). We can denote this correlation as \(\rho_{xy_S}\).
-The restricted population correlation can be denoted as \(\rho_{xy_S}\).
-Within a study that suffers from range restriction, the study
-correlation (\(r_{xy_{\mathcal{R}}}\)) will be biased relative to our
-estimand, \(\rho_{xy_{\mathcal{U}}}\). This bias can be denoted by \(a\)
-such that,
+unrestricted scores of the independent (\(x\)) and dependent variable
+(\(y\)). We can denote this correlation as \(\rho_{xy}\). The population
+correlation within the selected sample can be denoted as
+\(\rho_{xy_S}\). Within a study sample that suffers from indirect
+selection (and sampling error), the study correlation (\(r_{xy_S}\))
+will be biased relative to our estimand, \(\rho_{xy}\). This bias can be
+denoted by \(a\) such that,
 
 \[
 r_{xy} = a \rho_{xy_S} + \varepsilon  
@@ -3869,7 +4486,19 @@ correlation would be
 
 \[
 r_c = \frac{ r_{xy_S} }{ a}.
-\]
+\] Note that we may also want to correct for measurement on top of range
+restriction. In this case, using the true score model for x
+(\(x=T+e_x\)) and y (\(y = U+e_y\)), we may want to estimate the
+unrestricted correlation between true scores (\(\rho_{TU}\)). The figure
+below shows the relationship between three variables: the selector
+(\(z\)), the independent variable (\(x\)), and the dependent variable
+(\(y\)). The correlation between \(x\) and \(y\) (\(\rho_{xy}\)) is our
+estimand (i.e., the quantity we want to estimate), however as we will
+show, under selection on \(z\), the correlations between the selector
+and the independent/dependent variable can severely bias the observed
+correlation.
+
+\includegraphics{figure/ind_selection.png}
 
 \hypertarget{artifact-correction-for-correlations-1}{%
 \subsection{Artifact Correction for
@@ -3881,19 +4510,51 @@ Correlations}\label{artifact-correction-for-correlations-1}}
 
 Range restriction (or enhancement) in either the independent or
 dependent variable will induce bias into the correlation coefficient.
-Let us consider a case where just the independent variable is restricted
-(or enhanced) such that \(u_x\neq 1\), but the dependent variable is not
-restricted such that \(u_y = 1\). Lets visualize the correlation between
-independent (\(x\)) and dependent (\(y\)) variables under this range
-restriction by only selecting individuals above some cut off. The scores
-of individuals that have been selected will show less variance than the
-entire pool of individuals. Specifically, the scenario below shows a
-\(u\)-ratio of about 0.69 in the independent variable. We see in the
-figure that the correlation in the restricted scores (\(\rho_{xy_S}\))
-is attenuated relative to the unrestricted (true) correlation
-(\(\rho_{xy}\)).
+Let us consider a case where we select individuals based on meeting some
+criterion of some third variable, \(z\). The extent to which selection
+on \(z\) induces restriction (or enhancement) on \(x\) (or \(y\))
+depends on the correlation between \(z\) and \(x\). We can simulate an
+example where individuals are selected into the sample if they are above
+the mean of \(z\). Lets see how the selection process affects the
+distribution of \(x\) when we vary the correlation between \(x\) and
+\(z\) (\(\rho_{xz}\)).
+
+\includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-1-1.pdf}
+
+Notice that the distribution of rejected and accepted participants are
+more similar within the plot on the left where there is a relatively low
+correlation between the selector variable and the independent variable.
+More importantly, when the correlation is lower we see wider
+distributions (larger standard deviation, \(\sigma_{x_S}\)) than in the
+selected sample (and rejected), however, when the correlation is higher
+the standard deviation shrinks accordingly. Not only is the correlation
+between \(x\) and \(z\) important in the resulting variance of \(x\),
+but so is where the cut-point, that is the threshold where individuals
+are selected above (or below). For example, the standard deviation of
+\(x\) will be smaller when individuals are selected above the 90th
+percentile of \(z\) than when individuals are selected above the median
+of \(z\) (i.e., the 50th percentile). We can visualize this phenomenon
+as well by setting a low cut-point for selection (\(z>-1.0\)) and a high
+cut-point for selection (\(z>0.5\)). Notice in the figure below that the
+standard deviation is lower when the cut-point is higher on \(z\).
 
 \includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+Now lets consider a study where we want to calculate the unrestricted
+correlation between an independent variable, \(x\), and a dependent
+variable, \(y\). However, the sample is selected based on meeting some
+criterion on a selector, \(z\). Lets look at a diagram looking at the
+relationship between variables. We can visualize the correlation between
+independent (\(x\)) and dependent (\(y\)) variables under range
+restriction by only selecting individuals above some cut off of our
+selector variable, \(z\). The scores of individuals that have been
+selected will show less variance than the entire pool of individuals.
+Specifically, the scenario below shows a \(u\)-ratio of about 0.69 in
+the independent variable. We see in the figure that the correlation in
+the restricted scores (\(\rho_{xy_S}\)) is attenuated relative to the
+unrestricted (true) correlation (\(\rho_{xy}\)).
+
+\includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-3-1.pdf}
 
 We can also visualize what happens to the correlation when the range is
 enhanced. Enhancement can be accomplished by selecting individuals at
@@ -3901,96 +4562,158 @@ the ends of the distribution (Taylor and Griess 1976). In the
 visualization below, we see an opposite effect on the correlation, that
 is, an over-estimate of the unrestricted correlation rather than an
 attenuation like we see under range restriction. The scenario below has
-a \(u\)-ratio of about 1.39 in the independent variable.
+a \(u\)-ratio of about 1.44 in the independent variable.
 
-\includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-3-1.pdf}
+\includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-4-1.pdf}
 
 It starts to become apparent that if \(u_x>1\) (i.e.,
 \(\sigma_x>\sigma_\mathcal{x_S}\)) the observed correlation
 over-estimates the true, unrestricted correlation and under-estimates
 the unrestricted correlation when \(u_x<1\) (i.e.,
-\(\sigma_x<\sigma_\mathcal{x_S}\), Sackett and Yang 2000).
-
-A bias correction formula for univariate direct range restriction was
-first developed by Pearson (1903) and provided more recently by J. E.
-Hunter and Schmidt (1990). To correct for the systematic bias in
-correlations, we can use the \(u\)-ratio of the independent variable
-such that,
+\(\sigma_x<\sigma_\mathcal{x_S}\), Sackett and Yang 2000). A bias
+correction formula for univariate direct range restriction was first
+developed by Pearson (1903) and provided more recently by J. E. Hunter
+and Schmidt (1990). To correct for the systematic bias in correlations,
+we can use the \(u\)-ratio of the independent variable such that,
 
 \begin{equation}\protect\hypertarget{eq-univariate}{}{
-r_c = \frac{r_{xy_S}}{u_x\left(1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]\right)}
+r_c = \frac{r_{xy_S}}{\sqrt{r_{xy_S}^2 + u_{x}^2 (1- r_{xy_S}^2)  }}
 }\label{eq-univariate}\end{equation}
 
-Where the sampling variance of the corrected correlation is
+This correction formula is only meant for observed scores only. If one
+wants to correct for range restriction and measurement error, we need to
+adjust the \(u\)-ratio for measurement error, as well as adjust the
+reliability coefficients for range restriction/enhancement. We can
+incorporate these adjustments into a single correction formula using the
+equation in table 3 of Wiernik and Dahlke (2020), \[
+r_c=\frac{r_{xy_S}}{\sqrt{r_{xy_S}^2 + \frac{u_{x}^2 r_{xx'_S}\left(r_{xx'_S}r_{yy'_S} - r_{xy_S}^2\right) }{1 - u_{x}^2 \left(1-r_{xx'_S}\right)} }}
+\] Where \(r_{xx'_S}\) and \(r_{yy'_S}\) are the reliabilities within
+the selected sample. If the reliability coefficients come from the
+unrestricted population (e.g., from a norm/standardization sample), we
+can estimate the restricted reliability using the following formulas:
+
+\begin{equation}\protect\hypertarget{eq-rel-x}{}{
+r_{xx'_S} = 1-\frac{1-r_{xx'}}{u_x^2}
+}\label{eq-rel-x}\end{equation}
+\begin{equation}\protect\hypertarget{eq-rel-y}{}{
+r_{yy'_S} = 1-\frac{1-r_{yy'}}{u_y^2}
+}\label{eq-rel-y}\end{equation}
+
+Now once the the correlation is corrected the observed sampling variance
+(\(\sigma_{\varepsilon_o}\)) must also be adjusted as well. To do this,
+we can simply use the corrected correlation and the observed correlation
+to adjust the sampling variance:
 
 \begin{equation}\protect\hypertarget{eq-univariate-se}{}{
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
 }\label{eq-univariate-se}\end{equation}
 
 \hypertarget{the-bivariate-case-2}{%
-\subsubsection{The Bivariate Case}\label{the-bivariate-case-2}}
+\subsubsection*{The Bivariate Case}\label{the-bivariate-case-2}}
+\addcontentsline{toc}{subsubsection}{The Bivariate Case}
 
-Bivariate direct range restriction/enhancement occurs when the
-variability in both independent and dependent variables within the
-selected sample is less than or greater than the variability in the
-unrestricted population. Let us consider a case where just the
-independent variable is restricted (or enhanced) such that \(u_x\neq 1\)
-and \(u_y \neq 1\). Like we showed for the univariate case, let's
-visualize the correlation between independent (\(x\)) and dependent
-(\(y\)) variables under range restriction by only selecting individuals
-above some cut off point for both \(x\) and \(y\). The scores of
-individuals that have been selected will show less variance than the
-entire pool of individuals. Specifically, the scenario below shows a
-\(u\)-ratio of about 0.69 in the independent variable and dependent
-variables. We see in the figure that the correlation in the restricted
-sample (\(\rho_{xy_S}\)) is attenuated relative to the unrestricted
-(true) correlation (\(\rho_{xy}\)).
-
-\includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-4-1.pdf}
-
-Likewise let's visualize what happens to the correlation when the range
-is enhanced. Enhancement in both variables can be accomplished by
-selecting individuals at the ends of the distribution of \(x\) and
-\(y\). In the visualization below, we observe an over-estimation of
-observed correlation relative to the unrestricted correlation. The
-scenario below has a \(u\)-ratio of about 1.32 in both the independent
-variable and dependent variable.
+Bivariate direct range restriction/enhancement occurs when the selection
+variable has independent relationships with both the independent and
+dependent variable. Like we did for the univariate case, let's visualize
+the correlation between independent (\(x\)) and dependent (\(y\))
+variables under range restriction by only selecting individuals above
+some cut off point in our selector variable, \(z\). We will fix the
+correlations between the selector and independent variable
+(\(\rho_{xz}\)), as well as the selector and dependent variable
+(\(\rho_{yz}\)) to be .80. The \(x\) and \(y\) scores of individuals
+that have been selected above some threshold of \(z\) will show less
+variance than the entire pool of individuals. Specifically, the scenario
+below shows a \(u\)-ratio of about \textasciitilde0.82 in the
+independent variable and dependent variables. We see in the figure below
+that the correlation in the restricted sample (\(\rho_{xy_S}=.24\)) is
+attenuated relative to the unrestricted (true) correlation
+(\(\rho_{xy}=.50\)).
 
 \includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-5-1.pdf}
 
-A bias correction formula for bivariate range restriction is much more
-complicated than the univariate formulation. This is due to the fact
-that there is inter-dependence between the correlation, the \(u\)-ratio
-of \(x\), and the \(u\)-ratio of \(y\). For instance, if \(x\) and \(y\)
-are positively correlated and if there is direct range restriction in
-\(x\) this will also restrict the variability in y even if there is no
-range restriction in \(y\). To break down the correction formula into
-simpler parts, let us first define a factor we will denote with
-\(\psi\),
+Likewise let's visualize what happens to the correlation when the range
+is enhanced. Enhancement in both variables can be accomplished by
+selecting individuals at the ends of the distribution of \(z\). In the
+visualization below, we observe an over-estimation of observed
+correlation (\(\rho_{xy_S}=.75\)) relative to the unrestricted
+correlation (\(\rho_{xy}=.50\)). The scenario below has a \(u\)-ratio of
+about \textasciitilde1.38 in both the independent variable and dependent
+variable.
 
-\begin{equation}\protect\hypertarget{eq-biv-1}{}{
-\psi = \frac{u_x u_y\left(r_{xy_S}^2-1\right)}{2r_{xy_S}}
-}\label{eq-biv-1}\end{equation} This factor contains all the parameters
-needed to correct the correlation coefficient under direct selection
-(\(r_{xy_S}\)). Then we can plug it into the formula
+\includegraphics{indirect_range_restriction_files/figure-pdf/unnamed-chunk-6-1.pdf}
 
-\begin{equation}\protect\hypertarget{eq-biv-2}{}{
-r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
-}\label{eq-biv-2}\end{equation}
+Note that bivariate restriction or bivariate enhancement will increase
+the amount of bias in the correlation coefficients similar to that of
+measurement error in both variables rather than just one (see chapter
+5). A bias correction formula for bivariate range restriction is much
+more complicated than the univariate formulation. Particularly we need
+to have a basic idea of the selection mechanism at play (Dahlke and
+Wiernik 2019). The correction formula requires the direction of the
+correlation between the selector variable, \(z\), and the independent
+(\(\rho_{xz}\)) and dependent variable (\(\rho_{yz}\)). For example, if
+we run a study on a college admissions test and college academic
+performance (indexed by grade-point average), we can be reasonably
+certain that the selection (i.e., admissions decisions) are positively
+correlated with both academic performance and SAT scores. Other
+situations this may not be as straight-forward however laying out the
+correlational structure of the selection mechanism is vital step of the
+correction procedure. To break down the correction formula into simpler
+parts, let us first define a factor we will denote with \(\lambda\).
+This factor is what takes into account the direction of the correlation
+of \(\rho_{xz}\) (if positive, we can set \(\rho_{yz}=1\), if negative,
+\(\rho_{yz}=-1\), if zero, \(\rho_{yz}=0\)) and \(\rho_{yz}\) (repeat
+the same procedure as \(\rho_{xz}\)).
 
-Where the sampling variance of the corrected correlation is,
+\begin{align}
+\lambda =& \text{ sign}\left(\rho_{xz}\rho_{yz} [1-u_x][1-u_y]\right)\times \\
+&\frac{\text{sign}
+\left(1-u_x\right)\min\left(u_x,\frac{1}{u_x}\right) + 
+\left(1-u_x\right)\min\left(u_y,\frac{1}{u_y}\right)
+}{
+\min\left(u_x,\frac{1}{u_x}\right)+\min\left(u_y,\frac{1}{u_y}\right)
+}
+\end{align}
 
-\begin{equation}\protect\hypertarget{eq-biv-se}{}{
+The output of \(\lambda\) will be either -1, 0, or 1. We can then plug
+this factor into the full correction equation that provides us with an
+unbiased estimate of the correlation in the unrestricted population,
+
+\[
+r_c = r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}
+\] Similar to the univariate formula, we can also incorporate
+measurement error into the correction. Measurement error will bias the
+observed correlation on top of the bias induced by range
+restriction/enhancement. Therefore we can incorporate the reliabilities
+estimated within the restricted sample (\(_{xx'_S}\) and \(r_{yy'_S}\)),
+into our correction formula:
+
+\[
+r_c = \frac{r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}}{\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{1-u_y^2(1-r_{yy'_S})}}
+\]
+
+If the reliability estimates come from an unrestricted sample, we can
+get estimates of the reliability coefficients in the selected sample
+using Equation~\ref{eq-rel-x} and Equation~\ref{eq-rel-y}. We then can
+correct the observed sampling variance (\(\sigma^2_{\varepsilon_o}\)),
+
+\[
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
-}\label{eq-biv-se}\end{equation}
+\]
 
-\hypertarget{correcting-correlations-in-r-2}{%
+\hypertarget{correcting-correlations-in-r-3}{%
 \subsection{Correcting Correlations in
-R}\label{correcting-correlations-in-r-2}}
+R}\label{correcting-correlations-in-r-3}}
+
+\hypertarget{univariate-indirect-range-restriction}{%
+\subsubsection*{Univariate Indirect Range
+Restriction}\label{univariate-indirect-range-restriction}}
+\addcontentsline{toc}{subsubsection}{Univariate Indirect Range
+Restriction}
 
 To correct correlations for range restriction we can start by simulating
 data from the the \texttt{mvrnorm} function in the \texttt{MASS}
-package. Lets first simulate 200 data points.
+package. Lets first simulate 1000 data points. Then we will select
+values above the mean of the selector variable, \(z\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3999,45 +4722,33 @@ package. Lets first simulate 200 data points.
 \FunctionTok{library}\NormalTok{(MASS)}
 
 \CommentTok{\# set seed}
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{343}\NormalTok{)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 
-\CommentTok{\# define parameters }
-\NormalTok{rho }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{50}
-\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{200}
+\CommentTok{\# define parameters}
+\NormalTok{rho\_xy }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{5}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
 
-\CommentTok{\# sample data from a bivariate normal distribution}
-\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{mvrnorm}\NormalTok{(}\AttributeTok{n =}\NormalTok{ n,}
-                \AttributeTok{mu =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{),}
-                \AttributeTok{Sigma =} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,rho),}
-                                  \AttributeTok{y =} \FunctionTok{c}\NormalTok{(rho,}\DecValTok{1}\NormalTok{)),}
-                \AttributeTok{empirical =} \ConstantTok{TRUE}\NormalTok{)}
-
-\CommentTok{\# obtain unrestricted scores}
+\CommentTok{\# simulate data}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{mvrnorm}\NormalTok{(}\AttributeTok{n=}\NormalTok{n,}
+                \AttributeTok{mu=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{),}
+                \AttributeTok{Sigma =} \FunctionTok{reshape\_vec2mat}\NormalTok{(}\FunctionTok{c}\NormalTok{(rho\_xy)),}
+                \AttributeTok{empirical=}\ConstantTok{TRUE}\NormalTok{)}
 \NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\DecValTok{1}\NormalTok{]}
 \NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\DecValTok{2}\NormalTok{]}
+\NormalTok{z }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(n,}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{)}
+\NormalTok{selected }\OtherTok{\textless{}{-}}\NormalTok{ z }\SpecialCharTok{\textgreater{}} \DecValTok{0}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{univariate-direct-range-restriction-1}{%
-\subsubsection*{Univariate Direct Range
-Restriction}\label{univariate-direct-range-restriction-1}}
-\addcontentsline{toc}{subsubsection}{Univariate Direct Range
-Restriction}
-
-We can start with univariate direct range restriction by selecting only
-on the independent variable. We will select only the values above the
-mean.
+We can start with univariate indirect range restriction by selecting
+only on the independent variable. We will select only the values above
+the mean.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# obtain scores when x \textgreater{} Mean(x)}
-\NormalTok{selected }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\textgreater{}} \FunctionTok{mean}\NormalTok{(x)}
-\NormalTok{xS }\OtherTok{\textless{}{-}}\NormalTok{ x[selected]}
-\NormalTok{yS }\OtherTok{\textless{}{-}}\NormalTok{ y[selected]}
-
 \CommentTok{\# calculate correlation between unrestricted and restricted scores}
 \NormalTok{rxy }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(x,y) }\CommentTok{\# unrestricted}
-\NormalTok{rxyS }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(xS,yS) }\CommentTok{\# restricted}
+\NormalTok{rxyS }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(x[selected],y[selected]) }\CommentTok{\# restricted}
 
 \CommentTok{\# print results}
 \FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}unrestricted: rxy = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rxy,}\DecValTok{2}\NormalTok{)),}
@@ -4049,20 +4760,21 @@ mean.
 \begin{verbatim}
      [,1]                     
 [1,] "unrestricted: rxy = 0.5"
-[2,] "restricted: rxyS = 0.32"
+[2,] "restricted: rxyS = 0.39"
 \end{verbatim}
 
 As expected, we observe an attenuation of the correlation under range
-restriction. Now lets calculate the \(u\)-ratios for both variables.
-Remember that even though we only selected on \(x\), we should expect
-the variability in \(y\) in the restricted sample to also be smaller
-than the unrestricted sample when \(x\) and \(y\) are correlated.
+restriction. Now lets calculate the \(u\)-ratios for both variables. We
+should expect the variability not only in \(x\), but also \(y\) in the
+restricted sample to be smaller than the unrestricted sample. Since
+\(x\) and \(y\) are positively correlated, restriction \(x\) will
+restrict
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# calculate u{-}ratios}
-\NormalTok{ux }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(xS)}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(x)}
-\NormalTok{uy }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(yS)}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(y)}
+\NormalTok{ux }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(x[selected])}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(x)}
+\NormalTok{uy }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(y[selected])}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(y)}
 
 \CommentTok{\# print results}
 \FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}ux = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(ux,}\DecValTok{2}\NormalTok{)),}
@@ -4073,23 +4785,21 @@ than the unrestricted sample when \(x\) and \(y\) are correlated.
 
 \begin{verbatim}
      [,1]       
-[1,] "ux = 0.59"
-[2,] "uy = 0.86"
+[1,] "ux = 0.69"
+[2,] "uy = 0.93"
 \end{verbatim}
 
-As anticipated, not only is \(u_x\) below 1 indicating range
-restriction, but also \(u_y\) is slightly below 1 since \(x\) and \(y\)
-covary. Now we can apply the correction for univariate direct range
-restriction by hand from Equation~\ref{eq-univariate} and
+Now we can apply the correction for univariate direct range restriction
+by hand from Equation~\ref{eq-univariate} and
 Equation~\ref{eq-univariate}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# correct the restricted correlation}
-\NormalTok{rc }\OtherTok{\textless{}{-}}\NormalTok{ rxyS }\SpecialCharTok{/}\NormalTok{ (ux }\SpecialCharTok{*} \FunctionTok{sqrt}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+}\NormalTok{ rxyS}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{/}\NormalTok{ux}\SpecialCharTok{\^{}}\DecValTok{2{-}1}\NormalTok{)) )}
+\NormalTok{rc }\OtherTok{\textless{}{-}}\NormalTok{ rxyS }\SpecialCharTok{/}\NormalTok{ ( ux}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{((}\DecValTok{1}\SpecialCharTok{/}\NormalTok{ux}\SpecialCharTok{\^{}}\DecValTok{2{-}1}\NormalTok{)}\SpecialCharTok{*}\NormalTok{rxyS}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{+}\DecValTok{1}\NormalTok{ ))}
 
 \CommentTok{\# acquire sample size from }
-\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(xS)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(x[selected])}
 
 \CommentTok{\# calculate the observed correlation sampling variance}
 \NormalTok{var\_e\_o }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{rxyS}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{/}\NormalTok{ (n}\DecValTok{{-}1}\NormalTok{)}
@@ -4098,20 +4808,20 @@ Equation~\ref{eq-univariate}.
 \NormalTok{var\_e\_c }\OtherTok{\textless{}{-}}\NormalTok{ var\_e\_o }\SpecialCharTok{*}\NormalTok{ (rc}\SpecialCharTok{/}\NormalTok{rxyS)}\SpecialCharTok{\^{}}\DecValTok{2}
 
 \CommentTok{\# print results}
-\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}corrected cor: r = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rc,}\DecValTok{2}\NormalTok{)),}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}corrected cor: r = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rc,}\DecValTok{3}\NormalTok{)),}
       \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}corrected var: var\_e = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(var\_e\_c,}\DecValTok{3}\NormalTok{))}
 \NormalTok{      )}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-     [,1]                         
-[1,] "corrected cor: r = 0.49"    
-[2,] "corrected var: var_e = 0.02"
+     [,1]                          
+[1,] "corrected cor: r = 0.52"     
+[2,] "corrected var: var_e = 0.003"
 \end{verbatim}
 
 The correction formula produced a very close estimate of the true
-population correlation (\(r_c = .49\) vs \(\rho_{xy}=.50\)). Lets also
+population correlation (\(r_c = .50\) vs \(\rho_{xy}=.50\)). Lets also
 correct the correlation using the \texttt{correct\_r} function in the
 psychmeta package, \texttt{psychmeta} (Dahlke and Wiernik 2019).
 
@@ -4123,42 +4833,72 @@ psychmeta package, \texttt{psychmeta} (Dahlke and Wiernik 2019).
 
 \CommentTok{\# correct the restricted correlation for univariate direct range restriction}
 \FunctionTok{correct\_r}\NormalTok{(}\AttributeTok{rxyi =}\NormalTok{ rxyS,}
-          \AttributeTok{correction =} \StringTok{\textquotesingle{}uvdrr\_x\textquotesingle{}}\NormalTok{,  }\CommentTok{\# uvdrr\_x = univariate direct range restriction in x}
+          \AttributeTok{correction =} \StringTok{\textquotesingle{}bvirr\textquotesingle{}}\NormalTok{,  }\CommentTok{\# uvdrr\_x = univariate direct range restriction in x}
           \AttributeTok{ux =}\NormalTok{ ux,}
+          \AttributeTok{uy =}\NormalTok{ uy,}
           \AttributeTok{n =}\NormalTok{ n)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-Correlations Corrected for Measurement Error and Univariate Direct Range Restriction:
+Correlations Corrected for Measurement Error and Bivariate Indirect Range Restriction:
 ---------------------------------------------------------------------------------------
-  value CI_LL_95 CI_UL_95  n n_effective
-1 0.492    0.209    0.685 97        40.8
+  value CI_LL_95 CI_UL_95   n n_effective
+1 0.523    0.474    0.568 517         220
 \end{verbatim}
 
 We can see that the correction made by the \texttt{correct\_r} function
 provides identical results to the one done by hand.
 
-\hypertarget{bivariate-direct-range-restriction-1}{%
-\subsubsection{Bivariate Direct Range
-Restriction}\label{bivariate-direct-range-restriction-1}}
+\hypertarget{bivariate-indirect-range-restriction}{%
+\subsubsection*{Bivariate Indirect Range
+Restriction}\label{bivariate-indirect-range-restriction}}
+\addcontentsline{toc}{subsubsection}{Bivariate Indirect Range
+Restriction}
 
-For bivariate direct range restriction we can select values above the
-mean in both independent and dependent variables.
+To correct correlations for range restriction we can start by simulating
+data from the the \texttt{mvrnorm} function in the \texttt{MASS}
+package. Lets first simulate 1000 data points. Then we will select
+values above the mean of the selector variable, \(z\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# obtain scores when x \textgreater{} Mean(x) and y \textgreater{} Mean(y)}
-\NormalTok{selected }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{\textgreater{}} \FunctionTok{mean}\NormalTok{(x) }\SpecialCharTok{\&}\NormalTok{ y }\SpecialCharTok{\textgreater{}} \FunctionTok{mean}\NormalTok{(y)}
-\NormalTok{xS }\OtherTok{\textless{}{-}}\NormalTok{ x[selected]}
-\NormalTok{yS }\OtherTok{\textless{}{-}}\NormalTok{ y[selected]}
+\CommentTok{\# load packages}
+\CommentTok{\# install.packages(\textquotesingle{}MASS\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(MASS)}
 
+\CommentTok{\# set seed}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+
+\CommentTok{\# define parameters}
+\NormalTok{rho\_xz }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{8}
+\NormalTok{rho\_yz }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{8}
+\NormalTok{rho\_xy }\OtherTok{\textless{}{-}}\NormalTok{ .}\DecValTok{5}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
+
+\CommentTok{\# simulate data}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{mvrnorm}\NormalTok{(}\AttributeTok{n=}\NormalTok{n,}
+                \AttributeTok{mu=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{),}
+                \AttributeTok{Sigma =} \FunctionTok{reshape\_vec2mat}\NormalTok{(}\FunctionTok{c}\NormalTok{(.}\DecValTok{5}\NormalTok{,.}\DecValTok{8}\NormalTok{,.}\DecValTok{8}\NormalTok{)),}
+                \AttributeTok{empirical=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{x }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\DecValTok{1}\NormalTok{]}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\DecValTok{2}\NormalTok{]}
+\NormalTok{z }\OtherTok{\textless{}{-}}\NormalTok{ data[,}\DecValTok{3}\NormalTok{]}
+\NormalTok{selected }\OtherTok{\textless{}{-}}\NormalTok{ z }\SpecialCharTok{\textgreater{}} \DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+We can see how the correlations are attenuated under bivariate indirect
+range restriction. We will select only the values above the mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# calculate correlation between unrestricted and restricted scores}
 \NormalTok{rxy }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(x,y) }\CommentTok{\# unrestricted}
-\NormalTok{rxyS }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(xS,yS) }\CommentTok{\# restricted}
+\NormalTok{rxyS }\OtherTok{\textless{}{-}} \FunctionTok{cor}\NormalTok{(x[selected],y[selected]) }\CommentTok{\# restricted}
 
 \CommentTok{\# print results}
-\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}unresticted: rxy = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rxy,}\DecValTok{2}\NormalTok{)),}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}unrestricted: rxy = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rxy,}\DecValTok{2}\NormalTok{)),}
       \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}restricted: rxyS = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rxyS,}\DecValTok{2}\NormalTok{))}
 \NormalTok{      )}
 \end{Highlighting}
@@ -4166,25 +4906,50 @@ mean in both independent and dependent variables.
 
 \begin{verbatim}
      [,1]                     
-[1,] "unresticted: rxy = 0.5" 
-[2,] "restricted: rxyS = 0.29"
+[1,] "unrestricted: rxy = 0.5"
+[2,] "restricted: rxyS = 0.18"
 \end{verbatim}
 
-Notice that there is even more attenuation in the selected correlation
-coefficient than there was in the univariate case. Now we can correct
-for bivariate range restriction by hand using Equation~\ref{eq-biv-1},
-Equation~\ref{eq-biv-2}, Equation~\ref{eq-biv-se}.
+As expected, we observe an attenuation of the correlation under range
+restriction. Now lets calculate the \(u\)-ratios for both variables. We
+should expect the variability in \(x\) and \(y\) in the restricted
+sample to be smaller than the unrestricted sample.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# calculate the factor, psi}
-\NormalTok{psi }\OtherTok{\textless{}{-}}\NormalTok{ ux}\SpecialCharTok{*}\NormalTok{uy}\SpecialCharTok{*}\NormalTok{(rxyS}\SpecialCharTok{\^{}}\DecValTok{2{-}1}\NormalTok{) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{2}\SpecialCharTok{*}\NormalTok{rxyS)}
+\CommentTok{\# calculate u{-}ratios}
+\NormalTok{ux }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(x[selected])}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(x)}
+\NormalTok{uy }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(y[selected])}\SpecialCharTok{/}\FunctionTok{sd}\NormalTok{(y)}
 
-\CommentTok{\# calculate the corrected correlation using psi}
-\NormalTok{rc }\OtherTok{\textless{}{-}}\NormalTok{ psi }\SpecialCharTok{+} \FunctionTok{sign}\NormalTok{(rxyS)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(psi}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+} \DecValTok{1}\NormalTok{)}
+\CommentTok{\# print results}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}ux = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(ux,}\DecValTok{2}\NormalTok{)),}
+      \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}uy = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(uy,}\DecValTok{2}\NormalTok{))}
+\NormalTok{      )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     [,1]       
+[1,] "ux = 0.8" 
+[2,] "uy = 0.78"
+\end{verbatim}
+
+Now we can apply the correction for univariate direct range restriction
+by hand from Equation~\ref{eq-univariate} and
+Equation~\ref{eq-univariate}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# calculate lambda}
+\NormalTok{rho\_xz }\OtherTok{\textless{}{-}} \DecValTok{1} \CommentTok{\# assume a positive correlation for rho\_xz}
+\NormalTok{rho\_yz }\OtherTok{\textless{}{-}} \DecValTok{1} \CommentTok{\# assume a positive correlation for rho\_yz}
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \FunctionTok{sign}\NormalTok{(rho\_xz}\SpecialCharTok{*}\NormalTok{rho\_yz}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{ux)}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{uy)) }\SpecialCharTok{*}\NormalTok{ (}\FunctionTok{sign}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{ux)}\SpecialCharTok{*}\FunctionTok{min}\NormalTok{(}\FunctionTok{c}\NormalTok{(ux,}\DecValTok{1}\SpecialCharTok{/}\NormalTok{ux))}\SpecialCharTok{+}\FunctionTok{sign}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{uy)}\SpecialCharTok{*}\FunctionTok{min}\NormalTok{(}\FunctionTok{c}\NormalTok{(uy,}\DecValTok{1}\SpecialCharTok{/}\NormalTok{uy)))}\SpecialCharTok{/}\NormalTok{(}\FunctionTok{min}\NormalTok{(}\FunctionTok{c}\NormalTok{(ux,}\DecValTok{1}\SpecialCharTok{/}\NormalTok{ux))}\SpecialCharTok{+}\FunctionTok{min}\NormalTok{(}\FunctionTok{c}\NormalTok{(uy,}\DecValTok{1}\SpecialCharTok{/}\NormalTok{uy)))}
+
+\CommentTok{\# correct the restricted correlation}
+\NormalTok{rc }\OtherTok{\textless{}{-}}\NormalTok{ rxyS}\SpecialCharTok{*}\NormalTok{ux}\SpecialCharTok{*}\NormalTok{uy }\SpecialCharTok{+}\NormalTok{ lambda}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{abs}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{ux}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{abs}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{uy}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
 
 \CommentTok{\# acquire sample size from }
-\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(xS)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(x[selected])}
 
 \CommentTok{\# calculate the observed correlation sampling variance}
 \NormalTok{var\_e\_o }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{rxyS}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{/}\NormalTok{ (n}\DecValTok{{-}1}\NormalTok{)}
@@ -4193,7 +4958,7 @@ Equation~\ref{eq-biv-2}, Equation~\ref{eq-biv-se}.
 \NormalTok{var\_e\_c }\OtherTok{\textless{}{-}}\NormalTok{ var\_e\_o }\SpecialCharTok{*}\NormalTok{ (rc}\SpecialCharTok{/}\NormalTok{rxyS)}\SpecialCharTok{\^{}}\DecValTok{2}
 
 \CommentTok{\# print results}
-\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}corrected cor: r = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rc,}\DecValTok{2}\NormalTok{)),}
+\FunctionTok{rbind}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}corrected cor: r = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(rc,}\DecValTok{3}\NormalTok{)),}
       \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}corrected var: var\_e = \textquotesingle{}}\NormalTok{,}\FunctionTok{round}\NormalTok{(var\_e\_c,}\DecValTok{3}\NormalTok{))}
 \NormalTok{      )}
 \end{Highlighting}
@@ -4201,12 +4966,14 @@ Equation~\ref{eq-biv-2}, Equation~\ref{eq-biv-se}.
 
 \begin{verbatim}
      [,1]                          
-[1,] "corrected cor: r = 0.48"     
-[2,] "corrected var: var_e = 0.036"
+[1,] "corrected cor: r = 0.493"    
+[2,] "corrected var: var_e = 0.014"
 \end{verbatim}
 
-Again, we see that the corrected correlation closely resembles the
-unrestricted correlation (\(r_c=.48\) vs \(\rho_{xy}=.50\)). lets
+The correction formula produced a very close estimate of the true
+population correlation (\(r_c = .50\) vs \(\rho_{xy}=.50\)). Lets also
+correct the correlation using the \texttt{correct\_r} function in the
+psychmeta package, \texttt{psychmeta} (Dahlke and Wiernik 2019).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4216,7 +4983,7 @@ unrestricted correlation (\(r_c=.48\) vs \(\rho_{xy}=.50\)). lets
 
 \CommentTok{\# correct the restricted correlation for univariate direct range restriction}
 \FunctionTok{correct\_r}\NormalTok{(}\AttributeTok{rxyi =}\NormalTok{ rxyS,}
-          \AttributeTok{correction =} \StringTok{\textquotesingle{}bvdrr\textquotesingle{}}\NormalTok{,  }\CommentTok{\# bvdrr = bivariate direct range restriction}
+          \AttributeTok{correction =} \StringTok{\textquotesingle{}bvirr\textquotesingle{}}\NormalTok{,  }\CommentTok{\# uvdrr\_x = univariate direct range restriction in x}
           \AttributeTok{ux =}\NormalTok{ ux,}
           \AttributeTok{uy =}\NormalTok{ uy,}
           \AttributeTok{n =}\NormalTok{ n)}
@@ -4224,49 +4991,1531 @@ unrestricted correlation (\(r_c=.48\) vs \(\rho_{xy}=.50\)). lets
 \end{Shaded}
 
 \begin{verbatim}
-Correlations Corrected for Measurement Error and Bivariate Direct Range Restriction:
+Correlations Corrected for Measurement Error and Bivariate Indirect Range Restriction:
 ---------------------------------------------------------------------------------------
-  value CI_LL_95 CI_UL_95  n n_effective
-1  0.48   0.0943    0.689 64        17.3
+  value CI_LL_95 CI_UL_95   n n_effective
+1 0.493     0.44    0.545 500         465
 \end{verbatim}
 
-We can see that the correction exactly reflects the correction done by
-hand.
+We can see that the correction made by the \texttt{correct\_r} function
+provides identical results to the one done by hand.
 
 \part{Application to Meta-Analysis}
 
-\hypertarget{introduction-to-meta-analysis-methods}{%
+\hypertarget{sec-metaanalysis_intro}{%
 \chapter{Introduction to Meta-Analysis
-Methods}\label{introduction-to-meta-analysis-methods}}
+Methods}\label{sec-metaanalysis_intro}}
 
-\hypertarget{fixed-effects-model}{%
-\section{Fixed Effects Model}\label{fixed-effects-model}}
+\hypertarget{introduction-7}{%
+\section{Introduction}\label{introduction-7}}
+
+Meta-analysis is an analytic tool to synthesize quantitative evidence
+from multiple studies. By systematically combining and analyzing the
+results of multiple studies, meta-analysis provides a comprehensive
+overview, unveiling patterns, trends, and insights that individual
+studies might not be able to capture. Combining research findings also
+has the added benefit of increasing the precision of our results (i.e.,
+greater statistical power). In this section we will cover the method
+described by (J. E. Hunter and Schmidt 1990) since it is readily
+compatible with artifact corrections (see next chapter). For the
+random-effects model however, we use an integrated approach that
+incorporates methods from J. E. Hunter and Schmidt (1990) and Hedges and
+Vevea (1998) that was first introduced by Morris et al. (2014). However
+it is important to note that there are other common methods to conduct
+meta-analyses that have their strengths and weaknesses (Hedges and Olkin
+2014; Callender and Osburn 1980; Johnson, Mullen, and Salas 1995).
+
+\hypertarget{common-effect-model}{%
+\section{Common-Effect Model}\label{common-effect-model}}
+
+A common effect model is the simplest form of meta-analysis. It assumes
+that all the variation in observed effect sizes is attributable to
+sampling error. In other words, all the observed effect sizes are
+estimates of the same population effect size. Note that there is a
+distinction between \emph{fixed-effects} models and a \emph{common
+effect} model (Viechtbauer, n.d.; Laird and Mosteller 1990). The common
+effect model assumes that the true effect size is identical for each
+study while the fixed effects model does not assume this. Instead, the
+fixed effects model can be interpreted as the weighted average of true
+effects. Computationally, they are the same and provide the same
+parameter estimates, yet the interpretation differs.
+
+\begin{figure}
+
+{\centering \includegraphics{figure/fixed_effects_diagram.png}
+
+}
+
+\caption{The diagram above depicts a common effect meta-analysis of five
+studies. The study effect sizes are homogenous and all estimate a single
+true population effect size.}
+
+\end{figure}
+
+\hypertarget{the-general-case}{%
+\subsection{The General Case}\label{the-general-case}}
+
+The common effect model can be modeled such that population effect size
+\(\vartheta\) is held constant each sample (study) effect sizes
+(\(\theta_i\)), such that,
+
+\begin{equation}\protect\hypertarget{eq-fixed-mdl}{}{
+\theta_i  = \vartheta + \varepsilon_i
+}\label{eq-fixed-mdl}\end{equation}
+
+Where \(\varepsilon_i\) indicates sampling error and the subscript \(i\)
+denotes each study. Similar to the true score theory model that we
+discussed in chapter 4, the variance components of each term can
+similarly be written out as,
+
+\[
+\sigma^2_\theta = \sigma^2_\vartheta + \sigma^2_\varepsilon
+\]
+
+However in our fixed effects model, the population effect size is
+constant across studies and will not vary, simplifying the formula to,
+
+\begin{equation}\protect\hypertarget{eq-var-fixed}{}{
+\sigma^2_\theta = \sigma^2_\varepsilon
+}\label{eq-var-fixed}\end{equation}
+
+Therefore the only source of variation in the observed effect sizes, is
+sampling error. Since sampling error varies from study to study, we can
+take the average sampling variance across studies to estimate
+\(\sigma^2_\varepsilon\):
+
+\[
+\sigma^2_\varepsilon=\frac{1}{k}\sum^k_{i=1}\sigma^2_{\varepsilon_i}
+\]
+
+Ultimately, our goal is to obtain a precise estimate of the population
+effect size. To obtain an estimate of the population effect size,
+\(\vartheta\), we can calculate the average observed effect size,
+\(\bar{\theta}_i\) from \(k\) studies. However, in practice, effect
+sizes from different studies have varying levels of precision (i.e.,
+varying sample size). A simple average will not account for the
+differences between studies in their precision. Instead, we can
+calculate a weighted average where the weights each study can be
+calculated by the inverse variance (i.e., precision) of each study such
+that,
+
+\[
+w_i = \frac{1}{\sigma^2_{\varepsilon_i}}
+\]
+
+Then we can calculate a weighted average,
+
+\[
+\hat{\vartheta} =\frac{\sum^k_{i=1}w_i\theta_i}{\sum^k_{i=1}w_i}
+\]
+
+This weighted average will be an unbiased estimate of the population
+effect size. However, even though this mean effect size is more precise
+compared to single-study estimates, it is not exempt from error itself.
+In the fixed-effects model, we can obtain the standard error of our
+estimate of the population effect size using,
+
+\[
+SE_\hat{\vartheta} = \sqrt{\frac{\sigma^2_\varepsilon}{k}}
+\] The standard error can be used to comput the 95\% confidence
+intervals of the meta-analytic point estimate:
+
+\[
+\vartheta_{\text{Lower}} = \hat{\vartheta}- 1.96 \cdot SE_\hat{\vartheta}
+\] \[
+\vartheta_{\text{Upper}} = \hat{\vartheta}+ 1.96\cdot SE_\hat{\vartheta}
+\]
+
+\hypertarget{sec-fixed-corr}{%
+\subsection{Fixed Effects Meta-Analysis of
+Correlations}\label{sec-fixed-corr}}
+
+To apply the general case in the previous section to correlation
+coefficients, lets define our model similarly to
+Equation~\ref{eq-fixed-mdl},
+
+\[
+r_i=\rho+\varepsilon_i.
+\]
+
+Where \(r_i\) is our sample (study) correlation and \(\rho\) is the
+population correlation. We can breakdown the variance components the
+same way as we did in the general case,
+
+\[
+\sigma^2_r = \sigma^2_\rho + \sigma^2_\varepsilon
+\]
+
+For each sample correlation, the large sample formulation for sampling
+variance is,
+
+\begin{equation}\protect\hypertarget{eq-fixed-cor-se}{}{
+\sigma^2_{\varepsilon_i} = \frac{\left(1-\rho^2\right)^2}{n_i}
+}\label{eq-fixed-cor-se}\end{equation}
+
+Note that formulation includes the population correlation, which is
+unknown. Also notice that, since the population correlation is fixed,
+the inverse sampling variance would be proportional to the sample size
+(\(1/\sigma_{\varepsilon_i} \propto n_i\)). For this reason, we can use
+the sample size as our weights. We can estimate the population
+correlation, \(\rho\), by taking the \(n\)-weighted average,
+
+\[
+\hat{\rho} = \frac{\sum^k_{i=1} n_i r_i}{\sum^k_{i=1}n_i}
+\]
+
+We can use this estimate of the population correlation in the equation
+in Equation~\ref{eq-fixed-cor-se} to estimate the sampling variance for
+each study.
+
+\[
+\sigma^2_{\varepsilon_i} = \frac{\left(1-\hat{\rho}^2\right)^2}{n_i}
+\] We also can acquire the standard error of our population correlation
+estimate (\(\hat{\rho}\)). To do so, we must first calculate the
+weighted average of the sampling variance from each study,
+
+\[
+\sigma_\varepsilon^2 = \frac{\sum^k_{i=1} n_i \sigma^2_{\varepsilon_i}}{\sum^k_{i=1}n_i}
+\]
+
+then we can calculate the standard error of the population correlation
+from this by dividing by the number of studies, \(k\),
+
+\[
+SE_\hat{\rho} = \sqrt{\frac{\sigma^2_{\varepsilon}}{k}}
+\]
+
+The standard error can be used to comput the 95\% confidence intervals
+of the meta-analytic point estimate:
+
+\[
+\rho_{\text{Lower}} = \hat{\rho}- 1.96 \cdot SE_\hat{\rho}
+\] \[
+\rho_{\text{Upper}} = \hat{\rho}+ 1.96\cdot SE_\hat{\rho}
+\]
+
+\hypertarget{fixed-effects-meta-analysis-of-d-values}{%
+\subsection{\texorpdfstring{Fixed Effects Meta-Analysis of \emph{d}
+values}{Fixed Effects Meta-Analysis of d values}}\label{fixed-effects-meta-analysis-of-d-values}}
+
+Similar to Equation~\ref{eq-fixed-mdl}, we can model sample standardized
+mean differences similarly,
+
+\[
+d_i = \delta + \varepsilon_i
+\]
+
+The most staightforward method for meta-analyzing standardized mean
+differences (i.e., \(d\) values) is to first convert all the sample
+\(d\) values to point-biserial correlations by using,
+
+\[
+r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i^2}}
+\]
+
+Where \(p_i\) is the observed proportion of group membership in either
+group \(A\) or group \(B\). The sampling variance of the study
+standardized mean difference is defined as
+
+\[
+\sigma_{\varepsilon_di} = \frac{n_A+n_B}{n_A n_B} + \frac{d_i^2}{2(n_A+n_B)}
+\]
+
+Which can then be converted to the standard error of the point-biserial
+correlation,
+
+\[
+\sigma^2_{\varepsilon_ri} =\frac{\sigma_{\varepsilon_di}^2}{\left(d_i^2p_i[1-p_i]+1\right)\left(\frac{1}{p_i(1-p_i)}+d_i^2\right)}
+\]
+
+Note that the subscripts, \(r\) and \(d\) denote the sampling variances
+for correlations and \(d\) values respectively. Once the \(d\) values
+and sampling variances are converted to point-biserial correlations, the
+meta-analysis can then be conducted by using the methods from
+Section~\ref{sec-fixed-corr}. Once the meta-analysis is completed, the
+estimate of the population correlation and it's standard error can be
+converted back to a \(d\) value using the weighted average proportion of
+individuals in group \(A\) or \(B\) (\(\bar{p}\)),
+
+\[
+\hat{\delta} = \frac{\hat{\rho}}{\sqrt{\bar{p}(1-\bar{p})(1-\hat{\rho}^2)}}
+\]
+
+\[
+SE_{\hat{\delta}} = \sqrt{\frac{\sigma_\varepsilon^2}{k\,\bar{p}(1-\bar{p})(1-\hat{\rho}^2)^3}}
+\]
+
+Where \(k\) is the number of studies. The standard error can be used to
+comput the 95\% confidence intervals of the meta-analytic point
+estimate:
+
+\[
+\delta_{\text{Lower}} = \hat{\delta}- 1.96 \cdot SE_\hat{\delta}
+\] \[
+\delta_{\text{Upper}} = \hat{\delta}+ 1.96\cdot SE_\hat{\delta}
+\]
+
+\hypertarget{example-from-roth-et-al.-2015}{%
+\subsection{Example from Roth et
+al.~(2015)}\label{example-from-roth-et-al.-2015}}
+
+Lets use a meta-analytic data set investigating the correlation of
+school grades and intelligence test scores from Roth (2015). This data
+set has correlation coefficients from \(k=240\) studies (total sample
+size: \(n=105,151\)) and is available within the developmental version
+of the \texttt{psychmeta} package (Dahlke and Wiernik 2019). Note that
+there is substantial heterogeneity in effect sizes here, far more than
+what could be accounted for by sampling error alone, but for the sake of
+this example we will assume that there is no heterogeneity. Lets conduct
+a common effect meta-analysis using the equations from the previous
+section:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load in packages (we need the development version of psychmeta)}
+\CommentTok{\# install.packages("devtools")}
+\CommentTok{\# devtools::install\_github("psychmeta/psychmeta")}
+\FunctionTok{library}\NormalTok{(psychmeta)}
+
+\CommentTok{\# obtain data for correlations (r) amd sample size (n)}
+\NormalTok{r }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{rxyi}
+\NormalTok{n }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{n}
+\NormalTok{k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(r)}
+
+\CommentTok{\# calculate the sample size weighted average of r}
+\NormalTok{r\_bar }\OtherTok{=} \FunctionTok{sum}\NormalTok{(r}\SpecialCharTok{*}\NormalTok{n) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(n)}
+
+\CommentTok{\# calculate the sampling variance for each study}
+\NormalTok{var\_ei }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{r\_bar}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{/}\NormalTok{ n}
+
+\CommentTok{\# estimate the mean population correlation}
+\NormalTok{rho\_hat }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(r}\SpecialCharTok{*}\NormalTok{n) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(n)}
+
+\CommentTok{\# calculate the variance in study correlations (r)}
+\NormalTok{var\_r }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{(r}\SpecialCharTok{{-}}\NormalTok{rho\_hat)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(n)}
+
+\CommentTok{\# calculate average sampling variance}
+\NormalTok{var\_e }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{var\_ei) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(n)}
+
+\CommentTok{\# calculate the variance in true population correlations}
+\NormalTok{var\_rho }\OtherTok{\textless{}{-}}\NormalTok{ var\_r }\SpecialCharTok{{-}}\NormalTok{ var\_e}
+
+\CommentTok{\# calculate standard error of rho estimate}
+\NormalTok{SE\_rho }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(var\_r}\SpecialCharTok{/}\NormalTok{k)}
+
+\CommentTok{\# compute confidence interval}
+\NormalTok{CI\_lower }\OtherTok{=}\NormalTok{ rho\_hat }\SpecialCharTok{{-}} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{975}\NormalTok{)}\SpecialCharTok{*}\NormalTok{SE\_rho}
+\NormalTok{CI\_upper }\OtherTok{=}\NormalTok{ rho\_hat }\SpecialCharTok{+} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{975}\NormalTok{)}\SpecialCharTok{*}\NormalTok{SE\_rho}
+
+\CommentTok{\# print results}
+\FunctionTok{data.frame}\NormalTok{(rho\_hat,}
+           \AttributeTok{SE =}\NormalTok{ SE\_rho,}
+\NormalTok{           CI\_lower,}
+\NormalTok{           CI\_upper)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    rho_hat         SE  CI_lower  CI_upper
+1 0.4413862 0.01188354 0.4180949 0.4646775
+\end{verbatim}
+
+Due to the massive sample size and the assumption that there is no
+variation in population correlations (i.e., fixed effects), the standard
+error is quite small. We can also use the \texttt{metafor} package
+(Viechtbauer 2010) to conduct a fixed effects meta-analysis without
+having to write each equation by hand.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages("metafor")}
+\FunctionTok{library}\NormalTok{(metafor)}
+
+\CommentTok{\# fixed effects model}
+\NormalTok{mdl }\OtherTok{\textless{}{-}} \FunctionTok{rma}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data\_r\_roth\_2015,}
+           \AttributeTok{yi =}\NormalTok{ rxyi,}
+           \AttributeTok{vi =}\NormalTok{ var\_ei,}
+           \AttributeTok{method =} \StringTok{\textquotesingle{}EE\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# print results}
+\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{rho\_hat =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{1}\NormalTok{],}
+           \AttributeTok{SE =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{se[}\DecValTok{1}\NormalTok{],}
+           \AttributeTok{CI\_lower =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{ci.lb[}\DecValTok{1}\NormalTok{],}
+           \AttributeTok{CI\_upper =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{ci.ub[}\DecValTok{1}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    rho_hat          SE  CI_lower  CI_upper
+1 0.4413862 0.002483049 0.4365195 0.4462529
+\end{verbatim}
 
 \hypertarget{random-effects-model}{%
 \section{Random Effects Model}\label{random-effects-model}}
 
-(Borenstein et al. 2010)
+The random-effects model refers to a model that allows for the
+population effect size to vary from study to study. Random-effects
+differs from the fixed effects model in an important way: it does not
+assume that all observed effect sizes come from a single (fixed)
+population effect size (Borenstein et al. 2010). This variation in
+population effect sizes is called heterogeneity. In the traditional J.
+E. Hunter and Schmidt (1990) the weights utilized in the random effects
+meta-analysis are identical to the common effect version (sample size
+weights). In other conventional meta-analysis methods (Hedges and Vevea
+1998), random-effect weights include a random effect component
+containing the variation in population effect sizes (this has the effect
+of making study weights more similar to each other with more variation
+in population effects). A modern approach introduced by Morris et al.
+(2014) and later tested by Brannick et al. (2019), combined these two
+approaches. The simulation study by Brannick et al. (2019), concluded
+that weights incorporating random effect components improved the J. E.
+Hunter and Schmidt (1990) estimates. This section will thus use Morris's
+method.
 
-(Hartung 1999)
+\begin{figure}
 
-(Cooper, Hedges, and Valentine 2009)
+{\centering \includegraphics{figure/random_effects_diagram.png}
 
-(DerSimonian and Kacker 2007)
+}
 
-\hypertarget{artifact-correction-meta-analysis}{%
-\chapter{Artifact Correction
-Meta-Analysis}\label{artifact-correction-meta-analysis}}
+\caption{The diagram above depicts a random-effects meta-analysis of
+five studies. The study effect sizes are heterogeneous as population
+effect sizes vary.}
+
+\end{figure}
+
+\hypertarget{the-general-case-1}{%
+\subsection{The General Case}\label{the-general-case-1}}
+
+The model from Equation~\ref{eq-fixed-mdl} can be changed slightly to
+encompass variation of the population effect size from study to study:
+
+\[
+\theta_i = \vartheta_i + \varepsilon_i.
+\]
+
+In the common effect model, we assumed that all the variation in study
+effect sizes is accounted for by variation in sampling error
+(\(\sigma^2_\theta = \sigma^2_\varepsilon\); see
+Equation~\ref{eq-var-fixed}). However in the random-effects model the
+variance in population effect sizes (\(\sigma^2_\vartheta\)) is allowed
+to be greater than zero. The variance components can be written out as
+
+\begin{equation}\protect\hypertarget{eq-var-random}{}{
+\sigma^2_\theta=\sigma^2_\vartheta + \sigma^2_\varepsilon.
+}\label{eq-var-random}\end{equation}
+
+The variance of population effects, \(\sigma^2_\vartheta\), can be
+calculated by first calculating \(\sigma^2_\theta\) and
+\(\sigma^2_\varepsilon\). Since the variation in study effect sizes is
+no longer solely accounted for by sampling error, this would suggest
+that \(\sigma^2_\theta \neq \sigma^2_\varepsilon\), therefore we must
+calculate them separately. First we need to calculate study weights
+using the inverse of the sampling variance and a the variance in
+population effect sizes (i.e., the random effect component) from each
+study,
+
+\[
+w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2}
+\]
+
+In order to estimate random effects component, \(\sigma_\vartheta^2\)
+(i.e., the variance in population effect sizes), we can calculate it by
+subtracting the average sampling variance (\(\sigma^2_\varepsilon\))
+from the the observed variance in effect sizes (\(\sigma^2_\theta\)).
+The problem however is that in order to calculate the variance
+components, we need estimates of the population effect size and the
+weights, and in order to calculate the population effect size and the
+weights, we need the variance components. So instead, we will use sample
+size weights and the sample size weighted mean effect size
+(\(\bar{\theta}\)) as an estimate of the population correlation to
+estimate the weights:
+
+\[
+w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2} = \frac{1}{\sigma^2_{\varepsilon_i}+(\sigma^2_{\theta}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_i}+\left(\frac{\sum^k_{i=1}n_i(\theta_i - \bar{\theta})^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}n_i}\right)}
+\]
+
+Now with these weights, we can calculate a more precise estimate of the
+mean population effect size,
+
+\[
+\hat{\bar{\vartheta}} = \frac{\sum^k_{i=1}w_i\theta_i}{\sum^k_{i=1}w_i}
+\]
+
+With these weights and the estimate of the population effect size, we
+can now estimate each of the three variance components from
+Equation~\ref{eq-var-random}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  variance in study effect sizes \[
+  \sigma^2_{\theta}=\frac{\sum^k_{i=1}w_i(\theta_i - \hat{\bar{\vartheta}})}{\sum^k_{i=1}w_i}
+  \]
+\item
+  sampling error variance (mean) \[
+  \sigma^2_{\varepsilon} = \frac{\sum^k_{i=1}w_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}w_i}
+  \]
+\item
+  variance in true effect sizes \[
+  \sigma^2_{\vartheta} = \sigma^2_{\theta} - \sigma^2_{\varepsilon}
+  \]
+\end{enumerate}
+
+In other conventions, \(\sigma^2_\vartheta\) is denoted as \(\tau^2\)
+(Borenstein et al. 2010; DerSimonian and Kacker 2007; Hedges and Vevea
+1998), but conceptually these are identical. Taking the root of
+\(\sigma^2_\vartheta\), \(\sigma_\vartheta\), is the standard deviation
+of population effect sizes which can be a useful measure of
+heterogeneity. Furthermore, we can use \(\sigma_\vartheta\) to calculate
+credibility (prediction) intervals which allows us to draw inferences
+about the range of plausible population effect sizes. For example, the
+90\% credibility interval can be calculated with the following
+equations:
+
+\[
+\vartheta_\text{Upper} = \hat{\bar{\vartheta}} + 1.645\sigma_\vartheta
+\]
+
+\[
+\vartheta_\text{Lower} = \hat{\bar{\vartheta}} - 1.645\sigma_\vartheta
+\]
+
+We can also calculate the standard error of the mean of population
+effect sizes (\(SE_{\hat{\bar{\vartheta}}}\)) by dividing the sampling
+error variance component by the number of studies, \(k\),
+
+\[
+SE_\hat{\bar{\vartheta}} = \sqrt{\frac{\sigma^2_\theta}{k}}
+\]
+
+Which can then be used to calculate 95\% confidence intervals:
+
+\[
+\bar{\vartheta}_\text{Upper} = \hat{\bar{\vartheta}} + 1.96\cdot SE_\hat{\bar{\vartheta}}
+\]
+
+\[
+\bar{\vartheta}_\text{Lower} = \hat{\bar{\vartheta}} - 1.96\cdot SE_\hat{\bar{\vartheta}}
+\]
+
+The confidence interval and credibility interval have fundamentally
+different interpretations that are often misinterpreted in published
+work (Whitener 1990). When we are interpreting a single realized
+interval (i.e., our estimate-in-hand), the 90\% credibility interval can
+be interpreted as the region in which 90\% of population effect sizes
+exist, however, a 95\% confidence interval describes the interval in
+which there is a 95\% probability of containing the true mean of
+population effect sizes. It is important to note that the confidence
+interval interpretation here is only valid in the case of a single
+realized interval (Vos and Holbert 2022), if there is more than one
+computed intervals the same population of studies, then the
+interpretation does not hold (this would be an exceedingly rare scenario
+in a meta-analysis).
+
+\hypertarget{sec-random-corr}{%
+\subsection{Random Effects Meta-Analysis of
+Correlations}\label{sec-random-corr}}
+
+Lets now specifically apply the random effects model to pearson
+correlation coefficients. Let us again start by defining the
+meta-analytic model allowing the population correlation to vary for each
+study,
+
+\[
+r_i = \rho_i + \varepsilon_i
+\]
+
+Where it's corresponding variance components are defined similarly as,
+
+\[
+\sigma^2_r = \sigma^2_\rho + \sigma^2_\varepsilon
+\]
+
+Like in the general case, we must calculate the study weights using the
+method by Morris et al. (2014) and further described in Brannick et al.
+(2019). The weights are a function of the study-level sampling variance
+(\(\sigma^2_{\varepsilon_i}\)) and the variance in population
+correlations (\(\sigma^2_{\rho}\)).
+
+\[
+w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma^2_{\rho}}
+\] However as described in the last section, to estimate the variance in
+population effect sizes (\(\sigma^2_{\rho}\)), we need estimates of the
+mean of true population effect sizes and the weights, but to get both
+those parameters, we need the weights. In order to get around this
+dilemma we can instead replace the weights with \(n_i\) and the mean of
+population correlations with the \(n\)-weighted average correlation
+(\(\bar{r}\)). Lets first define the sampling variance for a pearson
+correlation:
+
+\[
+\sigma^2_{\varepsilon_i} = \frac{\left(1-\rho^2\right)^2}{n_i}
+\] Therefore we can approximate the weights with,
+
+\[
+w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2} = \frac{1}{\sigma^2_{\varepsilon_i}+(\sigma^2_{\theta}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_i}+\left(\frac{\sum^k_{i=1}n_i(r_i - \bar{r})^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}n_i}\right)}
+\]
+
+With the weights we can estimate a precise estimate of the mean of
+population correlations (\(\bar{\rho}\))
+
+\[
+\hat{\bar{\rho}} = \frac{\sum^k_{i=1}w_ir_i}{\sum^k_{i=1}w_i}
+\]
+
+Where the variance components can be calculated as:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Variance in study correlations: \[
+  \sigma^2_{r}=\frac{\sum^k_{i=1}w_i(r_i - \hat{\bar{\rho}})}{\sum^k_{i=1}w_i}.
+  \]
+\item
+  Sampling error variance (mean): \[
+  \sigma^2_{\varepsilon} = \frac{\sum^k_{i=1}w_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}w_i}.
+  \]
+\item
+  Variance in population correlations: \[
+  \sigma^2_\rho = \sigma^2_r - \sigma^2_{\varepsilon}.
+  \]
+\end{enumerate}
+
+Now lets use these variance components to calculate the 90\% credibility
+(prediction) interval and the 95\% confidence interval. The 90\%
+credibility interval can be calculated with the following equations:
+
+\[
+\rho_\text{Upper} = \hat{\bar{\rho}} + 1.645\sigma_\rho
+\]
+
+\[
+\rho_\text{Lower} = \hat{\bar{\rho}} - 1.645\sigma_\rho
+\]
+
+We can also calculate the standard error of the mean of population
+effect sizes (\(SE_{\hat{\bar{\rho}}}\)) by dividing the sampling error
+variance component by the number of studies, \(k\),
+
+\[
+SE_\hat{\bar{\rho}} = \sqrt{\frac{\sigma^2_r}{k}}
+\]
+
+Which can then be used to calculate 95\% confidence intervals:
+
+\[
+\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_\hat{\bar{\rho}}
+\]
+
+\[
+\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_\hat{\bar{\rho}}
+\]
+
+\hypertarget{sec-random-d}{%
+\subsection{\texorpdfstring{Random Effects Meta-Analysis of \emph{d}
+values}{Random Effects Meta-Analysis of d values}}\label{sec-random-d}}
+
+We can model sample standardized mean differences similarly to that of
+correlations,
+
+\[
+d_i = \delta_i + \varepsilon_i
+\]
+
+Like we did in the common effect model, instead of meta-analyzing the
+\(d\) values, we can instead convert all the sample \(d\) values to
+point-biserial correlations by using,
+
+\[
+r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i^2}}
+\]
+
+Where \(p_i\) is the observed proportion of group membership in either
+group \(A\) or group \(B\). The sampling variance of the study
+standardized mean difference can be defined as
+
+\[
+\sigma^2_{\varepsilon_id} = \frac{n_A+n_B}{n_A n_B} + \frac{\delta_i^2}{2(n_A+n_B)}
+\] Where the population standardized mean difference, \(\delta_i\) can
+be approximated with the sample size weighted mean \(d\) value
+(\(\bar{d}\)).
+
+\[
+\sigma^2_{\varepsilon_id} = \frac{n_A+n_B}{n_A n_B} + \frac{\bar{d}^2}{2(n_A+n_B)}
+\]
+
+Which can then be converted to the standard error of the point-biserial
+correlation,
+
+\[
+\sigma^2_{\varepsilon_ir} =\frac{\sigma_{\varepsilon_id}^2}{\left(d_i^2p_i[1-p_i]+1\right)\left(\frac{1}{p_i(1-p_i)}+d_i^2\right)}
+\]
+
+The subscripts, \(r\) and \(d\) denote the sampling variances for
+correlations and \(d\) values respectively. Once the \(d\) values and
+sampling variances are converted to point-biserial correlations, the
+meta-analysis can then be conducted by using the methods from
+Section~\ref{sec-fixed-corr}. Once the meta-analysis is completed, the
+estimate of the population correlation and it's standard error can be
+converted back to a \(d\) value,
+
+\[
+\hat{\bar{\delta}} = \frac{\hat{\bar{\rho}}}{\sqrt{\bar{p}(1-\bar{p})(1-\hat{\bar{\rho}}^2)}}
+\]
+
+\[
+SE_{\hat{\bar{\delta}}}= \sqrt{\frac{\sigma_r^2}{k\, \bar{p}\left(1-\bar{p}\right)\left(1-\hat{\bar{\rho}}^2\right)^3}}
+\]
+
+Where \(k\) is the number of studies. Likewise we can also convert the
+variance of the population correlations to the standard deviation of
+population standardized mean differences.
+
+\[
+\sigma_\delta = \sqrt{\frac{\sigma_\rho^2}{\bar{p}(1-\bar{p})(1-\hat{\rho}^2)^3}}
+\]
+
+\hypertarget{random-effects-meta-analysis-in-r}{%
+\subsection{Random Effects Meta-Analysis in
+R}\label{random-effects-meta-analysis-in-r}}
+
+Lets conduct a random effects meta-analysis using the equations from the
+previous section and the data set we used earlier (Roth 2015). For this
+dataset, it is more appropriate to use a random-effects model due to the
+large amount of heterogeneity we observe in the correlations.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load in packages (we need the development version of psychmeta)}
+\CommentTok{\# install.packages("devtools")}
+\CommentTok{\# devtools::install\_github("psychmeta/psychmeta")}
+\FunctionTok{library}\NormalTok{(psychmeta)}
+
+\CommentTok{\# obtain data for correlations (r) amd sample size (n)}
+\NormalTok{r }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{rxyi}
+\NormalTok{n }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{n}
+\NormalTok{k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(r)}
+
+\CommentTok{\# calculate the sample size weighted average of r}
+\NormalTok{r\_bar }\OtherTok{=} \FunctionTok{sum}\NormalTok{(r}\SpecialCharTok{*}\NormalTok{n) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(n)}
+
+\CommentTok{\# calculate the sampling variance for each study}
+\NormalTok{var\_ei }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{r\_bar}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{/}\NormalTok{ n}
+
+\CommentTok{\# calculate weights}
+\NormalTok{w }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{/}\NormalTok{ (var\_ei }\SpecialCharTok{+}\NormalTok{ ( (}\FunctionTok{sum}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{(r}\SpecialCharTok{{-}}\NormalTok{r\_bar)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)) }\SpecialCharTok{{-}}\NormalTok{ (}\FunctionTok{sum}\NormalTok{(n}\SpecialCharTok{*}\NormalTok{var\_ei)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)) ) )}
+
+\CommentTok{\# estimate the mean population correlation}
+\NormalTok{mean\_rho\_hat }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(r}\SpecialCharTok{*}\NormalTok{w) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(w)}
+
+\CommentTok{\# calculate the variance in study correlations (r)}
+\NormalTok{var\_r }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(w}\SpecialCharTok{*}\NormalTok{(r}\SpecialCharTok{{-}}\NormalTok{mean\_rho\_hat)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(w)}
+
+\CommentTok{\# calculate average sampling variance}
+\NormalTok{var\_e }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(w}\SpecialCharTok{*}\NormalTok{var\_ei) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(w)}
+
+\CommentTok{\# calculate the variance in population correlations}
+\NormalTok{var\_rho }\OtherTok{\textless{}{-}}\NormalTok{ var\_r }\SpecialCharTok{{-}}\NormalTok{ var\_e}
+
+\CommentTok{\# calculate standard error of rho estimate}
+\NormalTok{SE\_rho }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(var\_r}\SpecialCharTok{/}\NormalTok{k)}
+
+\CommentTok{\# compute 95\% confidence interval}
+\NormalTok{CI\_lower }\OtherTok{=}\NormalTok{ mean\_rho\_hat }\SpecialCharTok{{-}} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{975}\NormalTok{)}\SpecialCharTok{*}\NormalTok{SE\_rho}
+\NormalTok{CI\_upper }\OtherTok{=}\NormalTok{ mean\_rho\_hat }\SpecialCharTok{+} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{975}\NormalTok{)}\SpecialCharTok{*}\NormalTok{SE\_rho}
+
+\CommentTok{\# compute 90\% credibility interval}
+\NormalTok{CR\_lower }\OtherTok{=}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{{-}} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{95}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(var\_rho)}
+\NormalTok{CR\_upper }\OtherTok{=}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{95}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(var\_rho)}
+
+\CommentTok{\# print results}
+\FunctionTok{data.frame}\NormalTok{(mean\_rho\_hat,}
+           \AttributeTok{SE =}\NormalTok{ SE\_rho,}
+\NormalTok{           CI\_lower,}
+\NormalTok{           CI\_upper,}
+           \AttributeTok{SD\_rho =} \FunctionTok{sqrt}\NormalTok{(var\_rho),}
+\NormalTok{           CR\_lower,}
+\NormalTok{           CR\_upper)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  mean_rho_hat         SE  CI_lower  CI_upper    SD_rho  CR_lower  CR_upper
+1    0.4265249 0.01131785 0.4043424 0.4487075 0.1601417 0.1779766 0.7047958
+\end{verbatim}
+
+Notice that the standard error of the mean correlation is larger than
+the common effects model. The reason for this disparity, is that the
+random effects model has two sources of variance, sampling error and
+variance in true correlations. We can also use the \texttt{metafor}
+package (Viechtbauer 2010) to conduct a random effects meta-analysis.
+The method used in the previous sections is not available in metafor so
+slight deviations with the resulting statistics may occur.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages("metafor")}
+\FunctionTok{library}\NormalTok{(metafor)}
+
+\CommentTok{\# fixed effects model}
+\NormalTok{mdl }\OtherTok{\textless{}{-}} \FunctionTok{rma}\NormalTok{(}\AttributeTok{data =}\NormalTok{ data\_r\_roth\_2015,}
+           \AttributeTok{yi =}\NormalTok{ rxyi,}
+           \AttributeTok{vi =}\NormalTok{ var\_ei,}
+           \AttributeTok{method =} \StringTok{\textquotesingle{}HS\textquotesingle{}}\NormalTok{)}
+
+\CommentTok{\# print results}
+\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{mean\_rho\_hat =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{1}\NormalTok{],}
+           \AttributeTok{SE =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{se[}\DecValTok{1}\NormalTok{],}
+           \AttributeTok{CI\_LO =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{ci.lb[}\DecValTok{1}\NormalTok{],}
+           \AttributeTok{CI\_HI =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{ci.ub[}\DecValTok{1}\NormalTok{],}
+           \AttributeTok{SD\_rho =} \FunctionTok{sqrt}\NormalTok{(mdl}\SpecialCharTok{$}\NormalTok{tau2),}
+           \AttributeTok{CR\_LO =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{{-}} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{95}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(mdl}\SpecialCharTok{$}\NormalTok{tau2),}
+           \AttributeTok{CR\_HI =}\NormalTok{ mdl}\SpecialCharTok{$}\NormalTok{b[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+} \FunctionTok{qnorm}\NormalTok{(.}\DecValTok{95}\NormalTok{)}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(mdl}\SpecialCharTok{$}\NormalTok{tau2))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  mean_rho_hat         SE     CI_LO     CI_HI    SD_rho     CR_LO     CR_HI
+1    0.4265249 0.01250165 0.4020222 0.4510277 0.1800354 0.1303931 0.7226568
+\end{verbatim}
+
+\hypertarget{sec-artifact}{%
+\chapter{Artifact Correction Meta-Analysis}\label{sec-artifact}}
+
+\hypertarget{introduction-8}{%
+\section{Introduction}\label{introduction-8}}
+
+Artifact correction meta-analysis, also referred to as psychometric
+meta-analysis, is a form of meta-analysis where effect sizes are
+systematically corrected for sources of bias. These sources of bias have
+been discussed in previous chapters 4-10. Methodology for conducting
+artifact correction style meta-analyses were originally pioneered by
+Frank Schmidt and John Hunter (J. E. Hunter and Schmidt 1990; F. Schmidt
+and Hunter 1977) and then reviewed more recently by Brenton Wiernik and
+Jeffrey Dahlke (Wiernik and Dahlke 2020). There has also been powerful R
+packages developed to aide in the application of artifact correction
+meta-analyses that we have used in previous chapters (Dahlke and Wiernik
+2019). You will notice that in this secti on, we do not discuss
+standardized mean differences. This is due to the fact that the artifact
+correction model is designed for pearson correlations, in order to use
+this method for standardized mean differences, convert to pearson
+correlations using the methods described in chapter 11, and then use the
+correction methods used below. Once you apply the corrections to the
+converted correlations they can then be converted back to a standardized
+mean difference.
+
+\hypertarget{bare-bones-vs-artifact-correction-meta-analysis}{%
+\section{Bare Bones vs Artifact Correction
+Meta-Analysis}\label{bare-bones-vs-artifact-correction-meta-analysis}}
+
+This is because even if the estimates are biased relative to our
+estimand (i.e., the thing we are trying to estimate), the observed value
+still has its own population value. Chapter 11 focused on bare-bones
+meta-analysis, that is, meta-analyses that do not correct for biases in
+effect size estimates. This section will be dedicated to the artifact
+correction style of meta-analysis that does aim to correct for such
+artifactual biases. The choice between these two types of meta-analyses
+depends on the research question, the available data, and the
+assumptions researchers are willing to make. If the goal is to
+investigate the state of the quantitative evidence while avoiding
+additional assumptions about the data, then a bare-bones meta-analysis
+might be the way to go. On the other hand, if the goal is to obtain a
+more accurate estimate of the true effect size by accounting for biases
+induced by statistical artifacts, an artifact correction meta-analysis
+is preferable.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Bare-Bones Meta-Analysis: In a bare-bones meta-analysis, the focus is
+  on aggregating effect sizes from various studies without explicitly
+  correcting for potential biases in these effect size estimates.
+\item
+  Artifact Correction Meta-Analysis: In contrast, an artifact correction
+  meta-analysis takes into account and attempts to correct for biases
+  that may be present in the effect size estimates from individual
+  studies. This involves addressing potential sources of bias, such as
+  measurement error or selection effects, through statistical techniques
+  or adjustments. By doing so, the meta-analysis aims to provide a more
+  accurate and unbiased estimate of the true effect size. Although it is
+  important to note that this method will require additional assumptions
+  about the nature of the data.
+\end{enumerate}
+
+Note that the bare-bones model does not assume that there is no bias,
+rather, the bare-bones model is estimating something else entirely, that
+is, the observed population effect size.
+
+\includegraphics{figure/correction_forest.png}
 
 \hypertarget{individual-artifact-correction-model}{%
 \section{Individual Artifact Correction
 Model}\label{individual-artifact-correction-model}}
 
+The individual artifact correction model corrects each effect size
+individually prior to conducting the meta-analysis. This method is ideal
+if we have high-quality artifact estimates for most/all studies in the
+meta-analysis. If there is a substantial amount of missingness in the
+artifact values, then the artifact distribution model may be a better
+choice.
+
+\hypertarget{the-general-case-2}{%
+\subsection{The General Case}\label{the-general-case-2}}
+
+Let us recall the random effects model in chapter 11, where
+\(\theta_i=\vartheta_i+\varepsilon_i\). This model would be considered a
+bare-bones meta-analytic model; we can re-write it slightly to denote
+that these are observed values:
+\(\theta_{o_i}=\vartheta_{o_i}+\varepsilon_{o_i}\). Ultimately, observed
+values tend to be biased relative to true values due to many artifactual
+factors, some that we can account for and some we can not. If we decide
+that corrections to observed effect sizes are necessary to answer our
+research question, then we can construct an artifact correction model.
+In the artifact correction framework, we can incorporate a compound
+artifact biasing factor, \(A\), to the bare-bones formula such that,
+
+\begin{equation}\protect\hypertarget{eq-art-mdl}{}{
+\theta_{o_i} = A_i\vartheta_i + \varepsilon_{o_i}
+}\label{eq-art-mdl}\end{equation}
+
+So now instead of the model being in terms of the observed population
+value (\(\vartheta_{o_i}\)), it is now in terms of the \emph{true}
+population value (\(\vartheta_{i}\)).The compound biasing factor,
+\(A_i\) is a product of \(K\) independent artifact values (e.g.,
+unreliability and range restriction),
+
+\[
+A_i = a_{1i} a_{2i} ... a_{Ki}
+\]
+
+This compound artifact formula assumes that the values are independent
+of one another, which is not always the case, see chapter 11 on
+independence of artifacts. Therefore adjustments must be made to ensure
+independence. eq-art-mdl can be re-arranged to obtain unbiased estimates
+of the true population effect size:
+
+\begin{equation}\protect\hypertarget{eq-correction-mdl}{}{
+\frac{\theta_{o_i}}{A_i} = \vartheta_i + \frac{\varepsilon_{o_i}}{A_i}
+}\label{eq-correction-mdl}\end{equation}
+
+This division of \(A_i\) will provide us with our corrected effect size
+estimates that we can denote with the subscript, \(c\),
+
+\[
+\theta_{c_i} = \frac{\theta_{o_i}}{A_i}
+\]
+
+and the corresponding error term must also be corrected
+
+\begin{equation}\protect\hypertarget{eq-error}{}{
+\varepsilon_{c_i} = \frac{\varepsilon_{o_i}}{A_i}.
+}\label{eq-error}\end{equation}
+
+Therefore Equation~\ref{eq-correction-mdl} can be reformulated as,
+
+\begin{equation}\protect\hypertarget{eq-correction-formula}{}{
+\theta_{c_i} = \vartheta_i + \varepsilon_{c_i} 
+}\label{eq-correction-formula}\end{equation}
+
+These corrections cause changes in the point estimate and the error
+variance of the study effect sizes. Like we saw in chapter 11, we can
+breakdown the variance components of the model,
+
+\begin{equation}\protect\hypertarget{eq-corrected-var}{}{
+\sigma^2_{\theta_c} = \sigma^2_{\vartheta} + \sigma^2_{\varepsilon_c}
+}\label{eq-corrected-var}\end{equation}
+
+To obtain these variance components, we can start by correcting the
+observed sampling variances from each study. We can calculate the
+corrected sampling variance (\(\sigma^2_{\varepsilon_c}\)) by first
+correcting each study-level sampling variance estimate,
+
+\[
+\sigma^2_{\varepsilon_ci} = \frac{\sigma^2_{\varepsilon_oi}}{A^2_i}
+\] This may also be done by using the corrected effect size and the
+observed effect size to correct the sampling variance:
+
+\[
+\sigma^2_{\varepsilon_ci} = \sigma^2_{\varepsilon_oi} \left(\frac{\theta_{c_i}}{\theta_{o_i}}\right)^2
+\]
+
+The next step is to obtain the random effects weights of the study, we
+can do this with the inverse corrected variance for each study,
+\(w_i=1/(\sigma^2_{\varepsilon_ci}+\sigma^2_\rho)\). From here we can
+calculate our estimate of the mean of true population correlations,
+
+\[
+\hat{\bar{\vartheta}}=\frac{\sum^k_{i=1}n_i\theta_{c_i}}{\sum^k_{i=1}n_i}
+\]
+
+Remember that because this is a random effects model,
+\(\hat{\bar{\vartheta}}\) is not an estimate of the true population
+effect size, instead it is an estimate of the mean of a distribution of
+true population effect sizes. Now that we have an estimate of the mean
+and the corrected sampling variances, the variance components from
+Equation~\ref{eq-corrected-var} can be easily calculated as follows:
+
+\[
+\sigma^2_{\theta_c} = \frac{\sum^k_{i=1}n_i(\theta_{c_i} - \hat{\bar{\vartheta}})^2}{\sum^k_{i=1}n_i}
+\]
+
+\[
+\sigma^2_{\varepsilon_c} = \frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_c i}}{\sum^k_{i=1}n_i}
+\]
+
+\[
+\sigma^2_{\vartheta}  = \sigma^2_{\theta_c} - \sigma^2_{\varepsilon_c}
+\]
+
+The standard deviation of true effects is a useful measure of
+heterogeneity and is simply the square root of the variance of true
+population effect sizes (\(\sigma_{\vartheta}\)). From the standard
+deviation in true effects, we can also calculate a credibility
+(prediction) interval that shows the range of plausible values for which
+a true effect size is likely to fall,
+
+\[
+\vartheta_{\text{Upper}} = \hat{\bar{\vartheta}} + 1.645\sigma_\vartheta
+\]
+
+\[
+\vartheta_{\text{Lower}} = \hat{\bar{\vartheta}} - 1.645\sigma_\vartheta\, .
+\]
+
+Note that this is not to be confused with \emph{confidence} intervals
+which denotes the range of plausible values that the \emph{mean} of true
+effects can take on. This differentiation is akin to understanding the
+disparity between the standard error of the mean and the standard
+deviation in the context of a normal distribution. We can also see how
+the corrections reduced the heterogeneity in the effect size estimates
+by comparing variance in true effect sizes (\(\sigma^2_{\vartheta_o}\))
+to the variance in observed effect sizes (\(\sigma^2_{\vartheta_o}\);
+this can be calculated by conducting a bare-bones random effects
+meta-analysis described in chapter 11). The percent reduction in
+heterogeneity can be computed by taking the ratio of the two,
+\(\sigma^2_{\vartheta}/\sigma^2_{\vartheta_o}\). J. E. Hunter and
+Schmidt (1990) suggest that if 75\% of the heterogeneity is accounted
+for by artifact corrections, then we can assume that the remaining
+heterogeneity is attributable to remaining artifacts that have not been
+addressed in the current meta-analysis. Although it is important to
+point out that this is simply a rule of thumb rather than a mathematical
+property.
+
+\hypertarget{individual-corrections-in-correlations}{%
+\subsection{Individual Corrections in
+Correlations}\label{individual-corrections-in-correlations}}
+
+For correlation coefficients we can define the model similarly to
+Equation~\ref{eq-art-mdl}, with the only difference being that we will
+use the notation for pearson correlations,
+
+\[
+r_{o_i} = A_i\rho_i + \varepsilon_{o_i}
+\]
+
+The artifact correction formulation of this, corresponding to
+Equation~\ref{eq-correction-formula}, would be
+
+\[
+r_{c_i} = \rho_i + \varepsilon_{c_i}
+\]
+
+The corresponding variance components would then be,
+
+\[
+\sigma^2_{r_c} = \sigma^2_\rho + \sigma^2_{\varepsilon_c}
+\]
+
+In order to compute the variance components as well as the mean true
+population correlation, we first need to calculate the study weights. We
+will follow a similar procedure for calculating random effects weights
+in chapter 11. Lets define the corrected random effects weights as,
+
+\$\$
+
+w\_i = \frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}.
+
+\[
+However the variance components, $\sigma^2_{\varepsilon_ci}$ and $\sigma^2_\rho$, require the weights themselves to actually estimate them, so instead we can approximate the variance components using the sample size as the weights such that,
+\] w\_i =\frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}=
+\frac{1}{\sigma^2_{\varepsilon_ci}+(\sigma^2_{r_c}-\sigma^2_{\varepsilon})}
+\approx \frac{1}{\sigma^2_{\varepsilon_ci}+\left(\frac{\sum^k_{i=1}n_i(r_{c_i} - \bar{r}_c)^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}n_i}\right)}
+\$\$
+
+Where \(\bar{r}_c\) is the sample size weighted average corrected
+correlation. These weights can then be used to obtain a more precise
+estimate of the true population correlation,
+
+\[
+\hat{\bar{\rho}}=\frac{\sum_{i=1}^k w_i r_{c_i}}{\sum_{i=1}^k w_i}
+\] Now we can compute each of the three variance components:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Variance in corrected correlations:
+\end{enumerate}
+
+\[
+\sigma^2_{r_c}=\frac{\sum^k_{i=1}w_i(r_{c_i} - \hat{\bar{\rho}})}{\sum^k_{i=1}w_i}.
+\] 2) Sampling error variance: \[
+\sigma^2_{\varepsilon_c} = \frac{\sum^k_{i=1}w_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}w_i}.
+\] 3) Variance in population correlations: \[
+\sigma^2_\rho = \sigma^2_r - \sigma^2_{\varepsilon}.
+\] Now lets use these variance components to calculate the 90\%
+credibility (prediction) interval and the 95\% confidence interval. The
+90\% credibility interval can be calculated with the following
+equations:
+
+\[
+\rho_\text{Upper} = \hat{\bar{\rho}} + 1.645\sigma_\rho
+\]
+
+\[
+\rho_\text{Lower} = \hat{\bar{\rho}} - 1.645\sigma_\rho
+\]
+
+We can also calculate the standard error of the mean of true population
+effect sizes (\(SE_{\hat{\bar{\rho}}}\)) by dividing the sampling error
+variance component by the number of studies, \(k\),
+
+\[
+SE_\hat{\bar{\rho}} = \sqrt{\frac{\sigma^2_{r_c}}{k}}
+\]
+
+Which can then be used to calculate 95\% confidence intervals:
+
+\[
+\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_\hat{\bar{\rho}}
+\]
+
+\[
+\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_\hat{\bar{\rho}}
+\]
+
+\hypertarget{applied-example-in-r}{%
+\subsection{Applied Example in R}\label{applied-example-in-r}}
+
+Lets conduct an individual correction meta-analysis in r using the data
+set by Roth (2015). This data set consists of correlations between
+school grades and intelligence test scores. It also contains information
+on the reliability of the intelligence test scores and the extent of
+range restriction in test scores. We can conduct a meta-analysis
+correcting for univariate indirect range restriction and measurement
+error in test scores. The compound artifact biasing factor for the
+correlation would be: \[
+A_i=\sqrt{r_{o_i}^2 + \frac{u_{x_i}^2 r_{xx'_i}(r_{xx'_i} - r_{o_i}^2) }{1 - u_{x_i}^2 (1-r_{xx'_i})} }
+\] Sticking with our theme of doing everything in base R first, lets use
+the equations from the previous section to conduct the meta-analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load in packages (we need the development version of psychmeta)}
+\CommentTok{\# install.packages("devtools")}
+\CommentTok{\# devtools::install\_github("psychmeta/psychmeta")}
+\FunctionTok{library}\NormalTok{(psychmeta)}
+
+\CommentTok{\# obtain artifact values}
+\NormalTok{rxx }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{rxxi}
+\NormalTok{ux }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{ux}
+\NormalTok{ro }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{rxyi}
+\NormalTok{n }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{n}
+\NormalTok{k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ro)}
+
+\CommentTok{\# fill in missing artifact values with mean}
+\NormalTok{rxx[}\FunctionTok{is.na}\NormalTok{(rxx)] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(rxx,}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{ux[}\FunctionTok{is.na}\NormalTok{(ux)] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(ux,}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# calculate compound artifact biasing factor for univariate direct range restriction with measurement error}
+\NormalTok{A }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(ro}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ (ux}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{*}\NormalTok{rxx}\SpecialCharTok{*}\NormalTok{(rxx }\SpecialCharTok{{-}}\NormalTok{ ro}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)) }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ ux}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{rxx)))}
+
+\CommentTok{\# calculate the sample size weighted average of r}
+\NormalTok{ro\_bar }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(ro}\SpecialCharTok{*}\NormalTok{n) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(n)}
+
+\CommentTok{\# calculate the observed sampling variance for each study}
+\NormalTok{var\_eoi }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{ro\_bar}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{/}\NormalTok{ (n}\DecValTok{{-}1}\NormalTok{)}
+
+\CommentTok{\# correct sampling variance}
+\NormalTok{var\_eci }\OtherTok{\textless{}{-}}\NormalTok{ var\_eoi }\SpecialCharTok{/}\NormalTok{ A}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\CommentTok{\# calculate corrected correlations}
+\NormalTok{rc }\OtherTok{\textless{}{-}}\NormalTok{ ro }\SpecialCharTok{/}\NormalTok{ A}
+
+\CommentTok{\# calculate weights}
+\NormalTok{w }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{/}\NormalTok{var\_eci}
+
+\CommentTok{\# calculate population effect size estimate}
+\NormalTok{mean\_rho\_hat }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(rc}\SpecialCharTok{*}\NormalTok{w) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(w)}
+
+\CommentTok{\# calculate the variance in corrected correlations (rc)}
+\NormalTok{var\_rc }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(w}\SpecialCharTok{*}\NormalTok{(rc }\SpecialCharTok{{-}}\NormalTok{ mean\_rho\_hat)}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(w)}
+
+\CommentTok{\# calculate average corrected sampling variance}
+\NormalTok{var\_ec }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(var\_eci}\SpecialCharTok{*}\NormalTok{w) }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(w)}
+
+\CommentTok{\# calculate the variance in true population correlations}
+\NormalTok{var\_rho }\OtherTok{\textless{}{-}}\NormalTok{ var\_rc }\SpecialCharTok{{-}}\NormalTok{ var\_ec}
+
+\CommentTok{\# calculate standard error of rho estimate}
+\NormalTok{SE\_rho }\OtherTok{=} \FunctionTok{sqrt}\NormalTok{(var\_rc}\SpecialCharTok{/}\NormalTok{k)}
+
+\CommentTok{\# print results}
+\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{k =}\NormalTok{ k,}
+           \AttributeTok{n =} \FunctionTok{sum}\NormalTok{(n),}
+\NormalTok{           mean\_rho\_hat,}
+           \AttributeTok{SE =}\NormalTok{ SE\_rho,}
+           \AttributeTok{SD\_rho =} \FunctionTok{sqrt}\NormalTok{(var\_rho))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    k      n mean_rho_hat         SE    SD_rho
+1 240 105151    0.5398838 0.01339916 0.2022865
+\end{verbatim}
+
+The estimated mean correlation of .540 is precisely what is precisely
+what the original paper reported (Roth 2015). Lets conduct the
+meta-analysis using the the \texttt{psychmeta} package (Dahlke and
+Wiernik 2019). The function \texttt{ma\_r\_ic} is designed to conduct an
+individual correction meta-analysis on correlation coefficients.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages(\textquotesingle{}psychmeta\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(psychmeta)}
+
+\CommentTok{\# conduct individual correction meta{-}analysis}
+\NormalTok{mdl\_ic }\OtherTok{\textless{}{-}} \FunctionTok{ma\_r\_ic}\NormalTok{(}\AttributeTok{rxyi =}\NormalTok{ ro, }\AttributeTok{n =}\NormalTok{ n,}
+            \AttributeTok{correction\_method =} \StringTok{"uvirr"}\NormalTok{,}
+            \AttributeTok{rxx =}\NormalTok{ rxx,}
+            \AttributeTok{ux =}\NormalTok{ ux,}
+            \AttributeTok{ux\_observed =} \ConstantTok{TRUE}\NormalTok{,}
+            \AttributeTok{rxx\_restricted =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{summary\_stats }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{k =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{individual\_correction}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{k,}
+                            \AttributeTok{n =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{individual\_correction}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{N,}
+                            \AttributeTok{mean\_rho =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{individual\_correction}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{mean\_rho,}
+                            \AttributeTok{SE =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{individual\_correction}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{se\_r\_c,}
+                            \AttributeTok{SD\_rho =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{individual\_correction}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{sd\_rho)}
+\NormalTok{summary\_stats }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    k      n  mean_rho        SE    SD_rho
+1 240 105151 0.5404134 0.0134356 0.2036946
+\end{verbatim}
+
+We can also obtain credibility intervals by using the
+\texttt{credibility} function in the \texttt{psychmeta} package. The
+interval defaults to 80\% intervals, however we can change that to 90\%
+by inputting .90 into the \texttt{cred\_level} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{credibility}\NormalTok{(}\AttributeTok{mean =}\NormalTok{ summary\_stats}\SpecialCharTok{$}\NormalTok{mean\_rho\_hat,}
+            \AttributeTok{sd =}\NormalTok{ summary\_stats}\SpecialCharTok{$}\NormalTok{SD\_rho,}
+            \AttributeTok{cred\_method =} \StringTok{"norm"}\NormalTok{,}
+            \AttributeTok{cred\_level =}\NormalTok{ .}\DecValTok{90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     CR_LL_90 CR_UL_90
+\end{verbatim}
+
+Lets compare these results to the bare-bones model. In
+\texttt{psychmeta} the bare-bones model can be conduced using
+\texttt{ma\_r\_bb}. However, the \texttt{ma\_r\_ic} function also
+reports the bare-bones results as well. Therefore we can just extract
+the necessary statistics from the model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{k =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{k,}
+  \AttributeTok{n =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{N,}
+  \AttributeTok{mean\_rho\_obs =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{mean\_r,}
+  \AttributeTok{SE =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{se\_r,}
+  \AttributeTok{SD\_rho\_obs =}\NormalTok{ mdl\_ic}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{sd\_r)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    k      n mean_rho_obs         SE SD_rho_obs
+1 240 105151    0.4418789 0.01191933  0.1846534
+\end{verbatim}
+
+We can see that the estimate of the population correlation is largely
+attenuated in the observed values. This is due to the fact tests of
+intelligence are not perfectly reliable and the scores were restricted
+in their range.
+
 \hypertarget{artifact-distribution-model}{%
 \section{Artifact Distribution
 Model}\label{artifact-distribution-model}}
 
-\hypertarget{alternative-methods}{%
-\section{Alternative Methods}\label{alternative-methods}}
+When we observe a lot of missingness in artifact values (e.g., studies
+not reporting reliability), we may choose to use an artifact
+distribution model. The artifact distribution model conducts a
+meta-analysis on the observed effect sizes and artifact values
+separately, and then uses the aggregate artifact values to correct for
+the observed mean effect size. Since the artifact distribution method
+uses Taylor series approximations (Dahlke and Wiernik 2020) that are
+custom-tailored to estimate the sampling variance of corrected
+correlations, we will skip the general case to focus on its application
+to correlations.
+
+\hypertarget{the-correlational-case}{%
+\subsection{The Correlational Case}\label{the-correlational-case}}
+
+The model here can be broken down into two parts, the first part
+aggregates the observed effect sizes and the second part aggregates the
+artifact values. The artifact values we will focus on here are the
+reliability coefficients (see chapter 5 and 6), however other artifact
+values like \(u\)-ratios will follow similar procedures. We can start
+with the bare-bones meta-analysis model:
+\(r_{o_i} = \rho_{o_i} + \varepsilon_{o_i}\). We can estimate the
+observed population correlation (\(\vartheta_{o_i}\)) by first
+calculating the weights (using the \(n\)-weighted mean correlation in
+the formula for sampling variance, \(\bar{r}\)):
+
+\[
+\sigma^2_{\varepsilon_oi} \approx \frac{(1-\bar{r}^2)^2}{n_i-1} 
+\]
+
+\[
+w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2} = \frac{1}{\sigma^2_{\varepsilon_i}+(\sigma^2_{\theta}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_i}+\left(\frac{\sum^k_{i=1}n_i(\theta_i - \bar{\theta})^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_oi}}{\sum^k_{i=1}n_i}\right)}
+\]
+
+Taking the mean of the observed study correlations weighted by the
+inverse sampling variance,
+
+\[
+\hat{\bar{\rho}}_o=\frac{\sum^k_{i=1}w_i r_{o_i}}{\sum^k_{i=1}w_i}
+\]
+
+Then lets get the variance in observed population correlations, in order
+to do this we need the v
+
+\[
+\sigma^2_{\rho_o}=\sigma^2_{r_o} - \sigma^2_{\varepsilon_o} = \frac{\sum^k_{i=1}w_i (r_{o_i}-\hat{\bar{\rho}}_o)^2}{\sum^k_{i=1}w_i} - \frac{\sum^k_{i=1}w_i \sigma^2_{\varepsilon_oi}}{\sum^k_{i=1}w_i}
+\]
+
+With the weights we can also take the weighted average of the artifact
+values (such as \(u\)-ratios or reliabilities) that are available. For
+our example here, we will correct only for measurement error, therefore
+the weighted means for reliability in \(x\) and \(y\) will be:
+
+\[
+\bar{r}_{xx'}=\frac{\sum^k_{i=1}w_i r_{xx'_i}}{\sum^k_{i=1}w_i}
+\]
+
+\[
+\bar{r}_{yy'}=\frac{\sum^k_{i=1}w_i r_{yy'_i}}{\sum^k_{i=1}w_i}
+\]
+
+Now recall from chapter 5 that the square root of the reliability is
+equal to the correlation between observed scores and true scores. We can
+denote the mean correlation as follows:
+\(\bar{r}_{xT}=\sqrt{\bar{r}_{xx'}}\) and
+\(\bar{r}_{yU}=\sqrt{\bar{r}_{xx'}}\). We then must also compute the
+average sampling variances of \(r_{xT_i}\) and \(r_{yU_i}\) between
+studies. These sampling variance of these correlations can be computed
+the same way as a pearson correlation:
+
+\[
+\sigma^2_{r_{xT}i} \approx \frac{(1-\bar{r}_{xT}^2)^2}{n_i-1} 
+\]
+
+\[
+\sigma^2_{r_{yU}i} \approx \frac{(1-\bar{r}_{yU}^2)^2}{n_i-1} 
+\]
+
+Then weighted average of these sampling variances is
+
+\[
+\sigma^2_{r_{xT}} = \frac{\sum^k_{i=1}w_i r_{xT_i}}{\sum^k_{i=1}w_i}
+\]
+
+\[
+\sigma^2_{r_{yU}} = \frac{\sum^k_{i=1}w_i r_{yU_i}}{\sum^k_{i=1}w_i}
+\] Now that we have the point-estimate of the population observed
+correlation, the variance of observed population correlations, the
+sampling variance of observed correlations, and the sampling variance of
+the square root of the reliability for \(x\) and \(y\), we can now
+attempt to correct the point-estimate and the variance of population
+correlations.
+
+\hypertarget{correcting-using-summary-values}{%
+\paragraph*{Correcting Using Summary
+Values}\label{correcting-using-summary-values}}
+\addcontentsline{toc}{paragraph}{Correcting Using Summary Values}
+
+First, we can start by correcting the overall point-estimate for the
+observed population correlation in order to remove bias due to
+measurement error. Recall from chapter 5 the correction formula:
+
+\[
+\hat{\bar{\rho}} = \frac{\hat{\bar{\rho}}_o}{\bar{A}} = \frac{\hat{\bar{\rho}}_o}{\bar{r}_{xT} \bar{r}_{yU}} = \frac{\hat{\bar{\rho}}_o}{\sqrt{\bar{r}_{xx'}} \sqrt{\bar{r}_{yy'}}}
+\]
+
+Note that the artifact biasing factor, \(A\), is the product of the two
+sources of attenuation. Correcting the variance in observed population
+correlations (\(\sigma^2_{\rho_o}\)), so that it is accurately
+estimating the variance of true population effect sizes
+(\(\sigma^2_{\rho}\)), we must use a Taylor series approximation. This
+formula can become fairly complex with more types of artifacts involved.
+The taylor series approximation is for estimating specifically the
+amount of sampling variance within the correction factor we apply to the
+observed correlation. The first step is lay out our attenuation formula
+(the equation where observed effect size is on the left side of the
+equation and the artifact values and true effect size is on the right
+hand side of the equation). In the case of correcting only for
+measurement error, the attenuation formula is relatively simple
+
+\[
+\hat{\bar{\rho}}_o = \hat{\bar{\rho}}\cdot \bar{r}_{xT}\cdot \bar{r}_{yU}
+\]
+
+For the taylor series approximation, we want to first find the partial
+derivitive with respect to each artifact component:
+
+\[
+B_{r_{xT}}=\frac{\partial}{\partial r_{xT}} (\hat{\bar{\rho}}\cdot \bar{r}_{xT}\cdot \bar{r}_{yU}) = \hat{\bar{\rho}}\cdot \bar{r}_{yU}
+\] \[
+B_{r_{yU}}=\frac{\partial}{\partial r_{yU}} (\hat{\bar{\rho}}\cdot \bar{r}_{xT}\cdot \bar{r}_{yU}) = \hat{\bar{\rho}}\cdot \bar{r}_{xT}
+\]
+
+The variance due to artifacts is then approximately,
+
+\[
+\sigma^2_A\approx B^2_{r_{xT}} \sigma^2_{r_{xT}} + B^2_{r_{yU}} \sigma^2_{r_{yU}}
+\]
+
+Now we can approximate the variance in true population correlations,
+
+\[
+\sigma_\rho^2= \frac{\sigma^2_{\rho_o} - \sigma^2_A}{\bar{A}^2}
+\]
+
+Where the artifact biasing factor is:
+\(\bar{A}=\bar{r}_{xT}\cdot \bar{r}_{yU}\). See the supplementary
+materials of Dahlke and Wiernik (2020) for detailed Taylor series
+approximation derivations for the immensely more complicated bivariate
+indirect range restriction plus measurement error correction.
+
+\hypertarget{applied-example-in-r-1}{%
+\subsection{Applied Example in R}\label{applied-example-in-r-1}}
+
+Lets conduct an artifact distribution correction meta-analysis in R,
+instead using data from the meta-analysis by McDaniel et al. (1994).
+This dataset contains correlations between employment interviews and job
+performance. This data set has a lot of missing values for reliability
+coefficients and \(u\)-ratios which might suggest that the artifact
+distribution approach is a better choice compared to the individual
+correction approach. We can conduct a meta-analysis correcting for
+univariate indirect range restriction and measurement error in both job
+performance and employment interviews. The attenuation formula will be
+important for calculating the Taylro series approximation can be defined
+as
+
+\[
+\bar{\rho}_o=\bar{\rho}\sqrt{\bar{r}_{o_i}^2 + \frac{\bar{u}_{x_i}^2 \bar{r}_{xx'_i}(\bar{r}_{xx'_i}\bar{r}_{yy'_i} - \bar{r}_{o_i}^2) }{1 - \bar{u}_{x_i}^2 (1-\bar{r}_{xx'_i})} }
+\] Instead of conducting a taylor series approximation by hand, we will
+simply use the \texttt{psychmeta} package to perform the artifact
+distribution meta-analysis. The function \texttt{ma\_r\_ad} is designed
+to conduct an artifact distribution meta-analysis on correlation
+coefficients. The function also reports the bare-bones model allowing us
+to compare the corrected estimates to the uncorrected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load in packages (we need the development version of psychmeta)}
+\CommentTok{\# install.packages("devtools")}
+\CommentTok{\# devtools::install\_github("psychmeta/psychmeta")}
+\FunctionTok{library}\NormalTok{(psychmeta)}
+
+\CommentTok{\# obtain artifact values}
+\NormalTok{rxx }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{rxxi}
+\NormalTok{ux }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{ux}
+\NormalTok{ro }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{rxyi}
+\NormalTok{n }\OtherTok{\textless{}{-}}\NormalTok{ data\_r\_roth\_2015}\SpecialCharTok{$}\NormalTok{n}
+\NormalTok{k }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(ro)}
+
+\CommentTok{\# compute barebones meta{-}analysis}
+\NormalTok{ma\_obj }\OtherTok{\textless{}{-}} \FunctionTok{ma\_r\_bb}\NormalTok{(}\AttributeTok{r =}\NormalTok{ rxyi, }
+                  \AttributeTok{n =}\NormalTok{ n, }
+                  \AttributeTok{correct\_bias =} \ConstantTok{FALSE}\NormalTok{, }
+                  \AttributeTok{wt\_type =} \StringTok{"REML"}\NormalTok{,}
+                  \AttributeTok{data =}\NormalTok{ data\_r\_mcdaniel\_1994)}
+
+\CommentTok{\# construct artifact distribution for x}
+\NormalTok{ad\_obj\_x }\OtherTok{\textless{}{-}} \FunctionTok{create\_ad}\NormalTok{(}\AttributeTok{ad\_type =} \StringTok{"tsa"}\NormalTok{, }
+                      \AttributeTok{mean\_rxxi =}\NormalTok{ data\_r\_mcdaniel\_1994}\SpecialCharTok{$}\NormalTok{Mrxxi[}\DecValTok{1}\NormalTok{],}
+                      \AttributeTok{var\_rxxi =}\NormalTok{ data\_r\_mcdaniel\_1994}\SpecialCharTok{$}\NormalTok{SDrxxi[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{,}
+                      \AttributeTok{ux =}\NormalTok{ data\_r\_mcdaniel\_1994}\SpecialCharTok{$}\NormalTok{ux,}
+                      \AttributeTok{wt\_ux =}\NormalTok{ data\_r\_mcdaniel\_1994}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{ux frequency}\StringTok{\textasciigrave{}}\NormalTok{)}
+
+\CommentTok{\# construct artifact distribution for y}
+\NormalTok{ad\_obj\_y }\OtherTok{\textless{}{-}} \FunctionTok{create\_ad}\NormalTok{(}\AttributeTok{ad\_type =} \StringTok{"tsa"}\NormalTok{, }
+                      \AttributeTok{rxxi =}\NormalTok{ data\_r\_mcdaniel\_1994}\SpecialCharTok{$}\NormalTok{ryyi,}
+                      \AttributeTok{wt\_rxxi =}\NormalTok{ data\_r\_mcdaniel\_1994}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{ryyi frequency}\StringTok{\textasciigrave{}}\NormalTok{)}
+
+\CommentTok{\# compute artifact{-}distribution meta{-}analysis, correcting for measurement error only}
+\NormalTok{mdl\_ad }\OtherTok{\textless{}{-}} \FunctionTok{ma\_r\_ad}\NormalTok{(}\AttributeTok{ma\_obj =}\NormalTok{ ma\_obj, }
+                  \AttributeTok{ad\_obj\_x =}\NormalTok{ ad\_obj\_x, }
+                  \AttributeTok{ad\_obj\_y =}\NormalTok{ ad\_obj\_y, }
+                  \AttributeTok{correction\_method =} \StringTok{"meas"}\NormalTok{)}
+
+
+\CommentTok{\# summary table of meta{-}analysis}
+\NormalTok{summary\_stats }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{type =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Artifact Distribution\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Bare{-}Bones\textquotesingle{}}\NormalTok{),}
+  \AttributeTok{k =} \FunctionTok{c}\NormalTok{(mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{artifact\_distribution}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{k,mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{k),}
+  \AttributeTok{n =} \FunctionTok{c}\NormalTok{(mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{artifact\_distribution}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{N,mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{N),}
+  \AttributeTok{mean\_rho =} \FunctionTok{c}\NormalTok{(mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{artifact\_distribution}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{mean\_rho,mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{mean\_r),}
+  \AttributeTok{SE =} \FunctionTok{c}\NormalTok{(mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{artifact\_distribution}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{se\_r\_c,mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{barebones}\SpecialCharTok{$}\NormalTok{se\_r),}
+  \AttributeTok{SD\_rho =} \FunctionTok{c}\NormalTok{(mdl\_ad}\SpecialCharTok{$}\NormalTok{meta\_tables}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{analysis\_id: 1}\StringTok{\textasciigrave{}}\SpecialCharTok{$}\NormalTok{artifact\_distribution}\SpecialCharTok{$}\NormalTok{true\_score}\SpecialCharTok{$}\NormalTok{sd\_rho,}\DecValTok{0}\NormalTok{))}
+
+\NormalTok{summary\_stats }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                   type   k     n  mean_rho         SE    SD_rho
+1 Artifact Distribution 160 25244 0.3201828 0.02108407 0.1985571
+2            Bare-Bones 160 25244 0.2205043 0.01452023 0.0000000
+\end{verbatim}
+
+We can also obtain credibility intervals by using the
+\texttt{credibility} function in the \texttt{psychmeta} package. The
+interval defaults to 80\% intervals, however we can change that to 90\%
+by inputting .90 into the \texttt{cred\_level} argument.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{credibility}\NormalTok{(}\AttributeTok{mean =}\NormalTok{ summary\_stats}\SpecialCharTok{$}\NormalTok{mean\_rho[}\DecValTok{1}\NormalTok{],}
+            \AttributeTok{sd =}\NormalTok{ summary\_stats}\SpecialCharTok{$}\NormalTok{SD\_rho[}\DecValTok{1}\NormalTok{],}
+            \AttributeTok{cred\_method =} \StringTok{"norm"}\NormalTok{,}
+            \AttributeTok{cred\_level =}\NormalTok{ .}\DecValTok{90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+         CR_LL_90  CR_UL_90
+[1,] -0.006414571 0.6467802
+\end{verbatim}
+
+Lets compare these results to the bare-bones model. In
+\texttt{psychmeta} the bare-bones model can be conduced using
+\texttt{ma\_r\_bb}. However, the \texttt{ma\_r\_ic} function also
+reports the bare-bones results as well. Therefore we can just extract
+the necessary statistics from the model.
 
 (J. E. Hunter and Schmidt 1990)
 
@@ -4323,6 +6572,13 @@ Borsboom, Denny, Gideon J. Mellenbergh, and Jaap Van Heerden. 2004.
 {``The Concept of Validity.''} \emph{Psychological Review} 111 (4):
 1061--71. \url{https://doi.org/10.1037/0033-295X.111.4.1061}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-brannick2019}{}}%
+Brannick, Michael T., Sean M. Potter, Bryan Benitez, and Scott B.
+Morris. 2019. {``Bias and Precision of Alternate Estimators in
+Meta-Analysis: Benefits of Blending Schmidt-Hunter and Hedges
+Approaches.''} \emph{Organizational Research Methods} 22 (2): 490--514.
+\url{https://doi.org/10.1177/1094428117741966}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-bravais1844}{}}%
 Bravais, A. 1844. \emph{Analyse mathématique sur les probabilités des
 erreurs de situation d'un point}. Impr. Royale.
@@ -4344,21 +6600,9 @@ Measurement Error: Clarifying Concepts and Creating Confidence Sets.''}
 \emph{Psychological Methods} 10 (July): 206--26.
 \url{https://doi.org/10.1037/1082-989X.10.2.206}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-chyou2007}{}}%
-Chyou, Po-Huang. 2007. {``Patterns of Bias Due to Differential
-Misclassification by Case{\textendash}control Status in a
-Case{\textendash}control Study.''} \emph{European Journal of
-Epidemiology} 22 (1): 7--17.
-\url{https://doi.org/10.1007/s10654-006-9078-x}.
-
 \leavevmode\vadjust pre{\hypertarget{ref-cohen1988}{}}%
 Cohen, Jacob. 1988. \emph{Statistical Power Analysis for the Behavioral
 Sciences}. Academic Press.
-
-\leavevmode\vadjust pre{\hypertarget{ref-thehand2009}{}}%
-Cooper, Harris M., Larry V. Hedges, and Jeff C. Valentine, eds. 2009.
-\emph{The Handbook of Research Synthesis and Meta-Analysis}. 2nd ed. New
-York: Russell Sage Foundation.
 
 \leavevmode\vadjust pre{\hypertarget{ref-cronbach1955}{}}%
 Cronbach, Lee J., and Paul E. Meehl. 1955. {``Construct Validity in
@@ -4371,6 +6615,12 @@ Package for Psychometric Meta-Analysis.''} \emph{Applied Psychological
 Measurement} 43 (5): 415--16.
 \url{https://doi.org/10.1177/0146621618795933}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-dahlke2020}{}}%
+---------. 2020. {``Not Restricted to Selection Research: Accounting for
+Indirect Range Restriction in Organizational Research.''}
+\emph{Organizational Research Methods} 23 (4): 717--49.
+\url{https://doi.org/10.1177/1094428119859398}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-dersimonian2007}{}}%
 DerSimonian, Rebecca, and Raghu N. Kacker. 2007. {``Random-Effects Model
 for Meta-Analysis of Clinical Trials: An Update.''} \emph{NIST} 28
@@ -4381,12 +6631,6 @@ for Meta-Analysis of Clinical Trials: An Update.''} \emph{NIST} 28
 Digby, P. G. N. 1983. {``Approximating the Tetrachoric Correlation
 Coefficient.''} \emph{Biometrics} 39 (3): 753--57.
 \url{https://doi.org/10.2307/2531104}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-fisher1915}{}}%
-Fisher, R. A. 1915. {``Frequency Distribution of the Values of the
-Correlation Coefficient in Samples from an Indefinitely Large
-Population.''} \emph{Biometrika} 10 (4): 507--21.
-\url{https://doi.org/10.2307/2331838}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-galton1907}{}}%
 Galton, Francis. 1907. {``Vox Populi.''} \emph{Nature} 75 (1949):
@@ -4401,21 +6645,20 @@ For Likert-Type Scales.''}
 \leavevmode\vadjust pre{\hypertarget{ref-haertel2006}{}}%
 Haertel, Edward H. 2006. {``3. Reliability.''} In, 4th ed.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hartung1999}{}}%
-Hartung, Joachim. 1999. {``An Alternative Method for Meta-Analysis.''}
-\emph{Biometrical Journal} 41 (8): 901--16.
-\url{https://doi.org/10.1002/(SICI)1521-4036(199912)41:8\%3C901::AID-BIMJ901\%3E3.0.CO;2-W}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-hedges1981}{}}%
-Hedges, Larry V. 1981. {``Distribution Theory for Glass's Estimator of
-Effect Size and Related Estimators.''} \emph{Journal of Educational
-Statistics} 6 (2): 107--28.
-\url{https://doi.org/10.3102/10769986006002107}.
-
 \leavevmode\vadjust pre{\hypertarget{ref-hedges1989}{}}%
----------. 1989. {``An Unbiased Correction for Sampling Error in
+Hedges, Larry V. 1989. {``An Unbiased Correction for Sampling Error in
 Validity Generalization Studies.''} \emph{Journal of Applied Psychology}
 74 (3): 469--77. \url{https://doi.org/10.1037/0021-9010.74.3.469}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hedges2014}{}}%
+Hedges, Larry V., and Ingram Olkin. 2014. \emph{Statistical Methods for
+Meta-Analysis}. Academic press.
+\url{https://books.google.com/books?hl=en\&lr=\&id=7GviBQAAQBAJ\&oi=fnd\&pg=PP1\&dq=info:e6P1zfh2T6QJ:scholar.google.com\&ots=Dx-YqN6_9B\&sig=-39HgbYdWPp_BwSTzA9cRODs2Q0}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-hedges1998}{}}%
+Hedges, Larry V., and Jack L. Vevea. 1998. {``Fixed- and Random-Effects
+Models in Meta-Analysis.''} \emph{Psychological Methods} 3 (4):
+486--504. \url{https://doi.org/10.1037/1082-989X.3.4.486}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-hunter1990a}{}}%
 Hunter, John E., and Frank L. Schmidt. 1990. \emph{Methods of
@@ -4428,19 +6671,21 @@ Variables: The Implications for Meta-Analysis.''} \emph{Journal of
 Applied Psychology} 75 (June): 334--49.
 \url{https://doi.org/10.1037/0021-9010.75.3.334}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-johnson1995}{}}%
+Johnson, Blair T., Brian Mullen, and Eduardo Salas. 1995. {``Comparison
+of Three Major Meta-Analytic Approaches.''} \emph{Journal of Applied
+Psychology} 80 (1): 94--106.
+\url{https://doi.org/10.1037/0021-9010.80.1.94}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-kelley1927}{}}%
 Kelley, Truman Lee. 1927. \emph{Interpretation of Educational
 Measurements}. World Book Company.
 
-\leavevmode\vadjust pre{\hypertarget{ref-krieg1999}{}}%
-Krieg, Edward F. 1999. {``Biases Induced by Coarse Measurement
-Scales.''} \emph{Educational and Psychological Measurement} 59 (5):
-749--66. \url{https://doi.org/10.1177/00131649921970125}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-lin2018}{}}%
-Lin, Lifeng. 2018. {``Bias Caused by Sampling Error in Meta-Analysis
-with Small Sample Sizes.''} \emph{PLOS ONE} 13 (9): e0204056.
-\url{https://doi.org/10.1371/journal.pone.0204056}.
+\leavevmode\vadjust pre{\hypertarget{ref-laird1990}{}}%
+Laird, Nan M., and Frederick Mosteller. 1990. {``Some Statistical
+Methods for Combining Experimental Results.''} \emph{International
+Journal of Technology Assessment in Health Care} 6 (1): 5--30.
+\url{https://doi.org/10.1017/S0266462300008916}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-maccallum2002}{}}%
 MacCallum, Robert C., Shaobo Zhang, Kristopher J. Preacher, and Derek D.
@@ -4453,11 +6698,24 @@ Maxwell, Scott, and Harold Delaney. 1993. {``Bivariate Median Splits and
 Spurious Statistical Significance.''} \emph{Psychological Bulletin} 113
 (January): 181--90. \url{https://doi.org/10.1037/0033-2909.113.1.181}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-mcdaniel1994}{}}%
+McDaniel, Michael A., Deborah L. Whetzel, Frank L. Schmidt, and Steven
+D. Maurer. 1994. {``The Validity of Employment Interviews: A
+Comprehensive Review and Meta-Analysis.''} \emph{Journal of Applied
+Psychology} 79 (4): 599--616.
+\url{https://doi.org/10.1037/0021-9010.79.4.599}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-mendoza1987}{}}%
 Mendoza, Jorge L., and Michael Mumford. 1987. {``Corrections for
 Attenuation and Range Restriction on the Predictor.''} \emph{Journal of
 Educational Statistics} 12 (3): 282--93.
 \url{https://doi.org/10.3102/10769986012003282}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-morris2014}{}}%
+Morris, Scott, Rebecca Daisley, Megan Wheeler, and Peggy Boyer. 2014.
+{``A Meta-Analysis of the Relationship Between Individual Assessments
+and Job Performance.''} \emph{The Journal of Applied Psychology} 100
+(May). \url{https://doi.org/10.1037/a0036938}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-murphy2003}{}}%
 Murphy, Kevin R. 2003. \emph{Validity Generalization: A Critical
@@ -4507,6 +6765,10 @@ Raju, Nambury, and Michael Burke. 1983. {``Two Procedures for Studying
 Validity Generalization.''} \emph{Journal of Applied Psychology} 68
 (August): 382--95. \url{https://doi.org/10.1037/0021-9010.68.3.382}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-roth2015}{}}%
+Roth, Bettina. 2015. {``Intelligence and School Grades: A
+Meta-Analysis.''}
+
 \leavevmode\vadjust pre{\hypertarget{ref-royston2006}{}}%
 Royston, Patrick, Douglas G. Altman, and Willi Sauerbrei. 2006.
 {``Dichotomizing Continuous Predictors in Multiple Regression: A Bad
@@ -4548,11 +6810,6 @@ Spearman, C. 1904. {``The Proof and Measurement of Association Between
 Two Things.''} \emph{International Journal of Epidemiology} 39 (5):
 1137--50. \url{https://doi.org/10.1093/ije/dyq191}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-symonds1924}{}}%
-Symonds, P. M. 1924. {``On the Loss of Reliability in Ratings Due to
-Coarseness of the Scale.''} \emph{Journal of Experimental Psychology} 7
-(6): 456--61. \url{https://doi.org/10.1037/h0074469}.
-
 \leavevmode\vadjust pre{\hypertarget{ref-taylor1976}{}}%
 Taylor, Erwin K., and Thomas Griess. 1976. {``The Missing Middle in
 Validation Research.''} \emph{Personnel Psychology} 29 (1): 5--11.
@@ -4569,6 +6826,15 @@ Vargha, András, Tamás Rudas, Harold D. Delaney, and Scott E. Maxwell.
 1996. {``Dichotomization, Partial Correlation, and Conditional
 Independence.''} \emph{Journal of Educational and Behavioral Statistics}
 21 (3): 264--82. \url{https://doi.org/10.2307/1165272}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-viechtbauer2010}{}}%
+Viechtbauer, Wolfgang. 2010. {``Conducting meta-analyses in R with the
+metafor package.''} \emph{Journal of Statistical Software} 36 (3):
+1--48. \url{https://doi.org/10.18637/jss.v036.i03}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-viechtbauer}{}}%
+---------. n.d. {``Fixed-Effects and Random-Effects Models in
+Meta-Analysis.''} \url{https://wviechtb.github.io/metafor/index.html}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-viswanathan2005}{}}%
 Viswanathan, Madhu. 2005. \emph{Measurement Error and Research Design}.
@@ -4588,15 +6854,32 @@ Psychometric Meta-Analyses.''} \emph{Industrial and Organizational
 Psychology} 7 (4): 507--18.
 \url{https://doi.org/10.1017/S1754942600006799}.
 
+\leavevmode\vadjust pre{\hypertarget{ref-vos2022}{}}%
+Vos, Paul, and Don Holbert. 2022. {``Frequentist Statistical Inference
+Without Repeated Sampling.''} \emph{Synthese} 200 (2): 89.
+\url{https://doi.org/10.1007/s11229-022-03560-x}.
+
 \leavevmode\vadjust pre{\hypertarget{ref-wechsler2008}{}}%
 Wechsler, David. 2008. \emph{Wechsler Adult Intelligence Scale--Fourth
 Edition}. 4th ed. \url{https://doi.org/10.1037/t15169-000}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-whitener1990}{}}%
+Whitener, Ellen M. 1990. {``Confusion of Confidence Intervals and
+Credibility Intervals in Meta-Analysis.''} \emph{Journal of Applied
+Psychology} 75 (3): 315--21.
+\url{https://doi.org/10.1037/0021-9010.75.3.315}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-wiernik2020}{}}%
 Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. {``Obtaining Unbiased
 Results in Meta-Analysis: The Importance of Correcting for Statistical
 Artifacts.''} \emph{Advances in Methods and Practices in Psychological
 Science} 3 (1): 94--123. \url{https://doi.org/10.1177/2515245919885611}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-wylie1976}{}}%
+Wylie, Peter B. 1976. {``Effects of Coarse Grouping and Skewed Marginal
+Distributions on the Pearson Product Moment Correlation Coefficient.''}
+\emph{Educational and Psychological Measurement} 36 (1): 1--7.
+\url{https://doi.org/10.1177/001316447603600101}.
 
 \end{CSLReferences}
 

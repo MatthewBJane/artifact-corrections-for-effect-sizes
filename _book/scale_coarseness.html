@@ -302,7 +302,7 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
-<p>Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase <span class="citation" data-cites="aguinis2009">(<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement device itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution, and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.</p>
+<p>Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase <span class="citation" data-cites="aguinis2009">(<a href="#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement device itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution, and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="scale_coarseness_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
@@ -325,12 +325,12 @@ r_c = \frac{r_o}{a}
 </section>
 <section id="sec-coarse-cor" class="level3" data-number="8.2.2">
 <h3 data-number="8.2.2" class="anchored" data-anchor-id="sec-coarse-cor"><span class="header-section-number">8.2.2</span> Artifact Correction for Coarseness</h3>
-<p>To correct the correlation between coarse scores for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we need to know the correlation between coarse scores and their underlying continuous scores. These correlations between coarse scores and their underlying continuous scores do not have a specific closed form equation as of now <span class="citation" data-cites="aguinis2009">(<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. To find this we need to make a couple of assumptions:</p>
+<p>To correct the correlation between coarse scores for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we need to know the correlation between coarse scores and their underlying continuous scores. These correlations between coarse scores and their underlying continuous scores do not have a specific closed form equation as of now <span class="citation" data-cites="aguinis2009">(<a href="#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. To find this we need to make a couple of assumptions:</p>
 <ol type="1">
 <li>The shape of the underlying distribution (i.e., normal or uniform).</li>
 <li>The intervals between scale-points are equal.</li>
 </ol>
-<p><span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="direct_range_restriction.html#ref-peters1940" role="doc-biblioref">1940</a>)</span> constructed a table based on these assumptions that is also reported more recently by <span class="citation" data-cites="aguinis2009">Aguinis, Pierce, and Culpepper (<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">2009</a>)</span>. The table below shows the correction factor for a given number of scale points and underlying distribution shape. The correction factor is equal to the square of the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well <span class="citation" data-cites="wylie1976">Wylie (<a href="direct_range_restriction.html#ref-wylie1976" role="doc-biblioref">1976</a>)</span>.</p>
+<p><span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="#ref-peters1940" role="doc-biblioref">1940</a>)</span> constructed a table based on these assumptions that is also reported more recently by <span class="citation" data-cites="aguinis2009">Aguinis, Pierce, and Culpepper (<a href="#ref-aguinis2009" role="doc-biblioref">2009</a>)</span>. The table below shows the correction factor for a given number of scale points and underlying distribution shape. The correction factor is equal to the square of the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well <span class="citation" data-cites="wylie1976">Wylie (<a href="#ref-wylie1976" role="doc-biblioref">1976</a>)</span>.</p>
 <table class="table">
 <colgroup>
 <col style="width: 19%">
@@ -427,7 +427,7 @@ r_c = \frac{r_o}{a_x a_y}
 </section>
 <section id="correcting-correlations-in-r" class="level3" data-number="8.2.3">
 <h3 data-number="8.2.3" class="anchored" data-anchor-id="correcting-correlations-in-r"><span class="header-section-number">8.2.3</span> Correcting Correlations in R</h3>
-<p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>. Lets start by simulating a coarse data (5 scale-points for x and 7 scale-points for y) set of 500 individuals with a true population correlation of <span class="math inline">\(\rho = .50\)</span>.</p>
+<p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span class="quarto-unresolved-ref">sec-coarse-cor</span></a>. Lets start by simulating a coarse data (5 scale-points for x and 7 scale-points for y) set of 500 individuals with a true population correlation of <span class="math inline">\(\rho = .50\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">343</span>)</span>
@@ -490,7 +490,7 @@ d_c = \frac{d_o}{a}
 </section>
 <section id="artifact-correction-for-coarseness" class="level3" data-number="8.3.2">
 <h3 data-number="8.3.2" class="anchored" data-anchor-id="artifact-correction-for-coarseness"><span class="header-section-number">8.3.2</span> Artifact Correction for Coarseness</h3>
-<p>To correct a standardized mean difference for coarseness in the outcome variable, <span class="math inline">\(y\)</span>, we can use the correction factors from the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>,</p>
+<p>To correct a standardized mean difference for coarseness in the outcome variable, <span class="math inline">\(y\)</span>, we can use the correction factors from the table in <a href="#sec-coarse-cor"><span class="quarto-unresolved-ref">sec-coarse-cor</span></a>,</p>
 <p><span class="math display">\[
 d_c = \frac{d_o}{a_y}
 \]</span> Where <span class="math inline">\(a_x\)</span> and <span class="math inline">\(a_y\)</span> are the appropriate correction factors from the table for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. We must also adjust the sampling variance as well,</p>
@@ -500,7 +500,7 @@ d_c = \frac{d_o}{a_y}
 </section>
 <section id="correcting-d-values-in-r" class="level3" data-number="8.3.3">
 <h3 data-number="8.3.3" class="anchored" data-anchor-id="correcting-d-values-in-r"><span class="header-section-number">8.3.3</span> Correcting <em>d</em> values in R</h3>
-<p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>. Lets start by simulating a coarse data (5 scale-points) set of 1000 individuals with a true population standardized mean difference of <span class="math inline">\(\delta = .50\)</span>.</p>
+<p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span class="quarto-unresolved-ref">sec-coarse-cor</span></a>. Lets start by simulating a coarse data (5 scale-points) set of 1000 individuals with a true population standardized mean difference of <span class="math inline">\(\delta = .50\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">343</span>)</span>
@@ -539,7 +539,7 @@ d_c = \frac{d_o}{a_y}
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-aguinis2009" class="csl-entry" role="listitem">
 Aguinis, Herman, Charles A Pierce, and Steven A Culpepper. 2009. <span>“Scale Coarseness as a Methodological Artifact,”</span> September.
 </div>

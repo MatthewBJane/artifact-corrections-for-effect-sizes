@@ -276,7 +276,7 @@ Where $\sigma_{A}$ and $\sigma_{B}$ are the standard deviations of $y$ within gr
 d = \delta + \varepsilon
 $$ Similar to the previous section on correlation coefficients, the observed $d$ value is a function of the true population value and artifactual bias ($a$), $$
 \delta_o = a\delta.
-$$ Therefore the observed study/sample $d$ value can be defined as a function of the observed population value *or* the true population value plus artifactual bias: 
+$$ Therefore the observed study/sample $d$ value can be defined as a function of the observed population value *or* the true population value plus artifactual bias:
 
 $$
 d = \delta_o + \varepsilon_o = a\delta + \varepsilon_o.

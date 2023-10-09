@@ -305,13 +305,13 @@ div.csl-indent {
 <p><span id="eq-A"><span class="math display">\[
 \vartheta_o = a\vartheta
 \tag{3.2}\]</span></span></p>
-<p>Note that if <span class="math inline">\(a=1\)</span> this would indicate that there is no artifactual bias (<span class="math inline">\(\vartheta_o=\vartheta\)</span>), if <span class="math inline">\(a&gt;1\)</span> then it would indicate effect size inflation (i.e., biased away from zero), and if <span class="math inline">\(a&lt;1\)</span> that would indicate effect size attenuation (i.e., biased toward zero). It can be seen in <a href="#eq-A">Equation&nbsp;<span>3.2</span></a> that we can re-arrange the formula to obtain the true population effect size by dividing the observed population effect size by <span class="math inline">\(a\)</span>,</p>
+<p>Note that if <span class="math inline">\(a=1\)</span> this would indicate that there is no artifactual bias (<span class="math inline">\(\vartheta_o=\vartheta\)</span>), if <span class="math inline">\(a&gt;1\)</span> then it would indicate effect size inflation (i.e., biased away from zero), and if <span class="math inline">\(a&lt;1\)</span> that would indicate effect size attenuation (i.e., biased toward zero). It can be seen in <a href="#eq-A">Equation&nbsp;<span class="quarto-unresolved-ref">eq-A</span></a> that we can re-arrange the formula to obtain the true population effect size by dividing the observed population effect size by <span class="math inline">\(a\)</span>,</p>
 <p><span class="math display">\[
 \vartheta = \frac{\vartheta_o}{a}.
 \]</span> For a single study that computes an effect size from a sample drawn from the population, the observed study effect size (<span class="math inline">\(\theta_o\)</span>) would be expressed by</p>
 <p><span class="math display">\[
 \theta_o = \vartheta_o + \varepsilon_o
-\]</span> Using <a href="#eq-A">Equation&nbsp;<span>3.2</span></a> we can express the observed effect size in terms of the true population effect size rather than the observed population effect size,</p>
+\]</span> Using <a href="#eq-A">Equation&nbsp;<span class="quarto-unresolved-ref">eq-A</span></a> we can express the observed effect size in terms of the true population effect size rather than the observed population effect size,</p>
 <p><span class="math display">\[
 \theta_o = a\vartheta + \varepsilon_o
 \]</span> Then we can correct the observed effect size by dividing by the biasing factor, <span class="math inline">\(a\)</span>, to obtain an unbiased estimate of the true effect size:</p>
@@ -355,7 +355,7 @@ z_{\theta_o} = \frac{\theta_o}{\sigma_{\varepsilon_o}} = \frac{\frac{\theta_o}{a
 </section>
 <section id="correlations" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="correlations"><span class="header-section-number">3.5</span> Correlations</h2>
-<p>A correlation describes the relationship between two continuous variables. The Pearson correlation coefficient was first introduced by Auguste <span class="citation" data-cites="bravais1844">Bravais (<a href="direct_range_restriction.html#ref-bravais1844" role="doc-biblioref">1844</a>)</span>. Later developed by Karl Pearson, lending itself to the name.</p>
+<p>A correlation describes the relationship between two continuous variables. The Pearson correlation coefficient was first introduced by Auguste <span class="citation" data-cites="bravais1844">Bravais (<a href="#ref-bravais1844" role="doc-biblioref">1844</a>)</span>. Later developed by Karl Pearson, lending itself to the name.</p>
 <section id="technical-overview-correlations-r" class="level3" data-number="3.5.1">
 <h3 data-number="3.5.1" class="anchored" data-anchor-id="technical-overview-correlations-r"><span class="header-section-number">3.5.1</span> Technical Overview Correlations (<em>r</em>)</h3>
 <p>If we draw a sample of <span class="math inline">\(n\)</span> observations from a population, we can calculate the study correlation (<span class="math inline">\(r\)</span>) between variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> using the following Pearson’s product-moment estimator,</p>
@@ -383,11 +383,11 @@ r = \frac{\sigma_{xy}}
 <p><span id="eq-vary"><span class="math display">\[
 \sigma^2_y = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2.
 \tag{3.7}\]</span></span></p>
-<p>Plugging in <a href="#eq-cov">Equation&nbsp;<span>3.5</span></a>, <a href="#eq-varx">Equation&nbsp;<span>3.6</span></a>, and <a href="#eq-vary">Equation&nbsp;<span>3.7</span></a> into <a href="#eq-pearson">Equation&nbsp;<span>3.4</span></a> we can see that the term, <span class="math inline">\(\frac{1}{n-1}\)</span>, will cancel out and we will be left with the original pearson correlation coefficient formula from <a href="#eq-pearson-raw">Equation&nbsp;<span>3.3</span></a>,</p>
+<p>Plugging in <a href="#eq-cov">Equation&nbsp;<span class="quarto-unresolved-ref">eq-cov</span></a>, <a href="#eq-varx">Equation&nbsp;<span class="quarto-unresolved-ref">eq-varx</span></a>, and <a href="#eq-vary">Equation&nbsp;<span class="quarto-unresolved-ref">eq-vary</span></a> into <a href="#eq-pearson">Equation&nbsp;<span class="quarto-unresolved-ref">eq-pearson</span></a> we can see that the term, <span class="math inline">\(\frac{1}{n-1}\)</span>, will cancel out and we will be left with the original pearson correlation coefficient formula from <a href="#eq-pearson-raw">Equation&nbsp;<span class="quarto-unresolved-ref">eq-pearson-raw</span></a>,</p>
 <p><span id="eq-1"><span class="math display">\[
 r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}.
 \tag{3.8}\]</span></span></p>
-<p>In the absence of artifacts, the Pearson correlation <span class="math inline">\(r\)</span> is an asymptotically (i.e., as <span class="math inline">\(n\)</span> approaches infinity) unbiased estimator (in small sample sizes, it is biased see section on small samples). We can express <span class="math inline">\(r\)</span> similarly to <a href="#eq-B">Equation&nbsp;<span>3.1</span></a>,</p>
+<p>In the absence of artifacts, the Pearson correlation <span class="math inline">\(r\)</span> is an asymptotically (i.e., as <span class="math inline">\(n\)</span> approaches infinity) unbiased estimator (in small sample sizes, it is biased see section on small samples). We can express <span class="math inline">\(r\)</span> similarly to <a href="#eq-B">Equation&nbsp;<span class="quarto-unresolved-ref">eq-B</span></a>,</p>
 <p><span id="eq-2"><span class="math display">\[
 r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon)
 \tag{3.9}\]</span></span></p>
@@ -412,7 +412,7 @@ r_{c} = \frac{r_o}{a}
 </section>
 <section id="standardized-mean-differences" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="standardized-mean-differences"><span class="header-section-number">3.6</span> Standardized Mean Differences</h2>
-<p>Standardized mean differences are used to quantify the average difference in some variable between groups. The most commonly used formulation is Cohen’s <span class="math inline">\(d\)</span> <span class="citation" data-cites="cohen1988">(<a href="direct_range_restriction.html#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span> which quantifies the average difference between groups (e.g., men vs.&nbsp;women) and standardizes by the pooled standard deviation. Note that the other most commonly used estimator is Hedges’ <span class="math inline">\(g\)</span>, but the difference between the two is a small sample correction factor that can be found in the chapter on small samples.</p>
+<p>Standardized mean differences are used to quantify the average difference in some variable between groups. The most commonly used formulation is Cohen’s <span class="math inline">\(d\)</span> <span class="citation" data-cites="cohen1988">(<a href="#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span> which quantifies the average difference between groups (e.g., men vs.&nbsp;women) and standardizes by the pooled standard deviation. Note that the other most commonly used estimator is Hedges’ <span class="math inline">\(g\)</span>, but the difference between the two is a small sample correction factor that can be found in the chapter on small samples.</p>
 <section id="technical-overview-of-standardized-mean-difference-d" class="level3" data-number="3.6.1">
 <h3 data-number="3.6.1" class="anchored" data-anchor-id="technical-overview-of-standardized-mean-difference-d"><span class="header-section-number">3.6.1</span> Technical Overview of Standardized Mean Difference (<em>d</em>)</h3>
 <p>If we draw a sample of <span class="math inline">\(n_A\)</span> subjects from group <span class="math inline">\(A\)</span> and <span class="math inline">\(n_B\)</span> subjects from group <span class="math inline">\(B\)</span>, the mean difference between groups (<span class="math inline">\(d\)</span>) on variable <span class="math inline">\(y\)</span> can be defined as,</p>
@@ -440,7 +440,7 @@ d_c = \frac{d_o}{a}
 \]</span></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-bravais1844" class="csl-entry" role="listitem">
 Bravais, A. 1844. <em>Analyse mathématique sur les probabilités des erreurs de situation d’un point</em>. Impr. Royale.
 </div>
