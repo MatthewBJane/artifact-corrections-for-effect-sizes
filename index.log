@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.26)  9 OCT 2023 02:59
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023) (preloaded format=xelatex 2023.9.26)  9 OCT 2023 03:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -768,7 +768,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 File: bkm-dvipdfm.def 2020-11-06 v1.29 bookmark driver for dvipdfm (HO)
 \BKM@id=\count343
 )) (/Users/mattjane/Library/TinyTeX/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2023/07/31 v3.6n Customizing captions (AR)
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 (/Users/mattjane/Library/TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@tempdima=\dimen289
@@ -781,7 +781,7 @@ Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@hangindent=\dimen296
 Package caption Info: KOMA-Script document class detected.
 (/Users/mattjane/Library/TinyTeX/texmf-dist/tex/latex/caption/caption-koma.sto
-File: caption-koma.sto 2022/12/27 v2.0c Adaption of the caption package to the KOMA-Script document classes (AR)
+File: caption-koma.sto 2023/09/08 v2.0e Adaption of the caption package to the KOMA-Script document classes (AR)
 ))
 \c@caption@flags=\count344
 \c@continuedfloat=\count345
@@ -1393,10 +1393,10 @@ LaTeX Warning: File `figure/diagram-dich.pdf' not found on input line 2933.
 l.2933 \includegraphics{figure/diagram-dich.pdf}
                                                  
 Here is how much of TeX's memory you used:
- 39335 strings out of 477564
- 809022 string characters out of 5816524
- 1935422 words of memory out of 5000000
- 59966 multiletter control sequences out of 15000+600000
+ 39340 strings out of 477564
+ 809137 string characters out of 5816524
+ 1936422 words of memory out of 5000000
+ 59971 multiletter control sequences out of 15000+600000
  564572 words of font info for 95 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  108i,13n,120p,10900b,1034s stack positions out of 10000i,1000n,20000p,200000b,200000s
