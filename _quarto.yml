@@ -3,10 +3,10 @@ project:
 
 book:
   title: "Correcting Effect Sizes for Statistical Artifacts"
-  subtitle: "Application in Meta-Analysis and Implementation in R and Python"
+  subtitle: "Implementation in R and Application to Meta-Analysis"
   page-navigation: true
   author: "Matthew B. Jané"
-  date: "6/13/2023"
+  date: "10/08/2023"
   chapters:
     - index.qmd
     - dedication.qmd
@@ -30,7 +30,8 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: sandstone
+    linkcolor: 'forestgreen'
   pdf:
     documentclass: scrreprt
 

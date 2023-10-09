@@ -2,10 +2,14 @@
 title: "Dedication"
 ---
 
-<br /><br />
+<br><br>
 
-<p style="text-align: center; font-size: 18pt;">In Loving Memory of Haley Jané</p>
+<p style="text-align: center; font-size: 18pt;">
+In Loving Memory of Haley Jané
+</p>
 
-<p style="text-align: center; font-size: 16pt;">My companion whose unwavering presence and unconditional love provided me with stability and solace in life's ever-changing journey</p>
+<p style="text-align: center; font-size: 16pt;">
+My companion, whose love and presence have filled my life with joy and comfort.
+</p>
 
 ![](figure/dedication_2.png){width="400" fig-align="center"}

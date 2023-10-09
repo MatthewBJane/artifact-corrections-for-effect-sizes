@@ -94,6 +94,8 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -157,7 +159,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proposal and Outline</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -169,7 +171,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -196,7 +198,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misclassification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Misclassification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -214,13 +216,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./direct_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./indirect_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
   </div>
 </li>
       </ul>
@@ -266,19 +268,28 @@ div.csl-indent {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">5.1</span> Introduction</a></li>
   <li><a href="#sec-true-score-theory" id="toc-sec-true-score-theory" class="nav-link" data-scroll-target="#sec-true-score-theory"><span class="header-section-number">5.2</span> Reliability in True Score Theory</a></li>
-  <li><a href="#estimating-reliability" id="toc-estimating-reliability" class="nav-link" data-scroll-target="#estimating-reliability"><span class="header-section-number">5.3</span> Estimating Reliability</a>
+  <li><a href="#reliability-vs-validity" id="toc-reliability-vs-validity" class="nav-link" data-scroll-target="#reliability-vs-validity"><span class="header-section-number">5.3</span> Reliability vs Validity</a></li>
+  <li><a href="#estimating-reliability" id="toc-estimating-reliability" class="nav-link" data-scroll-target="#estimating-reliability"><span class="header-section-number">5.4</span> Estimating Reliability</a>
   <ul class="collapse">
-  <li><a href="#internal-consistency-estimators" id="toc-internal-consistency-estimators" class="nav-link" data-scroll-target="#internal-consistency-estimators">Internal Consistency Estimators</a></li>
-  <li><a href="#test-retest-stability-estimator" id="toc-test-retest-stability-estimator" class="nav-link" data-scroll-target="#test-retest-stability-estimator"><span class="header-section-number">5.3.1</span> Test-Retest Stability Estimator</a></li>
-  <li><a href="#sources-of-measurement-error" id="toc-sources-of-measurement-error" class="nav-link" data-scroll-target="#sources-of-measurement-error"><span class="header-section-number">5.3.2</span> Sources of Measurement Error</a></li>
+  <li><a href="#internal-consistency-estimators" id="toc-internal-consistency-estimators" class="nav-link" data-scroll-target="#internal-consistency-estimators"><span class="header-section-number">5.4.1</span> Internal Consistency Estimators</a></li>
+  <li><a href="#calculating-internal-consistency-in-r" id="toc-calculating-internal-consistency-in-r" class="nav-link" data-scroll-target="#calculating-internal-consistency-in-r"><span class="header-section-number">5.4.2</span> Calculating Internal Consistency in R</a></li>
+  <li><a href="#test-retest-stability-estimator" id="toc-test-retest-stability-estimator" class="nav-link" data-scroll-target="#test-retest-stability-estimator"><span class="header-section-number">5.4.3</span> Test-Retest Stability Estimator</a></li>
+  <li><a href="#calculating-test-retest-reliability-in-r" id="toc-calculating-test-retest-reliability-in-r" class="nav-link" data-scroll-target="#calculating-test-retest-reliability-in-r"><span class="header-section-number">5.4.4</span> Calculating Test-Retest Reliability in R</a></li>
+  <li><a href="#sec-sources" id="toc-sec-sources" class="nav-link" data-scroll-target="#sec-sources"><span class="header-section-number">5.4.5</span> Sources of Measurement Error</a></li>
   </ul></li>
-  <li><a href="#bias-in-correlation-coefficients" id="toc-bias-in-correlation-coefficients" class="nav-link" data-scroll-target="#bias-in-correlation-coefficients"><span class="header-section-number">5.4</span> Bias in Correlation Coefficients</a></li>
-  <li><a href="#corrections-for-bias-in-correlations" id="toc-corrections-for-bias-in-correlations" class="nav-link" data-scroll-target="#corrections-for-bias-in-correlations"><span class="header-section-number">5.5</span> Corrections for Bias in Correlations</a></li>
-  <li><a href="#correction-for-unreliability-in-correlation-coefficients" id="toc-correction-for-unreliability-in-correlation-coefficients" class="nav-link" data-scroll-target="#correction-for-unreliability-in-correlation-coefficients"><span class="header-section-number">5.6</span> Correction for Unreliability in Correlation Coefficients</a>
+  <li><a href="#correction-for-bias-in-correlations-r" id="toc-correction-for-bias-in-correlations-r" class="nav-link" data-scroll-target="#correction-for-bias-in-correlations-r"><span class="header-section-number">5.5</span> Correction for Bias in Correlations (<em>r</em>)</a>
   <ul class="collapse">
-  <li><a href="#bias-in-correlations" id="toc-bias-in-correlations" class="nav-link" data-scroll-target="#bias-in-correlations"><span class="header-section-number">5.6.1</span> Bias in Correlations</a></li>
-  <li><a href="#bias-in-standardized-mean-difference" id="toc-bias-in-standardized-mean-difference" class="nav-link" data-scroll-target="#bias-in-standardized-mean-difference"><span class="header-section-number">5.6.2</span> Bias in Standardized Mean Difference</a></li>
+  <li><a href="#defining-the-estimand" id="toc-defining-the-estimand" class="nav-link" data-scroll-target="#defining-the-estimand"><span class="header-section-number">5.5.1</span> Defining the Estimand</a></li>
+  <li><a href="#sec-r-corr" id="toc-sec-r-corr" class="nav-link" data-scroll-target="#sec-r-corr"><span class="header-section-number">5.5.2</span> Artifactual Bias and Correction</a></li>
+  <li><a href="#correcting-correlations-in-r" id="toc-correcting-correlations-in-r" class="nav-link" data-scroll-target="#correcting-correlations-in-r"><span class="header-section-number">5.5.3</span> Correcting Correlations in R</a></li>
   </ul></li>
+  <li><a href="#correction-for-bias-in-standardized-mean-differences-d" id="toc-correction-for-bias-in-standardized-mean-differences-d" class="nav-link" data-scroll-target="#correction-for-bias-in-standardized-mean-differences-d"><span class="header-section-number">5.6</span> Correction for Bias in Standardized Mean Differences (<em>d</em>)</a>
+  <ul class="collapse">
+  <li><a href="#defining-the-estimand-1" id="toc-defining-the-estimand-1" class="nav-link" data-scroll-target="#defining-the-estimand-1"><span class="header-section-number">5.6.1</span> Defining the Estimand</a></li>
+  <li><a href="#sec-d-SMD" id="toc-sec-d-SMD" class="nav-link" data-scroll-target="#sec-d-SMD"><span class="header-section-number">5.6.2</span> Artifactual Bias and Correction</a></li>
+  <li><a href="#correcting-d-values-in-r" id="toc-correcting-d-values-in-r" class="nav-link" data-scroll-target="#correcting-d-values-in-r"><span class="header-section-number">5.6.3</span> Correcting <em>d</em> values in R</a></li>
+  </ul></li>
+  <li><a href="#sec-lim-information" id="toc-sec-lim-information" class="nav-link" data-scroll-target="#sec-lim-information"><span class="header-section-number">5.7</span> Estimating Reliability with Limited Information</a></li>
   </ul>
 </nav>
     </div>
@@ -304,357 +315,272 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">5.1</span> Introduction</h2>
-<p>In general terms, measurement is the process of quantifying an attribute or characteristic of something. In scientific measurement, the measurand is the quantity or the attribute we intend to measure. In the psychological sciences, measurands usually take the form of constructs such as intelligence or anxiety. The goal of measurement is to produce quantities (i.e., scores) that accurately reflect the measurand. It is important to note that measures are not all created equal, some perform better than others. Ideally, measures should produce scores that are consistent and repeatable, this is referred to as the <em>reliability</em> of a measure. A high quality measure should produce highly reliable scores. This section will review what reliability is in theory, how to estimate reliability, and how to adjust effect sizes for measurement error.</p>
+<p>In general terms, measurement is the process of quantifying an attribute or characteristic of something. In scientific measurement, the measurand is the quantity or the attribute we intend to measure. In the psychological sciences, measurands usually take the form of constructs such as intelligence or anxiety. The goal of measurement is to produce quantities (i.e., scores) that accurately reflect the measurand. It is important to note that measures are not all created equal, some perform better than others. Ideally, measures should produce scores that are consistent and repeatable, this is referred to as the <em>reliability</em> of a measure. A high quality measure should produce highly reliable scores. This section will review what reliability is in theory, how to estimate reliability, and how to correct effect sizes for measurement error.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<i class="fa-solid fa-bolt" aria-label="bolt"></i> Too long didn’t read?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Correction for correlations (<span class="math inline">\(r\)</span>)</p>
+<p><span class="math display">\[r_c = \frac{r_o}{\sqrt{r_{xx'}r_{yy'}}},\;\;\; \sigma_{\varepsilon_c} = s_r \left(\frac{r_c}{r_o}\right)\]</span></p>
+<p>Correction for SMD (<span class="math inline">\(d\)</span>)</p>
+<p><span class="math display">\[d_c = \frac{d_o}{\sqrt{r_{yy'_P}}},\;\;\; \sigma_{\varepsilon_c} = s_d \left(\frac{d_c}{d_o}\right)\]</span></p>
+</div>
+</div>
 </section>
 <section id="sec-true-score-theory" class="level2" data-number="5.2">
 <h2 data-number="5.2" class="anchored" data-anchor-id="sec-true-score-theory"><span class="header-section-number">5.2</span> Reliability in True Score Theory</h2>
-<p>True score theory (or classical test theory) is a mathematical formalization of scores obtained from measurements. The true score model assumes that each person (or animal), <span class="math inline">\(p\)</span> has a true score, <span class="math inline">\(t_p\)</span>, that stays constant over measurements. Observed scores, <span class="math inline">\(x_{pf}\)</span>, can vary between forms (<span class="math inline">\(f\)</span>) of the measure, <span class="math inline">\(m\)</span>. This variation is due to measurement-specific error, <span class="math inline">\(e_{pf}\)</span>.</p>
+<p>True score theory (or classical test theory) is a mathematical formalization of observed scores obtained from measurements. Observed scores, <span class="math inline">\(x_{if}\)</span>, is defined as a score obtained from individual <span class="math inline">\(i\)</span> upon measurement <span class="math inline">\(m\)</span>. The true score model assumes that each individual, has a true score, <span class="math inline">\(T_i\)</span>, that stays constant over repeated measurements. Variation in observed scores over repeated measurements is due to measurement-specific error, <span class="math inline">\(e_{im}\)</span>,</p>
 <p><span class="math display">\[
-x_{pf} = t_p+e_{pf}
+x_{im} = T_i+e_{im}.
 \]</span></p>
-<p>The true score can be defined as the expected value (i.e., the mean) of observed scores over an infinite number of repeated measurements such that, <span class="math inline">\(\mathbb{E}_{f\rightarrow\infty}[x_{f}]=t\)</span>. It is also assumed that the expectation of measurement-specific error is zero, <span class="math inline">\(\mathbb{E}_{f\rightarrow\infty}[e_{f}]=0\)</span>. It follows from these assumptions that the covariance between errors and true scores is zero (<span class="math inline">\(\sigma_{et}=0\)</span>) and the covariance between error scores in parallel measurements is zero (<span class="math inline">\(\sigma_{e e'}=0\)</span>). The independence between true scores and errors provide convenient parsing of the variance in observed scores (<span class="math inline">\(\sigma^2_{x}\)</span>) into components of variance in true scores (<span class="math inline">\(\sigma_t^2\)</span>) and errors (<span class="math inline">\(\sigma_{e}^2\)</span>),</p>
+<p>Here, measurements are <em>strictly parallel</em>. Strictly parallel measurements have the following four properties <span class="citation" data-cites="haertel2006">(p.&nbsp;69, <a href="direct_range_restriction.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>:</p>
+<ol type="1">
+<li>Measurements have identical specifications. That is, each measurement is obtained with an identical format and procedure.</li>
+<li>The distribution of observed scores for each measurement are identical: <span class="math inline">\(f(x_1) = f(x_2) = \ldots\)</span>.</li>
+<li>Any set of two measurements are assumed to covary the same as any other set of two measurements: <span class="math inline">\(\sigma_{x_1 x_2} = \sigma_{x_2 x_3} = \sigma_{x_1 x_3} = \ldots\)</span>.</li>
+<li>Each measurement equally covaries with any other variable: <span class="math inline">\(\sigma_{x_1 y} = \sigma_{x_2 y} = \ldots\)</span>.</li>
+</ol>
+<p>True scores can be defined as the expected value (i.e., the mean) of observed scores over repeated measurements such that, <span class="math inline">\(\mathbb{E}_m[x_{im}]=T_{i}\)</span>. Given this assumption, it can be inferred that the average of the resultant errors is zero across repeated measurements, <span class="math inline">\(\mathbb{E}_m[e_{im}]=0\)</span> and therefore the covariance between errors on repeated measurements is zero and the covariance between errors in parallel measurements is zero (<span class="math inline">\(\sigma_{e e'}=0\)</span>). It follows that the covariance between errors and true scores is also zero (<span class="math inline">\(\sigma_{eT}=0\)</span>). The independence between true scores and errors provide convenient parsing of the variance in observed scores (<span class="math inline">\(\sigma^2_{x}\)</span>) into components of variance in true scores (<span class="math inline">\(\sigma_T^2\)</span>) and measurement errors (<span class="math inline">\(\sigma_{e}^2\)</span>),</p>
 <p><span id="eq-variance"><span class="math display">\[
-\sigma_{x}^2 = \sigma_t^2 + \sigma_{e}^2
-\tag{5.1}\]</span></span> If <span class="math inline">\(\sigma_{e}^2 &gt; 0\)</span> then the measurement has imperfect reliability, that is, observed scores are not identical to true scores. In practice, this is almost always the case. Reliability can be defined as the square correlation between observed scores and true scores, <span class="math inline">\(r_{xt}^2\)</span>, or the correlation between observed scores in parallel measurements, <span class="math inline">\(r_{xx'}=r_{xt}^2\)</span>.</p>
+\sigma_{x}^2 = \sigma_T^2 + \sigma_{e}^2.
+\tag{5.1}\]</span></span></p>
+<p>Ultimately we desire to have observed scores that closely resemble true scores, therefore it is important to minimize measurement error variance (<span class="math inline">\(\sigma^2_e\)</span>). If <span class="math inline">\(\sigma_{e}^2 = 0\)</span> then the scores can be said to have perfect reliability, that is, observed scores do not vary upon repeated measurements and thus are identical to true scores. In practice, this is virtually never the case. Since we know that the covariance between errors in parallel measurements is zero, it should be apparent that the covariance between observed scores in parallel measurements must solely be attributable to variance in true scores, <span class="math inline">\(\sigma_{xx'}=\,\)</span><span class="math inline">\(\sigma_{TT'} + \sigma_{ee'}=\,\)</span><span class="math inline">\(\sigma_{TT'}=\,\)</span><span class="math inline">\(\sigma_T^2\,\)</span>. In true score theory, reliability can be defined as the proportion of true variance in the total observed variance (<span class="math inline">\(\frac{\sigma_T^2}{\sigma_x^2}\)</span>) or the correlation between observed scores in parallel measurements (<span class="math inline">\(r_{xx'}\)</span>).</p>
+<p><span class="math display">\[
+r_{xx'}=\frac{\sigma_{xx'}}{\sigma_x\sigma_{x'}}  = \frac{\sigma_T^2}{\sigma^2_{x}}
+\]</span> The reliability is also equivalent to the square of the correlation between observed scores and true scores. To understand why this is the case, note that the covariance between parallel forms of a measure is equivalent to the covariance between observed scores and true scores, <span class="math inline">\(\sigma_{xT}=\)</span><span class="math inline">\(\sigma_{(T+e)T}=\)</span><span class="math inline">\(\sigma^2_T + \sigma_{Te}=\)</span><span class="math inline">\(\sigma^2_T = \sigma_{xx'}\)</span>.</p>
+<p><span id="eq-reliability"><span class="math display">\[
+r_{xx'} = \frac{\sigma_T^2}{\sigma_{x}^2} = \frac{(\sigma_T^2)^2}{\sigma_x^2 \sigma_T^2}= \frac{\sigma_{xT}^2}{\sigma^2_x\sigma^2_T} = r^2_{xT}
+\tag{5.2}\]</span></span></p>
+<p>It is important to emphasize that true scores are expected values over repeated observations and they do not necessarily correspond to an actual, tangible quantity of interest <span class="citation" data-cites="borsboom2002">(<a href="direct_range_restriction.html#ref-borsboom2002" role="doc-biblioref">Borsboom and Mellenbergh 2002</a>)</span>. As a result, every measurement has a true score, regardless of whether it gauges a concrete attribute or not. For example, if we construct a test by summing the responses to the items: “how many languages can you confidently hold a conversation in?” and “Estimate the number of photos you’ve taken in the last year across all devices”. Even in such cases, the test’s composite score retains a true score, but this true score does not mirror a tangible reality.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figure/unreliability_diagram_1.png" class="img-fluid figure-img" width="400"></p>
-<figcaption class="figure-caption">Structural model illustrating the relationship between true scores, observed scores, and error scores. The pink circle labeled <span class="math inline">\(t\)</span> indicates the true scores, the blue squares labeled with <span class="math inline">\(x\)</span> and <span class="math inline">\(x'\)</span> represent observed scores on parallel measurements, and the red <span class="math inline">\(e\)</span> denotes error. Correlations between <span class="math inline">\(t\)</span>, <span class="math inline">\(x\)</span>, and <span class="math inline">\(x'\)</span> are in terms of reliability (<span class="math inline">\(r_{xx'}\)</span>). Note that <span class="math inline">\(\sqrt{r_{xx'}}=r_{xt}\)</span>.</figcaption>
+<figcaption class="figure-caption">Structural diagram illustrating the relationship between true scores, observed scores, and error scores. The pink circle labeled <span class="math inline">\(t\)</span> indicates the true scores, the blue squares labeled with <span class="math inline">\(x\)</span> and <span class="math inline">\(x'\)</span> represent observed scores on parallel measurements, and the red <span class="math inline">\(e\)</span> denotes error. Correlations between <span class="math inline">\(T\)</span>, <span class="math inline">\(x\)</span>, and <span class="math inline">\(x'\)</span> are in terms of reliability (<span class="math inline">\(r_{xx'}\)</span>). Note that <span class="math inline">\(\sqrt{r_{xx'}}=r_{xT}\)</span>.</figcaption>
 </figure>
 </div>
-<p>Given that errors do not co-vary between parallel measurements and true scores are held constant over measurements, it becomes apparent that the covariance between observed scores produced from parallel measurements must solely be attributable to true score variance, <span class="math inline">\(\sigma_{xx'}=\sigma_t^2\)</span>. The covariance in observed scores can be standardized to obtain the correlation coefficient between parallel measurements (i.e., the reliability), such that,</p>
-<p><span class="math display">\[r_{xx'}=\frac{\sigma_{xx'}}{\sigma_x\sigma_{x'}}  = \frac{\sigma_t^2}{\sigma^2_{x}}\]</span></p>
-<p>Therefore reliability can be expressed in a few forms different forms</p>
-<p><span id="eq-reliability"><span class="math display">\[
-r_{xx'} =r^2_{xt} = \frac{\sigma_t^2}{\sigma_t^2+\sigma_{e}^2} = \frac{\sigma_t^2}{\sigma_{x}^2}
-\tag{5.2}\]</span></span></p>
-<p>In the literature, the correlation between observed and true scores, <span class="math inline">\(r_{xt}\)</span>, is often referred to as the “measure quality index” <span class="citation" data-cites="hunter1990a">(<a href="#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span>, however measure quality encompasses both reliability <em>and</em> validity. Validity A measure can demonstrate high reliability even though the scores produced by the measure do not accurately reflect the measurand (the quantity that we are intending to measure). For example, if an individual were to step on a weight scale with shoes on, the weight presented on the scale would be highly reliable, namely, if the individual were to repeat this process, they would achieve highly similar results. Nevertheless, the observed weight is systematically biased upward by the weight of the shoes. Therefore if a measure is reliable it does not logically follow that the measure is necessarily valid.</p>
 </section>
-<section id="estimating-reliability" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="estimating-reliability"><span class="header-section-number">5.3</span> Estimating Reliability</h2>
-<p>In practice, reliability must be estimated through indirect methods, since true scores and errors are unknown. Their are many estimators that can be used however, we will go over three of the most common approaches: coefficient alpha, split-half, and test-retest reliability.</p>
-<section id="internal-consistency-estimators" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="internal-consistency-estimators">Internal Consistency Estimators</h3>
-<p>Maybe the most conventionally reported reliability estimator in the psychological sciences is coefficient alpha, also referred to as Cronbach’s alpha or internal consistency. Alpha has the benefit of being computationally convenient, but it also brings along many assumptions that are often violated in practice <span class="citation" data-cites="haertel2006 sijtsma2009">(<a href="#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>; <a href="#ref-sijtsma2009" role="doc-biblioref">Sijtsma 2009</a>)</span>. Cronbach’s alpha, along with other internal consistency estimators, serves the purpose of assessing the reliability of composite measures comprising multiple components. Taking multiple measurements and then averaging tends to provide a better estimate of true values. For instance, let’s consider the case of Francis Galton <span class="citation" data-cites="galton1907">(<a href="#ref-galton1907" role="doc-biblioref">Galton 1907</a>)</span>, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person’s estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the actual value. Averaging a number of noisy estimates provides a much more stable and reliable estimate. So to create a more stable composite score (<span class="math inline">\(X\)</span>), we can take the score (<span class="math inline">\(x_m\)</span>) from <span class="math inline">\(k\)</span> measurements and average them such that, <span class="math display">\[
-X = \frac{1}{k}(x_1 + x_2 +...+x_k)= \frac{1}{k}\sum^k_{m=1}x_m
-\]</span> Coefficient alpha is represents the reliability of this composite scores. Coefficient alpha only requires three parameters to calculate, the number of measurements (<span class="math inline">\(k\)</span>), the variances of each items ( <span class="math inline">\(\sigma^2_{x_m}\)</span>), and the variance of the composite score (<span class="math inline">\(\sigma^2_{X}\)</span>),</p>
+<section id="reliability-vs-validity" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="reliability-vs-validity"><span class="header-section-number">5.3</span> Reliability vs Validity</h2>
+<p>Reliability and validity are distinct properties in measurement theory. Validity pertains to whether a measure reflects the quantities it is intended to measure <span class="citation" data-cites="kelley1927">(p.&nbsp;14 <a href="direct_range_restriction.html#ref-kelley1927" role="doc-biblioref">Kelley 1927</a>)</span>. According to <span class="citation" data-cites="borsboom2004">Borsboom, Mellenbergh, and Van Heerden (<a href="direct_range_restriction.html#ref-borsboom2004" role="doc-biblioref">2004</a>)</span>, a measure is <em>valid</em> if the following statements are true:</p>
+<ol type="1">
+<li><p>The attribute exists.</p></li>
+<li><p>Variations in the attribute causally produce variations in the outcomes of the measurement procedure.</p></li>
+</ol>
+<p>Borsboom’s formulation of validity is simpler and more practical than other formulations such as Cronbach and Meehl’s <span class="citation" data-cites="cronbach1955">(<a href="direct_range_restriction.html#ref-cronbach1955" role="doc-biblioref">1955</a>)</span> nomological network approach to validity. It is important to note that even if an attribute does not exist (statement 1), scores may still provide predictive utility. For example, socio-economic status (SES) is a formative quantity that is constructed from a composite of education, income, occupation status, etc. Although SES is not causal to these indicators, SES can still be used as a predictor of important life outcomes.</p>
+</section>
+<section id="estimating-reliability" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="estimating-reliability"><span class="header-section-number">5.4</span> Estimating Reliability</h2>
+<p>In practice, reliability must be estimated through indirect methods, this is due to the fact that true scores and errors are unknown. There are many reliability estimators that can be used, however we will go over a selection of internal consistency estimators as well as test-retest stability estimators.</p>
+<section id="internal-consistency-estimators" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="internal-consistency-estimators"><span class="header-section-number">5.4.1</span> Internal Consistency Estimators</h3>
+<p>Taking multiple measurements and then averaging tends to provide a more stable estimate of true values. For instance, let’s consider the case of Francis <span class="citation" data-cites="galton1907">Galton (<a href="direct_range_restriction.html#ref-galton1907" role="doc-biblioref">1907</a>)</span>, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person’s estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the true value. This principle can be extended to broader applications, such as measuring psychological constructs. If we were to assess someone’s level of extraversion using ratings from their mother, father, friend, and sibling, the average of their combined assessments would yield a more reliable score compared to relying solely on a single evaluator. So to create a more stable composite score (<span class="math inline">\(x\)</span>), we can take the score from <span class="math inline">\(\kappa\)</span> measures (<span class="math inline">\(\mathbb{x}\)</span>) and sum them such that,</p>
 <p><span class="math display">\[
-_\alpha r_{X X'} = \frac{k}{k-1}\left( 1 - \frac{\sum_{m=1}^k \sigma^2_{x_m}}{\sigma^2_{X}} \right)
+x = \mathbb{x}_1 + \mathbb{x}_2 +...+\mathbb{x}_\kappa
 \]</span></p>
+<p>The most commonly reported reliability estimator in the psychological sciences is coefficient alpha, also referred to as Cronbach’s alpha. Coefficient alpha, along with other internal consistency estimators, serves the purpose of assessing the reliability of composite scores comprising multiple measurements. Coefficient alpha reflects an estimate of the reliability of the composite observed score, <span class="math inline">\(x\)</span> (<span class="math inline">\(r_{xx'}\)</span>). Coefficient alpha only requires three parameters to calculate, the number of measurements (<span class="math inline">\(\kappa\)</span>), the variances of each items (<span class="math inline">\(\sigma^2_{\text{i}_m}\)</span>), and the variance of the composite score (<span class="math inline">\(\sigma^2_{x}\)</span>),</p>
+<p><span id="eq-alpha"><span class="math display">\[
+_\alpha r_{xx'} = \frac{k}{k-1}\left( 1 - \frac{\sum_{m=1}^\kappa \sigma^2_{\mathbb{x}_m}}{\sigma^2_{x}} \right)
+\tag{5.3}\]</span></span></p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="unreliability_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="unreliability_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figures showing the observed scores upon 10 repeated measurements and the composite observed score for a single person (the true score is denoted with the dashed line). The left panel shows 10 observed scores with a lot of variation (i.e., low reliability). The composite score (dark red dot with error bars), shows wide error bars illustrating the low precision of the observed score score. The right panel also shows 10 observed scores with little variation (i.e., high reliability). The composite score (dark blue dot with error bars), shows narrow error bars illustrating the high precision of the observed score.</figcaption>
+</figure>
 </div>
 </div>
-<p>With tighter assumptions <span class="citation" data-cites="haertel2006">(i.e., strictly parallel forms, <a href="#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>, the formula for coefficient alpha can be simplified to just two parameters: the number of measurements and the average correlation between measured scores (<span class="math inline">\(\bar{r}_{x_i x_j}\)</span>, where <span class="math inline">\(i\neq j\)</span>). This formula is known as Spearman-Brown’s prophecy,</p>
-<p><span class="math display">\[
-_\text{sb} r_{XX'}= \frac{k \bar{r}_{x_i x_j}}{1+(k-1)\bar{r}_{x_i x_j}}
-\]</span></p>
-<p>This can be simplified further if we we have two observed scores. This formulation is traditionally called split-half reliability:</p>
-<p><span class="math display">\[
-_\text{sh}r_{XX',}= \frac{2r_{x_1 x_2}}{1+r_{x_1 x_2}}
-\]</span></p>
+</div>
+<p>With tighter assumptions <span class="citation" data-cites="haertel2006">(see <a href="direct_range_restriction.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>, the formula for coefficient alpha can be simplified to just two parameters: the number of measurements (<span class="math inline">\(\kappa\)</span>) and the average correlation between measured scores (<span class="math inline">\(\bar{r}_{\mathbb{x}_i \mathbb{x}_j}\)</span>, where <span class="math inline">\(i\neq j\)</span>). This formula is known as Spearman-Brown’s prophecy,</p>
+<p><span id="eq-sp-brown"><span class="math display">\[
+_\text{sb} r_{xx'}= \frac{\kappa \bar{r}_{\mathbb{x}_i \mathbb{x}_j}}{1+(\kappa-1)\bar{r}_{\mathbb{x}_i \mathbb{x}_j}}
+\tag{5.4}\]</span></span></p>
+<p>This can be simplified further if we have two observed scores. This formulation is a variation of split-half reliability:</p>
+<p><span id="eq-split-half"><span class="math display">\[
+_\text{sh}r_{xx'}= \frac{2r_{\mathbb{x}_1 \mathbb{x}_2}}{1+r_{\mathbb{x}_1 \mathbb{x}_2}}
+\tag{5.5}\]</span></span></p>
 <p>All of these reliability estimators measure internal consistency, therefore they do not account for error outside of the measurement-specific error. There are other sources of error that internal consistency reliability estimates do not account for, such as transient error or rater-specific error.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figure/unreliability_diagram_2.png" class="img-fluid figure-img" width="400"></p>
-<figcaption class="figure-caption">Structural model illustrating internal consistency. The pink circle labeled <span class="math inline">\(t\)</span> indicates the true scores, the blue squares, <span class="math inline">\(x_{1...k}\)</span>, represent the observed scores across multiple measurements, and the red <span class="math inline">\(e\)</span> denotes error. The dark blue hexagon, <span class="math inline">\(X\)</span>, indicates a composite score as a sum of the observed scores (<span class="math inline">\(x_{1...k}\)</span>). Note that <span class="math inline">\(\sqrt{r_{XX'}}=r_{Xt}\)</span>.</figcaption>
+<figcaption class="figure-caption">Structural model illustrating internal consistency. The pink circle labeled <span class="math inline">\(T\)</span> indicates the true scores, the blue squares, <span class="math inline">\(\mathbb{x}_{1...\kappa}\)</span>, represent the observed scores across multiple measurements, and the red <span class="math inline">\(e\)</span> denotes error. The dark blue hexagon, <span class="math inline">\(x\)</span>, indicates a composite score as a sum of the observed scores (<span class="math inline">\(\mathbb{x}_{1...\kappa}\)</span>). Note that <span class="math inline">\(\sqrt{r_{xx'}}=r_{xT}\)</span>.</figcaption>
 </figure>
 </div>
-<section id="calculating-internal-consistency-in-r-and-python" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="calculating-internal-consistency-in-r-and-python">Calculating Internal Consistency in R and Python</h4>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Let us simulate a data set of 50 individuals where each observed score has the same true score with some error.</p>
+</section>
+<section id="calculating-internal-consistency-in-r" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="calculating-internal-consistency-in-r"><span class="header-section-number">5.4.2</span> Calculating Internal Consistency in R</h3>
+<p>Let us simulate a data set of 50 individuals that were measured four times resulting in four sets of scores (<code>x1,x2,x3,x4</code>) that have the same true score and error variance. Then let us calculate a composite score (<code>x</code>) from these sub-scores.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#set seed</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">343</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set sample size</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">50</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate true scores</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">=</span> t <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 1</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">=</span> t <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 2</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">=</span> t <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 3</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">=</span> t <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 4</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>T_score <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate true scores</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> T_score <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> T_score <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 2</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> T_score <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 3</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> T_score <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>) <span class="co"># simulate observed scores for measurement 4</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate composite score</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3 <span class="sc">+</span> x4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Calculate Coefficient Alpha Reliability:</p>
+<p>Now let us calculate coefficient alpha from the formula provided in <a href="#eq-alpha">Equation&nbsp;<span>5.3</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1. calculate variance of observed (measured) scores</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>var_xi <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">var</span>(x1),<span class="fu">var</span>(x2),<span class="fu">var</span>(x3),<span class="fu">var</span>(x4))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>var_xm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">var</span>(x1),<span class="fu">var</span>(x2),<span class="fu">var</span>(x3),<span class="fu">var</span>(x4))</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2. calculate variance of composite score</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>var_X <span class="ot">=</span> <span class="fu">var</span>(X)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2. get number of items (k)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">length</span>(var_xm)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3. get number of items (k)</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">length</span>(var_xi)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3. calculate variance of composite score</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>var_x <span class="ot">&lt;-</span> <span class="fu">var</span>(x)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># step 4. calculate coefficient alpha reliability</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>rXX_alpha <span class="ot">=</span> k <span class="sc">/</span> (k<span class="dv">-1</span>) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(var_xi)<span class="sc">/</span>var_X)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>rxx_alpha <span class="ot">&lt;-</span> k <span class="sc">/</span> (k<span class="dv">-1</span>) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(var_xm)<span class="sc">/</span>(var_x))</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rXX_alpha,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx_alpha,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.775</code></pre>
 </div>
 </div>
-<p>Calculate Reliability via Spearman-Brown’s Prophecy:</p>
+<p>With the simplification of Coefficient alpha’s formula, let us calculate the reliability via Spearman-Brown’s prophecy formula provided in <a href="#eq-sp-brown">Equation&nbsp;<span>5.4</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1. get correlation matrix between all observed scores</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>corr_mat <span class="ot">=</span> <span class="fu">cor</span>(<span class="fu">cbind</span>(x1,x2,x3,x4))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>corr_mat <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">cbind</span>(x1,x2,x3,x4))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2. average off-diagonal elements of matrix</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(corr_mat) <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>rxixj <span class="ot">=</span> <span class="fu">mean</span>(corr_mat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>rxixj <span class="ot">&lt;-</span> <span class="fu">mean</span>(corr_mat, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3. get number of items (k)</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">dim</span>(corr_mat)[<span class="dv">1</span>]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">dim</span>(corr_mat)[<span class="dv">1</span>]</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># step 4. calculate Spearman-Brown reliability</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>rXX_SB <span class="ot">=</span> k <span class="sc">*</span> rxixj <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (k<span class="dv">-1</span>) <span class="sc">*</span> rxixj)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>rxx_SB <span class="ot">&lt;-</span> k <span class="sc">*</span> rxixj <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (k<span class="dv">-1</span>) <span class="sc">*</span> rxixj)</span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rXX_SB,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx_SB,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.775</code></pre>
 </div>
 </div>
-<p>Calculate the Split-Half Reliability:</p>
+<p>If we simplify even further, we can calculate the Split-Half reliability formula provided in <a href="#eq-split-half">Equation&nbsp;<span>5.5</span></a>,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1. make composite scores for each half of the observed scores</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">=</span> x1 <span class="sc">+</span> x2</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">=</span> x3 <span class="sc">+</span> x4</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>xh1 <span class="ot">&lt;-</span> (x1 <span class="sc">+</span> x2)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>xh2 <span class="ot">&lt;-</span> (x3 <span class="sc">+</span> x4)<span class="sc">/</span><span class="dv">2</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2. calculate the correlation between the scores of both halves</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>rX1X2 <span class="ot">=</span> <span class="fu">cor</span>(X1,X2)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>rx1x2 <span class="ot">&lt;-</span> <span class="fu">cor</span>(xh1,xh2)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3. calculate the split-half reliability</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>rXX_SH <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>rX1X2 <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> rX1X2)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>rxx_SH <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span>rx1x2 <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> rx1x2)</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rXX_SH,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx_SH,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.824</code></pre>
 </div>
 </div>
-<p>True Reliability: Lets see how the results compare to the squared correlation of the true scores and our composite score (true reliability).</p>
+<p>Lets see how the results compare to the actual reliability,</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate true reliability</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rXt <span class="ot">=</span> <span class="fu">cor</span>(X,t)</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate true reliability, true scores must be re-scaled by number of items</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>rxx <span class="ot">=</span> <span class="fu">var</span>(k<span class="sc">*</span>T_score) <span class="sc">/</span> var_x</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display true reliability</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rXt<span class="sc">^</span><span class="dv">2</span>,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display actual reliability</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.753</code></pre>
+<pre><code>[1] 0.734</code></pre>
 </div>
 </div>
-<p>In this case, the reliability estimates do a fairly good job of estimating the true reliability of the observed scores.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Simulate Data: Let us simulate a data set of 50 individuals where each observed score has the same true score with some error. To calculate the necessary statistics, we will import the <code>numpy</code> package.</p>
+<p>In this case, the reliability estimates do a fairly good job of estimating the true reliability of the observed scores. We can also use the <code>alpha</code> function from the <code>psych</code> package <span class="citation" data-cites="psych:p2017">(<a href="direct_range_restriction.html#ref-psych:p2017" role="doc-biblioref"><span>“Psych: Procedures for Personality and Psychological Research”</span> 2017</a>)</span> to estimate coefficient alpha too. It also provides additional item level information that is quite useful:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#import numpy</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">343</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set sample size</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="co"># simulate true scores</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> t <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="co"># simulate observed scores for measurement 1</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> t <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="co"># simulate observed scores for measurement 2</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>x3 <span class="op">=</span> t <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="co"># simulate observed scores for measurement 3</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>x4 <span class="op">=</span> t <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="co"># simulate observed scores for measurement 4</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate sum score</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> x1 <span class="op">+</span> x2 <span class="op">+</span> x3 <span class="op">+</span> x4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Calculate Coefficient Alpha Reliability:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1. calculate variance of observed (measured) scores</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>var_xm <span class="op">=</span> [np.var(x1),np.var(x2),np.var(x3),np.var(x4)]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2. calculate variance of composite score</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>var_X <span class="op">=</span> np.var(X)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3. get number of items (k)</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="bu">len</span>(var_xm)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># step 4. calculate coefficient alpha reliability</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>rXX_alpha <span class="op">=</span> k <span class="op">/</span> (k<span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> <span class="bu">sum</span>(var_xm)<span class="op">/</span>var_X)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(rXX_alpha,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in package</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('psych')</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># compute summary reliability (only need first table)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">alpha</span>(<span class="fu">cbind</span>(x1,x2,x3,x4))[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.769</code></pre>
-</div>
-</div>
-<p>Calculate Reliability from Spearman-Brown’s prophecy formula:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1. get correlation matrix between all observed scores</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>corr_mat <span class="op">=</span> np.corrcoef([x1,x2,x3,x4])</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2. average off-diagonal elements of matrix</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>rxixj <span class="op">=</span> np.mean(corr_mat[<span class="op">~</span>np.eye(k,dtype<span class="op">=</span><span class="bu">bool</span>)])</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3. get number of items (k)</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="bu">len</span>(corr_mat)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># step 4. calculate Spearman-Brown reliability</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>rXX_SB <span class="op">=</span> k <span class="op">*</span> rxixj <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> (k<span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> rxixj)</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(rXX_SB,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.772</code></pre>
-</div>
-</div>
-<p>Calculate Split-Half Reliability:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1. make composite scores for each half of the observed scores</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> x1 <span class="op">+</span> x2</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>X2 <span class="op">=</span> x3 <span class="op">+</span> x4</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2. calculate the correlation between the scores of both halves</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>rX1X2 <span class="op">=</span> np.corrcoef(X1,X2)[<span class="dv">0</span>,<span class="dv">1</span>]</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3. calculate the split-half reliability</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>rXX_SH <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>rX1X2 <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> rX1X2)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(rXX_SH,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.772</code></pre>
-</div>
-</div>
-<p>Lets see how the results compare to the squared correlation of the true scores and our composite score (true reliability).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate true reliability</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rXt <span class="op">=</span> np.corrcoef(X,t)[<span class="dv">0</span>,<span class="dv">1</span>]</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(rXt<span class="op">**</span><span class="dv">2</span>,<span class="dv">3</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.791</code></pre>
-</div>
-</div>
-<p>In this case, the reliability estimates do a fairly good job of estimating the true reliability of the observed scores. There are also functions within the <code>psych</code> package that allow you to easily calculate coefficient alpha among other reliability estimators</p>
-</div>
+<pre><code> raw_alpha std.alpha   G6(smc) average_r      S/N        ase        mean
+ 0.7749847 0.7751377 0.7337024 0.4628829 3.447166 0.05141467 -0.04386823
+        sd  median_r
+ 0.9567892 0.4571798</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="test-retest-stability-estimator" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="test-retest-stability-estimator"><span class="header-section-number">5.3.1</span> Test-Retest Stability Estimator</h3>
-<p>There measurement errors that exist outside of the measurement instrument itself. Transient errors represent fluctuations in observed scores over time. These fluctuations, even if they are systematic (e.g., fatigue over the course of a single day), add extraneous within-person variance that can mask true scores (i.e., expectation of observed scores). For example, if a researcher wants to investigate how individuals differ in processing speed, then variation within an individual’s scores across multiple testing sessions would be considered error since the goal of the study is to investigate between-person variation. Considering transient fluctuations as error depends on the research goal, so it is important for researchers to take care in considering which variance components should be considered error in their study. To estimate test-retest reliability, we can compute the pearson correlation coefficient between the measurement at time 1 (<span class="math inline">\(x_{T_{1}}\)</span>) and the second measurement at time 2 (<span class="math inline">\(x_{T_{2}}\)</span>).</p>
+<section id="test-retest-stability-estimator" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="test-retest-stability-estimator"><span class="header-section-number">5.4.3</span> Test-Retest Stability Estimator</h3>
+<p>Transient errors represent fluctuations in observed scores over time. These fluctuations, even if they are systematic (e.g., fatigue over the course of a single day), add extraneous within-person variance that can mask true scores. Considering transient fluctuations as error depends on the research goal, so it is important for researchers to take care in considering which variance components should be considered error in their study (see <a href="#sec-sources"><span>Section&nbsp;5.4.5</span></a>). To estimate test-retest reliability, we can compute the correlation between the measurement at time 1 (<span class="math inline">\(x_{t_1}\)</span>) and the second measurement at time 2 (<span class="math inline">\(x_{t_2}\)</span>),</p>
 <p><span class="math display">\[
-_\text{tr}r_{xx'}= r_{x_{T_1}x_{T_2}}
+_\text{tr}r_{xx'}= r_{x_{t_1}x_{t_2}}.
 \]</span></p>
 <p>Note that calculating the pearson correlation coefficient between time-points ignores systematic changes (e.g., practice effects).</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="unreliability_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<section id="calculating-test-retest-reliability-in-r-and-python" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="calculating-test-retest-reliability-in-r-and-python">Calculating Test-Retest Reliability in R and Python</h4>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Python</a></li></ul>
-<div class="tab-content">
-<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>Lets calculate test-retest reliability in R. First, we can simulate observed scores at two time points, <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span>. We can assume that the true scores remain constant between <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span>. Second, we can calculate the correlation between the observed scores at each time point (<span class="math inline">\(r_{x_{T_1}x_{T_2}}\)</span>).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">343</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set sample size</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">70</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate true scores</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate scores at time 1</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>xT1 <span class="ot">=</span> t <span class="sc">+</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,.<span class="dv">5</span>)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate scores at time 2</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>xT2 <span class="ot">=</span> t <span class="sc">+</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,.<span class="dv">5</span>)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate test-retest reliability</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>rxx <span class="ot">=</span> <span class="fu">cor</span>(xT1,xT2)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.803</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare with true reliability</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rxx_true <span class="ot">=</span> <span class="fu">cor</span>(xT1,t)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display true reliability</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx_true,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.768</code></pre>
-</div>
-</div>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<p>Lets calculate test-retest reliability in R. First, we can simulate observed scores at two time points, <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span>. We can assume that the true scores remain constant between <span class="math inline">\(T_1\)</span> and <span class="math inline">\(T_2\)</span>. Second, we can calculate the correlation between the observed scores at each time point (<span class="math inline">\(r_{x_{T_1}x_{T_2}}\)</span>).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import numpy</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">343</span>)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># set sample size</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">70</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate 70 true scores</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.random.normal(<span class="dv">0</span>,<span class="dv">1</span>,n)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate scores at time 1</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>xT1 <span class="op">=</span> t <span class="op">+</span> np.random.normal(<span class="dv">0</span>,<span class="fl">.5</span>,n)</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate scores at time 2</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>xT2 <span class="op">=</span> t <span class="op">+</span> np.random.normal(<span class="dv">0</span>,<span class="fl">.5</span>,n)</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate test-retest reliability</span></span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>rxx <span class="op">=</span> np.corrcoef(xT1,xT2)[<span class="dv">0</span>,<span class="dv">1</span>]</span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(rxx,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.768</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare with true reliability</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>rxx_true <span class="op">=</span> np.corrcoef(xT1,t)[<span class="dv">0</span>,<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display true reliability</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(rxx_true,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>0.731</code></pre>
-</div>
-</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="unreliability_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Illustrating test-retest reliability. Top-left and top-right panels show the correlation between observed scores at both time-points for a measure that has low and high reliability, respectively. Bottom-left and bottom-right panels show the within-person change from time-point 1 to time-point 2 for scores with low and high reliability, respectively.</figcaption>
+</figure>
 </div>
 </div>
 </div>
 </section>
+<section id="calculating-test-retest-reliability-in-r" class="level3" data-number="5.4.4">
+<h3 data-number="5.4.4" class="anchored" data-anchor-id="calculating-test-retest-reliability-in-r"><span class="header-section-number">5.4.4</span> Calculating Test-Retest Reliability in R</h3>
+<p>Lets calculate test-retest reliability in R. First, we can simulate observed scores at two time points, <code>xTime1</code> and <code>xTime2</code>. We can assume that the true scores remain constant between time points. Second, we can calculate the correlation between the observed scores at each time point (<code>rxx</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set sample size</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate true scores</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>T_score <span class="ot">=</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate scores at time 1</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>xTime1 <span class="ot">=</span> T_score <span class="sc">+</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,.<span class="dv">5</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate scores at time 2</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>xTime2 <span class="ot">=</span> T_score <span class="sc">+</span> <span class="fu">rnorm</span>(n,<span class="dv">0</span>,.<span class="dv">5</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate test-retest reliability</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>rxx <span class="ot">=</span> <span class="fu">cor</span>(xTime1,xTime2)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># display reliability</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.755</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare with true reliability</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>rxx_true <span class="ot">=</span> <span class="fu">var</span>(T_score) <span class="sc">/</span> <span class="fu">var</span>(xTime1)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># display actual reliability</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(rxx_true,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.779</code></pre>
+</div>
+</div>
 </section>
-<section id="sources-of-measurement-error" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="sources-of-measurement-error"><span class="header-section-number">5.3.2</span> Sources of Measurement Error</h3>
-<p>There are many estimators of reliability beyond internal consistency and test-retest that account for different sources of error and hold different assumptions. There are many sources of measurement error that different estimators of reliability account for adapted from table 1 of <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="#ref-wiernik2020" role="doc-biblioref">2020</a>)</span> :</p>
+<section id="sec-sources" class="level3" data-number="5.4.5">
+<h3 data-number="5.4.5" class="anchored" data-anchor-id="sec-sources"><span class="header-section-number">5.4.5</span> Sources of Measurement Error</h3>
+<p>Measurement error variance can itself be broken down into multiple sources of error (e.g., transient, ). Depending on the study, different sources of error may be more relevant than others. It is important for a researcher to choose the right reliability estimator for their study since they account for different sources of measurement error. A description of four of the most common sources of error is adapted from table 1 of <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>:</p>
 <ul>
 <li><p>Random Response Error: Genuine randomness in responses. Examples include: motor errors and variation in response time.</p></li>
 <li><p>Time/Environment-Specific (Transient) Error: Fluctuations in scores as a result of the specific time or environment of the measurement. For instance, if researchers administered an ability test to a sample of undergraduate students throughout the course of a day, the student’s who complete the test at the end of the day will likely perform worse than participant’s who completed due to fatigue rather than ability. Errors due to illness, mood, hunger, environmental distractors, etc. all fall under the umbrella of transient errors.</p></li>
-<li><p>Instrument-Specific Error: Error due to the specific content or make-up of the measurement instrument. For example, a psychological scale using likert items participant’s idiosyncratic interpretations of questions and response options rather than their standing on the latent construct.</p></li>
+<li><p>Instrument-Specific Error: Error due to the specific content or make-up of the measurement instrument. For example, a psychological scale using Likert items may show participant’s idiosyncratic interpretations of questions and response options rather than their standing on the latent construct.</p></li>
 <li><p>Rater/Observer-Specific Error: Errors induced by idiosyncratic biases of individual raters and rater by ratee interactions (e.g., Teacher A gives higher grades to students who stay after class).</p></li>
 </ul>
 <p>Different estimators of reliability account for different sources of measurement error therefore depending on the research design, it is important to carefully choose which reliability is most relevant for your use case. Note that even if two estimators account for the same types of measurement error, they likely hold different assumptions that may be violated in a given research context.</p>
@@ -662,7 +588,7 @@ _\text{tr}r_{xx'}= r_{x_{T_1}x_{T_2}}
 <caption>Table 1. List of reliability coefficients and the sources of error they account for.</caption>
 <colgroup>
 <col style="width: 16%">
-<col style="width: 17%">
+<col style="width: 16%">
 <col style="width: 16%">
 <col style="width: 16%">
 <col style="width: 16%">
@@ -682,209 +608,486 @@ _\text{tr}r_{xx'}= r_{x_{T_1}x_{T_2}}
 <tr class="odd">
 <td>Coefficient Alpha</td>
 <td>Internal consistency coefficient for composite measures.</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td>Coefficient Omega</td>
 <td>Internal consistency coefficient for composite measures with specified factor structure.</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td>Split-Half</td>
 <td>Internal consistency coefficient for measurements that are split into two halves.</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td>Kuder-Richardson 20</td>
 <td>Internal consistency when observed scores are binary (special case of coefficient alpha).</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td>Item Response Theory Reliability</td>
 <td>Reliability coefficient derived from item response theory (as opposed to classical test theory)</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td>Inter-Rater/Inter-Observer Reliability</td>
 <td>Consistency in scoring between raters/observers.</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
 </tr>
 <tr class="odd">
 <td>Test-Retest</td>
 <td>Stability coefficient for repeated measurements across time</td>
-<td style="text-align: center;">✔️</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="even">
 <td>Delayed Coefficient Alpha</td>
 <td>Average of all possible split-half reliabilities</td>
-<td style="text-align: center;">✔️</td>
-<td style="text-align: center;">✔️</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
+<td style="text-align: center;">X️</td>
+<td style="text-align: center;">X️</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td>G-Coefficient</td>
 <td>Reliability coefficient derived from generalizability theory (G-theory). Can incorporate any source of error if enough data is present.</td>
-<td style="text-align: center;">✔️</td>
-<td style="text-align: center;">✔️</td>
-<td style="text-align: center;">✔️</td>
-<td style="text-align: center;">✔️</td>
+<td style="text-align: center;">X️</td>
+<td style="text-align: center;">X️</td>
+<td style="text-align: center;">X️</td>
+<td style="text-align: center;">X️</td>
 </tr>
 </tbody>
 </table>
 </section>
 </section>
-<section id="bias-in-correlation-coefficients" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="bias-in-correlation-coefficients"><span class="header-section-number">5.4</span> Bias in Correlation Coefficients</h2>
-<p>Unreliability induces systematic bias in effect size estimates such as correlation coefficients <span class="citation" data-cites="hunter1990a">Spearman (<a href="#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. Lets say we have two observed scores $x$ and $y$,</p>
+<section id="correction-for-bias-in-correlations-r" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="correction-for-bias-in-correlations-r"><span class="header-section-number">5.5</span> Correction for Bias in Correlations (<em>r</em>)</h2>
+<section id="defining-the-estimand" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="defining-the-estimand"><span class="header-section-number">5.5.1</span> Defining the Estimand</h3>
+<p>Continuing with our emphasis on clearly defining our quantity of interest (i.e., the estimand) prior to applying any corrections, let us define it. Our estimand here is the population correlation between true scores of our independent and dependent variables. We can define the observed scores of the independent and dependent variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> as,</p>
 <p><span class="math display">\[
-x=x_t+e
+x=T+e_x
 \]</span></p>
 <p><span class="math display">\[
-y=y_t+e
+y=U+e_y
 \]</span></p>
-<p>In most research contexts, we would like to estimate the correlation between true scores where the correlation between true scores, <span class="math inline">\(x_t\)</span> and <span class="math inline">\(y_t\)</span> is <span class="math display">\[
-\rho=\frac{\sigma_{x_ty_t}}{\sigma_{x_t} \sigma_{y_t}}
+<p>Where <span class="math inline">\(T\)</span> and <span class="math inline">\(U\)</span> are the true scores for the independent and dependent variables, respectively. The true score correlation can thus be be denoted by, <span class="math inline">\(\rho_{TU}\)</span>, and can be defined as the standardized covariance, <span class="math display">\[
+\rho_{TU} = \frac{\sigma_{TU}}{\sigma_{T}\sigma_{U}}
 \]</span></p>
-<p>The observed correlation differs only in that it standardizes the covariance by the product of the standard deviations of observed scores rather than true scores. The covariance of observed scores will be equivalent to the covariance of true scores assuming <span class="math inline">\(\sigma_{e_x e_y}=0\)</span> (see <a href="#sec-true-score-theory"><span class="quarto-unresolved-ref">sec-true-score-theory</span></a>).</p>
+<p>In a given study, we will only have knowledge of the observed scores of the independent and dependent variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, therefore the population observed score correlation is <span class="math inline">\(\rho_{xy}\)</span>. To obtain an unbiased estimate of the true score correlation, we must correct the observed score correlation.</p>
+</section>
+<section id="sec-r-corr" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="sec-r-corr"><span class="header-section-number">5.5.2</span> Artifactual Bias and Correction</h3>
+<p>Measurement error induces systematic bias in effect size estimates such as correlation coefficients <span class="citation" data-cites="hunter1990a">Spearman (<a href="direct_range_restriction.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. In the population, let us assume there is some factor <span class="math inline">\(a\)</span> that accounts for the systematic bias in observed score correlations (<span class="math inline">\(\rho_{xy}\)</span>) relative to true score correlations (<span class="math inline">\(\rho_{TU}\)</span>), such that</p>
+<p><span class="math display">\[
+\rho_{xy} = a \rho_{TU}.
+\]</span></p>
+<p>Since the correlation is defined as the covariance standardized by the standard deviations, the population correlation between true scores, <span class="math inline">\(T\)</span> and <span class="math inline">\(U\)</span>, is defined as</p>
+<p><span class="math display">\[
+\rho_{TU}=\frac{\sigma_{TU}}{\sigma_{T} \sigma_{U}}
+\]</span></p>
+<p>Likewise the correlation between the observed scores, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, would be the observed covariance divided by the observed standard deviations. <span class="math display">\[
+\rho_{xy} =\frac{\sigma_{xy}}{\sigma_{x} \sigma_{y}}
+\]</span> However, if we assume that there is no covariance between errors in <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> (<span class="math inline">\(\sigma_{e_x e_y} = 0\)</span>), then the covariance between observed scores is only attributable to the covariance between true scores, therefore <span class="math inline">\(\sigma_{xy} = \sigma_{TU}\)</span>. This means that the observed score correlation can be expressed as</p>
 <p><span id="eq-bias"><span class="math display">\[
-r=\frac{\sigma_{xy}}{\sigma_x \sigma_y} = \frac{\sigma_{x_ty_t}}{\sigma_x \sigma_y}
-\tag{5.3}\]</span></span></p>
-<p>In the presence of measurement error, the observed standard deviations (<span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span>) will be larger than the true standard deviations (<span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span>). Since the reliability is defined as the ratio of true variance to total observed variance (see <a href="#eq-reliability">Equation&nbsp;<span class="quarto-unresolved-ref">eq-reliability</span></a> ), we can see how reliability inflates the true standard deviation</p>
+\rho_{xy} =\frac{\sigma_{TU}}{\sigma_{x} \sigma_{y}}
+\tag{5.6}\]</span></span></p>
+<p>Now the only difference between the observed score correlation and the true score correlation is the standard deviations in the denominator. In the presence of measurement error, the observed score standard deviations (<span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span>) will be larger than the true score standard deviations (<span class="math inline">\(\sigma_{T}\)</span> and <span class="math inline">\(\sigma_{U}\)</span>). Using the definition of reliability, we can show how the observed variance is inflated compared to the true variance as a function of reliability. Since the reliability is defined as the ratio of true variance to total observed variance (see <a href="#eq-reliability">Equation&nbsp;<span>5.2</span></a>), we can see how reliability inflates the observed variance</p>
+<span class="math display">\[\begin{align}
+\sigma^2_x &amp;=\sigma^2_{T} \left(\frac{\sigma^2_{x}}{\sigma^2_{T}} \right)
+\\ &amp;= \sigma^2_{T}\left(\frac{1}{r_{xx'}} \right)
+\\ &amp;= \frac{\sigma^2_{T}}{r_{xx'}},
+\end{align}\]</span>
+<p>therefore the observed standard deviation is,</p>
+<p><span id="eq-sd-me"><span class="math display">\[
+\sigma_x = \frac{\sigma_{T}}{\sqrt{r_{xx'}}}.
+\tag{5.7}\]</span></span></p>
+<p>If we use the definition of an observed score correlation (<a href="#eq-bias">Equation&nbsp;<span>5.6</span></a>), then we can replace <span class="math inline">\(\sigma_x\)</span> and <span class="math inline">\(\sigma_y\)</span> with <span class="math inline">\(\frac{\sigma_{T}}{\sqrt{r_{xx'}}}\)</span> and <span class="math inline">\(\frac{\sigma_{U}}{\sqrt{r_{yy'}}}\)</span>, respectively. Now we can see how the observed score correlation differs from the true score correlation:</p>
+<span class="math display">\[\begin{align}
+\rho_{xy} &amp;= \frac{\sigma_{T U}}{\left[\frac{\sigma_{T}}{\sqrt{r_{xx'}}} \right] \left[ \frac{\sigma_{U}}{\sqrt{r_{yy'}}} \right] }
+\\ &amp;= \frac{\sigma_{T U}}{\sigma_{T}\sigma_{U}} \cdot \sqrt{r_{yy'}}\sqrt{r_{xx'}}
+\\ &amp;= \rho_{TU} \sqrt{r_{yy'}}\sqrt{r_{xx'}}
+\end{align}\]</span>
+<p>This attenuation formula was first derived by <span class="citation" data-cites="spearman1904">Spearman (<a href="direct_range_restriction.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. Note that this formulation requires that there is no correlation between <span class="math inline">\(e_x\)</span> and <span class="math inline">\(e_y\)</span> (<span class="math inline">\(r_{e_xe_y}=0\)</span>). The study observed correlation will also contain sampling error and thus can be expressed by, <span class="math display">\[
+r_{xy} = \rho_{xy} + \varepsilon_o
+\]</span> We can also express it in terms of our estimand, the population true score correlation (<span class="math inline">\(\rho_{TU}\)</span>),</p>
 <p><span class="math display">\[
-\sigma^2_x =\sigma^2_{x_t} \cdot \frac{\sigma^2_{x}}{\sigma^2_{x_t}} = \sigma^2_{x_t}\cdot\frac{1}{r_{xx'}} = \frac{\sigma^2_{xt}}{r_{xx'}}
+r_{xy} = \rho_{TU}\sqrt{r_{xx'}r_{xx'}} + \varepsilon_o
 \]</span></p>
-<p>Therefore,</p>
-<p><span class="math display">\[
-\sigma_x = \frac{\sigma_{x_t}}{\sqrt{r_{xx'}}}
-\]</span></p>
-<p>If we plug this back into equation <a href="#eq-bias">Equation&nbsp;<span class="quarto-unresolved-ref">eq-bias</span></a> then we can see how the observed correlation changes as a function of reliability and how it is biased from the true score correlation <span class="math inline">\(\rho\)</span>:</p>
-<p><span class="math display">\[
-\begin{align}
-r &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x} \sigma_{y}}
-\\ &amp;= \frac{\sigma_{x_ty_t}}{\left[\frac{\sigma_{x_t}}{\sqrt{r_{xx'}}} \right] \left[ \frac{\sigma_{y_t}}{\sqrt{r_{yy'}}} \right] }
-\\ &amp;= \frac{\sigma_{x_ty_t}}{\sigma_{x_t}\sigma_{y_t}} \cdot \sqrt{r_{yy'}}\sqrt{r_{xx'}}
-\\ &amp;= \rho\sqrt{r_{yy'}}\sqrt{r_{xx'}}
-\end{align}
-\]</span> This equation was first provided by <span class="citation" data-cites="spearman1904">Spearman (<a href="#ref-spearman1904" role="doc-biblioref">1904</a>)</span> For cases where measurement error only affects one of the two variables, the attenuation</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">=</span> .<span class="dv">5</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>X_true <span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">50</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>Y_true <span class="ot">=</span> rho <span class="sc">*</span> X_true <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">50</span>,<span class="dv">0</span>,<span class="fu">sqrt</span>(<span class="dv">1</span><span class="sc">-</span>rho<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>h1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="cn">NULL</span>, <span class="fu">aes</span>(<span class="at">x =</span> X_true, <span class="at">y =</span> Y_true)) <span class="sc">+</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> main_color_blue, <span class="at">fill =</span> main_color_blue) <span class="sc">+</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>)) <span class="sc">+</span></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>)) <span class="sc">+</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"True x"</span>)<span class="sc">+</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"True y"</span>) <span class="sc">+</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">'True Score Correlation'</span>, <span class="at">subtitle =</span> <span class="fu">TeX</span>(<span class="st">"$</span><span class="sc">\\</span><span class="st">rho =$ .50"</span>)) <span class="sc">+</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>,</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> panel_color_blue),</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="fl">1.2</span>),</span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>, <span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="dv">1</span>),</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"none"</span>) </span>
-<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>X_obs <span class="ot">=</span> X_true <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">50</span>,<span class="dv">0</span>, <span class="fu">sqrt</span>( <span class="dv">1</span><span class="sc">/</span>.<span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>) )</span>
-<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>Y_obs <span class="ot">=</span> Y_true <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">50</span>,<span class="dv">0</span>, <span class="fu">sqrt</span>( <span class="dv">1</span><span class="sc">/</span>.<span class="dv">8</span> <span class="sc">-</span> <span class="dv">1</span>) )</span>
-<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>h4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> <span class="cn">NULL</span>, <span class="fu">aes</span>(<span class="at">x =</span> X_obs, <span class="at">y =</span> Y_obs)) <span class="sc">+</span></span>
-<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color =</span> main_color_blue, <span class="at">fill =</span> main_color_blue) <span class="sc">+</span></span>
-<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>)) <span class="sc">+</span></span>
-<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>)) <span class="sc">+</span></span>
-<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"True x"</span>)<span class="sc">+</span></span>
-<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"True y"</span>) <span class="sc">+</span></span>
-<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">'True Score Correlation'</span>, <span class="at">subtitle =</span> <span class="fu">TeX</span>(<span class="st">"$</span><span class="sc">\\</span><span class="st">rho =$ .50"</span>)) <span class="sc">+</span></span>
-<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>,</span>
-<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> panel_color_blue),</span>
-<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="cn">NA</span>, <span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="fl">1.2</span>),</span>
-<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">14</span>, <span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>, <span class="at">color =</span> text_color_blue),</span>
-<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">color =</span> border_color_blue,<span class="at">linewidth=</span><span class="dv">1</span>),</span>
-<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.position =</span> <span class="st">"none"</span>) </span>
-<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>h1 <span class="sc">+</span> h2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="unreliability_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="unreliability_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="768"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="unreliability_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Visualizing the attenuation of observed correlation (<span class="math inline">\(\rho_{xy}\)</span>) due to measurement error. The left panel shows a situation where only one variable (<span class="math inline">\(x\)</span>) has measurement error. The observed correlation increases as a function of the true correlation <span class="math inline">\(\rho_{TU}\)</span> (darker lines indicate a higher true score correlation) and the reliability of <span class="math inline">\(x\)</span> (x-axis). The right panel shows the attenuation of the correlation when both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> variables are affected by measurement error. The darker end of the gradient shows a higher correlation, while the lighter end represents a smaller correlation (the true score correlation sits on the top where no measurement error is present, <span class="math inline">\(r_{xx'}=r_{yy'}=1\)</span>).</figcaption>
+</figure>
 </div>
 </div>
-<p>Ultimately, the inflation of the observed standard deviation As described in <a href="#eq-reliability">Equation&nbsp;<span class="quarto-unresolved-ref">eq-reliability</span></a>, the reliability can be interpreted as the ratio of total observed variance to</p>
-<p>Fortunately, there are corrections that can be applied to effect size estimates to account for bias.</p>
+</div>
+<p>It becomes apparent that if we have the reliability of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we can obtain an unbiased estimate of <span class="math inline">\(\rho_{TU}\)</span> by dividing both sides of the above equation by <span class="math inline">\(\sqrt{r_{xx'}r_{xx'}}\)</span> such that,</p>
+<p><span class="math display">\[
+\frac{r_{xy}}{\sqrt{r_{xx'}r_{xx'}}} =\rho_{TU} + \frac{\varepsilon_o}{\sqrt{r_{xx'}r_{xx'}}}
+\]</span> Therefore the corrected study correlation, <span class="math inline">\(r_c\)</span>, is defined as,</p>
+<p><span class="math display">\[
+r_c = \frac{r_{xy}}{\sqrt{r_{xx'}r_{xx'}}}.
+\]</span> The sampling error of the corrected study correlation is,</p>
+<p><span class="math display">\[
+\varepsilon_c = \frac{\varepsilon_{o}}{\sqrt{r_{xx'}r_{xx'}}}
+\]</span></p>
+<p>and thus the sampling variance would be,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_{o}}}{r_{xx'}r_{xx'}}.
+\]</span></p>
 </section>
-<section id="corrections-for-bias-in-correlations" class="level2" data-number="5.5">
-<h2 data-number="5.5" class="anchored" data-anchor-id="corrections-for-bias-in-correlations"><span class="header-section-number">5.5</span> Corrections for Bias in Correlations</h2>
+<section id="correcting-correlations-in-r" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="correcting-correlations-in-r"><span class="header-section-number">5.5.3</span> Correcting Correlations in R</h3>
+<p>We can simulate continuous data that contains measurement error by using the <code>simulate_r_sample</code> function in the <code>psychmeta</code> package. Below we will simulate observed scores (<code>x_score</code> and <code>y_score</code>) and true scores (<code>T_score</code> and <code>U_score</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('psychmeta')</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># define parameters</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>rhoTU <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>rxx <span class="ot">&lt;-</span> .<span class="dv">8</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>ryy <span class="ot">&lt;-</span> .<span class="dv">7</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">simulate_r_sample</span>(<span class="at">n =</span> n, </span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rho_mat =</span> <span class="fu">reshape_vec2mat</span>(rhoTU),</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                          <span class="at">rel_vec =</span> <span class="fu">c</span>(rxx, ryy), </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>                          <span class="at">sr_vec =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>                          <span class="at">var_names =</span> <span class="fu">c</span>(<span class="st">"x"</span>,<span class="st">"y"</span>))</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain observed scrores</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>x_score <span class="ot">&lt;-</span> data<span class="sc">$</span>data<span class="sc">$</span>observed<span class="sc">$</span>x</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>y_score <span class="ot">&lt;-</span> data<span class="sc">$</span>data<span class="sc">$</span>observed<span class="sc">$</span>y</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain true scores</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>T_score <span class="ot">&lt;-</span> data<span class="sc">$</span>data<span class="sc">$</span>true<span class="sc">$</span>x</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>U_score <span class="ot">&lt;-</span> data<span class="sc">$</span>data<span class="sc">$</span>true<span class="sc">$</span>y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can compute observed score (<code>rxy</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute observed score correlation and standard error</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>rxy <span class="ot">&lt;-</span> <span class="fu">cor</span>(x_score,y_score)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># compute sampling variance of observed score correlation</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>var_e_o <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>rxy<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n<span class="dv">-2</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'rxy = '</span>,<span class="fu">round</span>(rxy,<span class="dv">3</span>),<span class="st">'  var_e_o = '</span>,<span class="fu">round</span>(var_e_o,<span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "rxy = 0.351  var_e_o = 0.0018"</code></pre>
+</div>
+</div>
+<p>Let us now compare the observed correlation with the true score correlation (<code>rTU</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute observed score correlation and standard error</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>rTU <span class="ot">&lt;-</span> <span class="fu">cor</span>(T_score,U_score)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># compute sampling variance of observed score correlation</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>var_e <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>rTU<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n<span class="dv">-2</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'rTU = '</span>,<span class="fu">round</span>(rTU,<span class="dv">3</span>),<span class="st">'  var_e = '</span>,<span class="fu">round</span>(var_e,<span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "rTU = 0.463  var_e = 0.0016"</code></pre>
+</div>
+</div>
+<p>The observed correlation is substantially lower than the true score correlation. In order to correct the observed score correlation, we can calculate it by hand or use the <code>correct_r()</code> function. Lets first correct by hand using the equations in <a href="#sec-r-corr"><span>Section&nbsp;5.5.2</span></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correct correlation coefficient</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>rc <span class="ot">&lt;-</span> rxy <span class="sc">/</span> <span class="fu">sqrt</span>(rxx<span class="sc">*</span>ryy)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct sampling variance</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>var_e_c <span class="ot">&lt;-</span> var_e_o <span class="sc">/</span> <span class="fu">sqrt</span>(rxx<span class="sc">*</span>ryy)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'rc = '</span>,<span class="fu">round</span>(rc,<span class="dv">3</span>),<span class="st">'  var_e_c = '</span>,<span class="fu">round</span>(var_e_c,<span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "rc = 0.47  var_e_c = 0.0024"</code></pre>
+</div>
+</div>
+<p>Now lets correct the correlation with the <code>correct_r()</code> function,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correct correlation</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">correct_r</span>(<span class="at">rxyi =</span> rxy,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">rxx =</span> rxx,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">ryy =</span> ryy,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Correlations Corrected for Measurement Error:
+---------------------------------------------------------------------------------------
+  value CI_LL_95 CI_UL_95   n n_effective
+1  0.47    0.364    0.569 500         222</code></pre>
+</div>
+</div>
+<p>As we can see, the corrected correlation (<span class="math inline">\(r_c = .470\)</span>) is a more accurate estimate of the true score population correlation <span class="math inline">\(\rho_{TU} = .500\)</span>, than the observed score correlation (<span class="math inline">\(r_{xy}=.351\)</span>).</p>
 </section>
-<section id="correction-for-unreliability-in-correlation-coefficients" class="level2" data-number="5.6">
-<h2 data-number="5.6" class="anchored" data-anchor-id="correction-for-unreliability-in-correlation-coefficients"><span class="header-section-number">5.6</span> Correction for Unreliability in Correlation Coefficients</h2>
-<section id="bias-in-correlations" class="level3" data-number="5.6.1">
-<h3 data-number="5.6.1" class="anchored" data-anchor-id="bias-in-correlations"><span class="header-section-number">5.6.1</span> Bias in Correlations</h3>
-<p>Measurements that produce scores with low reliability by definition have low correlations between observed scores on parallel forms of the measurement. It should should not be expected that any other variable would.</p>
 </section>
-<section id="bias-in-standardized-mean-difference" class="level3" data-number="5.6.2">
-<h3 data-number="5.6.2" class="anchored" data-anchor-id="bias-in-standardized-mean-difference"><span class="header-section-number">5.6.2</span> Bias in Standardized Mean Difference</h3>
-<section id="between-group-standardized-mean-difference" class="level4" data-number="5.6.2.1">
-<h4 data-number="5.6.2.1" class="anchored" data-anchor-id="between-group-standardized-mean-difference"><span class="header-section-number">5.6.2.1</span> Between-Group Standardized Mean Difference</h4>
+<section id="correction-for-bias-in-standardized-mean-differences-d" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="correction-for-bias-in-standardized-mean-differences-d"><span class="header-section-number">5.6</span> Correction for Bias in Standardized Mean Differences (<em>d</em>)</h2>
+<section id="defining-the-estimand-1" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="defining-the-estimand-1"><span class="header-section-number">5.6.1</span> Defining the Estimand</h3>
+<p>Prior to correcting for measurement error let us define our estimand. Our estimand here is the difference in the means of group <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> with respect to the true scores of our dependent variable. We can define the observed scores of the independent and dependent variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> as,</p>
+<p><span class="math display">\[
+y_A = U_A + e_A
+\]</span></p>
+<p><span class="math display">\[
+y_B = U_B + e_B
+\]</span></p>
+<p>Where <span class="math inline">\(U_A\)</span> and <span class="math inline">\(U_B\)</span> are the true scores for group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>, respectively. The true score standardized mean difference can thus be be denoted by, <span class="math inline">\(\delta_{U}\)</span>, and can be defined as</p>
+<p><span class="math display">\[
+\delta_{U} = \frac{\overline{U}_A - \overline{U}_B}{\sigma_{U_P}}
+\]</span></p>
+<p>Where <span class="math inline">\(\overline{U}\)</span> is the mean of true scores for the respective group. In a given study, we only have access to the observed scores of the independent and dependent variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, therefore the population observed score correlation is <span class="math inline">\(\delta_{y}\)</span>. To obtain an unbiased estimate of <span class="math inline">\(\delta_{U}\)</span>, we must apply a correction to the observed score standardized mean difference.</p>
 </section>
-<section id="repeated-measures-standardized-mean-difference" class="level4" data-number="5.6.2.2">
-<h4 data-number="5.6.2.2" class="anchored" data-anchor-id="repeated-measures-standardized-mean-difference"><span class="header-section-number">5.6.2.2</span> Repeated Measures Standardized Mean Difference</h4>
-<p><span class="citation" data-cites="haertel2006">(<a href="#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span></p>
-<p><span class="citation" data-cites="schmidt2003">(<a href="#ref-schmidt2003" role="doc-biblioref">Schmidt, Le, and Ilies 2003</a>)</span></p>
-<p><span class="citation" data-cites="gliem2003">(<a href="#ref-gliem2003" role="doc-biblioref">Gliem and Gliem 2003</a>)</span></p>
-<p><span class="citation" data-cites="bobko2001">(<a href="#ref-bobko2001" role="doc-biblioref">Bobko, Roth, and Bobko 2001</a>)</span></p>
-<p><span class="citation" data-cites="mendoza1987">(<a href="#ref-mendoza1987" role="doc-biblioref">Mendoza and Mumford 1987</a>)</span></p>
-<p><span class="citation" data-cites="brennan2010">(<a href="#ref-brennan2010" role="doc-biblioref">Brennan 2010</a>)</span></p>
-<p><span class="citation" data-cites="viswanathan2005">(<a href="#ref-viswanathan2005" role="doc-biblioref">Viswanathan 2005</a>)</span></p>
-<p><span class="citation" data-cites="viswesvaran2014">(<a href="#ref-viswesvaran2014" role="doc-biblioref">Viswesvaran et al. 2014</a>)</span></p>
-<p><span class="citation" data-cites="sijtsma2009">(<a href="#ref-sijtsma2009" role="doc-biblioref">Sijtsma 2009</a>)</span></p>
-<p><span class="citation" data-cites="charles2005">(<a href="#ref-charles2005" role="doc-biblioref">Charles 2005</a>)</span></p>
-<p><span class="citation" data-cites="spearman1904">(<a href="#ref-spearman1904" role="doc-biblioref">Spearman 1904</a>)</span></p>
+<section id="sec-d-SMD" class="level3" data-number="5.6.2">
+<h3 data-number="5.6.2" class="anchored" data-anchor-id="sec-d-SMD"><span class="header-section-number">5.6.2</span> Artifactual Bias and Correction</h3>
+<p>We can calculate the standardized mean difference (SMD) of the observed scores by dividing the mean difference in observed scores (<span class="math inline">\(\bar{y}_A-\bar{y}_B\)</span>) by the pooled standard deviation (<span class="math inline">\(\sigma_p\)</span>). It is important to note that the mean of true scores and the mean of observed scores will be identical due to the fact that measurement error only affects variance in scores. Therefore, we can express the observed standardized mean difference as,</p>
+<p><span class="math display">\[
+d = \frac{\bar{y}_A-\bar{y}_B}{\sigma_{y_P}} = \frac{\overline{U}_A-\overline{U}_B}{\sigma_{y_P}}
+\]</span></p>
+<p>The pooled standard deviation is a weighted average of the observed score standard deviations,</p>
+<p><span class="math display">\[
+\sigma_{y_P}=\sqrt{\frac{(n_A+1)\sigma^2_{y_A}+(n_B+1)\sigma^2_{y_B}}{n_A+n_B-2}}.
+\]</span></p>
+<p>To express <span class="math inline">\(\sigma_{y_P}\)</span> in terms of the true score standard deviations, we can place the observed score standard deviations with the attenuated true score standard deviation in <a href="#eq-sd-me">Equation&nbsp;<span>5.7</span></a>,</p>
+<p><span class="math display">\[
+\sigma_{y_P} = \sqrt{\frac{(n_A+1)\left(\frac{\sigma^2_{U_A}}{r_{yy'_A}}\right)+(n_B+1)\left(\frac{\sigma^2_{U_B}}{r_{yy'_B}}\right)}{n_A + n_B - 2}}.
+\]</span></p>
+<p>Alternatively, we can pool the reliability and the true score standard deviations separately so that we can obtain a simplified version of the above equation,</p>
+<p><span class="math display">\[
+\sigma_{U_P} = \sqrt{\frac{(n_A+1)\sigma_{U_A}^2+(n_B+1)\sigma_{U_B}^2}{n_A + n_B - 2}}.
+\]</span></p>
+<p><span class="math display">\[
+r_{yy'_P} = \sqrt{\frac{(n_A+1) r_{yy'_A}^2+(n_B+1)r_{yy'_B}^2}{n_A + n_B - 2}}.
+\]</span></p>
+<p>Then we can express <span class="math inline">\(\sigma_{y_P}\)</span> similarly to <a href="#eq-sd-me">Equation&nbsp;<span>5.7</span></a>,</p>
+<p><span class="math display">\[
+\sigma_{y_P} = \frac{\sigma_{U_P}}{\sqrt{r_{yy'_P}}}
+\]</span></p>
+<p>Now we can put it all together and see how the observed score standardized mean difference (<span class="math inline">\(\delta_y\)</span>) is biased relative to the true score standardized mean difference (<span class="math inline">\(\delta_U\)</span>),</p>
+<span class="math display">\[\begin{align}
+\delta_y &amp;= \frac{\bar{y}_A-\bar{y}_B}{\sigma_{y_P}}
+\\[1em] &amp;= \frac{\overline{U}_A-\overline{U}_B}{\sigma_{y_P}}
+\\[1em] &amp;= \frac{\overline{U}_A-\overline{U}_B}{\frac{\sigma_{U_P}}{\sqrt{r_{yy'_P}}}}
+\\[1em] &amp;= \frac{\overline{U}_A-\overline{U}_B}{\sigma_{U_P}}\sqrt{r_{yy'_P}}
+\\[1em] &amp;= \delta_U\sqrt{r_{yy'_P}}
+\end{align}\]</span>
+<p>This attenuation bias is very similar to the one we saw in the correlation, with the only difference being that the pooled reliability is used here instead of the total sample reliability. Within a study, the observed score standardized mean difference (<span class="math inline">\(d_y\)</span>) will not only be attenuated by measurement error, but it will also contain sampling error such that,</p>
+<p><span class="math display">\[
+d_y = \delta_y + \varepsilon_o
+\]</span> replacing the observed population SMD, <span class="math inline">\(\delta_y\)</span>, with <span class="math inline">\(\delta_U\sqrt{r_{yy'_P}}\)</span>, gives us,</p>
+<p><span class="math display">\[
+d_y = \delta_U\sqrt{r_{yy'_P}} + \varepsilon
+\]</span> Therefore to obtain the corrected study SMD (<span class="math inline">\(d_c\)</span>) we can divide <span class="math inline">\(d_y\)</span> by the attenuation factor,</p>
+<p><span class="math display">\[
+d_c = \frac{d_y}{\sqrt{r_{yy'_P}}}
+\]</span></p>
+<p>Where the sampling variance of the corrected SMD must also be similarly adjusted,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{r_{yy'_P}}
+\]</span> Although the attenuation factor is quite simple, in more complex formulations (e.g., bivariate direct range restriction), it will be easier to apply a simplified correction for the sampling variance using the corrected correlation coefficient: <span class="math display">\[
+\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{d_c}{d_y}\right)^2
+\]</span> It is important to point out that this correction can only be done if when estimates of the within-group reliability are available. It is common that studies will only report the full sample reliability. If there are differences between groups on the variable, the total sample reliability will over-estimate the within-group reliability. When the total sample reliability is all that is available, to correct <span class="math inline">\(d_y\)</span>, we must first convert it to a point-biserial correlation coefficient (<span class="math inline">\(r_{pb}\)</span>) using the observed proportion of subjects in either group <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> (<span class="math inline">\(p\,\)</span>; it does not matter which one is chosen, as long as it is consistent throughout).</p>
+<p><span class="math display">\[
+r_{pb} = \frac{d}{\sqrt{\frac{1}{p(1-p)}+d^2}}.
+\]</span> Then correct <span class="math inline">\(r_{pb}\)</span> for the total sample reliability,</p>
+<p><span class="math display">\[
+r_c = \frac{r_{pb}}{\sqrt{r_{yy'}}}
+\]</span></p>
+<p>Then we can convert <span class="math inline">\(r_c\)</span> back into <span class="math inline">\(d_c\)</span>,</p>
+<p><span class="math display">\[
+d_c = \frac{r_c}{\sqrt{p(1-p)(1-r_c^2)}}
+\]</span> The same process of converting to a point-biserial correlation and back to a standardized mean difference can be done for the sampling variance as well, but instead we can put it all into one equation,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{pb}}\right)^2} {\left(1+d^2p[1-p]\right)^3(1-r_c^2)^3}
+\]</span></p>
+</section>
+<section id="correcting-d-values-in-r" class="level3" data-number="5.6.3">
+<h3 data-number="5.6.3" class="anchored" data-anchor-id="correcting-d-values-in-r"><span class="header-section-number">5.6.3</span> Correcting <em>d</em> values in R</h3>
+<p>We can simulate data that contains measurement error by using the <code>simulate_d_sample</code> function in the <code>psychmeta</code> package. Below we will simulate observed scores (<code>y_score</code>) and true scores (<code>U_score</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('psychmeta')</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># define parameters</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>Means <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>ryyA <span class="ot">&lt;-</span> .<span class="dv">75</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>ryyB <span class="ot">&lt;-</span> .<span class="dv">70</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>nA <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>nB <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> nA <span class="sc">+</span> nB</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span> <span class="fu">simulate_d_sample</span>(<span class="at">n_vec =</span> <span class="fu">c</span>(nA, nB), </span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">rho_mat_list =</span> <span class="fu">list</span>(<span class="fu">reshape_vec2mat</span>(<span class="dv">1</span>),<span class="fu">reshape_vec2mat</span>(<span class="dv">1</span>)),</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mu_mat =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(.<span class="dv">5</span>,<span class="dv">0</span>),</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>                                        <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)), </span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sigma_mat =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>                                           <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)),</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>                         <span class="at">rel_mat =</span> <span class="fu">rbind</span>(<span class="fu">c</span>(ryyA,<span class="dv">1</span>),</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>                                         <span class="fu">c</span>(ryyB,<span class="dv">1</span>)), </span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sr_vec =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>                         <span class="at">group_names =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>))</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain observed scores</span></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>y_score <span class="ot">&lt;-</span> data<span class="sc">$</span>data<span class="sc">$</span>observed<span class="sc">$</span>y1</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> data<span class="sc">$</span>data<span class="sc">$</span>observed<span class="sc">$</span>group</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain true scores</span></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>U_score <span class="ot">&lt;-</span> data<span class="sc">$</span>data<span class="sc">$</span>true<span class="sc">$</span>y1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we can compute observed score standardized mean difference (<code>dy</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute observed score means and standard deviations</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>Mean_A <span class="ot">&lt;-</span> <span class="fu">mean</span>(y_score[group<span class="sc">==</span><span class="st">'A'</span>])</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>Mean_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(y_score[group<span class="sc">==</span><span class="st">'B'</span>])</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>SD_A <span class="ot">&lt;-</span> <span class="fu">sd</span>(y_score[group<span class="sc">==</span><span class="st">'A'</span>])</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>SD_B <span class="ot">&lt;-</span> <span class="fu">sd</span>(y_score[group<span class="sc">==</span><span class="st">'B'</span>])</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compute pooled standard deviation</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>SD_P <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( ((nA<span class="dv">-1</span>)<span class="sc">*</span>SD_A<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (nB<span class="dv">-1</span>)<span class="sc">*</span>SD_B<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (nA<span class="sc">+</span>nB<span class="dv">-2</span>) )</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># compute standardized mean difference</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>dy <span class="ot">&lt;-</span> (Mean_A <span class="sc">-</span> Mean_B) <span class="sc">/</span> SD_P</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># compute sampling variance of observed score correlation</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>var_e_o <span class="ot">&lt;-</span> n<span class="sc">/</span>(nA<span class="sc">*</span>nB) <span class="sc">+</span> dy<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>n)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'dy = '</span>,<span class="fu">round</span>(dy,<span class="dv">3</span>),<span class="st">'  var_e_o = '</span>,<span class="fu">round</span>(var_e_o,<span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "dy = 0.273  var_e_o = 0.0202"</code></pre>
+</div>
+</div>
+<p>Let us now compare the observed score SMD with the true score SMD (<code>dU</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute true score means and standard deviations</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>Mean_A <span class="ot">&lt;-</span> <span class="fu">mean</span>(U_score[group<span class="sc">==</span><span class="st">'A'</span>])</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>Mean_B <span class="ot">&lt;-</span> <span class="fu">mean</span>(U_score[group<span class="sc">==</span><span class="st">'B'</span>])</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>SD_A <span class="ot">&lt;-</span> <span class="fu">sd</span>(U_score[group<span class="sc">==</span><span class="st">'A'</span>])</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>SD_B <span class="ot">&lt;-</span> <span class="fu">sd</span>(U_score[group<span class="sc">==</span><span class="st">'B'</span>])</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co"># compute pooled standard deviation</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>SD_P <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( ((nA<span class="dv">-1</span>)<span class="sc">*</span>SD_A<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (nB<span class="dv">-1</span>)<span class="sc">*</span>SD_B<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (nA<span class="sc">+</span>nB<span class="dv">-2</span>) )</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co"># compute standardized mean difference</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>dU <span class="ot">&lt;-</span> (Mean_A <span class="sc">-</span> Mean_B) <span class="sc">/</span> SD_P</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># compute sampling variance of the true score SMD</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>var_e <span class="ot">&lt;-</span> n<span class="sc">/</span>(nA<span class="sc">*</span>nB) <span class="sc">+</span> dy<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>n)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'dU = '</span>,<span class="fu">round</span>(dU,<span class="dv">3</span>),<span class="st">'  var_e = '</span>,<span class="fu">round</span>(var_e,<span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "dU = 0.509  var_e = 0.0202"</code></pre>
+</div>
+</div>
+<p>The observed score SMD is substantially lower than the true score SMD (.286 vs .509). In order to correct the observed score correlation for attenuation, we can calculate it by hand. Lets correct the observed SMD for measurement error variance using the equations in <a href="#sec-d-SMD"><span>Section&nbsp;5.6.2</span></a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the pooled reliability</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ryy_P <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((nA<span class="dv">-1</span>)<span class="sc">*</span>ryyA<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (nB<span class="dv">-1</span>)<span class="sc">*</span>ryyB<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (nA<span class="sc">+</span>nB<span class="dv">-2</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct correlation coefficient</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>dc <span class="ot">&lt;-</span> dy <span class="sc">/</span> <span class="fu">sqrt</span>(ryy_P)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="co"># correct sampling variance</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>var_e_c <span class="ot">&lt;-</span> var_e_o <span class="sc">/</span> <span class="fu">sqrt</span>(ryyA)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste0</span>(<span class="st">'rc = '</span>,<span class="fu">round</span>(dc,<span class="dv">3</span>),<span class="st">'  var_e_c = '</span>,<span class="fu">round</span>(var_e_c,<span class="dv">4</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "rc = 0.32  var_e_c = 0.0233"</code></pre>
+</div>
+</div>
+<p>Now lets correct the correlation with the <code>correct_r()</code> function. The <code>correct_d()</code> function only takes in the total sample reliability, therefore we can extract the total sample reliability from the simulated dataset and then use the resulting reliability coefficient in the <code>ryy</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># total sample reliability</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>ryy <span class="ot">=</span> data<span class="sc">$</span>overall_results<span class="sc">$</span>observed<span class="sc">$</span>parallel_ryyi_total[<span class="dv">1</span>]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct correlation</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">correct_d</span>(<span class="at">d =</span> dy,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">ryy =</span> ryy,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">n1 =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>d Values Corrected for Measurement Error:
+---------------------------------------------------------------------------------------
+  value CI_LL_95 CI_UL_95   n n_effective
+1 0.322 -0.00878    0.667 200         142</code></pre>
+</div>
+</div>
+<p>As we can see, the corrected correlation (<span class="math inline">\(d_c = .32\)</span>) is a more accurate estimate of the true score population SMD <span class="math inline">\(\delta_U = .500\)</span>, than the observed score correlation (<span class="math inline">\(r_{xy}=.273\)</span>).</p>
+</section>
+</section>
+<section id="sec-lim-information" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="sec-lim-information"><span class="header-section-number">5.7</span> Estimating Reliability with Limited Information</h2>
+<p>Reliability estimates should preferably be calculated from within the study’s sample, however there are a couple of ways to estimate reliability when this information is not provided. A common way to obtain an estimate of the reliability is to look in meta-analyses or a test manuals. If the number of items in a study differs from the test manual, you can approximate the reliability of a study’s test, with a re-arrangement of the Spearman-Brown prophecy formula,</p>
+<p><span class="math display">\[
+r_{xx'_{study}} \approx \frac{1}{\frac{k_{\text{ref}}}{k_{\text{study}}} \left(\frac{1}{r_{xx'_{study}}} - 1\right) + 1}
+\]</span></p>
+<p>Where <span class="math inline">\(k_{\text{ref}}\)</span> and <span class="math inline">\(k_{\text{study}}\)</span> denote the number of items in the reference test and the test used in the study, respectively.</p>
+<p><span class="citation" data-cites="haertel2006">(<a href="direct_range_restriction.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span></p>
+<p><span class="citation" data-cites="schmidt2003">(<a href="direct_range_restriction.html#ref-schmidt2003" role="doc-biblioref">Schmidt, Le, and Ilies 2003</a>)</span></p>
+<p><span class="citation" data-cites="gliem2003">(<a href="direct_range_restriction.html#ref-gliem2003" role="doc-biblioref">Gliem and Gliem 2003</a>)</span></p>
+<p><span class="citation" data-cites="bobko2001">(<a href="direct_range_restriction.html#ref-bobko2001" role="doc-biblioref">Bobko, Roth, and Bobko 2001</a>)</span></p>
+<p><span class="citation" data-cites="mendoza1987">(<a href="direct_range_restriction.html#ref-mendoza1987" role="doc-biblioref">Mendoza and Mumford 1987</a>)</span></p>
+<p><span class="citation" data-cites="brennan2010">(<a href="direct_range_restriction.html#ref-brennan2010" role="doc-biblioref">Brennan 2010</a>)</span></p>
+<p><span class="citation" data-cites="viswanathan2005">(<a href="direct_range_restriction.html#ref-viswanathan2005" role="doc-biblioref">Viswanathan 2005</a>)</span></p>
+<p><span class="citation" data-cites="viswesvaran2014">(<a href="direct_range_restriction.html#ref-viswesvaran2014" role="doc-biblioref">Viswesvaran et al. 2014</a>)</span></p>
+<p><span class="citation" data-cites="sijtsma2009">(<a href="direct_range_restriction.html#ref-sijtsma2009" role="doc-biblioref">Sijtsma 2009</a>)</span></p>
+<p><span class="citation" data-cites="charles2005">(<a href="direct_range_restriction.html#ref-charles2005" role="doc-biblioref">Charles 2005</a>)</span></p>
+<p><span class="citation" data-cites="spearman1904">(<a href="direct_range_restriction.html#ref-spearman1904" role="doc-biblioref">Spearman 1904</a>)</span></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-bobko2001" class="csl-entry" role="listitem">
 Bobko, Philip, Philip Roth, and Christopher Bobko. 2001. <span>“Correcting the Effect Size of d for Range Restriction and Unreliability.”</span> <em>Organizational Research Methods - ORGAN RES METHODS</em> 4 (January): 46–61. <a href="https://doi.org/10.1177/109442810141003">https://doi.org/10.1177/109442810141003</a>.
+</div>
+<div id="ref-borsboom2002" class="csl-entry" role="listitem">
+Borsboom, Denny, and Gideon J Mellenbergh. 2002. <span>“True Scores, Latent Variables, and Constructs: A Comment on Schmidt and Hunter.”</span>
+</div>
+<div id="ref-borsboom2004" class="csl-entry" role="listitem">
+Borsboom, Denny, Gideon J. Mellenbergh, and Jaap Van Heerden. 2004. <span>“The Concept of Validity.”</span> <em>Psychological Review</em> 111 (4): 1061–71. <a href="https://doi.org/10.1037/0033-295X.111.4.1061">https://doi.org/10.1037/0033-295X.111.4.1061</a>.
 </div>
 <div id="ref-brennan2010" class="csl-entry" role="listitem">
 Brennan, Robert L. 2010. <span>“Generalizability Theory and Classical Test Theory.”</span> <em>Applied Measurement in Education</em> 24 (1): 1–21. <a href="https://doi.org/10.1080/08957347.2011.532417">https://doi.org/10.1080/08957347.2011.532417</a>.
 </div>
 <div id="ref-charles2005" class="csl-entry" role="listitem">
 Charles, Eric. 2005. <span>“The Correction for Attenuation Due to Measurement Error: Clarifying Concepts and Creating Confidence Sets.”</span> <em>Psychological Methods</em> 10 (July): 206–26. <a href="https://doi.org/10.1037/1082-989X.10.2.206">https://doi.org/10.1037/1082-989X.10.2.206</a>.
+</div>
+<div id="ref-cronbach1955" class="csl-entry" role="listitem">
+Cronbach, Lee J., and Paul E. Meehl. 1955. <span>“Construct Validity in Psychological Tests.”</span> <em>Psychological Bulletin</em> 52 (4): 281–302. <a href="https://doi.org/10.1037/h0040957">https://doi.org/10.1037/h0040957</a>.
 </div>
 <div id="ref-galton1907" class="csl-entry" role="listitem">
 Galton, Francis. 1907. <span>“Vox Populi.”</span> <em>Nature</em> 75 (1949): 450–51. <a href="https://doi.org/10.1038/075450a0">https://doi.org/10.1038/075450a0</a>.
@@ -898,8 +1101,14 @@ Haertel, Edward H. 2006. <span>“3. Reliability.”</span> In, 4th ed.
 <div id="ref-hunter1990a" class="csl-entry" role="listitem">
 Hunter, John E., and Frank L. Schmidt. 1990. <em>Methods of meta-analysis: correcting error and bias in research findings</em>. Newbury Park: Sage Publications.
 </div>
+<div id="ref-kelley1927" class="csl-entry" role="listitem">
+Kelley, Truman Lee. 1927. <em>Interpretation of Educational Measurements</em>. World Book Company.
+</div>
 <div id="ref-mendoza1987" class="csl-entry" role="listitem">
 Mendoza, Jorge L., and Michael Mumford. 1987. <span>“Corrections for Attenuation and Range Restriction on the Predictor.”</span> <em>Journal of Educational Statistics</em> 12 (3): 282–93. <a href="https://doi.org/10.3102/10769986012003282">https://doi.org/10.3102/10769986012003282</a>.
+</div>
+<div id="ref-psych:p2017" class="csl-entry" role="listitem">
+<span>“Psych: Procedures for Personality and Psychological Research.”</span> 2017. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.
 </div>
 <div id="ref-schmidt2003" class="csl-entry" role="listitem">
 Schmidt, Frank L., Huy Le, and Remus Ilies. 2003. <span>“Beyond Alpha: An Empirical Examination of the Effects of Different Sources of Measurement Error on Reliability Estimates for Measures of Individual-Differences Constructs.”</span> <em>Psychological Methods</em> 8: 206–24. <a href="https://doi.org/10.1037/1082-989X.8.2.206">https://doi.org/10.1037/1082-989X.8.2.206</a>.
@@ -920,8 +1129,6 @@ Viswesvaran, Chockalingam, Deniz S. Ones, Frank L. Schmidt, Huy Le, and In-Sue O
 Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining Unbiased Results in Meta-Analysis: The Importance of Correcting for Statistical Artifacts.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
 </div>
 </div>
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1166,7 +1373,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./misclassification.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Misclassification</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

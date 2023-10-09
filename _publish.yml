@@ -1,0 +1,6 @@
+- source: project
+  quarto-pub:
+    - id: 253b9be3-0c9b-4284-aba2-e5e0e4cc2508
+      url: 'https://matthewbjane.quarto.pub/correcting-effect-sizes-for-statistical-artifacts'
+    - id: 0712c7c6-50c1-49f5-b2e4-204f4dca722e
+      url: 'https://matthewbjane.quarto.pub/general-exam'

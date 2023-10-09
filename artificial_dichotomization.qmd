@@ -1,5 +1,414 @@
 # Artificial Dichotomization
 
+```{r color_scheme,echo = F,warning=F,message=F}
+
+library(raster)
+library(metR)
+library(isoband)
+library(latex2exp)
+library(extrafont)
+library(ggplot2)
+library(ggdist)
+library(patchwork)
+library(MASS)
+library(ggdist)
+
+
+text_color_blue      = '#326982ff'
+panel_color_blue     = '#f6fafbff'
+lightmain_color_blue = '#a4cdd9ff'
+main_color_blue      = '#5fa6bcff'
+darkmain_color_blue  = '#397689ff'
+border_color_blue    = '#5fa6bcff'
+
+text_color_red       = '#a62675ff'
+panel_color_red      = '#fdf6faff'
+lightmain_color_red  = '#eeb4d7ff'
+main_color_red       = '#d74ea2ff'
+darkmain_color_red   = '#bf2986ff'
+border_color_red     = '#d74ea2ff'
+
+group_color_red = '#e383be'
+group_color_blue = '#4c8596'
+
+
+th_blue <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_blue),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_blue),
+        axis.text.x = element_text(size=13, color = text_color_blue),
+        axis.text.y = element_text(size=13, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1)) 
+  
+th_red <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_red),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_red),
+        axis.text.x = element_text(size=13, color = text_color_red),
+        axis.text.y = element_text(size=13, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1)) 
+```
+
+## Introduction
+
+Primary studies sometimes will splitting naturally continuous variables into two discrete groups to increase interpretability or conduct specific analyses (e.g., t-tests). However, artificially dichotomizing variables introduces measurement error variance thus attenuating effect size estimates [@hunter1990, @maxwell1993]. Clinical disorder diagnoses, such as generalized anxiety disorder, are examples of dichotomization where individuals are separated into either having the disorder or not even though individual differences in anxiety exist as a continuum.
+
+## Artificial Dichotomization Induced Measurement Error
+
+Variables that are dichotomized contain measurement error. This can be demonstrated by the simple fact that dichotomized scores are not perfectly correlated with continuous scores. To demonstrate this, we can draw a sample of scores and then split the data into high and low scorers and then find the correlation coefficient between the two (see figure below). It becomes apparent that the dichotomized scores leave a lot of the variation in scores unaccounted for.
+
+```{r, echo=FALSE}
+
+h1 = ggplot(data = NULL, aes(y = 0, 
+                        xdist = distributional::dist_normal(0,1),
+                        fill=after_stat(x<qnorm(.50)))) +
+  stat_dist_slab(size = 0) +  
+  labs(title = "Median Split", y = "Density", x = "Score") + 
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.text.y = element_blank(),
+        axis.title = element_text(color = text_color_red,size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  scale_fill_manual(values = c(group_color_blue,group_color_red)) +
+  annotate(geom='text',x=-2 , y=.9, label='Low',color=group_color_red,size=6) +
+  annotate(geom='text',x=2 , y=.9, label='High',color=group_color_blue,size=6)
+
+score <- rnorm(500,0,1)
+di_score <- score
+di_score[score<=0] <- 'Low'
+di_score[score>0] <- 'High'
+di_score = relevel(factor(di_score),ref='Low')
+
+h2 = ggplot(data=NULL, aes(x=di_score,y=score, color = di_score)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7) +
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.title = element_text(color = 'grey30',size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  labs(x = "Dichotomized Score", y = 'Continuous Scores') +
+  scale_color_manual(values = c(group_color_red,group_color_blue)) + 
+  annotate(geom='text',x=1 , y=2, label=paste0('r = ',round(cor(as.numeric(di_score=='High'),score),2)),size=5)
+
+h1 + h2
+
+```
+
+Even with a perfectly reliable measure, dichotomization will introduce measurement error variance. We can define naturally continuous scores ($\ddagger$) that have been artificially dichotomized as, 
+$$
+ x_\ddagger= 
+\begin{cases}
+    1,& \text{if } x>C_x\\
+    0,& \text{if } x<C_x
+\end{cases}
+$$
+
+Where $C_x$ is the cut-score on the standard normal distribution. The reliability can be defined as the correlation between dichotomized scores and the underlying continuous scores ($r_{x_\ddagger x}$).
+
+## Correcting Correlations for Artificial Dichotomization
+
+### Defining our estimand
+
+Ultimately, we would like to know the correlation coefficient between two naturally continuous variables. Sticking with our notation for true scores, our estimand can be defined as the population correlation between continuous observed scores of the independent ($x$) and dependent variable ($y$), $\rho_{xy}$. Where dichotomized scores can be defined as,
+
+$$
+ x_\ddagger= 
+\begin{cases}
+    1,& \text{if } x>C_x\\
+    0,& \text{if } x<C_x
+\end{cases}
+$$
+
+$$
+ y_\ddagger= 
+\begin{cases}
+    1,& \text{if } y>C_y\\
+    0,& \text{if } y<C_y
+\end{cases}
+$$
+
+Where $C_y$ is the cut-score where the split took place. There are two cases of dichotomization that may occur in a given study: the univariate case where only one variable (either dependent or independent) is dichotomized and the bivariate case where both variables are dichotomized. Both of these situations will be addressed in the next section.
+
+### Artifact Correction for Correlations {#sec-corr-artifacts}
+
+#### The Univariate Case {.unnumbered}
+
+In the simplest case of dichotomization, only one variable is dichotomized and the other is left continuous. In this case, a Pearson product-moment correlation is equivalent to the *point-biserial* correlation coefficient, however for dichotomized data, the *biserial* correlation is a relatively unbiased estimate of the pearson correlation on the underlying continuous data (assuming normality). Therefore in the population, the observed correlation $\rho_{x_\ddagger y}$ is biased by some attenuation factor $a$,
+
+$$
+\rho_{x_\ddagger y} = a\rho_{xy}
+$$
+
+The first step in estimating the attenuation of the correlation is to first identify the cut-point, $C_x$, of standard normal distribution where the split of the data occurred. This can be calculated by first obtaining the percent of the of the individuals in the low or high scoring group:
+
+$$
+p_x = \frac{ n_{\text{high}} }{n_{\text{high}} + n_{\text{low}}}
+$$ 
+or
+
+$$
+p_x = \frac{ n_{\text{low}} }{n_{\text{high}} + n_{\text{low}}}.
+$$
+
+Then we can use the quantile function ($\phi^{-1}$; i.e., the inverse of the cumulative density of the standard normal distribution) to obtain the cut-point on the standard normal distribution,
+
+$$
+C_x = \phi^{-1}(p_x)
+$$
+
+Using the cut-point and the proportion of group membership in either the low or high scoring group ($p_x$), the attenuation factor can be defined as [@hunter1990],
+
+$$
+a =\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} 
+$$
+
+Where $\varphi$ is the normal ordinate function (i.e., probability density function of a standard normal distribution). Since a standard normal distribution is symmetric, the sign of $C_x$ does not matter. In the case of a median split, where the cut-point would be placed at zero of a standard normal (splitting the distribution in equal halves), the attenuation factor would simplify to $a =\frac{\varphi(0)}{\sqrt{.5(.5)}}$ $=\frac{2}{\sqrt{2\pi}}$. To correct the pearson correlation when one of the variables is dichotomized, we can divide the observed correlation by the attenuation factor such that, $r_c = \frac{r_{x_Dy}}{a}$. Therefore the full correction equation is,
+
+$$
+r_c = \frac{r_{x_\ddagger y}}{\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \right]}
+$$ {#eq-dich-r}
+
+Where the sampling variance of the corrected correlation must also be adjusted using the compound attenuation factor,
+
+$$
+\sigma^2_{\varepsilon_c} =\frac{\sigma^2_{\varepsilon_o}} {a^2} =\frac{\sigma^2_{\varepsilon_o}} {\left[\frac{\varphi(C_x)^2}{p_x(1-p_x)} \right]}
+$$
+
+```{r,warning=FALSE, echo=FALSE}
+ggplot(data = NULL, aes(y = 0, 
+                        xdist = distributional::dist_normal(0,1),
+                        fill=after_stat(x<qnorm(.70)))) +
+  stat_dist_slab(size = 0,scale=1.04) +  
+  stat_spike(at = c(qnorm(.70)),size=2.5,color='black') + 
+  labs(title = "Dichotomization",subtitle = "Cut-point at 0.52", y = "Density", x = "Score") + 
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.text.y = element_blank(),
+        axis.title = element_text(color = 'grey30',size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  scale_fill_manual(values = c(group_color_blue,group_color_red)) +
+  annotate(geom='text',x=-2 , y=.5, label='Low',color=group_color_red,size=6) +
+  annotate(geom='text',x=2 , y=.5, label='High',color=group_color_blue,size=6) +
+  annotate(geom='text',x=.85 , y=.05, label=TeX("$C_x$"),color="white",size=6) +
+  annotate(geom='text',x=1.3 , y=.95, label=TeX("$\\varphi(C_x)$"),color="black",size=6)
+```
+
+#### The Bivariate Case {.unnumbered}
+
+In some cases, both independent and dependent variables are dichotomized inducing measurement error in both variables. A pearson correlation calculated on these two dichotomized variables would be equal to the phi coefficient and we can denote it with our notation for dichotomized variables, $r_{x_\ddagger y_\ddagger}$ The data can be structured in a contingency table:
+
+::: columns
+::: {.column width="25%"}
+:::
+
+::: {.column width="50%"}
+|                          | $x_\ddagger=\text{Low}$ | $x_\ddagger=\text{High}$ |
+|:----------------------:|:----------------------:|:----------------------:|
+| $y_\ddagger=\text{Low}$  |        $n_{LL}$         |         $n_{HL}$         |
+| $y_\ddagger=\text{High}$ |        $n_{LH}$         |         $n_{HH}$         |
+
+: {.bordered}
+:::
+
+
+::: {.column width="25%"}
+:::
+:::
+
+We can also show how this contingency table would relate to a bivariate normal distribution
+
+::: columns
+::: {.column width="20%"}
+:::
+
+::: {.column width="60%"}
+
+![](figure/diagram-dich)
+
+:::
+
+::: {.column width="20%"}
+:::
+:::
+
+The proper correction is to calculate the tetrachoric correlation coefficient. The tetrachoric correlation is specifically meant for dichotomous scores that represent continuous underlying normal distribution. To calculate the tetrachoric correlation coefficient, the contingency table must be available. To estimate the correlation of continuous variables ($r_{xy}$) we can approximate the tetrachoric correlation with the following formulation,
+
+$$
+r_c = \text{cos}\left(\frac{\pi}{1+\sqrt{\frac{n_{HH}n_{LL}}{n_{HL}n_{LH}}}}\right)
+$$ {#eq-tet}
+
+If the contingency table is not provided, but the odds ratio ($OR=\frac{n_{HH}n_{LL}}{n_{HL}n_{LH}}$) is, then we can calculate $r_{xy}$ in terms of the odds ratio,
+
+$$
+r_c = \text{cos}\left(\frac{\pi}{1+\sqrt{OR}}\right)
+$$
+
+The sampling variance must be calculated from the contingency table as well. A sampling variance approximation can be obtained from @pearson1913, however due to the complexity of the formulation and because it is simply an approximation, instead I recommend that researchers use a bootstrap procedure to obtain approximate confidence intervals. To do this, we must resample the contingency table (>10,000 iterations), calculating the tetrachoric correlation using @eq-tet upon each iteration. Once you obtain a tetrachoric correlation from each iteration, the standard deviation of all correlations can be used as an estimate of the standard error and the square of the standard error is the sampling variance.
+
+Unfortunately, studies may not report the full contingency table. Instead they may report summary statistics like a chi-squared value or a phi coefficient (i.e., the pearson correlation on binary variables). If the $\chi^2$-statistic is reported, we can first convert that to a phi coefficient by using,
+
+$$
+r_{x_\ddagger y_\ddagger} = \sqrt{\frac{\chi^2}{n}}
+$$ 
+
+Where $n$ is the total sample size. From the phi coefficient, we can estimate the correlation of the continuous variables with a formula similar to @eq-dich-r,
+
+$$
+r_c = \frac{r_{x_\ddagger y_\ddagger}}{\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \right]\left[\frac{\varphi(C_y)}{\sqrt{p_y(1-p_y)}} \right]}
+$$ {#eq-dich-r-biv}
+
+This formula was introduced by @hunter1990 and is a rough approximation of the correlation between the continuous independent and dependent variables ($r_{xy}$). The corresponding sampling variance of the corrected correlation coefficient is,
+
+$$
+\sigma^2_{\varepsilon_c} =\frac{\sigma^2_{\varepsilon_o}} {a^2} =\frac{\sigma^2_{\varepsilon_o}} {\left[\frac{\varphi(C_x)^2}{p_x(1-p_x)} \right]\left[\frac{\varphi(C_y)^2}{p_y(1-p_y)} \right]}.
+$$
+
+### Correcting Correlations for Dichotomization in R
+
+To correct correlations for dichotomization in R, we can use the `correct_r_dich` in the `psychmeta` package.
+
+```{r}
+# load packages
+# install.packages('psychmeta')
+library(psychmeta)
+
+# define parameters
+r <- .5 # the observed correlation
+p <- .4  # proportion of people in group A or B
+px <- .6 # probability of subjects above or below the split in x
+py <- .7 # probability of subjects above or below the split in y
+n <- 100
+var_e_o <- (1 - r^2)^2 / (n-1)
+
+# get cut-point
+correct_r_dich(r,px=px,py=py,n=n)
+```
+
+$$
+var_{e}=\frac{(1-r^{2})^{2}}{n-1}
+$$
+
+We can also correct the correlation using base R. In order to correct for dichotomization, we can use the three step process equations from @sec-corr-smd.
+
+```{r}
+# get cut-point
+Cy <- qnorm(py)
+Cx <- qnorm(px)
+
+# calculate attenuation factors
+a_x <- dnorm(Cx)/sqrt(px*(1-px)) # attenuation factor for dichotomization in x
+a_y <- dnorm(Cy)/sqrt(py*(1-py)) # attenuation factor for dichotomization in y
+
+# correct r
+rc <- r / (a_x*a_y)
+
+# adjust standard error for rc
+var_e_c <- var_e_o * (rc/r)^2
+
+# print results
+print(paste0('r = ',round(rc,3),', var = ',round(var_e_c,3)))
+```
+
+## Correcting Standardized Mean Differences for Artificial Dichotomization
+
+### Defining our estimand
+
+We would like to know the group difference between scores of a naturally continuous variable. Our estimand can thus be defined as the population standardized mean difference between groups $A$ and $B$ on continuous scores of the dependent variable ($y$), $\delta_{y}$. Where dichotomized scores can be defined as 
+
+$$
+ y_{A\ddagger}= 
+\begin{cases}
+    1,& \text{if } y_A>C_y\\
+    0,& \text{if } y_A<C_y
+\end{cases}
+$$
+
+$$
+ y_{B\ddagger}= 
+\begin{cases}
+    1,& \text{if } y_B>C_y\\
+    0,& \text{if } y_B<C_y
+\end{cases}
+$$
+
+In studies of group differences, since the independent variable is already dichotomous, the only dichotomization that can occur is on the dependent variable.
+
+### Artifact Correction for Standardized Mean Differences {#sec-corr-smd}
+
+The simplest way to correct for dichotomization in a standardized mean difference is to first convert the observed $d$ value of the *dichotomized* dependent variable and the *dichotomous* independent variable (i.e., the grouping variable). When converting to a correlation coefficient, it's important to note the binary nature of both variables, leading us to estimate the phi coefficient rather than the point-biserial correlation that we would be estimating if the dependent variable was continuous. To calculate the phi coefficient from a $d$ value we can use the proportion of group membership in group $A$ or group $B$ ($p$; it does not matter which one is chosen, as long as it is consistent for every instance of $p$),
+
+$$
+r_{\text{phi}} = \frac{d_{y_\ddagger}}{\sqrt{d_{y_\ddagger}^2+\frac{1}{p(1-p)}}}
+$$
+We can then correct the phi coefficient similar to how we correct the point-biserial correlation in @sec-corr-artifacts,
+
+$$
+r_c = \frac{r_{\text{phi}}}{\left[\frac{\varphi(C_y)}{\sqrt{p_y (1-p_y)}}\right]}.
+$$
+Then we can convert the corrected correlation back into a standardized mean difference,
+$$
+d_c = \frac{r_c}{\sqrt{p\left(1-p\right)\left(1-r_c^2\right)}}
+$$
+Where $d_c$ is our corrected correlation. The sampling variance must also be corrected using the same three step procedure. For simplicity, we will consolidate this into one formula,
+
+$$
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o} \left(\frac{r_c}{r_\text{phi}}\right)^2} {\left(1+d_{y_\ddagger}^2p[1-p]\right)^3(1-r_c^2)^3}
+$$
+
+### Correcting *d* values for Dichotomization in R
+
+To correct standardized mean differences for dichotomization in R. At the moment the `psychmeta` package does not have a `correct_d_dich` function. In order to correct for dichotomization, we can use the three step process equations from @sec-corr-smd.
+
+```{r}
+# define parameters
+d = .5 # observed standardized mean difference
+nA = 40  # sample size for group A
+nB = 60  # sample size for group A
+n = nA+nB # calculate total sample size
+p = nA / n # calculate proportion of individuals in group A
+py = .7 # probability of subjects above or below the split
+var_e_o = ((n - 1) / (n - 3)) * (n / (nA * nB) + d^2 / (2 * n))
+
+# get cut-point
+Cy = qnorm(py)
+
+# calculate attenuation factor of y
+a_y <- dnorm(Cy)/sqrt(py*(1-py)) # attenuation factor for dichotomization in y
+
+# convert d to r
+r <- d / sqrt(d^2 + (1 / (p*(1-p))))
+
+# correct r
+rc <- r / a_y
+
+# convert r to d
+dc <- rc / sqrt(p*(1-p)*(1-rc^2))
+
+# correct sampling variance
+var_e_c <- (var_e_o * (rc/r)^2) / ((1+d^2*p*(1-p))^3 * (1-rc^2)^3)
+
+# print results
+print(paste0('r = ',round(dc,3),', var = ',round(var_e_c,3) ))
+```
+
+
 [@naggara2011]
 
 [@russell1991]

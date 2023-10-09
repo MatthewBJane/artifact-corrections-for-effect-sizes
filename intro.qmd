@@ -1,14 +1,190 @@
-# Introduction
+```{r color_scheme,echo = F,warning=F,message=F}
 
-## Effect Sizes
+library(raster)
+library(metR)
+library(isoband)
+library(latex2exp)
+library(extrafont)
+library(ggplot2)
+library(patchwork)
+library(MASS)
+library(ggdist)
 
-### Correlations
 
-A correlation describes the relationship between two continuous variables. The correlation coefficient was first introduced 1904 by Charles Spearman
+text_color_blue      = '#326982ff'
+panel_color_blue     = '#f6fafbff'
+lightmain_color_blue = '#a4cdd9ff'
+main_color_blue      = '#5fa6bcff'
+darkmain_color_blue  = '#397689ff'
+border_color_blue    = '#5fa6bcff'
 
-#### Technical Overview {.unnumbered}
+text_color_red       = '#a62675ff'
+panel_color_red      = '#fdf6faff'
+lightmain_color_red  = '#eeb4d7ff'
+main_color_red       = '#d74ea2ff'
+darkmain_color_red   = '#bf2986ff'
+border_color_red     = '#d74ea2ff'
 
-If we draw a sample of $n$ observations from a population, we can estimate the population correlation between variables $x$ and $y$ using a reasonably unbiased estimator, $r$,
+
+th_blue <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_blue),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_blue),
+        axis.text.x = element_text(size=13, color = text_color_blue),
+        axis.text.y = element_text(size=13, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1)) 
+  
+th_red <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_red),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_red),
+        axis.text.x = element_text(size=13, color = text_color_red),
+        axis.text.y = element_text(size=13, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1)) 
+```
+
+# Effect Sizes and Notation
+
+## What are Effect Sizes?
+
+Effect sizes are statistics that measure the magnitude of a relationship between two variables. It's important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights, rather than being the ultimate objective themselves. Effect sizes aide in researcher's ability to draw meaningful inferences from data and therefore it is important that they are accurate. Biased effect sizes can be likened to a foggy windshield. Just as condensation on glass obstructs a clear view of the road, biased effect sizes can obscure the true association between variables. Similar to how one must clean the windshield to drive safely, researchers must correct for biases in effect sizes to attain a clear and accurate perspective on their data. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book. To see how an effect size may look in practice, the example below will illustrate how calculating one may look in a clinical setting.
+
+### Applied Example
+
+Lets say we want to test whether a new drug can alleviate anxiety, therefore we decide to conduct an experiment to see how well this drug performs. We first randomly assign each participant in the study to either a treatment group ($T$) or a control group ($C$). In our experiment we want test how well the experimental drug reduces anxiety, therefore we measure the subjects' self reported anxiety after under-going the treatment. To see if the drug actually worked in alleviating anxiety, we want to compare the scores from the treatment group and the control group. To do this we can estimate the average treatment effect ($ATE$), which is the difference in the mean value of self-reported anxiety scores between the treatment group and the control group such that, $ATE = \text{Mean}(X_T) - \text{Mean}(X_C)$. However, anxiety scores have no meaningful units, so if we obtain an $ATE$ value of $-3$ there is no way to tell if this value is large or small, since it is entirely dependent on how the anxiety scores are scaled. Standardization can allow us to draw meaningful inferences about the size of the effect that can be comparable across scales. We can standardize the $ATE$ by dividing by the standard deviation of scores in the control group, ($\text{SD}$): $\text{Effect Size} = \frac{ATE}{\text{SD}_C}$. The effect size is now on an interpretable scale (standard deviations). If we achieve an standardized effect size value of $-0.50$, we can interpret this as the treatment group exhibiting a reduction in anxiety equivalent to half a standard deviation compared to the control group.
+
+```{r, echo = FALSE}
+#| fig-cap: "Simulated experimental data"
+
+set.seed(5)
+n = 100
+
+`Anxiety Score` = c(rnorm(n,38,8) , rnorm(n,30,8))
+
+`Treatment` =  c(rep('Control',n) , rep('Treatment',n))
+
+ggplot(data = NULL, aes(y = `Treatment`,
+                        x = `Anxiety Score`,
+                        shape = `Treatment`,
+                        fill = `Treatment`,
+                        order = `Treatment`,
+                        group = NA)) +
+  geom_dots(side = "top", scale = 0.75,stackratio = 1.1,dotsize=.9,pch = 22, 
+            position = "dodge",
+            color = main_color_red,linewidth = 1) +
+  stat_pointinterval(aes(y = as.numeric(`Treatment`=='Treatment')+.95), 
+                     shape = 16,point_size = 3.2,point_color = text_color_red,
+                     interval_color =text_color_red, point_interval = "mean_qi") + 
+  scale_fill_manual(values = c(panel_color_red,main_color_red)) + 
+  th_red +
+  theme(legend.position = "none") +
+  ylab("") + 
+  annotate('text',x = mean(`Anxiety Score`[`Treatment` == 'Treatment']),
+           y = 1.85,
+           label = round(mean(`Anxiety Score`[`Treatment` == 'Treatment']),1),
+           color=main_color_red) +
+  annotate('text',x = mean(`Anxiety Score`[`Treatment` == 'Control']),
+           y = 0.85,
+           label = round(mean(`Anxiety Score`[`Treatment` == 'Control']),1),
+           color=main_color_red) +
+  annotate('text',
+           x = 10,
+           y = 2.85,
+           label = paste0('ATE = ',round(mean(`Anxiety Score`[`Treatment` == 'Treatment']) - mean(`Anxiety Score`[`Treatment` == 'Control']),2)) ,
+           color=text_color_red, hjust='left') +
+  annotate('text',
+           x = 10,
+           y = 2.65,
+           label = paste0('d = ',round((mean(`Anxiety Score`[`Treatment` == 'Treatment']) -mean(`Anxiety Score`[`Treatment` == 'Control']))/8,2)) ,
+           color=text_color_red, hjust='left') 
+
+```
+
+### Defining effect sizes
+
+Lets say we have an effect size of interest that quantifies the relationship between an independent and dependent variable. The population effect size can be denoted as $\vartheta$, however this population value is unknown. We can obtain an estimate the population effect size by conducting a study on a sample drawn from the population and then calculating a study effect size, $\theta$. The study effect size is a function of the population effect size and sampling error ($\varepsilon$) such that,
+
+$$
+\theta = \vartheta + \varepsilon
+$$ {#eq-B}
+
+Effect sizes will differ from study to study, this can be due to two reasons: variance in population effect sizes ($\sigma^2_\vartheta$) or variance in sampling error ($\sigma_\varepsilon$). Accordingly, we can express the variance in study effect sizes ($\sigma_\theta$) as,
+
+$$
+\sigma^2_\theta = \sigma^2_\vartheta + \sigma^2_\varepsilon
+$$
+
+If studies were drawing samples from the same population, the variance in the population effect size would be zero ($\sigma^2_\vartheta = 0$) and the expected value (i.e., the mean) of study effect sizes would be equal to the population effect size, $\mathbb{E}[\theta]=\vartheta$.
+
+## Effect Sizes and Artifacts
+
+In practice, *observed* effect size estimates are often biased relative to the *true* effect size of interest, that is, the observed population effect size ($\vartheta_o$) is a product of the true population effect size ($\vartheta$) and artifactual bias ($a$):
+
+$$
+\vartheta_o = a\vartheta
+$$ {#eq-A}
+
+Note that if $a=1$ this would indicate that there is no artifactual bias ($\vartheta_o=\vartheta$), if $a>1$ then it would indicate effect size inflation (i.e., biased away from zero), and if $a<1$ that would indicate effect size attenuation (i.e., biased toward zero). It can be seen in @eq-A that we can re-arrange the formula to obtain the true population effect size by dividing the observed population effect size by $a$,
+
+$$
+\vartheta = \frac{\vartheta_o}{a}.
+$$ For a single study that computes an effect size from a sample drawn from the population, the observed study effect size ($\theta_o$) would be expressed by
+
+$$
+\theta_o = \vartheta_o + \varepsilon_o
+$$ Using @eq-A we can express the observed effect size in terms of the true population effect size rather than the observed population effect size,
+
+$$
+\theta_o = a\vartheta + \varepsilon_o
+$$ Then we can correct the observed effect size by dividing by the biasing factor, $a$, to obtain an unbiased estimate of the true effect size:
+
+$$
+\theta_c = \frac{\theta_o}{a}
+$$ The sampling error and it's variance must also be corrected,
+
+$$
+\varepsilon_c = \frac{\varepsilon_o}{a}
+$$ $$
+\sigma_{\varepsilon_c}^2 = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
+$$ The corrected effect size should be an unbiased estimate of the true population effect size as long as the systematic bias multiplier is accurately measured (which is not a trivial task). It is important to note that the corrected effect size will not yield additional statistical power, that is, test-statistics and p-values will remain unchanged. We can demonstrate this mathematically that the z-statistic of the observed effect size ($z_{\theta_o}$) is identical to the z-statistic of the corrected effecct size ($z_{\theta_c}$),
+
+$$
+z_{\theta_o} = \frac{\theta_o}{\sigma_{\varepsilon_o}} = \frac{\frac{\theta_o}{a}}{\frac{\sigma_{\theta_o}}{a}} = \frac{\theta_c}{\sigma_{\varepsilon_c}} = z_{\theta_c}
+$$
+
+## Defining an Effect Size Estimand
+
+An effect size *estimand* is the theoretical quantity that we are trying to estimate. Before delving into the application of correction factors, it is important to clearly define the effect size estimand you aim to capture, including the summary statistic, relevant variables, and the target population. This preliminary step might appear trivial, but it is crucial, as it determines the accuracy and relevance of any subsequent artifact corrections. For instance, consider a scenario where we conduct a study involving a sample of college students with the aim of generalizing our findings to the broader general population. In this context, it is important to correct for range restriction, given the evident selection effects that exist in the college student populations. However, if our sole objective is to draw conclusions pertaining exclusively to the college student demographic, correcting for range restriction would be inappropriate. Furthermore, let's examine the variable of interest, such as grade-point average (GPA), within this population. Do we intend to focus solely on the raw GPA score, or is our goal to capture what GPA represents, namely, academic achievement? If our aim is to investigate the raw GPA score, then correcting for measurement error would be inappropriate. However, if our primary focus lies in assessing the student's academic achievement, then it may be relevant to correct GPA scores for measurement error. Defining our estimand guides our approach to artifact correction and ensures that these correction procedures align with the underlying research goals.
+
+## Effect Size Notation
+
+Because of the nature of the topic, this book will cover a large amount of equations and computer code. Therefore to make it as straight-forward as possible the notation will follow a systematic framework to distinguish between types of effect sizes. This book will only be covering two main types of effect sizes: correlations ($r$) and standardized mean differences ($d$). Throughout the book variations of $r$ and $d$ will show up frequently, these variations will be differentiated with subscripts that are consistent with that section. Also, to distinguish between population-level values (i.e., the effect size across all potential observations) and effect sizes specific to a study or sample (i.e., the effect size observed within a single sample drawn from the population), we will use the following notation:
+
+-   Arbitrary Effect Size
+    -   Population value: $\vartheta$
+    -   Study/sample value: $\theta$
+-   Correlations
+    -   Population value: $\rho$
+    -   Study/sample value: $r$
+-   Standardized Mean Differences
+    -   Population value: $\delta$
+    -   Study/sample value: $d$
+
+In the most cases, continuous independent variables will be denoted with $x$ and dependent variables with $y$ (note that this notation may differ when referring to observed and true scores). Categorical (i.e., groupings) variables will be denoted with $g$ (these will be used for standardized mean differences).
+
+## Correlations
+
+A correlation describes the relationship between two continuous variables. The Pearson correlation coefficient was first introduced by Auguste @bravais1844. Later developed by Karl Pearson, lending itself to the name.
+
+### Technical Overview Correlations (*r*)
+
+If we draw a sample of $n$ observations from a population, we can calculate the study correlation ($r$) between variables $x$ and $y$ using the following Pearson's product-moment estimator,
 
 $$
 r = \frac{
@@ -16,85 +192,102 @@ r = \frac{
 }{
 \sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
 \sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
-}
-$$This formulation is commonly referred to as the Pearson correlation coefficient [@pe] . To see under the hood of this seemingly complex mathematical formulation. Since the correlation is simply the the standardized covariance between two variables, x and y, we can first define the covariance as the product of the squared errors between ($x_i - \bar{x}$) and y ($y_i - \bar{y}$),
+}.
+$$ {#eq-pearson-raw}
+
+For digestibility, we can break down the formula into parts. The correlation coefficient can be defined as the covariance between $x$ and $y$ standardized by the product of their variances,
 
 $$
-\sigma_{xy} =\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})
-$$
+r = \frac{\sigma_{xy}}
+{\sigma_x\sigma_y}
+$$ {#eq-pearson}
 
-Then we can find the variance for x and y by taking the average squared error from the mean for x and y,
-
-$$
-\sigma_x = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})}
-$$
+we can first define the covariance ($\sigma_{xy}$) as the average product of errors for $x$ and $y$,
 
 $$
-\sigma_y = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})}
-$$
+\sigma_{xy} =\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y}).
+$$ {#eq-cov}
 
-Now with each of these components, we can standardized the covariance by dividing by the standard deviations of x and y (i.e., square root of the variance). It can be now seen that the $\frac{1}{n-1}$ term cancels out in the numerator and denominator and thus will give us the original formula for the sample correlation coefficient.
+Then we can find the variance for $x$ and $y$ by taking the average squared error from the mean for $x$ and $y$,
 
 $$
-r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}
+\sigma^2_x = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2
+$$ {#eq-varx}
+
+$$
+\sigma^2_y = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2.
+$$ {#eq-vary}
+
+Plugging in @eq-cov, @eq-varx, and @eq-vary into @eq-pearson we can see that the term, $\frac{1}{n-1}$, will cancel out and we will be left with the original pearson correlation coefficient formula from @eq-pearson-raw,
+
+$$
+r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}.
 $$ {#eq-1}
 
-Since $r$ is the observed sample correlation, it is important to note that, in the absence of artifacts, $r$ provides an unbiased estimate of the true population correlation $\rho$ ($r =\hat{\rho}$). Therefore, in conditions uncontaminated by artifacts, differences between the observed sample correlation and the true population correlation are attributable to sampling error ($\varepsilon$) such that,
+In the absence of artifacts, the Pearson correlation $r$ is an asymptotically (i.e., as $n$ approaches infinity) unbiased estimator (in small sample sizes, it is biased see section on small samples). We can express $r$ similarly to @eq-B,
 
 $$
-\rho = \hat{\rho} + \varepsilon = r + \varepsilon
-$$ {#eq-2} Where $se_r$ is the standard error of the observed correlation. The standard error can be calculated from the sample size ($n$) and the observed correlation, $$
-se_r =\sqrt{\frac{1 - r^2}{n-2}} 
+r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon)
+$$ {#eq-2}
+
+Where $\sigma^2_\varepsilon$ is the sampling variance of the observed correlation. The sampling variance can be calculated from the sample size ($n$) and the population correlation,
+
+$$
+\sigma_\varepsilon^2 =\frac{1 - \rho^2}{n-2}
 $$ {#eq-3}
 
-### Standardized Mean Differences
+In practice, the population correlation is unknown so the study correlation can be used instead ($r$) in the above formula. Note that the sampling variance is the square of the standard error. If the observed correlation is biased relative to the true correlation, we can see that the observed population correlation is systematically biased by an artifact factor, $a$, $$
+\rho_o = a\rho
+$$
 
-Standardized mean differences are used to quantify the average difference between groups along some variable. Standardizing the mean difference allows researchers to compare results between
+The observed study correlation would then be defined as, $$
+r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o
+$$
 
-#### Technical Overview {.unnumbered}
+The corrected correlation coefficient ($r_c$) and it's sampling variance ($\sigma_{\varepsilon_c}$) can both be defined as:
+
+$$
+r_{c} = \frac{r_o}{a}
+$$
+
+$$
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}
+$$
+
+## Standardized Mean Differences
+
+Standardized mean differences are used to quantify the average difference in some variable between groups. The most commonly used formulation is Cohen's $d$ [@cohen1988] which quantifies the average difference between groups (e.g., men vs. women) and standardizes by the pooled standard deviation. Note that the other most commonly used estimator is Hedges' $g$, but the difference between the two is a small sample correction factor that can be found in the chapter on small samples.
+
+### Technical Overview of Standardized Mean Difference (*d*)
 
 If we draw a sample of $n_A$ subjects from group $A$ and $n_B$ subjects from group $B$, the mean difference between groups ($d$) on variable $y$ can be defined as,
 
 $$
-d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_y^{*}}
+d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_p}
 $$
 
-Where the standardizer, $\sigma_y^*$ is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom.
+Where the standardizer, $\sigma_p$ is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom.
 
 $$
-\sigma_y^*=\sqrt{\frac{(n_A-1)\sigma^2_{y,A} + (n_B-1)\sigma^2_{y,B}}{n_A + n_B - 2}}
+\sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}
 $$
 
-Where $\sigma_{y,A}$ and $\sigma_{y,B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This estimator is commonly referred to as Cohen's $d$, however to avoid the use of jargon labels, $d$ will be referred to as the standardized mean difference (SMD). The standard error of $d$ is,
+Where $\sigma_{A}$ and $\sigma_{B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This SMD estimator is commonly referred to as Cohen's $d$. We can define the study/sample $d$ value as a function of the population $d$ value ($\delta$): $$
+d = \delta + \varepsilon
+$$ Similar to the previous section on correlation coefficients, the observed $d$ value is a function of the true population value and artifactual bias ($a$), $$
+\delta_o = a\delta.
+$$ Therefore the observed study/sample $d$ value can be defined as a function of the observed population value *or* the true population value plus artifactual bias: 
 
 $$
-s_d = \sqrt{ \frac{n_A + n_B}{n_An_B} + \frac{d^2}{2(n_A+n_B)}}
+d = \delta_o + \varepsilon_o = a\delta + \varepsilon_o.
 $$
 
-The standardized mean difference assumes equal variance between groups, therefore in cases with unequal variance, the standardizer can simply be the standard deviation of just one of the groups. This is mostly used when the group comparison is between treatment and control groups since the control group standard deviation tends to be a better estimate of the baseline population standard deviation.
+Thus the corrected standardized mean difference ($d_c$) and it's sampling variance ($\sigma^2_{\varepsilon_c}$) can both be defined as:
 
 $$
-d_{\Delta}=\frac{\bar{y}_A-\bar{y}_B}{\sigma_{\text{control}}}
+d_c = \frac{d_o}{a}
 $$
 
-Since this equation only utilizes the standard deviation from just one group, the sampling error will be slightly larger.
-
 $$
-s_{d_\Delta} = \sqrt{ \frac{n_\text{control} + n_\text{treatment}}{n_\text{control}n_\text{treatment}} + \frac{d_{\Delta}^2}{2(n_{\text{control}}-1)}}
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}
 $$
-
-### Standardized Mean Change
-
-Standardized mean change quantifies the average within-person change between time-points (e.g., pre-treatment vs post-treatment).
-
-#### Technical Overview {.unnumbered}
-
-Standardized mean
-
-## Bias induced by Statistical Artifacts
-
-[@roth2015]
-
-[@vanaarde2017]
-
-[@hunter]

@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -81,6 +115,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -121,7 +157,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proposal and Outline</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -133,7 +169,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -160,7 +196,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misclassification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Misclassification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -178,13 +214,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./direct_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./indirect_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
   </div>
 </li>
       </ul>
@@ -224,7 +260,26 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">4.1</span> Introduction</a></li>
+  <li><a href="#when-correcting-alongside-other-artifacts" id="toc-when-correcting-alongside-other-artifacts" class="nav-link" data-scroll-target="#when-correcting-alongside-other-artifacts"><span class="header-section-number">4.2</span> When Correcting alongside other Artifacts</a></li>
+  <li><a href="#correcting-for-small-sample-bias-in-standardized-mean-differences" id="toc-correcting-for-small-sample-bias-in-standardized-mean-differences" class="nav-link" data-scroll-target="#correcting-for-small-sample-bias-in-standardized-mean-differences"><span class="header-section-number">4.3</span> Correcting for Small Sample Bias in Standardized Mean Differences</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-estimand" id="toc-defining-our-estimand" class="nav-link" data-scroll-target="#defining-our-estimand"><span class="header-section-number">4.3.1</span> Defining our Estimand</a></li>
+  <li><a href="#artifact-correction-for-small-sample-bias" id="toc-artifact-correction-for-small-sample-bias" class="nav-link" data-scroll-target="#artifact-correction-for-small-sample-bias"><span class="header-section-number">4.3.2</span> Artifact Correction for Small Sample Bias</a></li>
+  <li><a href="#correcting-d-value-in-r" id="toc-correcting-d-value-in-r" class="nav-link" data-scroll-target="#correcting-d-value-in-r"><span class="header-section-number">4.3.3</span> Correcting <em>d</em> value in R</a></li>
+  </ul></li>
+  <li><a href="#correcting-for-small-sample-bias-in-correlations" id="toc-correcting-for-small-sample-bias-in-correlations" class="nav-link" data-scroll-target="#correcting-for-small-sample-bias-in-correlations"><span class="header-section-number">4.4</span> Correcting for Small Sample Bias in Correlations</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-estimand-1" id="toc-defining-our-estimand-1" class="nav-link" data-scroll-target="#defining-our-estimand-1"><span class="header-section-number">4.4.1</span> Defining our Estimand</a></li>
+  <li><a href="#artifact-corrections" id="toc-artifact-corrections" class="nav-link" data-scroll-target="#artifact-corrections"><span class="header-section-number">4.4.2</span> Artifact Corrections</a></li>
+  <li><a href="#correcting-d-value-in-r-1" id="toc-correcting-d-value-in-r-1" class="nav-link" data-scroll-target="#correcting-d-value-in-r-1"><span class="header-section-number">4.4.3</span> Correcting <em>d</em> value in R</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -246,30 +301,172 @@ div.csl-indent {
 
 </header>
 
-<p><span class="citation" data-cites="hedges1989">(<a href="#ref-hedges1989" role="doc-biblioref">Hedges 1989</a>)</span></p>
-<p><span class="citation" data-cites="lin2018">(<a href="#ref-lin2018" role="doc-biblioref">Lin 2018</a>)</span></p>
-<p><span class="citation" data-cites="hedges1981">(<a href="#ref-hedges1981" role="doc-biblioref">Hedges 1981</a>)</span></p>
-<p><span class="citation" data-cites="fisher1915">(<a href="#ref-fisher1915" role="doc-biblioref">Fisher 1915</a>)</span></p>
-<p><span class="citation" data-cites="olkin1958">(<a href="#ref-olkin1958" role="doc-biblioref">Olkin and Pratt 1958</a>)</span></p>
+<section id="introduction" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h2>
+<p>The purpose of sample statistics such as correlations and standardized mean differences is to draw meaningful inferences about the population. However, effect sizee estimators such as Pearson’s correlation coefficient and Cohen’s <span class="math inline">\(d\)</span> are biased in small sample sizes. This small sample bias will impair our ability to draw inferences about the population.</p>
+</section>
+<section id="when-correcting-alongside-other-artifacts" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="when-correcting-alongside-other-artifacts"><span class="header-section-number">4.2</span> When Correcting alongside other Artifacts</h2>
+<p>The small sample bias should always be corrected for prior to applying any other artifact correction. It is independent of all other artifact corrections and therefore the corrected effect sizes in this section can be treated as the observed effect sizes in other sections.</p>
+</section>
+<section id="correcting-for-small-sample-bias-in-standardized-mean-differences" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="correcting-for-small-sample-bias-in-standardized-mean-differences"><span class="header-section-number">4.3</span> Correcting for Small Sample Bias in Standardized Mean Differences</h2>
+<section id="defining-our-estimand" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="defining-our-estimand"><span class="header-section-number">4.3.1</span> Defining our Estimand</h3>
+<p>Our quantity of interest is the population standardized mean difference, <span class="math inline">\(\delta\)</span>, between groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> on variable, <span class="math inline">\(y\)</span>. We can model the relationship between the population standardized mean difference and our observed standardized mean difference (<span class="math inline">\(d_o\)</span>) with,</p>
+<p><span class="math display">\[
+d_o = a\delta+\varepsilon
+\]</span> Where <span class="math inline">\(a\)</span> is our small sample biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population standardized mean difference by correcting the observed standardized mean difference as follows,</p>
+<p><span class="math display">\[
+d_c = \frac{d_o}{a}
+\]</span></p>
+</section>
+<section id="artifact-correction-for-small-sample-bias" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="artifact-correction-for-small-sample-bias"><span class="header-section-number">4.3.2</span> Artifact Correction for Small Sample Bias</h3>
+<p>As the sample size approaches infinity, Cohen’s standardized mean difference estimator is an unbiased estimator of the population standardized mean difference. However, in small sample sizes Cohen’s estimator is biased upward, that is, on average, it overestimates the population standardized mean difference. To see why this is the case, we can first define the mean difference between group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span> such that,</p>
+<p><span class="math display">\[
+d = \frac{\bar{y_A}-\bar{y}_B}{\sigma_p}
+\]</span></p>
+<p>Where <span class="math inline">\(\bar{y}_A\)</span> and <span class="math inline">\(\bar{y}_B\)</span> are the observed arithmetic means of group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>, respectively. The difference between these two means will be unbiased, since the arithmetic means themselves are unbiased estimators at all sample sizes. However, the pooled standard deviation, <span class="math inline">\(\sigma_p\)</span>, is biased when sample sizes are small. Statisticians ultimately had to choose whether the estimator of the standard deviation or the variance (the square of the standard deviation) would be unbiased. Since the variance has more utility in much of statistics, it was more important for the estimator of variance to be unbiased. Therefore the resulting bias in the standard deviation will bleed over into the equation for standardized mean differences. This bias can be visualized in the figure below. Notice that the sample standard deviation is under-estimated in small sample sizes (left plot), and the standardized mean difference is over-estimated in small sample sizes (right plot).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="small_samples_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption"><em>Note</em>. dotted lines in both plots indicate the population value and the dots indicate the sample value at each sample size integer (n=1,2,3,…)</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To obtain an unbiased estimate of the population standardized mean difference, we need to estimate a correction factor that can account for this bias. The small sample correction factor has been derived previously by <span class="citation" data-cites="hedges1989">Hedges (<a href="direct_range_restriction.html#ref-hedges1989" role="doc-biblioref">1989</a>)</span>. When applied to a <span class="math inline">\(d\)</span> value, it is common convention to refer to it as “Hedges’ <span class="math inline">\(g\)</span>”, to give credit to the originator and to keep it similar in style to the conventionally termed “Cohen’s <span class="math inline">\(d\)</span>”. However this convention will not be used here, instead we will denote it in this section as the small sample corrected <span class="math inline">\(d\)</span> value (<span class="math inline">\(d_c\)</span>). We can compute the artifact biasing factor, <span class="math inline">\(a\)</span>, with the total sample size (<span class="math inline">\(n=n_A+n_B\)</span>) and Gamma functions (<span class="math inline">\(\Gamma(\cdot)\)</span>),</p>
+<p><span class="math display">\[
+a = \frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}
+\]</span> So then to correct the observed standardized mean difference for small sample bias we can do this by dividing by <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+d_c = \frac{d_o}{a} = \frac{d_o}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}
+\]</span> It is important to point out that there is not sample size threshold in which this correction does not apply, therefore common suggestions such as “small sample correction should be applied when n&lt;30” is misguided since this correction can (and should) be applied at any sample size. Since the formula is quite complicated, there is also a simpler approximation of the this formula also given by <span class="citation" data-cites="hedges1989">Hedges (<a href="direct_range_restriction.html#ref-hedges1989" role="doc-biblioref">1989</a>)</span>, <span class="math inline">\(a\approx 1-\frac{3}{4n-3}\)</span>. When this correction is made, we must also adjust the sampling variance (<span class="math inline">\(\sigma_{\varepsilon_o}\)</span>),</p>
+<p><span class="math display">\[
+\sigma_{\varepsilon_c} = \frac{\sigma_{\varepsilon_o}}{a^2} =\frac{\sigma_{\varepsilon_o}}{\left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]^2}
+\]</span></p>
+</section>
+<section id="correcting-d-value-in-r" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="correcting-d-value-in-r"><span class="header-section-number">4.3.3</span> Correcting <em>d</em> value in R</h3>
+<p>To compute the correction in R, we can first simulate 20 data points, 10 in group <span class="math inline">\(A\)</span> and 10 in group <span class="math inline">\(B\)</span>. Then we can calculate the observed <span class="math inline">\(d\)</span> value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">120</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># define parameters</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>nA <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>nB <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> nA <span class="sc">+</span> nB</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>yA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nA,delta,<span class="dv">1</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>yB <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nB,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate observed d value</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>SD_pooled <span class="ot">=</span> ((nA<span class="dv">-1</span>)<span class="sc">*</span><span class="fu">var</span>(yA) <span class="sc">+</span> (nB<span class="dv">-1</span>)<span class="sc">*</span><span class="fu">var</span>(yB)) <span class="sc">/</span> (nA<span class="sc">+</span>nB<span class="dv">-2</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>do <span class="ot">=</span> (<span class="fu">mean</span>(yA) <span class="sc">-</span> <span class="fu">mean</span>(yB)) <span class="sc">/</span> SD_pooled</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once we have obtained <span class="math inline">\(d_o\)</span>, we can then correct it with the equations in the previous section.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate bias factor</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> (<span class="fu">gamma</span>((n<span class="dv">-3</span>)<span class="sc">/</span><span class="dv">2</span>)<span class="sc">*</span><span class="fu">sqrt</span>((n<span class="dv">-2</span>)<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">gamma</span>((n<span class="dv">-2</span>)<span class="sc">/</span><span class="dv">2</span>) </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct d value</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>dc <span class="ot">=</span> do <span class="sc">/</span> a</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="fu">paste0</span>(<span class="st">'Observed: do = '</span>,<span class="fu">round</span>(do,<span class="dv">3</span>)),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">'Corrected: dc = '</span>,<span class="fu">round</span>(dc,<span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]                   
+[1,] "Observed: do = 0.889" 
+[2,] "Corrected: dc = 0.851"</code></pre>
+</div>
+</div>
+<p>You will notice that the small sample correction reduced the observed <span class="math inline">\(d\)</span> value however it is still far away from the true value. This is simply due to the fact that there is a large amount of sampling error on top of the bias.</p>
+</section>
+</section>
+<section id="correcting-for-small-sample-bias-in-correlations" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="correcting-for-small-sample-bias-in-correlations"><span class="header-section-number">4.4</span> Correcting for Small Sample Bias in Correlations</h2>
+<section id="defining-our-estimand-1" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="defining-our-estimand-1"><span class="header-section-number">4.4.1</span> Defining our Estimand</h3>
+<p>Our quantity of interest is the population correlation, <span class="math inline">\(\rho\)</span>, between independent variable, <span class="math inline">\(x\)</span> and dependent variable, <span class="math inline">\(y\)</span>. We can model the relationship between the population standardized mean difference and our observed standardized mean difference (<span class="math inline">\(r_o\)</span>) with,</p>
+<p><span class="math display">\[
+r_o = a\rho+\varepsilon
+\]</span> Where <span class="math inline">\(a\)</span> is our small sample biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population standardized mean difference by correcting the observed standardized mean difference as follows,</p>
+<p><span class="math display">\[
+r_c = \frac{r_o}{a}
+\]</span></p>
+</section>
+<section id="artifact-corrections" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="artifact-corrections"><span class="header-section-number">4.4.2</span> Artifact Corrections</h3>
+<p>Correlation coefficients also are biased in small sample sizes <span class="citation" data-cites="olkin1958">(<a href="direct_range_restriction.html#ref-olkin1958" role="doc-biblioref">Olkin and Pratt 1958</a>)</span>. As opposed to standardized mean differences, correlations are under-estimated in small samples. The bias is quite small, however we can apply a correction factor to obtain unbiased estimates. Because the bias is so small and the exact formula is a hypergometric function using infinite power series, we will instead focus on the extremely close approximation provided in <span class="citation" data-cites="olkin1958">Olkin and Pratt (<a href="direct_range_restriction.html#ref-olkin1958" role="doc-biblioref">1958</a>)</span>. The biasing factor can be calculated such that,</p>
+<p><span class="math display">\[
+a \approx \frac{1}{1+\frac{1-r_o^2}{2(n-3)}}
+\]</span> Then we can correct the point-estimate the sampling variance for small sample bias <span class="math display">\[
+r_c = r_o\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]
+\]</span></p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]^2
+\]</span></p>
+</section>
+<section id="correcting-d-value-in-r-1" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="correcting-d-value-in-r-1"><span class="header-section-number">4.4.3</span> Correcting <em>d</em> value in R</h3>
+<p>To compute the correction in R, we can first simulate 10 correlated data points. Then we can calculate the observed correlation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('MASS')</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># define parameters</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> <span class="dv">10</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">mu=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>               <span class="at">Sigma =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,rho),<span class="at">x=</span><span class="fu">c</span>(rho,<span class="dv">1</span>)))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate observed d value</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>ro <span class="ot">=</span> <span class="fu">cor</span>(data[,<span class="dv">1</span>],data[,<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once we have obtained <span class="math inline">\(d_o\)</span>, we can then correct it with the equations in the previous section.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate bias factor</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>ro<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>(n<span class="dv">-3</span>)))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct d value</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>rc <span class="ot">=</span> ro <span class="sc">/</span> a</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="fu">paste0</span>(<span class="st">'Observed: ro = '</span>,<span class="fu">round</span>(ro,<span class="dv">3</span>)),</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">'Corrected: rc = '</span>,<span class="fu">round</span>(rc,<span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]                   
+[1,] "Observed: ro = 0.247" 
+[2,] "Corrected: rc = 0.264"</code></pre>
+</div>
+</div>
+<p>You will notice that the small sample correction increases the observed <span class="math inline">\(d\)</span> value however it is still far away from the true value. This is simply due to the fact that there is a large amount of sampling error on top of the bias.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-fisher1915" class="csl-entry" role="listitem">
-Fisher, R. A. 1915. <span>“Frequency Distribution of the Values of the Correlation Coefficient in Samples from an Indefinitely Large Population.”</span> <em>Biometrika</em> 10 (4): 507–21. <a href="https://doi.org/10.2307/2331838">https://doi.org/10.2307/2331838</a>.
-</div>
-<div id="ref-hedges1981" class="csl-entry" role="listitem">
-Hedges, Larry V. 1981. <span>“Distribution Theory for Glass’s Estimator of Effect Size and Related Estimators.”</span> <em>Journal of Educational Statistics</em> 6 (2): 107–28. <a href="https://doi.org/10.3102/10769986006002107">https://doi.org/10.3102/10769986006002107</a>.
-</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-hedges1989" class="csl-entry" role="listitem">
-———. 1989. <span>“An Unbiased Correction for Sampling Error in Validity Generalization Studies.”</span> <em>Journal of Applied Psychology</em> 74 (3): 469–77. <a href="https://doi.org/10.1037/0021-9010.74.3.469">https://doi.org/10.1037/0021-9010.74.3.469</a>.
-</div>
-<div id="ref-lin2018" class="csl-entry" role="listitem">
-Lin, Lifeng. 2018. <span>“Bias Caused by Sampling Error in Meta-Analysis with Small Sample Sizes.”</span> <em>PLOS ONE</em> 13 (9): e0204056. <a href="https://doi.org/10.1371/journal.pone.0204056">https://doi.org/10.1371/journal.pone.0204056</a>.
+Hedges, Larry V. 1989. <span>“An Unbiased Correction for Sampling Error in Validity Generalization Studies.”</span> <em>Journal of Applied Psychology</em> 74 (3): 469–77. <a href="https://doi.org/10.1037/0021-9010.74.3.469">https://doi.org/10.1037/0021-9010.74.3.469</a>.
 </div>
 <div id="ref-olkin1958" class="csl-entry" role="listitem">
 Olkin, Ingram, and John W. Pratt. 1958. <span>“Unbiased Estimation of Certain Correlation Coefficients.”</span> <em>The Annals of Mathematical Statistics</em> 29 (1): 201–11. <a href="https://www.jstor.org/stable/2237306">https://www.jstor.org/stable/2237306</a>.
 </div>
 </div>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -508,7 +705,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./intro.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -1,7 +1,251 @@
 # Scale Coarseness
 
-[@symonds1924]
+```{r color_scheme,echo = F,warning=F,message=F}
 
-[@aguinis2009]
+library(raster)
+library(metR)
+library(isoband)
+library(latex2exp)
+library(extrafont)
+library(ggplot2)
+library(ggdist)
+library(patchwork)
+library(MASS)
 
-[@krieg1999]
+
+text_color_blue      = '#326982ff'
+panel_color_blue     = '#f6fafbff'
+lightmain_color_blue = '#a4cdd9ff'
+main_color_blue      = '#5fa6bcff'
+darkmain_color_blue  = '#397689ff'
+border_color_blue    = '#5fa6bcff'
+
+text_color_red       = '#a62675ff'
+panel_color_red      = '#fdf6faff'
+lightmain_color_red  = '#eeb4d7ff'
+main_color_red       = '#d74ea2ff'
+darkmain_color_red   = '#bf2986ff'
+border_color_red     = '#d74ea2ff'
+
+
+
+
+th_blue <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_blue),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_blue),
+        axis.text.x = element_text(size=13, color = text_color_blue),
+        axis.text.y = element_text(size=13, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1)) 
+  
+th_red <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_red),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_red),
+        axis.text.x = element_text(size=13, color = text_color_red),
+        axis.text.y = element_text(size=13, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1)) 
+```
+
+## Introduction
+
+Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase [@aguinis2009]. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement device itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution, and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.
+
+```{r,echo=FALSE}
+
+library(metR)
+
+set.seed(343)
+score <- rnorm(500,0,1)
+coarse_score <- as.numeric(cut(score,breaks=5))
+
+ggplot(data=NULL, aes(x=coarse_score,y=score)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Coarse Score (5-points)", y = 'Continuous Scores') +
+  annotate(geom='text',x=1.5 , y=2, 
+           label=paste0('r = ',round(cor(score,coarse_score),2)),size=5,
+           color=text_color_red)
+
+
+```
+
+Notice that the correlation between coarse and continuous scores is not perfect, indicating that the coarse scores do not perfectly capture the underlying continuous scores.
+
+## Correcting for Coarseness in Correlations
+
+### Defining our Estimand
+
+Our quantity of interest is the population correlation, $\rho$, between continuous independent variable, $x$, and continuous dependent variable, $y$. We can model the relationship between the observed sample correlation on coarse scores and the true population correlation,
+
+$$
+r_o = a\rho+\varepsilon
+$$ 
+
+Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population correlation by correcting the observed standardized mean difference as follows,
+
+$$
+r_c = \frac{r_o}{a}
+$$
+
+### Artifact Correction for Coarseness {#sec-coarse-cor}
+
+To correct the correlation between coarse scores for $x$ and $y$, we need to know the correlation between coarse scores and their underlying continuous scores. These correlations between coarse scores and their underlying continuous scores do not have a specific closed form equation as of now [@aguinis2009]. To find this we need to make a couple of assumptions:
+
+1)  The shape of the underlying distribution (i.e., normal or uniform).
+2)  The intervals between scale-points are equal.
+
+@peters1940 constructed a table based on these assumptions that is also reported more recently by @aguinis2009. The table below shows the correction factor for a given number of scale points and underlying distribution shape. The correction factor is equal to the square of the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well @wylie1976.
+
+| Scale Points | Correction Factor (normal) | Correction Factor (uniform) |
+|:------------:|:--------------------------:|:---------------------------:|
+|      2       |            .816            |            .866             |
+|      3       |            .859            |            .943             |
+|      4       |            .916            |            .968             |
+|      5       |            .943            |            .980             |
+|      6       |            .960            |            .986             |
+|      7       |            .970            |            .990             |
+|      8       |            .977            |            .992             |
+|      9       |            .982            |            .994             |
+|      10      |            .985            |            .995             |
+|      11      |            .988            |            .996             |
+|      12      |            .990            |            .997             |
+|      13      |            .991            |            .997             |
+|      14      |            .992            |            .997             |
+|      15      |            .994            |            .998             |
+
+
+These correction factors can be applied similarly to the correction formula for reliability (see chapter 5),
+
+$$
+r_c = \frac{r_o}{a_x a_y}
+$$
+Where $a_x$ and $a_y$ are the appropriate correction factors from the table for $x$ and $y$. We must also adjust the sampling variance as well,
+
+$$
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_x a_y}
+$$
+
+### Correcting Correlations in R
+
+To correct scale coarseness in R, we can use the table in @sec-coarse-cor. Lets start by simulating a coarse data (5 scale-points for x and 7 scale-points for y) set of 500 individuals with a true population correlation of $\rho = .50$.
+
+
+```{r}
+# set seed
+set.seed(343)
+
+# load packages
+# install.packages('MASS')
+library(MASS)
+
+# simulate data
+n <- 500
+rho <- .50
+data <- mvrnorm(n = n,
+                mu = c(0,0),
+                Sigma = data.frame(x=c(1,rho),y=c(rho,1)),
+                empirical = TRUE)
+
+# obtain simulated continuous data
+x <- data[,1]
+y <- data[,2]
+
+# get coarse data
+x_coarse <- as.numeric(cut(x,breaks=5)) 
+y_coarse <- as.numeric(cut(y,breaks=7)) 
+```
+
+Now we can calculate the observed standardized mean difference and apply the correction factor.
+
+```{r}
+# calculate observed d value
+ro <- cor(x_coarse,y_coarse)
+
+# correct observed do using table
+ax <- .943
+ay <- .970
+
+# correct observed d value
+rc <- ro/(ax*ay)
+
+# print results
+rbind(paste0('Observed: ro = ', round(ro,3)),
+      paste0('Corrected: rc = ', round(rc,3)))
+```
+## Correcting for Coarseness in *d* values
+
+### Defining our Estimand
+
+Our quantity of interest is the population standardized mean difference, $\delta$, between groups $A$ and $B$ on variable, $y$. We can model the relationship between the observed sample standardized mean difference on coarse scores and the true population standardized mean difference,
+
+$$
+d_o = a\delta+\varepsilon
+$$ 
+
+Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population standardized mean difference by correcting the observed standardized mean difference as follows,
+
+$$
+d_c = \frac{d_o}{a}
+$$
+
+### Artifact Correction for Coarseness
+
+To correct a standardized mean difference for coarseness in the outcome variable, $y$, we can use the correction factors from the table in @sec-coarse-cor,
+
+$$
+d_c = \frac{d_o}{a_y}
+$$
+Where $a_x$ and $a_y$ are the appropriate correction factors from the table for $x$ and $y$. We must also adjust the sampling variance as well,
+
+$$
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_y}
+$$
+
+### Correcting *d* values in R
+
+To correct scale coarseness in R, we can use the table in @sec-coarse-cor. Lets start by simulating a coarse data (5 scale-points) set of 1000 individuals with a true population standardized mean difference of $\delta = .50$.
+
+
+```{r}
+# set seed
+set.seed(343)
+
+# simulate data
+nA <- nB <- 1000
+yA <- rnorm(nA,.5,1)
+yB <- rnorm(nB,0,1)
+
+# concatenate data
+group <- c(rep('A',nA),rep('B',nB))
+y <- c(yA,yB)
+
+# get coarse data
+y_coarse <- as.numeric(cut(y,breaks=5)) 
+```
+
+Now we can calculate the observed standardized mean difference and apply the correction factor.
+
+```{r}
+# calculate observed d value
+do <- ( mean(y_coarse[group=='A']) - mean(y_coarse[group=='B']) ) / sqrt((var(y_coarse) + var(y_coarse))/2)
+
+# correct observed do using table
+ay <- .943
+
+# correct observed d value
+dc <- do/ay
+
+# print results
+rbind(paste0('Observed: do = ', round(do,3)),
+      paste0('Corrected: dc = ', round(dc,3)))
+```
+

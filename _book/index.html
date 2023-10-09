@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Matthew B. Jané">
-<meta name="dcterms.date" content="2023-06-13">
+<meta name="dcterms.date" content="2023-10-08">
 
 <title>Correcting Effect Sizes for Statistical Artifacts</title>
 <style>
@@ -22,26 +22,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -94,7 +75,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proposal and Outline</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -122,7 +103,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proposal and Outline</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -134,7 +115,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -161,7 +142,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misclassification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Misclassification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -179,13 +160,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./direct_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./indirect_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
   </div>
 </li>
       </ul>
@@ -229,7 +210,7 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#proposal-and-outline" id="toc-proposal-and-outline" class="nav-link active" data-scroll-target="#proposal-and-outline"><span class="header-section-number">1</span> Proposal and Outline</a></li>
+  <li><a href="#greetings" id="toc-greetings" class="nav-link active" data-scroll-target="#greetings"><span class="header-section-number">1</span> Greetings</a></li>
   </ul>
 </nav>
     </div>
@@ -239,7 +220,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Correcting Effect Sizes for Statistical Artifacts</h1>
-<p class="subtitle lead">Application in Meta-Analysis and Implementation in R and Python</p>
+<p class="subtitle lead">Implementation in R and Application to Meta-Analysis</p>
 </div>
 
 
@@ -256,7 +237,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 13, 2023</p>
+      <p class="date">October 8, 2023</p>
     </div>
   </div>
   
@@ -266,20 +247,15 @@ div.csl-indent {
 
 </header>
 
-<section id="proposal-and-outline" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Proposal and Outline</h1>
-<p>Results across scientific studies vary drastically even when studying the same underlying phenomena. Sometimes these can be accounted for by some study-level characteristic (i.e., methodology, population, etc.) or it can be accounted for by variations in statistical artifacts such as measurement error or selection effects. Not only does the heterogeneity increase in the presence of statistical artifacts, but artifacts also induce systematic biases that can cause inaccurate results. Artifacts restrict our ability to draw meaningful inferences from scientific results, therefore it is important to apply corrections in order to obtain unbiased estimates.</p>
-<p><strong>Overview.</strong> The goal of the general exam is to turn it into an online open source e-textbook similar to <a href="https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/">this one on meta-analysis in R</a> by Mathias Harrer and colleagues. The e-text will be split into two parts: artifact corrections and their application to meta-analysis. Each type of artifact will have a section of its own that details the history, methodology, and its implementation in R and Python. Another section will be dedicated to applying artifact corrections to meta-analysis, which is the type of research where the corrections are most used. The meta-analysis section will also contain the four parts (history, methodology, assumptions, and implementation in R). See <a href="https://MatthewBJane.github.io/artifact-corrections">this webpage</a> where I cataloged equations and code that will go into this general exam. I also have started writing the <a href="./unreliability.html#unreliability">unreliability section</a> so you can start get an idea of how this will look.</p>
-<p><strong>History.</strong> The history part will provide an overview of the literature for that artifact correction. It will note where the correction first was introduced, the adjustments people have made since then, as well as studies where the correction has been applied (most likely in a meta-analysis). Also if applicable, provide examples of where these meta-analyses have utilized such corrections (e.g., Roth et al., 2015) Methodology. The methodological part will review the correction equations (for point estimates and standard errors) and how they were derived for each artifact correction. Artifact corrections will be applied to both correlation coefficients and standardized mean differences (repeated measures and independent samples). The methodological part for the meta-analysis section will discuss how heterogeneity, credibility/confidence intervals, and averages are calculated in the context of artifact corrections. It will also touch on competing approaches (Raju et al., 1983) to the traditional artifact correction approaches (Hunter &amp; Schmidt, 2004).</p>
-<p><strong>Assumptions.</strong> Each artifact correction contains assumptions that must be met in order to obtain unbiased estimate of the true population effect size. This part will discuss each of these assumptions, when each matter, and what simulation studies have found in regard to violation of assumptions. Assumptions at the meta-analytic level of analysis (e.g., independence between artifacts and moderators) will also be discussed.</p>
-<p><strong>Implementation in R and Python.</strong> Artifact corrections are only useful if you can apply them. Since many of the corrections are quite complex, it is important that these can be implemented easily in an open-source software such as R and Python. Each correction will be supplemented with code using R and Python with some additional packages like psychmeta <span class="citation" data-cites="dahlke2019">(<a href="#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. For statistical analyses and especially for meta-analysis, R has tremendous support in terms of useful packages and a large community that makes it a highly flexible and powerful language. Python is a general-purpose programming language that is a more popular than R. For an example of how this will be done see this section on <a href="./unreliability.html#estimating-reliability-code">estimating reliability in R and Python.</a></p>
+<section id="greetings" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Greetings</h1>
+<p>Welcome to the open source textbook <strong>Correcting Effect Sizes for Statistical Artifacts</strong>. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis in order to enhance the precision of our results.</p>
+<section id="what-are-statistical-artifacts" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="what-are-statistical-artifacts">What are Statistical Artifacts?</h4>
+<p>I will define statistical artifacts broadly as <strong>any source of contamination that induces bias in research findings</strong>. Specifically within the context of this textbook, the term “research findings” is more narrowly referred to as effect sizes.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-dahlke2019" class="csl-entry" role="listitem">
-Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
-</div>
-</div>
+</section>
 </section>
 
 </main> <!-- /main -->

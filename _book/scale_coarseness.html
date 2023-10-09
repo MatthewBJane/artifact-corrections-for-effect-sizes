@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -81,6 +115,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -121,7 +157,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proposal and Outline</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -133,7 +169,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -160,7 +196,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./misclassification.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Misclassification</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -178,13 +214,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./direct_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./indirect_range_restriction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Range Restriction/Enhancement</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
   </div>
 </li>
       </ul>
@@ -224,7 +260,25 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">8.1</span> Introduction</a></li>
+  <li><a href="#correcting-for-coarseness-in-correlations" id="toc-correcting-for-coarseness-in-correlations" class="nav-link" data-scroll-target="#correcting-for-coarseness-in-correlations"><span class="header-section-number">8.2</span> Correcting for Coarseness in Correlations</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-estimand" id="toc-defining-our-estimand" class="nav-link" data-scroll-target="#defining-our-estimand"><span class="header-section-number">8.2.1</span> Defining our Estimand</a></li>
+  <li><a href="#sec-coarse-cor" id="toc-sec-coarse-cor" class="nav-link" data-scroll-target="#sec-coarse-cor"><span class="header-section-number">8.2.2</span> Artifact Correction for Coarseness</a></li>
+  <li><a href="#correcting-correlations-in-r" id="toc-correcting-correlations-in-r" class="nav-link" data-scroll-target="#correcting-correlations-in-r"><span class="header-section-number">8.2.3</span> Correcting Correlations in R</a></li>
+  </ul></li>
+  <li><a href="#correcting-for-coarseness-in-d-values" id="toc-correcting-for-coarseness-in-d-values" class="nav-link" data-scroll-target="#correcting-for-coarseness-in-d-values"><span class="header-section-number">8.3</span> Correcting for Coarseness in <em>d</em> values</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-estimand-1" id="toc-defining-our-estimand-1" class="nav-link" data-scroll-target="#defining-our-estimand-1"><span class="header-section-number">8.3.1</span> Defining our Estimand</a></li>
+  <li><a href="#artifact-correction-for-coarseness" id="toc-artifact-correction-for-coarseness" class="nav-link" data-scroll-target="#artifact-correction-for-coarseness"><span class="header-section-number">8.3.2</span> Artifact Correction for Coarseness</a></li>
+  <li><a href="#correcting-d-values-in-r" id="toc-correcting-d-values-in-r" class="nav-link" data-scroll-target="#correcting-d-values-in-r"><span class="header-section-number">8.3.3</span> Correcting <em>d</em> values in R</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -246,22 +300,258 @@ div.csl-indent {
 
 </header>
 
-<p><span class="citation" data-cites="symonds1924">(<a href="#ref-symonds1924" role="doc-biblioref">Symonds 1924</a>)</span></p>
-<p><span class="citation" data-cites="aguinis2009">(<a href="#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span></p>
-<p><span class="citation" data-cites="krieg1999">(<a href="#ref-krieg1999" role="doc-biblioref">Krieg 1999</a>)</span></p>
+<section id="introduction" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
+<p>Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase <span class="citation" data-cites="aguinis2009">(<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement device itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution, and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="scale_coarseness_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Notice that the correlation between coarse and continuous scores is not perfect, indicating that the coarse scores do not perfectly capture the underlying continuous scores.</p>
+</section>
+<section id="correcting-for-coarseness-in-correlations" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="correcting-for-coarseness-in-correlations"><span class="header-section-number">8.2</span> Correcting for Coarseness in Correlations</h2>
+<section id="defining-our-estimand" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="defining-our-estimand"><span class="header-section-number">8.2.1</span> Defining our Estimand</h3>
+<p>Our quantity of interest is the population correlation, <span class="math inline">\(\rho\)</span>, between continuous independent variable, <span class="math inline">\(x\)</span>, and continuous dependent variable, <span class="math inline">\(y\)</span>. We can model the relationship between the observed sample correlation on coarse scores and the true population correlation,</p>
+<p><span class="math display">\[
+r_o = a\rho+\varepsilon
+\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is our coarseness biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population correlation by correcting the observed standardized mean difference as follows,</p>
+<p><span class="math display">\[
+r_c = \frac{r_o}{a}
+\]</span></p>
+</section>
+<section id="sec-coarse-cor" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="sec-coarse-cor"><span class="header-section-number">8.2.2</span> Artifact Correction for Coarseness</h3>
+<p>To correct the correlation between coarse scores for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we need to know the correlation between coarse scores and their underlying continuous scores. These correlations between coarse scores and their underlying continuous scores do not have a specific closed form equation as of now <span class="citation" data-cites="aguinis2009">(<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. To find this we need to make a couple of assumptions:</p>
+<ol type="1">
+<li>The shape of the underlying distribution (i.e., normal or uniform).</li>
+<li>The intervals between scale-points are equal.</li>
+</ol>
+<p><span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="direct_range_restriction.html#ref-peters1940" role="doc-biblioref">1940</a>)</span> constructed a table based on these assumptions that is also reported more recently by <span class="citation" data-cites="aguinis2009">Aguinis, Pierce, and Culpepper (<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">2009</a>)</span>. The table below shows the correction factor for a given number of scale points and underlying distribution shape. The correction factor is equal to the square of the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well <span class="citation" data-cites="wylie1976">Wylie (<a href="direct_range_restriction.html#ref-wylie1976" role="doc-biblioref">1976</a>)</span>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 39%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Scale Points</th>
+<th style="text-align: center;">Correction Factor (normal)</th>
+<th style="text-align: center;">Correction Factor (uniform)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">.816</td>
+<td style="text-align: center;">.866</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">.859</td>
+<td style="text-align: center;">.943</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">.916</td>
+<td style="text-align: center;">.968</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">.943</td>
+<td style="text-align: center;">.980</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">.960</td>
+<td style="text-align: center;">.986</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">.970</td>
+<td style="text-align: center;">.990</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">.977</td>
+<td style="text-align: center;">.992</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">.982</td>
+<td style="text-align: center;">.994</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">.985</td>
+<td style="text-align: center;">.995</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">.988</td>
+<td style="text-align: center;">.996</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">.990</td>
+<td style="text-align: center;">.997</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">.991</td>
+<td style="text-align: center;">.997</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">.992</td>
+<td style="text-align: center;">.997</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">.994</td>
+<td style="text-align: center;">.998</td>
+</tr>
+</tbody>
+</table>
+<p>These correction factors can be applied similarly to the correction formula for reliability (see chapter 5),</p>
+<p><span class="math display">\[
+r_c = \frac{r_o}{a_x a_y}
+\]</span> Where <span class="math inline">\(a_x\)</span> and <span class="math inline">\(a_y\)</span> are the appropriate correction factors from the table for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. We must also adjust the sampling variance as well,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_x a_y}
+\]</span></p>
+</section>
+<section id="correcting-correlations-in-r" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="correcting-correlations-in-r"><span class="header-section-number">8.2.3</span> Correcting Correlations in R</h3>
+<p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>. Lets start by simulating a coarse data (5 scale-points for x and 7 scale-points for y) set of 500 individuals with a true population correlation of <span class="math inline">\(\rho = .50\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">343</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('MASS')</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="at">n =</span> n,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">Sigma =</span> <span class="fu">data.frame</span>(<span class="at">x=</span><span class="fu">c</span>(<span class="dv">1</span>,rho),<span class="at">y=</span><span class="fu">c</span>(rho,<span class="dv">1</span>)),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">empirical =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain simulated continuous data</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> data[,<span class="dv">1</span>]</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> data[,<span class="dv">2</span>]</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># get coarse data</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>x_coarse <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">cut</span>(x,<span class="at">breaks=</span><span class="dv">5</span>)) </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>y_coarse <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">cut</span>(y,<span class="at">breaks=</span><span class="dv">7</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can calculate the observed standardized mean difference and apply the correction factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate observed d value</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ro <span class="ot">&lt;-</span> <span class="fu">cor</span>(x_coarse,y_coarse)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct observed do using table</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ax <span class="ot">&lt;-</span> .<span class="dv">943</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ay <span class="ot">&lt;-</span> .<span class="dv">970</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># correct observed d value</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>rc <span class="ot">&lt;-</span> ro<span class="sc">/</span>(ax<span class="sc">*</span>ay)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="fu">paste0</span>(<span class="st">'Observed: ro = '</span>, <span class="fu">round</span>(ro,<span class="dv">3</span>)),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">'Corrected: rc = '</span>, <span class="fu">round</span>(rc,<span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]                  
+[1,] "Observed: ro = 0.457"
+[2,] "Corrected: rc = 0.5" </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="correcting-for-coarseness-in-d-values" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="correcting-for-coarseness-in-d-values"><span class="header-section-number">8.3</span> Correcting for Coarseness in <em>d</em> values</h2>
+<section id="defining-our-estimand-1" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="defining-our-estimand-1"><span class="header-section-number">8.3.1</span> Defining our Estimand</h3>
+<p>Our quantity of interest is the population standardized mean difference, <span class="math inline">\(\delta\)</span>, between groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> on variable, <span class="math inline">\(y\)</span>. We can model the relationship between the observed sample standardized mean difference on coarse scores and the true population standardized mean difference,</p>
+<p><span class="math display">\[
+d_o = a\delta+\varepsilon
+\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is our coarseness biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population standardized mean difference by correcting the observed standardized mean difference as follows,</p>
+<p><span class="math display">\[
+d_c = \frac{d_o}{a}
+\]</span></p>
+</section>
+<section id="artifact-correction-for-coarseness" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="artifact-correction-for-coarseness"><span class="header-section-number">8.3.2</span> Artifact Correction for Coarseness</h3>
+<p>To correct a standardized mean difference for coarseness in the outcome variable, <span class="math inline">\(y\)</span>, we can use the correction factors from the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>,</p>
+<p><span class="math display">\[
+d_c = \frac{d_o}{a_y}
+\]</span> Where <span class="math inline">\(a_x\)</span> and <span class="math inline">\(a_y\)</span> are the appropriate correction factors from the table for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. We must also adjust the sampling variance as well,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_y}
+\]</span></p>
+</section>
+<section id="correcting-d-values-in-r" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="correcting-d-values-in-r"><span class="header-section-number">8.3.3</span> Correcting <em>d</em> values in R</h3>
+<p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>. Lets start by simulating a coarse data (5 scale-points) set of 1000 individuals with a true population standardized mean difference of <span class="math inline">\(\delta = .50\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">343</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate data</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>nA <span class="ot">&lt;-</span> nB <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>yA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nA,.<span class="dv">5</span>,<span class="dv">1</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>yB <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nB,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># concatenate data</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">'A'</span>,nA),<span class="fu">rep</span>(<span class="st">'B'</span>,nB))</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(yA,yB)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># get coarse data</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>y_coarse <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">cut</span>(y,<span class="at">breaks=</span><span class="dv">5</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can calculate the observed standardized mean difference and apply the correction factor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate observed d value</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>do <span class="ot">&lt;-</span> ( <span class="fu">mean</span>(y_coarse[group<span class="sc">==</span><span class="st">'A'</span>]) <span class="sc">-</span> <span class="fu">mean</span>(y_coarse[group<span class="sc">==</span><span class="st">'B'</span>]) ) <span class="sc">/</span> <span class="fu">sqrt</span>((<span class="fu">var</span>(y_coarse) <span class="sc">+</span> <span class="fu">var</span>(y_coarse))<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># correct observed do using table</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ay <span class="ot">&lt;-</span> .<span class="dv">943</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># correct observed d value</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>dc <span class="ot">&lt;-</span> do<span class="sc">/</span>ay</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="fu">paste0</span>(<span class="st">'Observed: do = '</span>, <span class="fu">round</span>(do,<span class="dv">3</span>)),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">'Corrected: dc = '</span>, <span class="fu">round</span>(dc,<span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]                   
+[1,] "Observed: do = 0.499" 
+[2,] "Corrected: dc = 0.529"</code></pre>
+</div>
+</div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-aguinis2009" class="csl-entry" role="listitem">
 Aguinis, Herman, Charles A Pierce, and Steven A Culpepper. 2009. <span>“Scale Coarseness as a Methodological Artifact,”</span> September.
 </div>
-<div id="ref-krieg1999" class="csl-entry" role="listitem">
-Krieg, Edward F. 1999. <span>“Biases Induced by Coarse Measurement Scales.”</span> <em>Educational and Psychological Measurement</em> 59 (5): 749–66. <a href="https://doi.org/10.1177/00131649921970125">https://doi.org/10.1177/00131649921970125</a>.
+<div id="ref-peters1940" class="csl-entry" role="listitem">
+Peters, Charles C., and Walter R. Van Voorhis. 1940. <span>“Further Methods of Correlation.”</span> In, 362–403. New York, NY, US: McGraw-Hill Book Company. <a href="https://doi.org/10.1037/13596-013">https://doi.org/10.1037/13596-013</a>.
 </div>
-<div id="ref-symonds1924" class="csl-entry" role="listitem">
-Symonds, P. M. 1924. <span>“On the Loss of Reliability in Ratings Due to Coarseness of the Scale.”</span> <em>Journal of Experimental Psychology</em> 7 (6): 456–61. <a href="https://doi.org/10.1037/h0074469">https://doi.org/10.1037/h0074469</a>.
+<div id="ref-wylie1976" class="csl-entry" role="listitem">
+Wylie, Peter B. 1976. <span>“Effects of Coarse Grouping and Skewed Marginal Distributions on the Pearson Product Moment Correlation Coefficient.”</span> <em>Educational and Psychological Measurement</em> 36 (1): 1–7. <a href="https://doi.org/10.1177/001316447603600101">https://doi.org/10.1177/001316447603600101</a>.
 </div>
 </div>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -505,7 +795,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./direct_range_restriction.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Range Restriction/Enhancement</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
