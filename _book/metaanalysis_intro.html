@@ -8,7 +8,7 @@
 
 <meta name="description" content="  Primary Authors: Matthew B. Jané   Reviewers:   Contributors:">
 
-<title>Correcting Effect Sizes for Statistical Artifacts - 11&nbsp; Introduction to Meta-Analysis Methods</title>
+<title>Artifact Corrections for Effect Sizes - 11&nbsp; Introduction to Meta-Analysis Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,6 +86,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./artifact_correction_metaanalysis.html" rel="next">
 <link href="./indirect_range_restriction.html" rel="prev">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,10 +116,30 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: white;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: white;
+      }
+</style>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 11&nbsp; Introduction to Meta-Analysis Methods">
+<meta name="twitter:description" content=" Primary Authors: Matthew B. Jané  Reviewers:  Contributors:">
+<meta name="twitter:image" content="figure/fixed_effects_diagram.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating">
@@ -166,7 +187,7 @@ div.csl-indent {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Correcting Effect Sizes for Statistical Artifacts</a> 
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -312,11 +333,11 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="11.1">
 <h2 data-number="11.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">11.1</span> Introduction</h2>
-<p>Meta-analysis is an analytic tool to synthesize quantitative evidence from multiple studies. By systematically combining and analyzing the results of multiple studies, meta-analysis provides a comprehensive overview, unveiling patterns, trends, and insights that individual studies might not be able to capture. Combining research findings also has the added benefit of increasing the precision of our results (i.e., greater statistical power). In this section we will cover the method described by <span class="citation" data-cites="hunter1990a">(<a href="#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span> since it is readily compatible with artifact corrections (see next chapter). For the random-effects model however, we use an integrated approach that incorporates methods from <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> and <span class="citation" data-cites="hedges1998">Hedges and Vevea (<a href="#ref-hedges1998" role="doc-biblioref">1998</a>)</span> that was first introduced by <span class="citation" data-cites="morris2014">Morris et al. (<a href="#ref-morris2014" role="doc-biblioref">2014</a>)</span>. However it is important to note that there are other common methods to conduct meta-analyses that have their strengths and weaknesses <span class="citation" data-cites="hedges2014 callender1980 johnson1995">(<a href="#ref-hedges2014" role="doc-biblioref">Hedges and Olkin 2014</a>; <a href="#ref-callender1980" role="doc-biblioref">Callender and Osburn 1980</a>; <a href="#ref-johnson1995" role="doc-biblioref">Johnson, Mullen, and Salas 1995</a>)</span>.</p>
+<p>Meta-analysis is an analytic tool to synthesize quantitative evidence from multiple studies. By systematically combining and analyzing the results of multiple studies, meta-analysis provides a comprehensive overview, unveiling patterns, trends, and insights that individual studies might not be able to capture. Combining research findings also has the added benefit of increasing the precision of our results (i.e., greater statistical power). In this section we will cover the method described by <span class="citation" data-cites="hunter1990a">(<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span> since it is readily compatible with artifact corrections (see next chapter). For the random-effects model however, we use an integrated approach that incorporates methods from <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> and <span class="citation" data-cites="hedges1998">Hedges and Vevea (<a href="direct_range_restriction.html#ref-hedges1998" role="doc-biblioref">1998</a>)</span> that was first introduced by <span class="citation" data-cites="morris2014">Morris et al. (<a href="direct_range_restriction.html#ref-morris2014" role="doc-biblioref">2014</a>)</span>. However it is important to note that there are other common methods to conduct meta-analyses that have their strengths and weaknesses <span class="citation" data-cites="hedges2014 callender1980 johnson1995">(<a href="direct_range_restriction.html#ref-hedges2014" role="doc-biblioref">Hedges and Olkin 2014</a>; <a href="direct_range_restriction.html#ref-callender1980" role="doc-biblioref">Callender and Osburn 1980</a>; <a href="direct_range_restriction.html#ref-johnson1995" role="doc-biblioref">Johnson, Mullen, and Salas 1995</a>)</span>.</p>
 </section>
 <section id="common-effect-model" class="level2" data-number="11.2">
 <h2 data-number="11.2" class="anchored" data-anchor-id="common-effect-model"><span class="header-section-number">11.2</span> Common-Effect Model</h2>
-<p>A common effect model is the simplest form of meta-analysis. It assumes that all the variation in observed effect sizes is attributable to sampling error. In other words, all the observed effect sizes are estimates of the same population effect size. Note that there is a distinction between <em>fixed-effects</em> models and a <em>common effect</em> model <span class="citation" data-cites="viechtbauer laird1990">(<a href="#ref-viechtbauer" role="doc-biblioref">Viechtbauer, n.d.</a>; <a href="#ref-laird1990" role="doc-biblioref">Laird and Mosteller 1990</a>)</span>. The common effect model assumes that the true effect size is identical for each study while the fixed effects model does not assume this. Instead, the fixed effects model can be interpreted as the weighted average of true effects. Computationally, they are the same and provide the same parameter estimates, yet the interpretation differs.</p>
+<p>A common effect model is the simplest form of meta-analysis. It assumes that all the variation in observed effect sizes is attributable to sampling error. In other words, all the observed effect sizes are estimates of the same population effect size. Note that there is a distinction between <em>fixed-effects</em> models and a <em>common effect</em> model <span class="citation" data-cites="viechtbauer laird1990">(<a href="direct_range_restriction.html#ref-viechtbauer" role="doc-biblioref">Viechtbauer, n.d.</a>; <a href="direct_range_restriction.html#ref-laird1990" role="doc-biblioref">Laird and Mosteller 1990</a>)</span>. The common effect model assumes that the true effect size is identical for each study while the fixed effects model does not assume this. Instead, the fixed effects model can be interpreted as the weighted average of true effects. Computationally, they are the same and provide the same parameter estimates, yet the interpretation differs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figure/fixed_effects_diagram.png" class="img-fluid figure-img"></p>
@@ -361,7 +382,7 @@ SE_\hat{\vartheta} = \sqrt{\frac{\sigma^2_\varepsilon}{k}}
 </section>
 <section id="sec-fixed-corr" class="level3" data-number="11.2.2">
 <h3 data-number="11.2.2" class="anchored" data-anchor-id="sec-fixed-corr"><span class="header-section-number">11.2.2</span> Fixed Effects Meta-Analysis of Correlations</h3>
-<p>To apply the general case in the previous section to correlation coefficients, lets define our model similarly to <a href="#eq-fixed-mdl">Equation&nbsp;<span class="quarto-unresolved-ref">eq-fixed-mdl</span></a>,</p>
+<p>To apply the general case in the previous section to correlation coefficients, lets define our model similarly to <a href="#eq-fixed-mdl">Equation&nbsp;<span>11.1</span></a>,</p>
 <p><span class="math display">\[
 r_i=\rho+\varepsilon_i.
 \]</span></p>
@@ -377,7 +398,7 @@ r_i=\rho+\varepsilon_i.
 <p><span class="math display">\[
 \hat{\rho} = \frac{\sum^k_{i=1} n_i r_i}{\sum^k_{i=1}n_i}
 \]</span></p>
-<p>We can use this estimate of the population correlation in the equation in <a href="#eq-fixed-cor-se">Equation&nbsp;<span class="quarto-unresolved-ref">eq-fixed-cor-se</span></a> to estimate the sampling variance for each study.</p>
+<p>We can use this estimate of the population correlation in the equation in <a href="#eq-fixed-cor-se">Equation&nbsp;<span>11.3</span></a> to estimate the sampling variance for each study.</p>
 <p><span class="math display">\[
 \sigma^2_{\varepsilon_i} = \frac{\left(1-\hat{\rho}^2\right)^2}{n_i}
 \]</span> We also can acquire the standard error of our population correlation estimate (<span class="math inline">\(\hat{\rho}\)</span>). To do so, we must first calculate the weighted average of the sampling variance from each study,</p>
@@ -397,7 +418,7 @@ SE_\hat{\rho} = \sqrt{\frac{\sigma^2_{\varepsilon}}{k}}
 </section>
 <section id="fixed-effects-meta-analysis-of-d-values" class="level3" data-number="11.2.3">
 <h3 data-number="11.2.3" class="anchored" data-anchor-id="fixed-effects-meta-analysis-of-d-values"><span class="header-section-number">11.2.3</span> Fixed Effects Meta-Analysis of <em>d</em> values</h3>
-<p>Similar to <a href="#eq-fixed-mdl">Equation&nbsp;<span class="quarto-unresolved-ref">eq-fixed-mdl</span></a>, we can model sample standardized mean differences similarly,</p>
+<p>Similar to <a href="#eq-fixed-mdl">Equation&nbsp;<span>11.1</span></a>, we can model sample standardized mean differences similarly,</p>
 <p><span class="math display">\[
 d_i = \delta + \varepsilon_i
 \]</span></p>
@@ -413,7 +434,7 @@ r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i^2}}
 <p><span class="math display">\[
 \sigma^2_{\varepsilon_ri} =\frac{\sigma_{\varepsilon_di}^2}{\left(d_i^2p_i[1-p_i]+1\right)\left(\frac{1}{p_i(1-p_i)}+d_i^2\right)}
 \]</span></p>
-<p>Note that the subscripts, <span class="math inline">\(r\)</span> and <span class="math inline">\(d\)</span> denote the sampling variances for correlations and <span class="math inline">\(d\)</span> values respectively. Once the <span class="math inline">\(d\)</span> values and sampling variances are converted to point-biserial correlations, the meta-analysis can then be conducted by using the methods from <a href="#sec-fixed-corr"><span class="quarto-unresolved-ref">sec-fixed-corr</span></a>. Once the meta-analysis is completed, the estimate of the population correlation and it’s standard error can be converted back to a <span class="math inline">\(d\)</span> value using the weighted average proportion of individuals in group <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> (<span class="math inline">\(\bar{p}\)</span>),</p>
+<p>Note that the subscripts, <span class="math inline">\(r\)</span> and <span class="math inline">\(d\)</span> denote the sampling variances for correlations and <span class="math inline">\(d\)</span> values respectively. Once the <span class="math inline">\(d\)</span> values and sampling variances are converted to point-biserial correlations, the meta-analysis can then be conducted by using the methods from <a href="#sec-fixed-corr"><span>Section&nbsp;11.2.2</span></a>. Once the meta-analysis is completed, the estimate of the population correlation and it’s standard error can be converted back to a <span class="math inline">\(d\)</span> value using the weighted average proportion of individuals in group <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> (<span class="math inline">\(\bar{p}\)</span>),</p>
 <p><span class="math display">\[
 \hat{\delta} = \frac{\hat{\rho}}{\sqrt{\bar{p}(1-\bar{p})(1-\hat{\rho}^2)}}
 \]</span></p>
@@ -429,7 +450,7 @@ SE_{\hat{\delta}} = \sqrt{\frac{\sigma_\varepsilon^2}{k\,\bar{p}(1-\bar{p})(1-\h
 </section>
 <section id="example-from-roth-et-al.-2015" class="level3" data-number="11.2.4">
 <h3 data-number="11.2.4" class="anchored" data-anchor-id="example-from-roth-et-al.-2015"><span class="header-section-number">11.2.4</span> Example from Roth et al.&nbsp;(2015)</h3>
-<p>Lets use a meta-analytic data set investigating the correlation of school grades and intelligence test scores from <span class="citation" data-cites="roth2015">Roth (<a href="#ref-roth2015" role="doc-biblioref">2015</a>)</span>. This data set has correlation coefficients from <span class="math inline">\(k=240\)</span> studies (total sample size: <span class="math inline">\(n=105,151\)</span>) and is available within the developmental version of the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. Note that there is substantial heterogeneity in effect sizes here, far more than what could be accounted for by sampling error alone, but for the sake of this example we will assume that there is no heterogeneity. Lets conduct a common effect meta-analysis using the equations from the previous section:</p>
+<p>Lets use a meta-analytic data set investigating the correlation of school grades and intelligence test scores from <span class="citation" data-cites="roth2015">Roth (<a href="direct_range_restriction.html#ref-roth2015" role="doc-biblioref">2015</a>)</span>. This data set has correlation coefficients from <span class="math inline">\(k=240\)</span> studies (total sample size: <span class="math inline">\(n=105,151\)</span>) and is available within the developmental version of the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="direct_range_restriction.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. Note that there is substantial heterogeneity in effect sizes here, far more than what could be accounted for by sampling error alone, but for the sake of this example we will assume that there is no heterogeneity. Lets conduct a common effect meta-analysis using the equations from the previous section:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in packages (we need the development version of psychmeta)</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
@@ -476,7 +497,7 @@ SE_{\hat{\delta}} = \sqrt{\frac{\sigma_\varepsilon^2}{k\,\bar{p}(1-\bar{p})(1-\h
 1 0.4413862 0.01188354 0.4180949 0.4646775</code></pre>
 </div>
 </div>
-<p>Due to the massive sample size and the assumption that there is no variation in population correlations (i.e., fixed effects), the standard error is quite small. We can also use the <code>metafor</code> package <span class="citation" data-cites="viechtbauer2010">(<a href="#ref-viechtbauer2010" role="doc-biblioref">Viechtbauer 2010</a>)</span> to conduct a fixed effects meta-analysis without having to write each equation by hand.</p>
+<p>Due to the massive sample size and the assumption that there is no variation in population correlations (i.e., fixed effects), the standard error is quite small. We can also use the <code>metafor</code> package <span class="citation" data-cites="viechtbauer2010">(<a href="direct_range_restriction.html#ref-viechtbauer2010" role="doc-biblioref">Viechtbauer 2010</a>)</span> to conduct a fixed effects meta-analysis without having to write each equation by hand.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("metafor")</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metafor)</span>
@@ -501,7 +522,7 @@ SE_{\hat{\delta}} = \sqrt{\frac{\sigma_\varepsilon^2}{k\,\bar{p}(1-\bar{p})(1-\h
 </section>
 <section id="random-effects-model" class="level2" data-number="11.3">
 <h2 data-number="11.3" class="anchored" data-anchor-id="random-effects-model"><span class="header-section-number">11.3</span> Random Effects Model</h2>
-<p>The random-effects model refers to a model that allows for the population effect size to vary from study to study. Random-effects differs from the fixed effects model in an important way: it does not assume that all observed effect sizes come from a single (fixed) population effect size <span class="citation" data-cites="borenstein2010">(<a href="#ref-borenstein2010" role="doc-biblioref">Borenstein et al. 2010</a>)</span>. This variation in population effect sizes is called heterogeneity. In the traditional <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> the weights utilized in the random effects meta-analysis are identical to the common effect version (sample size weights). In other conventional meta-analysis methods <span class="citation" data-cites="hedges1998">(<a href="#ref-hedges1998" role="doc-biblioref">Hedges and Vevea 1998</a>)</span>, random-effect weights include a random effect component containing the variation in population effect sizes (this has the effect of making study weights more similar to each other with more variation in population effects). A modern approach introduced by <span class="citation" data-cites="morris2014">Morris et al. (<a href="#ref-morris2014" role="doc-biblioref">2014</a>)</span> and later tested by <span class="citation" data-cites="brannick2019">Brannick et al. (<a href="#ref-brannick2019" role="doc-biblioref">2019</a>)</span>, combined these two approaches. The simulation study by <span class="citation" data-cites="brannick2019">Brannick et al. (<a href="#ref-brannick2019" role="doc-biblioref">2019</a>)</span>, concluded that weights incorporating random effect components improved the <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> estimates. This section will thus use Morris’s method.</p>
+<p>The random-effects model refers to a model that allows for the population effect size to vary from study to study. Random-effects differs from the fixed effects model in an important way: it does not assume that all observed effect sizes come from a single (fixed) population effect size <span class="citation" data-cites="borenstein2010">(<a href="direct_range_restriction.html#ref-borenstein2010" role="doc-biblioref">Borenstein et al. 2010</a>)</span>. This variation in population effect sizes is called heterogeneity. In the traditional <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> the weights utilized in the random effects meta-analysis are identical to the common effect version (sample size weights). In other conventional meta-analysis methods <span class="citation" data-cites="hedges1998">(<a href="direct_range_restriction.html#ref-hedges1998" role="doc-biblioref">Hedges and Vevea 1998</a>)</span>, random-effect weights include a random effect component containing the variation in population effect sizes (this has the effect of making study weights more similar to each other with more variation in population effects). A modern approach introduced by <span class="citation" data-cites="morris2014">Morris et al. (<a href="direct_range_restriction.html#ref-morris2014" role="doc-biblioref">2014</a>)</span> and later tested by <span class="citation" data-cites="brannick2019">Brannick et al. (<a href="direct_range_restriction.html#ref-brannick2019" role="doc-biblioref">2019</a>)</span>, combined these two approaches. The simulation study by <span class="citation" data-cites="brannick2019">Brannick et al. (<a href="direct_range_restriction.html#ref-brannick2019" role="doc-biblioref">2019</a>)</span>, concluded that weights incorporating random effect components improved the <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> estimates. This section will thus use Morris’s method.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figure/random_effects_diagram.png" class="img-fluid figure-img"></p>
@@ -510,11 +531,11 @@ SE_{\hat{\delta}} = \sqrt{\frac{\sigma_\varepsilon^2}{k\,\bar{p}(1-\bar{p})(1-\h
 </div>
 <section id="the-general-case-1" class="level3" data-number="11.3.1">
 <h3 data-number="11.3.1" class="anchored" data-anchor-id="the-general-case-1"><span class="header-section-number">11.3.1</span> The General Case</h3>
-<p>The model from <a href="#eq-fixed-mdl">Equation&nbsp;<span class="quarto-unresolved-ref">eq-fixed-mdl</span></a> can be changed slightly to encompass variation of the population effect size from study to study:</p>
+<p>The model from <a href="#eq-fixed-mdl">Equation&nbsp;<span>11.1</span></a> can be changed slightly to encompass variation of the population effect size from study to study:</p>
 <p><span class="math display">\[
 \theta_i = \vartheta_i + \varepsilon_i.
 \]</span></p>
-<p>In the common effect model, we assumed that all the variation in study effect sizes is accounted for by variation in sampling error (<span class="math inline">\(\sigma^2_\theta = \sigma^2_\varepsilon\)</span>; see <a href="#eq-var-fixed">Equation&nbsp;<span class="quarto-unresolved-ref">eq-var-fixed</span></a>). However in the random-effects model the variance in population effect sizes (<span class="math inline">\(\sigma^2_\vartheta\)</span>) is allowed to be greater than zero. The variance components can be written out as</p>
+<p>In the common effect model, we assumed that all the variation in study effect sizes is accounted for by variation in sampling error (<span class="math inline">\(\sigma^2_\theta = \sigma^2_\varepsilon\)</span>; see <a href="#eq-var-fixed">Equation&nbsp;<span>11.2</span></a>). However in the random-effects model the variance in population effect sizes (<span class="math inline">\(\sigma^2_\vartheta\)</span>) is allowed to be greater than zero. The variance components can be written out as</p>
 <p><span id="eq-var-random"><span class="math display">\[
 \sigma^2_\theta=\sigma^2_\vartheta + \sigma^2_\varepsilon.
 \tag{11.4}\]</span></span></p>
@@ -530,7 +551,7 @@ w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2} = \frac{1}{\sigma^2_
 <p><span class="math display">\[
 \hat{\bar{\vartheta}} = \frac{\sum^k_{i=1}w_i\theta_i}{\sum^k_{i=1}w_i}
 \]</span></p>
-<p>With these weights and the estimate of the population effect size, we can now estimate each of the three variance components from <a href="#eq-var-random">Equation&nbsp;<span class="quarto-unresolved-ref">eq-var-random</span></a>:</p>
+<p>With these weights and the estimate of the population effect size, we can now estimate each of the three variance components from <a href="#eq-var-random">Equation&nbsp;<span>11.4</span></a>:</p>
 <ol type="1">
 <li>variance in study effect sizes <span class="math display">\[
 \sigma^2_{\theta}=\frac{\sum^k_{i=1}w_i(\theta_i - \hat{\bar{\vartheta}})}{\sum^k_{i=1}w_i}
@@ -542,7 +563,7 @@ w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2} = \frac{1}{\sigma^2_
 \sigma^2_{\vartheta} = \sigma^2_{\theta} - \sigma^2_{\varepsilon}
 \]</span></li>
 </ol>
-<p>In other conventions, <span class="math inline">\(\sigma^2_\vartheta\)</span> is denoted as <span class="math inline">\(\tau^2\)</span> <span class="citation" data-cites="borenstein2010 dersimonian2007 hedges1998">(<a href="#ref-borenstein2010" role="doc-biblioref">Borenstein et al. 2010</a>; <a href="#ref-dersimonian2007" role="doc-biblioref">DerSimonian and Kacker 2007</a>; <a href="#ref-hedges1998" role="doc-biblioref">Hedges and Vevea 1998</a>)</span>, but conceptually these are identical. Taking the root of <span class="math inline">\(\sigma^2_\vartheta\)</span>, <span class="math inline">\(\sigma_\vartheta\)</span>, is the standard deviation of population effect sizes which can be a useful measure of heterogeneity. Furthermore, we can use <span class="math inline">\(\sigma_\vartheta\)</span> to calculate credibility (prediction) intervals which allows us to draw inferences about the range of plausible population effect sizes. For example, the 90% credibility interval can be calculated with the following equations:</p>
+<p>In other conventions, <span class="math inline">\(\sigma^2_\vartheta\)</span> is denoted as <span class="math inline">\(\tau^2\)</span> <span class="citation" data-cites="borenstein2010 dersimonian2007 hedges1998">(<a href="direct_range_restriction.html#ref-borenstein2010" role="doc-biblioref">Borenstein et al. 2010</a>; <a href="direct_range_restriction.html#ref-dersimonian2007" role="doc-biblioref">DerSimonian and Kacker 2007</a>; <a href="direct_range_restriction.html#ref-hedges1998" role="doc-biblioref">Hedges and Vevea 1998</a>)</span>, but conceptually these are identical. Taking the root of <span class="math inline">\(\sigma^2_\vartheta\)</span>, <span class="math inline">\(\sigma_\vartheta\)</span>, is the standard deviation of population effect sizes which can be a useful measure of heterogeneity. Furthermore, we can use <span class="math inline">\(\sigma_\vartheta\)</span> to calculate credibility (prediction) intervals which allows us to draw inferences about the range of plausible population effect sizes. For example, the 90% credibility interval can be calculated with the following equations:</p>
 <p><span class="math display">\[
 \vartheta_\text{Upper} = \hat{\bar{\vartheta}} + 1.645\sigma_\vartheta
 \]</span></p>
@@ -560,7 +581,7 @@ SE_\hat{\bar{\vartheta}} = \sqrt{\frac{\sigma^2_\theta}{k}}
 <p><span class="math display">\[
 \bar{\vartheta}_\text{Lower} = \hat{\bar{\vartheta}} - 1.96\cdot SE_\hat{\bar{\vartheta}}
 \]</span></p>
-<p>The confidence interval and credibility interval have fundamentally different interpretations that are often misinterpreted in published work <span class="citation" data-cites="whitener1990">(<a href="#ref-whitener1990" role="doc-biblioref">Whitener 1990</a>)</span>. When we are interpreting a single realized interval (i.e., our estimate-in-hand), the 90% credibility interval can be interpreted as the region in which 90% of population effect sizes exist, however, a 95% confidence interval describes the interval in which there is a 95% probability of containing the true mean of population effect sizes. It is important to note that the confidence interval interpretation here is only valid in the case of a single realized interval <span class="citation" data-cites="vos2022">(<a href="#ref-vos2022" role="doc-biblioref">Vos and Holbert 2022</a>)</span>, if there is more than one computed intervals the same population of studies, then the interpretation does not hold (this would be an exceedingly rare scenario in a meta-analysis).</p>
+<p>The confidence interval and credibility interval have fundamentally different interpretations that are often misinterpreted in published work <span class="citation" data-cites="whitener1990">(<a href="direct_range_restriction.html#ref-whitener1990" role="doc-biblioref">Whitener 1990</a>)</span>. When we are interpreting a single realized interval (i.e., our estimate-in-hand), the 90% credibility interval can be interpreted as the region in which 90% of population effect sizes exist, however, a 95% confidence interval describes the interval in which there is a 95% probability of containing the true mean of population effect sizes. It is important to note that the confidence interval interpretation here is only valid in the case of a single realized interval <span class="citation" data-cites="vos2022">(<a href="direct_range_restriction.html#ref-vos2022" role="doc-biblioref">Vos and Holbert 2022</a>)</span>, if there is more than one computed intervals the same population of studies, then the interpretation does not hold (this would be an exceedingly rare scenario in a meta-analysis).</p>
 </section>
 <section id="sec-random-corr" class="level3" data-number="11.3.2">
 <h3 data-number="11.3.2" class="anchored" data-anchor-id="sec-random-corr"><span class="header-section-number">11.3.2</span> Random Effects Meta-Analysis of Correlations</h3>
@@ -572,7 +593,7 @@ r_i = \rho_i + \varepsilon_i
 <p><span class="math display">\[
 \sigma^2_r = \sigma^2_\rho + \sigma^2_\varepsilon
 \]</span></p>
-<p>Like in the general case, we must calculate the study weights using the method by <span class="citation" data-cites="morris2014">Morris et al. (<a href="#ref-morris2014" role="doc-biblioref">2014</a>)</span> and further described in <span class="citation" data-cites="brannick2019">Brannick et al. (<a href="#ref-brannick2019" role="doc-biblioref">2019</a>)</span>. The weights are a function of the study-level sampling variance (<span class="math inline">\(\sigma^2_{\varepsilon_i}\)</span>) and the variance in population correlations (<span class="math inline">\(\sigma^2_{\rho}\)</span>).</p>
+<p>Like in the general case, we must calculate the study weights using the method by <span class="citation" data-cites="morris2014">Morris et al. (<a href="direct_range_restriction.html#ref-morris2014" role="doc-biblioref">2014</a>)</span> and further described in <span class="citation" data-cites="brannick2019">Brannick et al. (<a href="direct_range_restriction.html#ref-brannick2019" role="doc-biblioref">2019</a>)</span>. The weights are a function of the study-level sampling variance (<span class="math inline">\(\sigma^2_{\varepsilon_i}\)</span>) and the variance in population correlations (<span class="math inline">\(\sigma^2_{\rho}\)</span>).</p>
 <p><span class="math display">\[
 w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma^2_{\rho}}
 \]</span> However as described in the last section, to estimate the variance in population effect sizes (<span class="math inline">\(\sigma^2_{\rho}\)</span>), we need estimates of the mean of true population effect sizes and the weights, but to get both those parameters, we need the weights. In order to get around this dilemma we can instead replace the weights with <span class="math inline">\(n_i\)</span> and the mean of population correlations with the <span class="math inline">\(n\)</span>-weighted average correlation (<span class="math inline">\(\bar{r}\)</span>). Lets first define the sampling variance for a pearson correlation:</p>
@@ -638,7 +659,7 @@ r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i^2}}
 <p><span class="math display">\[
 \sigma^2_{\varepsilon_ir} =\frac{\sigma_{\varepsilon_id}^2}{\left(d_i^2p_i[1-p_i]+1\right)\left(\frac{1}{p_i(1-p_i)}+d_i^2\right)}
 \]</span></p>
-<p>The subscripts, <span class="math inline">\(r\)</span> and <span class="math inline">\(d\)</span> denote the sampling variances for correlations and <span class="math inline">\(d\)</span> values respectively. Once the <span class="math inline">\(d\)</span> values and sampling variances are converted to point-biserial correlations, the meta-analysis can then be conducted by using the methods from <a href="#sec-fixed-corr"><span class="quarto-unresolved-ref">sec-fixed-corr</span></a>. Once the meta-analysis is completed, the estimate of the population correlation and it’s standard error can be converted back to a <span class="math inline">\(d\)</span> value,</p>
+<p>The subscripts, <span class="math inline">\(r\)</span> and <span class="math inline">\(d\)</span> denote the sampling variances for correlations and <span class="math inline">\(d\)</span> values respectively. Once the <span class="math inline">\(d\)</span> values and sampling variances are converted to point-biserial correlations, the meta-analysis can then be conducted by using the methods from <a href="#sec-fixed-corr"><span>Section&nbsp;11.2.2</span></a>. Once the meta-analysis is completed, the estimate of the population correlation and it’s standard error can be converted back to a <span class="math inline">\(d\)</span> value,</p>
 <p><span class="math display">\[
 \hat{\bar{\delta}} = \frac{\hat{\bar{\rho}}}{\sqrt{\bar{p}(1-\bar{p})(1-\hat{\bar{\rho}}^2)}}
 \]</span></p>
@@ -652,7 +673,7 @@ SE_{\hat{\bar{\delta}}}= \sqrt{\frac{\sigma_r^2}{k\, \bar{p}\left(1-\bar{p}\righ
 </section>
 <section id="random-effects-meta-analysis-in-r" class="level3" data-number="11.3.4">
 <h3 data-number="11.3.4" class="anchored" data-anchor-id="random-effects-meta-analysis-in-r"><span class="header-section-number">11.3.4</span> Random Effects Meta-Analysis in R</h3>
-<p>Lets conduct a random effects meta-analysis using the equations from the previous section and the data set we used earlier <span class="citation" data-cites="roth2015">(<a href="#ref-roth2015" role="doc-biblioref">Roth 2015</a>)</span>. For this dataset, it is more appropriate to use a random-effects model due to the large amount of heterogeneity we observe in the correlations.</p>
+<p>Lets conduct a random effects meta-analysis using the equations from the previous section and the data set we used earlier <span class="citation" data-cites="roth2015">(<a href="direct_range_restriction.html#ref-roth2015" role="doc-biblioref">Roth 2015</a>)</span>. For this dataset, it is more appropriate to use a random-effects model due to the large amount of heterogeneity we observe in the correlations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in packages (we need the development version of psychmeta)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("devtools")</span></span>
@@ -709,7 +730,7 @@ SE_{\hat{\bar{\delta}}}= \sqrt{\frac{\sigma_r^2}{k\, \bar{p}\left(1-\bar{p}\righ
 1    0.4265249 0.01131785 0.4043424 0.4487075 0.1601417 0.1779766 0.7047958</code></pre>
 </div>
 </div>
-<p>Notice that the standard error of the mean correlation is larger than the common effects model. The reason for this disparity, is that the random effects model has two sources of variance, sampling error and variance in true correlations. We can also use the <code>metafor</code> package <span class="citation" data-cites="viechtbauer2010">(<a href="#ref-viechtbauer2010" role="doc-biblioref">Viechtbauer 2010</a>)</span> to conduct a random effects meta-analysis. The method used in the previous sections is not available in metafor so slight deviations with the resulting statistics may occur.</p>
+<p>Notice that the standard error of the mean correlation is larger than the common effects model. The reason for this disparity, is that the random effects model has two sources of variance, sampling error and variance in true correlations. We can also use the <code>metafor</code> package <span class="citation" data-cites="viechtbauer2010">(<a href="direct_range_restriction.html#ref-viechtbauer2010" role="doc-biblioref">Viechtbauer 2010</a>)</span> to conduct a random effects meta-analysis. The method used in the previous sections is not available in metafor so slight deviations with the resulting statistics may occur.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("metafor")</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metafor)</span>
@@ -735,7 +756,7 @@ SE_{\hat{\bar{\delta}}}= \sqrt{\frac{\sigma_r^2}{k\, \bar{p}\left(1-\bar{p}\righ
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-borenstein2010" class="csl-entry" role="listitem">
 Borenstein, Michael, Larry V. Hedges, Julian P. T. Higgins, and Hannah R. Rothstein. 2010. <span>“A Basic Introduction to Fixed-Effect and Random-Effects Models for Meta-Analysis.”</span> <em>Research Synthesis Methods</em> 1 (2): 97–111. <a href="https://doi.org/10.1002/jrsm.12">https://doi.org/10.1002/jrsm.12</a>.
 </div>

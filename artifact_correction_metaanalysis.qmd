@@ -1,16 +1,8 @@
----
-title-block-banner: true
-title-block-style: default
-description: " <br>Author: Matthew B. Jané, NAME (CRediT)"
-crossref:
-  chapters: true
----
-
 # Artifact Correction Meta-Analysis {#sec-artifact}
 
 ## Introduction
 
-Artifact correction meta-analysis, also referred to as psychometric meta-analysis, is a form of meta-analysis where effect sizes are systematically corrected for sources of bias. These sources of bias have been discussed in previous chapters 4-10. Methodology for conducting artifact correction style meta-analyses were originally pioneered by Frank Schmidt and John Hunter [@hunter1990a; @schmidt1977] and then reviewed more recently by Brenton Wiernik and Jeffrey Dahlke [@wiernik2020]. There has also been powerful R packages developed to aide in the application of artifact correction meta-analyses that we have used in previous chapters [@dahlke2019]. You will notice that in this secti on, we do not discuss standardized mean differences. This is due to the fact that the artifact correction model is designed for pearson correlations, in order to use this method for standardized mean differences, convert to pearson correlations using the methods described in chapter 11, and then use the correction methods used below. Once you apply the corrections to the converted correlations they can then be converted back to a standardized mean difference.
+Artifact correction meta-analysis, also referred to as psychometric meta-analysis, is a form of meta-analysis where effect sizes are systematically corrected for sources of bias. These sources of bias have been discussed in previous chapters 4-10. Methodology for conducting artifact correction style meta-analyses were originally pioneered by Frank Schmidt and John Hunter [@hunter1990a; @schmidt1977] and then reviewed more recently by Brenton Wiernik and Jeffrey Dahlke [@wiernik2020]. There has also been powerful R packages developed to aide in the application of artifact correction meta-analyses that we have used in previous chapters [@dahlke2019]. You will notice that in this section, we do not discuss standardized mean differences. This is due to the fact that the artifact correction model is designed for pearson correlations, in order to use this method for standardized mean differences, convert to pearson correlations using the methods described in chapter 11, and then use the correction methods used below. Once you apply the corrections to the converted correlations they can then be converted back to a standardized mean difference.
 
 ## Bare Bones vs Artifact Correction Meta-Analysis
 
@@ -52,7 +44,7 @@ This division of $A_i$ will provide us with our corrected effect size estimates 
 
 $$
 \theta_{c_i} = \frac{\theta_{o_i}}{A_i}
-$$ 
+$$
 
 and the corresponding error term must also be corrected
 
@@ -86,7 +78,7 @@ The next step is to obtain the random effects weights of the study, we can do th
 
 $$
 \hat{\bar{\vartheta}}=\frac{\sum^k_{i=1}n_i\theta_{c_i}}{\sum^k_{i=1}n_i}
-$$ 
+$$
 
 Remember that because this is a random effects model, $\hat{\bar{\vartheta}}$ is not an estimate of the true population effect size, instead it is an estimate of the mean of a distribution of true population effect sizes. Now that we have an estimate of the mean and the corrected sampling variances, the variance components from @eq-corrected-var can be easily calculated as follows:
 
@@ -100,7 +92,7 @@ $$
 
 $$
 \sigma^2_{\vartheta}  = \sigma^2_{\theta_c} - \sigma^2_{\varepsilon_c}
-$$ 
+$$
 
 The standard deviation of true effects is a useful measure of heterogeneity and is simply the square root of the variance of true population effect sizes ($\sigma_{\vartheta}$). From the standard deviation in true effects, we can also calculate a credibility (prediction) interval that shows the range of plausible values for which a true effect size is likely to fall,
 
@@ -120,54 +112,45 @@ For correlation coefficients we can define the model similarly to @eq-art-mdl, w
 
 $$
 r_{o_i} = A_i\rho_i + \varepsilon_{o_i}
-$$ 
+$$
 
 The artifact correction formulation of this, corresponding to @eq-correction-formula, would be
 
 $$
 r_{c_i} = \rho_i + \varepsilon_{c_i}
-$$ 
+$$
 
 The corresponding variance components would then be,
 
 $$
 \sigma^2_{r_c} = \sigma^2_\rho + \sigma^2_{\varepsilon_c}
-$$ 
+$$
 
 In order to compute the variance components as well as the mean true population correlation, we first need to calculate the study weights. We will follow a similar procedure for calculating random effects weights in chapter 11. Lets define the corrected random effects weights as,
 
-$$
+\$\$
 
 w_i = \frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}.
 
 $$
 However the variance components, $\sigma^2_{\varepsilon_ci}$ and $\sigma^2_\rho$, require the weights themselves to actually estimate them, so instead we can approximate the variance components using the sample size as the weights such that,
-$$
-w_i =\frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}= \frac{1}{\sigma^2_{\varepsilon_ci}+(\sigma^2_{r_c}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_ci}+\left(\frac{\sum^k_{i=1}n_i(r_{c_i} - \bar{r}_c)^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}n_i}\right)}
-$$
+$$ w_i =\frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}= \frac{1}{\sigma^2_{\varepsilon_ci}+(\sigma^2_{r_c}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_ci}+\left(\frac{\sum^k_{i=1}n_i(r_{c_i} - \bar{r}_c)^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}n_i}\right)} \$\$
 
 Where $\bar{r}_c$ is the sample size weighted average corrected correlation. These weights can then be used to obtain a more precise estimate of the true population correlation,
 
 $$
 \hat{\bar{\rho}}=\frac{\sum_{i=1}^k w_i r_{c_i}}{\sum_{i=1}^k w_i}
-$$
-Now we can compute each of the three variance components:
-
+$$ Now we can compute each of the three variance components:
 
 1)  Variance in corrected correlations:
 
 $$
 \sigma^2_{r_c}=\frac{\sum^k_{i=1}w_i(r_{c_i} - \hat{\bar{\rho}})}{\sum^k_{i=1}w_i}.
-$$
-2)  Sampling error variance: 
-$$
+$$ 2) Sampling error variance: $$
 \sigma^2_{\varepsilon_c} = \frac{\sum^k_{i=1}w_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}w_i}.
-$$
-3)  Variance in population correlations: 
-$$
+$$ 3) Variance in population correlations: $$
 \sigma^2_\rho = \sigma^2_r - \sigma^2_{\varepsilon}.
-$$
-Now lets use these variance components to calculate the 90% credibility (prediction) interval and the 95% confidence interval. The 90% credibility interval can be calculated with the following equations:
+$$ Now lets use these variance components to calculate the 90% credibility (prediction) interval and the 95% confidence interval. The 90% credibility interval can be calculated with the following equations:
 
 $$
 \rho_\text{Upper} = \hat{\bar{\rho}} + 1.645\sigma_\rho
@@ -193,14 +176,11 @@ $$
 \bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_\hat{\bar{\rho}}
 $$
 
-
 ### Applied Example in R
 
-Lets conduct an individual correction meta-analysis in r using the data set by @roth2015. This data set consists of correlations between school grades and intelligence test scores. It also contains information on the reliability of the intelligence test scores and the extent of range restriction in test scores. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in test scores. The compound artifact biasing factor for the correlation would be: 
-$$
+Lets conduct an individual correction meta-analysis in r using the data set by @roth2015. This data set consists of correlations between school grades and intelligence test scores. It also contains information on the reliability of the intelligence test scores and the extent of range restriction in test scores. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in test scores. The compound artifact biasing factor for the correlation would be: $$
 A_i=\sqrt{r_{o_i}^2 + \frac{u_{x_i}^2 r_{xx'_i}(r_{xx'_i} - r_{o_i}^2) }{1 - u_{x_i}^2 (1-r_{xx'_i})} }
-$$ 
-Sticking with our theme of doing everything in base R first, lets use the equations from the previous section to conduct the meta-analysis.
+$$ Sticking with our theme of doing everything in base R first, lets use the equations from the previous section to conduct the meta-analysis.
 
 ```{r,message=FALSE}
 # Load in packages (we need the development version of psychmeta)
@@ -352,18 +332,17 @@ $$
 
 $$
 \sigma^2_{r_{yU}i} \approx \frac{(1-\bar{r}_{yU}^2)^2}{n_i-1} 
-$$ 
+$$
 
 Then weighted average of these sampling variances is
 
 $$
 \sigma^2_{r_{xT}} = \frac{\sum^k_{i=1}w_i r_{xT_i}}{\sum^k_{i=1}w_i}
-$$ 
+$$
 
 $$
 \sigma^2_{r_{yU}} = \frac{\sum^k_{i=1}w_i r_{yU_i}}{\sum^k_{i=1}w_i}
-$$ 
-Now that we have the point-estimate of the population observed correlation, the variance of observed population correlations, the sampling variance of observed correlations, and the sampling variance of the square root of the reliability for $x$ and $y$, we can now attempt to correct the point-estimate and the variance of population correlations.
+$$ Now that we have the point-estimate of the population observed correlation, the variance of observed population correlations, the sampling variance of observed correlations, and the sampling variance of the square root of the reliability for $x$ and $y$, we can now attempt to correct the point-estimate and the variance of population correlations.
 
 ##### Correcting Using Summary Values {.unnumbered}
 
@@ -377,14 +356,13 @@ Note that the artifact biasing factor, $A$, is the product of the two sources of
 
 $$
 \hat{\bar{\rho}}_o = \hat{\bar{\rho}}\cdot \bar{r}_{xT}\cdot \bar{r}_{yU}
-$$ 
+$$
 
 For the taylor series approximation, we want to first find the partial derivitive with respect to each artifact component:
 
 $$
 B_{r_{xT}}=\frac{\partial}{\partial r_{xT}} (\hat{\bar{\rho}}\cdot \bar{r}_{xT}\cdot \bar{r}_{yU}) = \hat{\bar{\rho}}\cdot \bar{r}_{yU}
-$$ 
-$$
+$$ $$
 B_{r_{yU}}=\frac{\partial}{\partial r_{yU}} (\hat{\bar{\rho}}\cdot \bar{r}_{xT}\cdot \bar{r}_{yU}) = \hat{\bar{\rho}}\cdot \bar{r}_{xT}
 $$
 
@@ -398,7 +376,7 @@ Now we can approximate the variance in true population correlations,
 
 $$
 \sigma_\rho^2= \frac{\sigma^2_{\rho_o} - \sigma^2_A}{\bar{A}^2}
-$$ 
+$$
 
 Where the artifact biasing factor is: $\bar{A}=\bar{r}_{xT}\cdot \bar{r}_{yU}$. See the supplementary materials of @dahlke2020 for detailed Taylor series approximation derivations for the immensely more complicated bivariate indirect range restriction plus measurement error correction.
 
@@ -408,8 +386,7 @@ Lets conduct an artifact distribution correction meta-analysis in R, instead usi
 
 $$
 \bar{\rho}_o=\bar{\rho}\sqrt{\bar{r}_{o_i}^2 + \frac{\bar{u}_{x_i}^2 \bar{r}_{xx'_i}(\bar{r}_{xx'_i}\bar{r}_{yy'_i} - \bar{r}_{o_i}^2) }{1 - \bar{u}_{x_i}^2 (1-\bar{r}_{xx'_i})} }
-$$ 
-Instead of conducting a taylor series approximation by hand, we will simply use the `psychmeta` package to perform the artifact distribution meta-analysis. The function `ma_r_ad` is designed to conduct an artifact distribution meta-analysis on correlation coefficients. The function also reports the bare-bones model allowing us to compare the corrected estimates to the uncorrected.
+$$ Instead of conducting a taylor series approximation by hand, we will simply use the `psychmeta` package to perform the artifact distribution meta-analysis. The function `ma_r_ad` is designed to conduct an artifact distribution meta-analysis on correlation coefficients. The function also reports the bare-bones model allowing us to compare the corrected estimates to the uncorrected.
 
 ```{r,message=FALSE}
 # Load in packages (we need the development version of psychmeta)
@@ -473,7 +450,6 @@ credibility(mean = summary_stats$mean_rho[1],
 ```
 
 Lets compare these results to the bare-bones model. In `psychmeta` the bare-bones model can be conduced using `ma_r_bb`. However, the `ma_r_ic` function also reports the bare-bones results as well. Therefore we can just extract the necessary statistics from the model.
-
 
 [@hunter1990a]
 

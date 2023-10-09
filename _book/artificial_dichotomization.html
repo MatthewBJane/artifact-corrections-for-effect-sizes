@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Correcting Effect Sizes for Statistical Artifacts - 7&nbsp; Artificial Dichotomization</title>
+<title>Artifact Corrections for Effect Sizes - 7&nbsp; Artificial Dichotomization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,6 +85,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./scale_coarseness.html" rel="next">
 <link href="./misclassification.html" rel="prev">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -114,10 +115,30 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: white;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: white;
+      }
+</style>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 7&nbsp; Artificial Dichotomization">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="artificial_dichotomization_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating">
@@ -139,12 +160,28 @@ div.csl-indent {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Correcting Effect Sizes for Statistical Artifacts</a> 
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -282,28 +319,14 @@ div.csl-indent {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <section id="introduction" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
-<p>Primary studies sometimes will splitting naturally continuous variables into two discrete groups to increase interpretability or conduct specific analyses (e.g., t-tests). However, artificially dichotomizing variables introduces measurement error variance thus attenuating effect size estimates <span class="citation" data-cites="hunter1990">Maxwell and Delaney (<a href="#ref-maxwell1993" role="doc-biblioref">1993</a>)</span>. Clinical disorder diagnoses, such as generalized anxiety disorder, are examples of dichotomization where individuals are separated into either having the disorder or not even though individual differences in anxiety exist as a continuum.</p>
+<p>Primary studies sometimes will splitting naturally continuous variables into two discrete groups to increase interpretability or conduct specific analyses (e.g., t-tests). However, artificially dichotomizing variables introduces measurement error variance thus attenuating effect size estimates <span class="citation" data-cites="hunter1990">Maxwell and Delaney (<a href="direct_range_restriction.html#ref-maxwell1993" role="doc-biblioref">1993</a>)</span>. Clinical disorder diagnoses, such as generalized anxiety disorder, are examples of dichotomization where individuals are separated into either having the disorder or not even though individual differences in anxiety exist as a continuum.</p>
 </section>
 <section id="artificial-dichotomization-induced-measurement-error" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="artificial-dichotomization-induced-measurement-error"><span class="header-section-number">7.2</span> Artificial Dichotomization Induced Measurement Error</h2>
@@ -362,7 +385,7 @@ p_x = \frac{ n_{\text{low}} }{n_{\text{high}} + n_{\text{low}}}.
 <p><span class="math display">\[
 C_x = \phi^{-1}(p_x)
 \]</span></p>
-<p>Using the cut-point and the proportion of group membership in either the low or high scoring group (<span class="math inline">\(p_x\)</span>), the attenuation factor can be defined as <span class="citation" data-cites="hunter1990">(<a href="#ref-hunter1990" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span>,</p>
+<p>Using the cut-point and the proportion of group membership in either the low or high scoring group (<span class="math inline">\(p_x\)</span>), the attenuation factor can be defined as <span class="citation" data-cites="hunter1990">(<a href="direct_range_restriction.html#ref-hunter1990" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span>,</p>
 <p><span class="math display">\[
 a =\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}}
 \]</span></p>
@@ -436,16 +459,16 @@ r_c = \text{cos}\left(\frac{\pi}{1+\sqrt{\frac{n_{HH}n_{LL}}{n_{HL}n_{LH}}}}\rig
 <p><span class="math display">\[
 r_c = \text{cos}\left(\frac{\pi}{1+\sqrt{OR}}\right)
 \]</span></p>
-<p>The sampling variance must be calculated from the contingency table as well. A sampling variance approximation can be obtained from <span class="citation" data-cites="pearson1913">Pearson (<a href="#ref-pearson1913" role="doc-biblioref">1913</a>)</span>, however due to the complexity of the formulation and because it is simply an approximation, instead I recommend that researchers use a bootstrap procedure to obtain approximate confidence intervals. To do this, we must resample the contingency table (&gt;10,000 iterations), calculating the tetrachoric correlation using <a href="#eq-tet">Equation&nbsp;<span class="quarto-unresolved-ref">eq-tet</span></a> upon each iteration. Once you obtain a tetrachoric correlation from each iteration, the standard deviation of all correlations can be used as an estimate of the standard error and the square of the standard error is the sampling variance.</p>
+<p>The sampling variance must be calculated from the contingency table as well. A sampling variance approximation can be obtained from <span class="citation" data-cites="pearson1913">Pearson (<a href="direct_range_restriction.html#ref-pearson1913" role="doc-biblioref">1913</a>)</span>, however due to the complexity of the formulation and because it is simply an approximation, instead I recommend that researchers use a bootstrap procedure to obtain approximate confidence intervals. To do this, we must resample the contingency table (&gt;10,000 iterations), calculating the tetrachoric correlation using <a href="#eq-tet">Equation&nbsp;<span>7.2</span></a> upon each iteration. Once you obtain a tetrachoric correlation from each iteration, the standard deviation of all correlations can be used as an estimate of the standard error and the square of the standard error is the sampling variance.</p>
 <p>Unfortunately, studies may not report the full contingency table. Instead they may report summary statistics like a chi-squared value or a phi coefficient (i.e., the pearson correlation on binary variables). If the <span class="math inline">\(\chi^2\)</span>-statistic is reported, we can first convert that to a phi coefficient by using,</p>
 <p><span class="math display">\[
 r_{x_\ddagger y_\ddagger} = \sqrt{\frac{\chi^2}{n}}
 \]</span></p>
-<p>Where <span class="math inline">\(n\)</span> is the total sample size. From the phi coefficient, we can estimate the correlation of the continuous variables with a formula similar to <a href="#eq-dich-r">Equation&nbsp;<span class="quarto-unresolved-ref">eq-dich-r</span></a>,</p>
+<p>Where <span class="math inline">\(n\)</span> is the total sample size. From the phi coefficient, we can estimate the correlation of the continuous variables with a formula similar to <a href="#eq-dich-r">Equation&nbsp;<span>7.1</span></a>,</p>
 <p><span id="eq-dich-r-biv"><span class="math display">\[
 r_c = \frac{r_{x_\ddagger y_\ddagger}}{\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \right]\left[\frac{\varphi(C_y)}{\sqrt{p_y(1-p_y)}} \right]}
 \tag{7.3}\]</span></span></p>
-<p>This formula was introduced by <span class="citation" data-cites="hunter1990">Hunter and Schmidt (<a href="#ref-hunter1990" role="doc-biblioref">1990</a>)</span> and is a rough approximation of the correlation between the continuous independent and dependent variables (<span class="math inline">\(r_{xy}\)</span>). The corresponding sampling variance of the corrected correlation coefficient is,</p>
+<p>This formula was introduced by <span class="citation" data-cites="hunter1990">Hunter and Schmidt (<a href="direct_range_restriction.html#ref-hunter1990" role="doc-biblioref">1990</a>)</span> and is a rough approximation of the correlation between the continuous independent and dependent variables (<span class="math inline">\(r_{xy}\)</span>). The corresponding sampling variance of the corrected correlation coefficient is,</p>
 <p><span class="math display">\[
 \sigma^2_{\varepsilon_c} =\frac{\sigma^2_{\varepsilon_o}} {a^2} =\frac{\sigma^2_{\varepsilon_o}} {\left[\frac{\varphi(C_x)^2}{p_x(1-p_x)} \right]\left[\frac{\varphi(C_y)^2}{p_y(1-p_y)} \right]}.
 \]</span></p>
@@ -499,7 +522,7 @@ Please cite psychmeta when you use it in your research:
 <p><span class="math display">\[
 var_{e}=\frac{(1-r^{2})^{2}}{n-1}
 \]</span></p>
-<p>We can also correct the correlation using base R. In order to correct for dichotomization, we can use the three step process equations from <a href="#sec-corr-smd"><span class="quarto-unresolved-ref">sec-corr-smd</span></a>.</p>
+<p>We can also correct the correlation using base R. In order to correct for dichotomization, we can use the three step process equations from <a href="#sec-corr-smd"><span>Section&nbsp;7.4.2</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get cut-point</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Cy <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(py)</span>
@@ -549,7 +572,7 @@ y_{B\ddagger}=
 <p>The simplest way to correct for dichotomization in a standardized mean difference is to first convert the observed <span class="math inline">\(d\)</span> value of the <em>dichotomized</em> dependent variable and the <em>dichotomous</em> independent variable (i.e., the grouping variable). When converting to a correlation coefficient, it’s important to note the binary nature of both variables, leading us to estimate the phi coefficient rather than the point-biserial correlation that we would be estimating if the dependent variable was continuous. To calculate the phi coefficient from a <span class="math inline">\(d\)</span> value we can use the proportion of group membership in group <span class="math inline">\(A\)</span> or group <span class="math inline">\(B\)</span> (<span class="math inline">\(p\)</span>; it does not matter which one is chosen, as long as it is consistent for every instance of <span class="math inline">\(p\)</span>),</p>
 <p><span class="math display">\[
 r_{\text{phi}} = \frac{d_{y_\ddagger}}{\sqrt{d_{y_\ddagger}^2+\frac{1}{p(1-p)}}}
-\]</span> We can then correct the phi coefficient similar to how we correct the point-biserial correlation in <a href="#sec-corr-artifacts"><span class="quarto-unresolved-ref">sec-corr-artifacts</span></a>,</p>
+\]</span> We can then correct the phi coefficient similar to how we correct the point-biserial correlation in <a href="#sec-corr-artifacts"><span>Section&nbsp;7.3.2</span></a>,</p>
 <p><span class="math display">\[
 r_c = \frac{r_{\text{phi}}}{\left[\frac{\varphi(C_y)}{\sqrt{p_y (1-p_y)}}\right]}.
 \]</span> Then we can convert the corrected correlation back into a standardized mean difference, <span class="math display">\[
@@ -561,7 +584,7 @@ d_c = \frac{r_c}{\sqrt{p\left(1-p\right)\left(1-r_c^2\right)}}
 </section>
 <section id="correcting-d-values-for-dichotomization-in-r" class="level3" data-number="7.4.3">
 <h3 data-number="7.4.3" class="anchored" data-anchor-id="correcting-d-values-for-dichotomization-in-r"><span class="header-section-number">7.4.3</span> Correcting <em>d</em> values for Dichotomization in R</h3>
-<p>To correct standardized mean differences for dichotomization in R. At the moment the <code>psychmeta</code> package does not have a <code>correct_d_dich</code> function. In order to correct for dichotomization, we can use the three step process equations from <a href="#sec-corr-smd"><span class="quarto-unresolved-ref">sec-corr-smd</span></a>.</p>
+<p>To correct standardized mean differences for dichotomization in R. At the moment the <code>psychmeta</code> package does not have a <code>correct_d_dich</code> function. In order to correct for dichotomization, we can use the three step process equations from <a href="#sec-corr-smd"><span>Section&nbsp;7.4.2</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define parameters</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> .<span class="dv">5</span> <span class="co"># observed standardized mean difference</span></span>
@@ -596,59 +619,17 @@ d_c = \frac{r_c}{\sqrt{p\left(1-p\right)\left(1-r_c^2\right)}}
 <pre><code>[1] "r = 0.674, var = 0.087"</code></pre>
 </div>
 </div>
-<p><span class="citation" data-cites="naggara2011">(<a href="#ref-naggara2011" role="doc-biblioref">Naggara et al. 2011</a>)</span></p>
-<p><span class="citation" data-cites="russell1991">(<a href="#ref-russell1991" role="doc-biblioref">Russell, Pinto, and Bobko 1991</a>)</span></p>
-<p><span class="citation" data-cites="digby1983">(<a href="#ref-digby1983" role="doc-biblioref">Digby 1983</a>)</span></p>
-<p><span class="citation" data-cites="maxwell1993">(<a href="#ref-maxwell1993" role="doc-biblioref">Maxwell and Delaney 1993</a>)</span></p>
-<p><span class="citation" data-cites="hunter1990">(<a href="#ref-hunter1990" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span></p>
-<p><span class="citation" data-cites="vargha1996">(<a href="#ref-vargha1996" role="doc-biblioref">Vargha et al. 1996</a>)</span></p>
-<p><span class="citation" data-cites="royston2006">(<a href="#ref-royston2006" role="doc-biblioref">Royston, Altman, and Sauerbrei 2006</a>)</span></p>
-<p><span class="citation" data-cites="peters1940">(<a href="#ref-peters1940" role="doc-biblioref">Peters and Voorhis 1940</a>)</span></p>
-<p><span class="citation" data-cites="bonett2005">(<a href="#ref-bonett2005" role="doc-biblioref">Bonett and Price 2005</a>)</span></p>
-<p><span class="citation" data-cites="ulrich2004">(<a href="#ref-ulrich2004" role="doc-biblioref">Ulrich and Wirtz 2004</a>)</span></p>
-<p><span class="citation" data-cites="muthén1988">(<a href="#ref-muthén1988" role="doc-biblioref">Muthén and Hofacker 1988</a>)</span></p>
-<p><span class="citation" data-cites="maccallum2002">(<a href="#ref-maccallum2002" role="doc-biblioref">MacCallum et al. 2002</a>)</span></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-bonett2005" class="csl-entry" role="listitem">
-Bonett, Douglas G., and Robert M. Price. 2005. <span>“Inferential Methods for the Tetrachoric Correlation Coefficient.”</span> <em>Journal of Educational and Behavioral Statistics</em> 30 (2): 213–25. <a href="https://www.jstor.org/stable/3701350">https://www.jstor.org/stable/3701350</a>.
-</div>
-<div id="ref-digby1983" class="csl-entry" role="listitem">
-Digby, P. G. N. 1983. <span>“Approximating the Tetrachoric Correlation Coefficient.”</span> <em>Biometrics</em> 39 (3): 753–57. <a href="https://doi.org/10.2307/2531104">https://doi.org/10.2307/2531104</a>.
-</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-hunter1990" class="csl-entry" role="listitem">
 Hunter, John, and Frank Schmidt. 1990. <span>“Dichotomization of Continuous Variables: The Implications for Meta-Analysis.”</span> <em>Journal of Applied Psychology</em> 75 (June): 334–49. <a href="https://doi.org/10.1037/0021-9010.75.3.334">https://doi.org/10.1037/0021-9010.75.3.334</a>.
-</div>
-<div id="ref-maccallum2002" class="csl-entry" role="listitem">
-MacCallum, Robert C., Shaobo Zhang, Kristopher J. Preacher, and Derek D. Rucker. 2002. <span>“On the Practice of Dichotomization of Quantitative Variables.”</span> <em>Psychological Methods</em> 7: 19–40. <a href="https://doi.org/10.1037/1082-989X.7.1.19">https://doi.org/10.1037/1082-989X.7.1.19</a>.
 </div>
 <div id="ref-maxwell1993" class="csl-entry" role="listitem">
 Maxwell, Scott, and Harold Delaney. 1993. <span>“Bivariate Median Splits and Spurious Statistical Significance.”</span> <em>Psychological Bulletin</em> 113 (January): 181–90. <a href="https://doi.org/10.1037/0033-2909.113.1.181">https://doi.org/10.1037/0033-2909.113.1.181</a>.
 </div>
-<div id="ref-muthén1988" class="csl-entry" role="listitem">
-Muthén, Bengt, and Charles Hofacker. 1988. <span>“Testing the Assumptions Underlying Tetrachoric Correlations.”</span> <em>Psychometrika</em> 53 (4): 563–77. <a href="https://doi.org/10.1007/BF02294408">https://doi.org/10.1007/BF02294408</a>.
-</div>
-<div id="ref-naggara2011" class="csl-entry" role="listitem">
-Naggara, O., J. Raymond, F. Guilbert, D. Roy, A. Weill, and D. G. Altman. 2011. <span>“Analysis by Categorizing or Dichotomizing Continuous Variables Is Inadvisable: An Example from the Natural History of Unruptured Aneurysms.”</span> <em>American Journal of Neuroradiology</em> 32 (3): 437–40. <a href="https://doi.org/10.3174/ajnr.A2425">https://doi.org/10.3174/ajnr.A2425</a>.
-</div>
 <div id="ref-pearson1913" class="csl-entry" role="listitem">
 Pearson, Karl. 1913. <span>“On the Probable Error of a Coefficient of Correlation as Found from a Fourfold Table.”</span> <em>Biometrika</em> 9 (1/2): 22–33. <a href="https://doi.org/10.2307/2331798">https://doi.org/10.2307/2331798</a>.
-</div>
-<div id="ref-peters1940" class="csl-entry" role="listitem">
-Peters, Charles C., and Walter R. Van Voorhis. 1940. <span>“Further Methods of Correlation.”</span> In, 362–403. New York, NY, US: McGraw-Hill Book Company. <a href="https://doi.org/10.1037/13596-013">https://doi.org/10.1037/13596-013</a>.
-</div>
-<div id="ref-royston2006" class="csl-entry" role="listitem">
-Royston, Patrick, Douglas G. Altman, and Willi Sauerbrei. 2006. <span>“Dichotomizing Continuous Predictors in Multiple Regression: A Bad Idea.”</span> <em>Statistics in Medicine</em> 25 (1): 127–41. <a href="https://doi.org/10.1002/sim.2331">https://doi.org/10.1002/sim.2331</a>.
-</div>
-<div id="ref-russell1991" class="csl-entry" role="listitem">
-Russell, Craig J., Jeffrey K. Pinto, and Philip Bobko. 1991. <span>“Appropriate Moderated Regression and Inappropriate Research Strategy: A Demonstration of Information Loss Due to Scale Coarseness”</span> 15 (3): 257–66. <a href="https://doi.org/10.1177/014662169101500305">https://doi.org/10.1177/014662169101500305</a>.
-</div>
-<div id="ref-ulrich2004" class="csl-entry" role="listitem">
-Ulrich, Rolf, and Markus Wirtz. 2004. <span>“On the Correlation of a Naturally and an Artificially Dichotomized Variable.”</span> <em>British Journal of Mathematical and Statistical Psychology</em> 57 (2): 235–51. <a href="https://doi.org/10.1348/0007110042307203">https://doi.org/10.1348/0007110042307203</a>.
-</div>
-<div id="ref-vargha1996" class="csl-entry" role="listitem">
-Vargha, András, Tamás Rudas, Harold D. Delaney, and Scott E. Maxwell. 1996. <span>“Dichotomization, Partial Correlation, and Conditional Independence.”</span> <em>Journal of Educational and Behavioral Statistics</em> 21 (3): 264–82. <a href="https://doi.org/10.2307/1165272">https://doi.org/10.2307/1165272</a>.
 </div>
 </div>
 </section>

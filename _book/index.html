@@ -9,7 +9,7 @@
 <meta name="author" content="Matthew B. Jané">
 <meta name="dcterms.date" content="2023-10-08">
 
-<title>Correcting Effect Sizes for Statistical Artifacts</title>
+<title>Artifact Corrections for Effect Sizes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,6 +33,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./dedication.html" rel="next">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -62,8 +63,28 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: white;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: white;
+      }
+</style>
 
 
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes">
+<meta name="twitter:description" content="Implementation in R and Application to Meta-Analysis">
+<meta name="twitter:image" content="figure/cover_photo.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating">
@@ -85,12 +106,48 @@ ul.task-list li input[type="checkbox"] {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Artifact Corrections for Effect Sizes</h1>
+            <p class="subtitle lead">Implementation in R and Application to Meta-Analysis</p>
+                      </div>
+  </div>
+    
+  <div class="quarto-title-meta-author">
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Affiliation</div>
+    
+      <div class="quarto-title-meta-contents">
+      <p class="author"><a href="https://matthewbjane.com">Matthew B. Jané</a> </p>
+    </div>
+      <div class="quarto-title-meta-contents">
+          <p class="affiliation">
+              University of Connecticut
+            </p>
+        </div>
+      </div>
+
+  <div class="quarto-title-meta">
+
+        
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 8, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Correcting Effect Sizes for Statistical Artifacts</a> 
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -215,44 +272,26 @@ ul.task-list li input[type="checkbox"] {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Correcting Effect Sizes for Statistical Artifacts</h1>
-<p class="subtitle lead">Implementation in R and Application to Meta-Analysis</p>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Matthew B. Jané </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">October 8, 2023</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-</header>
 
 <section id="greetings" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Greetings</h1>
-<p>Welcome to the open source textbook <strong>Correcting Effect Sizes for Statistical Artifacts</strong>. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis in order to enhance the precision of our results.</p>
+<h1 data-number="1"><span class="header-section-number">1</span> Greetings</h1><p><img src="figure/cover_photo.png" title="Artifact Corrections for Effect Sizes" class="quarto-cover-image img-fluid"></p>
+<p>Welcome to the living open source textbook <strong><em>Correcting Effect Sizes for Statistical Artifacts</em></strong>. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis.</p>
 <section id="what-are-statistical-artifacts" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="what-are-statistical-artifacts">What are Statistical Artifacts?</h4>
-<p>I will define statistical artifacts broadly as <strong>any source of contamination that induces bias in research findings</strong>. Specifically within the context of this textbook, the term “research findings” is more narrowly referred to as effect sizes.</p>
+<p>In this book statistical artifacts will be defined broadly as <strong>any source of contamination that induces bias in research findings</strong>. Artifacts are present in virtually every research study, so it is crucial that we address them.</p>
+</section>
+<section id="living-and-open-source" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="living-and-open-source">Living and Open Source</h4>
+<p>A living textbook is one that constantly updates with new features and is open to changes from others. The goal is to have the most modern cutting-edge methods for artifact correction in this book, so in order to do that, this book needs to grow as the research grows. This book is also open source (<a href="LICENSE">CC-BY license</a>). All the figures, code, and documents are available open source in my <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages">github repository</a>.</p>
+</section>
+<section id="contributions" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="contributions">Contributions</h4>
+<p>Please feel free to contribute to this textbook, if your contribution makes it to the published version of this book, your name will be included in the contributor list below with a description of your work.</p>
 
 
 </section>

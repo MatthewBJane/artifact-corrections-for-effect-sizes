@@ -399,26 +399,3 @@ var_e_c <- (var_e_o * (rc/r)^2) / ((1+d^2*p*(1-p))^3 * (1-rc^2)^3)
 print(paste0('r = ',round(dc,3),', var = ',round(var_e_c,3) ))
 ```
 
-[@naggara2011]
-
-[@russell1991]
-
-[@digby1983]
-
-[@maxwell1993]
-
-[@hunter1990]
-
-[@vargha1996]
-
-[@royston2006]
-
-[@peters1940]
-
-[@bonett2005]
-
-[@ulrich2004]
-
-[@muthén1988]
-
-[@maccallum2002]

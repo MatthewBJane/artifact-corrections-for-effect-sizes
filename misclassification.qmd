@@ -59,7 +59,7 @@ Group misclassification describes a situation where true group membership (e.g.,
 
 ## Defining Group Misclassification
 
-Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two arbitrary groups, group $A$ and group $B$. In order to identify members of group $A$ and group $B$, we have to use some measurement instrument. Also let us assume that this measurement instrument produces imperfect group classifications, that is, people who are actually in group $A$ are sometimes assigned group $B$ and vice versa. We can visualize the performance of the classification procedure with a contingency table between actual group membership ($G$) and observed group membership ($g$):
+Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two arbitrary groups, group $A$ and group $B$. In order to identify members of group $A$ and group $B$, we have to use some measurement instrument. We can also assume this measurement instrument produces imperfect group classifications, that is, people who are actually in group $A$ are sometimes assigned group $B$ and vice versa. We can visualize the performance of the classification procedure with a contingency table between actual group membership ($G$) and observed group membership ($g$):
 
 ::: columns
 ::: {.column width="25%"}
@@ -78,11 +78,11 @@ Misclassification can be defined as any deviations between true group membership
 :::
 :::
 
-We can see from the contingency table that subjects who were correctly classified, would be labeled in the cell block $AA$ or $BB$ and those who were misclassified would belong to cells $BA$ and $AB$. Therefore we can define the proportion of people that are accurately classified as $p_{\text{acc}} = P(AA) + P(BB)$ whereas the proportion of people misclassified can be defined as $p_{\text{mis}} = P(AB)+ P(BA)$. A high-quality classifier would would minimize $p_{\text{mis}}$ and maximize $p_{\text{acc}}$. Additionally, note that the proportion of people misclassified is inversely proportional to the proportion of people accurately classified such that, $p_{\text{mis}} = 1-p_{\text{acc}}$.
+We can see from the contingency table that subjects who were correctly classified, would be labeled in the cell block $AA$ or $BB$ and those who were misclassified would belong to cells $BA$ and $AB$. Therefore we can define the proportion of individuals that are accurately classified as $p_{\text{acc}} = P(AA) + P(BB)$ whereas the proportion of people misclassified can be defined as $p_{\text{mis}} = P(AB)+ P(BA)$. A high-quality classifier would would minimize $p_{\text{mis}}$ and maximize $p_{\text{acc}}$. Note that the proportion of people misclassified is inversely proportional to the proportion of people accurately classified such that, $p_{\text{mis}} = 1-p_{\text{acc}}$.
 
 ## Classification Reliability
 
-Similar to quantifying reliability in continuous variables by calculating the correlation in parallel sets of observed scores, the same can be done in categorical variables. Instead of a contingency table between observed ($g$) and true ($G$) group membership, we will instead create a contingency table of two measurements producing two sets of observed classifications ($g$ and $g'$). Measurements often will take the form of inter-rater assessments, for example, two clinician's diagnosis of Major Depressive Disorder (MDD) in the same sample of patients.
+Similar to quantifying reliability in continuous variables by calculating the correlation in parallel sets of observed scores, the same can be done in categorical variables. Instead of a contingency table between observed ($g$) and true ($G$) group membership, we will instead create a contingency table of two measurements producing two sets of observed group assignments ($g$ and $g'$). Measurements often will take the form of inter-rater assessments, for example, two clinician's diagnosis of Major Depressive Disorder (MDD) in the same sample of patients.
 
 ::: columns
 ::: {.column width="25%"}
@@ -113,22 +113,21 @@ Where $n_{AA}$, $n_{BB}$, $n_{AB}$, and $n_{BA}$ are the number of subjects with
 
 $$
 r_{gg'} = \sqrt{\frac{\chi^2}{n}}.
-$$ 
+$$
 
 Where $n$ is the total sample size. If the $\chi^2$-statistic is unavailable, we can approximate the phi coefficient from the accuracy ($p_{\text{acc}}$) or the proportion of people misclassified ($p_{\text{mis}}$),
 
 $$
-r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2
+r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2.
 $$
 
 This approximation assumes that the group sizes are approximately equal *and* the misclassification rates are approximately equal between groups. Otherwise, $r_{gg'}$ will be overestimated [@wiernik2020].
 
-In the chapter *unreliability*, we discussed the relationship between reliability and the correlation between observed and true scores. The classification reliability will also be related similarly to the correlation between observed group membership and true group membership ($r_{gG}$) such that,
+In the chapter 5, we discussed the relationship between reliability and the correlation between observed and true scores. The classification reliability will also be related similarly to the correlation between observed group membership and true group membership ($r_{gG}$) such that,
 
 $$
-r_{gG}=\sqrt{r_{gg'}}
+r_{gG}=\sqrt{r_{gg'}}.
 $$
-
 
 ## Calculating Classification Reliability in R
 
@@ -172,7 +171,8 @@ Then we can generate a contingency table of the two sets of observed group assig
 
 ```{r}
 # create contingency table of the two observed group memberships
-con_table <- table(data.frame(obs_1=obs_1_group,obs_2=obs_2_group))
+con_table <- table(data.frame(obs_1=obs_1_group,
+                              obs_2=obs_2_group))
 print(con_table)
 ```
 
@@ -203,38 +203,37 @@ rgg <- (1-2*p_mis)^2
 print(rgg)
 ```
 
-## Correcting for Group Misclassification in *d* values
+## Correcting for Group Misclassification in Standardized Mean Difference
 
 ### Defining our Estimand
 
 Our quantity of interest is the true population standardized mean difference, $\delta$, between members of group $A$ and group $B$ on the scores of the dependent variable, $y$. However, the observed sample standardized mean difference ($d_o$) is estimating the difference between individuals who are assigned group to $A$ and group $B$. Error in the assignment of groups (i.e., group misclassification) will bias the observed correlation by a factor we will label as $a$. The relationship between the observed study standardized mean difference and the true population standardized mean difference
 
 $$
-d_o = a\delta + \varepsilon
-$$
+d_o = a\delta + \varepsilon.
+$$ 
+
 Where $\varepsilon$ denotes the sampling error. Therefore an unbiased (corrected) estimate of the true population correlation would be:
 
 $$
-r_c = \frac{r_o}{a}
+r_c = \frac{r_o}{a}.
 $$
 
-### Artifact Correction for *d* values
+### Artifact Correction for Standardized Mean Difference
 
-Our estimand in this section is the standardized mean difference in the dependent variable between 
-Standardized mean differences will become biased when subject's assigned groups differ from their actual group. This is largely due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group $A$ and group $B$ score differently on some outcome, $y$. The true mean of $y$ for groups $A$ and $B$ can be denoted as $\bar{y}^\text{true}_{A}$ and $\bar{y}^\text{true}_{B}$, respectively. Nonetheless, when some subjects are erroneously assigned to the wrong group, the *observed* mean within each group will reflect a weighted average of the respective means. This is due to the fact that the misclassified individuals are being drawn from a population with a different mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects
+The standardized mean differences will become biased when subject's assigned groups differ from their actual group. This is largely due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group $A$ and group $B$ score differently on some outcome, $y$. The true mean of $y$ for groups $A$ and $B$ can be denoted as $\bar{y}^\text{true}_{A}$ and $\bar{y}^\text{true}_{B}$, respectively. Nonetheless, when some subjects are erroneously assigned to the wrong group, the *observed* mean within each group will reflect a weighted average of the respective means. This is due to the fact that the misclassified individuals are being drawn from a population with a different mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects,
 
 $$
 \bar{y}^\text{obs}_A = \left(\frac{n_{AA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_A + \left(\frac{n_{BA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_B
 $$
 
 $$
-\bar{y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_B + \left(\frac{n_{BA}}{n_{BB}+n_{BA}}\right)\bar{y}^\text{true}_A
+\bar{y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_B + \left(\frac{n_{AB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_A.
 $$
 
-From the above equations, it becomes evident that as the number of misclassified individuals increases ($n_{AB}$ and $n_{BA}$), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, @fig-nomis shows the distributions for groups $A$ and $B$ without any misclassification. In this case, there is no attenuation of the standardized mean difference.
+From the above equations, it becomes evident that as the number of misclassified individuals increases ($n_{AB}$ and $n_{BA}$), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, the figure below shows the distributions for groups $A$ and $B$ without any misclassification. In this case, there is no attenuation of the standardized mean difference.
 
 ```{r, echo = FALSE,warning=FALSE}
-#| id: fig-nomis
 #| fig-cap: Distributions of scores without misclassification. True mean difference and observed mean differ only due to sampling error.
 
 set.seed(25)
@@ -314,10 +313,9 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
 
 ```
 
-If some individual's are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. @fig-mis shows what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of $r_{gg'}=.60$.
+If some individual's are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. Now lets display a figure showing what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of $r_{gg'}=.60$.
 
 ```{r, echo = FALSE,warning=FALSE}
-#| id: fig-mis
 #| fig-cap: Distributions of scores with a 10% misclassification rate. Observed standardized mean differences are biased toward the null (i.e., SMD = 0). Note that a few members of group $A$ (red squares) are within observed group $B$ and vice versa (indicative of misclassification).
 
 set.seed(25)
@@ -399,10 +397,10 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
 The bias in the standardized mean difference can be expressed as a function of the classification reliability ($r_{gg'}$). To illuminate this bias, we must first convert the true SMD to a point-biserial correlation coefficient ($\rho$) using the proportion of individuals in group $A$ ($p_A$) and group $B$ ($1-p$),
 
 $$
-\rho = \frac{\delta}{\sqrt{\frac{1}{p(1-p)}-\delta^2}}
+\rho = \frac{\delta}{\sqrt{\frac{1}{p(1-p)}-\delta^2}}.
 $$
 
-Then attenuation of the correlation is similar to the attenuation of correlation coefficients in the section on unreliability ($r = \rho\sqrt{r_{xx'}}$). However in this case, we also need to convert the point-biserial correlation to the observed SMD:
+Then attenuation of the correlation is similar to the attenuation of correlation coefficients in the section on unreliability ($r = \rho\sqrt{r_{xx'}}$). However in this case, we also need to convert the point-biserial correlation to the observed standardized mean difference:
 
 $$
 \delta_o =\frac{ \rho \sqrt{r_{gg'}} }{\sqrt{p (p-1)\left(1- r_{gg'} \rho^2\right) }}.
@@ -417,32 +415,31 @@ $$
 We can then correct the point-biserial correlation for group misclassification with the square root of the classification reliability:
 
 $$
-r_c = \frac{r_o}{\sqrt{r_{gg'}}}
-$$
-If we also wanted to correct for measurement error in the dependent variable $y$, we can use the correction formula used in the chapter, *Unreliability*.
+r_c = \frac{r_o}{\sqrt{r_{gg'}}}.
+$$ 
+
+If we also wanted to correct for measurement error in the dependent variable $y$, we can use the correction formula used in the chapter 4
 
 $$
-r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
+r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}.
 $$
-
 
 Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference ($d_c$). When converting back to a standardized mean difference, we need to use the true group proportions, $p^*$. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used $p$:
 
 $$
-\hat{\delta} = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}
+\hat{\delta} = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
 $$
 
-The s
-converting to a point-biserial correlation, correcting, and converting back to a standardized mean difference. This time we will do this in a single step. Therefore the adjusted sampling variance (squared standard error) can be calculated as,
+Instead of doing the converting, correcting, and back-converting for the sampling variance, we can correct the sampling variance in a single step,
 
 $$
-\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}.
 $$
 
 This can be simplified if we assume that misclassification rates are equal between groups,
 
 $$
-\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{\hat{\rho}}{r}\right)^2} {\left(1+d_o^2p[1-p]\right)^3(1-r_c^2)^3}
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^3(1-r_c^2)^3}.
 $$
 
 ## Correcting for Misclassification in R

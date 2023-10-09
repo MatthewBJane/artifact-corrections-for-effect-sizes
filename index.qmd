@@ -1,7 +1,26 @@
+
 # Greetings
 
-Welcome to the open source textbook **Correcting Effect Sizes for Statistical Artifacts**. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis in order to enhance the precision of our results.
+Welcome to the living open source textbook ***Correcting Effect Sizes for Statistical Artifacts***. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis.
 
 #### What are Statistical Artifacts? {.unnumbered}
 
-I will define statistical artifacts broadly as **any source of contamination that induces bias in research findings**. Specifically within the context of this textbook, the term "research findings" is more narrowly referred to as effect sizes.
+In this book statistical artifacts will be defined broadly as **any source of contamination that induces bias in research findings**. Artifacts are present in virtually every research study, so it is crucial that we address them.
+
+
+#### Living and Open Source {.unnumbered}
+
+A living textbook is one that constantly updates with new features and is open to changes from others. The goal is to have the most modern cutting-edge methods for artifact correction in this book, so in order to do that, this book needs to grow as the research grows. This book is also open source ([CC-BY license](LICENSE)). All the figures, code, and documents are available open source in my [github repository](https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages). 
+
+#### Contributions {.unnumbered}
+
+Please feel free to contribute to this textbook, if your contribution makes it to the published version of this book, your name will be included in the contributor list below with a description of your work.
+
+
+
+
+
+
+
+
+

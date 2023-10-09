@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Correcting Effect Sizes for Statistical Artifacts - 6&nbsp; Group Misclassification</title>
+<title>Artifact Corrections for Effect Sizes - 6&nbsp; Group Misclassification</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -85,6 +85,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./artificial_dichotomization.html" rel="next">
 <link href="./unreliability.html" rel="prev">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -114,10 +115,30 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: white;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: white;
+      }
+</style>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 6&nbsp; Group Misclassification">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="misclassification_files/figure-html/unnamed-chunk-4-1.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating">
@@ -139,12 +160,28 @@ div.csl-indent {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Correcting Effect Sizes for Statistical Artifacts</a> 
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -268,34 +305,20 @@ div.csl-indent {
   <li><a href="#defining-group-misclassification" id="toc-defining-group-misclassification" class="nav-link" data-scroll-target="#defining-group-misclassification"><span class="header-section-number">6.2</span> Defining Group Misclassification</a></li>
   <li><a href="#classification-reliability" id="toc-classification-reliability" class="nav-link" data-scroll-target="#classification-reliability"><span class="header-section-number">6.3</span> Classification Reliability</a></li>
   <li><a href="#calculating-classification-reliability-in-r" id="toc-calculating-classification-reliability-in-r" class="nav-link" data-scroll-target="#calculating-classification-reliability-in-r"><span class="header-section-number">6.4</span> Calculating Classification Reliability in R</a></li>
-  <li><a href="#correcting-for-group-misclassification-in-d-values" id="toc-correcting-for-group-misclassification-in-d-values" class="nav-link" data-scroll-target="#correcting-for-group-misclassification-in-d-values"><span class="header-section-number">6.5</span> Correcting for Group Misclassification in <em>d</em> values</a>
+  <li><a href="#correcting-for-group-misclassification-in-standardized-mean-difference" id="toc-correcting-for-group-misclassification-in-standardized-mean-difference" class="nav-link" data-scroll-target="#correcting-for-group-misclassification-in-standardized-mean-difference"><span class="header-section-number">6.5</span> Correcting for Group Misclassification in Standardized Mean Difference</a>
   <ul class="collapse">
   <li><a href="#defining-our-estimand" id="toc-defining-our-estimand" class="nav-link" data-scroll-target="#defining-our-estimand"><span class="header-section-number">6.5.1</span> Defining our Estimand</a></li>
-  <li><a href="#artifact-correction-for-d-values" id="toc-artifact-correction-for-d-values" class="nav-link" data-scroll-target="#artifact-correction-for-d-values"><span class="header-section-number">6.5.2</span> Artifact Correction for <em>d</em> values</a></li>
+  <li><a href="#artifact-correction-for-standardized-mean-difference" id="toc-artifact-correction-for-standardized-mean-difference" class="nav-link" data-scroll-target="#artifact-correction-for-standardized-mean-difference"><span class="header-section-number">6.5.2</span> Artifact Correction for Standardized Mean Difference</a></li>
   </ul></li>
   <li><a href="#correcting-for-misclassification-in-r" id="toc-correcting-for-misclassification-in-r" class="nav-link" data-scroll-target="#correcting-for-misclassification-in-r"><span class="header-section-number">6.6</span> Correcting for Misclassification in R</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <section id="introduction" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">6.1</span> Introduction</h2>
@@ -303,7 +326,7 @@ div.csl-indent {
 </section>
 <section id="defining-group-misclassification" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="defining-group-misclassification"><span class="header-section-number">6.2</span> Defining Group Misclassification</h2>
-<p>Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two arbitrary groups, group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>. In order to identify members of group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>, we have to use some measurement instrument. Also let us assume that this measurement instrument produces imperfect group classifications, that is, people who are actually in group <span class="math inline">\(A\)</span> are sometimes assigned group <span class="math inline">\(B\)</span> and vice versa. We can visualize the performance of the classification procedure with a contingency table between actual group membership (<span class="math inline">\(G\)</span>) and observed group membership (<span class="math inline">\(g\)</span>):</p>
+<p>Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two arbitrary groups, group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>. In order to identify members of group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>, we have to use some measurement instrument. We can also assume this measurement instrument produces imperfect group classifications, that is, people who are actually in group <span class="math inline">\(A\)</span> are sometimes assigned group <span class="math inline">\(B\)</span> and vice versa. We can visualize the performance of the classification procedure with a contingency table between actual group membership (<span class="math inline">\(G\)</span>) and observed group membership (<span class="math inline">\(g\)</span>):</p>
 <div class="columns">
 <div class="column" style="width:25%;">
 
@@ -334,11 +357,11 @@ div.csl-indent {
 
 </div>
 </div>
-<p>We can see from the contingency table that subjects who were correctly classified, would be labeled in the cell block <span class="math inline">\(AA\)</span> or <span class="math inline">\(BB\)</span> and those who were misclassified would belong to cells <span class="math inline">\(BA\)</span> and <span class="math inline">\(AB\)</span>. Therefore we can define the proportion of people that are accurately classified as <span class="math inline">\(p_{\text{acc}} = P(AA) + P(BB)\)</span> whereas the proportion of people misclassified can be defined as <span class="math inline">\(p_{\text{mis}} = P(AB)+ P(BA)\)</span>. A high-quality classifier would would minimize <span class="math inline">\(p_{\text{mis}}\)</span> and maximize <span class="math inline">\(p_{\text{acc}}\)</span>. Additionally, note that the proportion of people misclassified is inversely proportional to the proportion of people accurately classified such that, <span class="math inline">\(p_{\text{mis}} = 1-p_{\text{acc}}\)</span>.</p>
+<p>We can see from the contingency table that subjects who were correctly classified, would be labeled in the cell block <span class="math inline">\(AA\)</span> or <span class="math inline">\(BB\)</span> and those who were misclassified would belong to cells <span class="math inline">\(BA\)</span> and <span class="math inline">\(AB\)</span>. Therefore we can define the proportion of individuals that are accurately classified as <span class="math inline">\(p_{\text{acc}} = P(AA) + P(BB)\)</span> whereas the proportion of people misclassified can be defined as <span class="math inline">\(p_{\text{mis}} = P(AB)+ P(BA)\)</span>. A high-quality classifier would would minimize <span class="math inline">\(p_{\text{mis}}\)</span> and maximize <span class="math inline">\(p_{\text{acc}}\)</span>. Note that the proportion of people misclassified is inversely proportional to the proportion of people accurately classified such that, <span class="math inline">\(p_{\text{mis}} = 1-p_{\text{acc}}\)</span>.</p>
 </section>
 <section id="classification-reliability" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="classification-reliability"><span class="header-section-number">6.3</span> Classification Reliability</h2>
-<p>Similar to quantifying reliability in continuous variables by calculating the correlation in parallel sets of observed scores, the same can be done in categorical variables. Instead of a contingency table between observed (<span class="math inline">\(g\)</span>) and true (<span class="math inline">\(G\)</span>) group membership, we will instead create a contingency table of two measurements producing two sets of observed classifications (<span class="math inline">\(g\)</span> and <span class="math inline">\(g'\)</span>). Measurements often will take the form of inter-rater assessments, for example, two clinician’s diagnosis of Major Depressive Disorder (MDD) in the same sample of patients.</p>
+<p>Similar to quantifying reliability in continuous variables by calculating the correlation in parallel sets of observed scores, the same can be done in categorical variables. Instead of a contingency table between observed (<span class="math inline">\(g\)</span>) and true (<span class="math inline">\(G\)</span>) group membership, we will instead create a contingency table of two measurements producing two sets of observed group assignments (<span class="math inline">\(g\)</span> and <span class="math inline">\(g'\)</span>). Measurements often will take the form of inter-rater assessments, for example, two clinician’s diagnosis of Major Depressive Disorder (MDD) in the same sample of patients.</p>
 <div class="columns">
 <div class="column" style="width:25%;">
 
@@ -380,12 +403,12 @@ r_{gg'} = \sqrt{\frac{\chi^2}{n}}.
 \]</span></p>
 <p>Where <span class="math inline">\(n\)</span> is the total sample size. If the <span class="math inline">\(\chi^2\)</span>-statistic is unavailable, we can approximate the phi coefficient from the accuracy (<span class="math inline">\(p_{\text{acc}}\)</span>) or the proportion of people misclassified (<span class="math inline">\(p_{\text{mis}}\)</span>),</p>
 <p><span class="math display">\[
-r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2
+r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2.
 \]</span></p>
-<p>This approximation assumes that the group sizes are approximately equal <em>and</em> the misclassification rates are approximately equal between groups. Otherwise, <span class="math inline">\(r_{gg'}\)</span> will be overestimated <span class="citation" data-cites="wiernik2020">(<a href="#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>.</p>
-<p>In the chapter <em>unreliability</em>, we discussed the relationship between reliability and the correlation between observed and true scores. The classification reliability will also be related similarly to the correlation between observed group membership and true group membership (<span class="math inline">\(r_{gG}\)</span>) such that,</p>
+<p>This approximation assumes that the group sizes are approximately equal <em>and</em> the misclassification rates are approximately equal between groups. Otherwise, <span class="math inline">\(r_{gg'}\)</span> will be overestimated <span class="citation" data-cites="wiernik2020">(<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>.</p>
+<p>In the chapter 5, we discussed the relationship between reliability and the correlation between observed and true scores. The classification reliability will also be related similarly to the correlation between observed group membership and true group membership (<span class="math inline">\(r_{gG}\)</span>) such that,</p>
 <p><span class="math display">\[
-r_{gG}=\sqrt{r_{gg'}}
+r_{gG}=\sqrt{r_{gg'}}.
 \]</span></p>
 </section>
 <section id="calculating-classification-reliability-in-r" class="level2" data-number="6.4">
@@ -425,8 +448,9 @@ r_{gG}=\sqrt{r_{gg'}}
 <p>Then we can generate a contingency table of the two sets of observed group assignments.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create contingency table of the two observed group memberships</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>con_table <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">data.frame</span>(<span class="at">obs_1=</span>obs_1_group,<span class="at">obs_2=</span>obs_2_group))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(con_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>con_table <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="fu">data.frame</span>(<span class="at">obs_1=</span>obs_1_group,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">obs_2=</span>obs_2_group))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(con_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     obs_2
 obs_1  A  B
@@ -434,7 +458,7 @@ obs_1  A  B
     B 10 40</code></pre>
 </div>
 </div>
-<p>Now we can calculate the reliability of the group assignments by extracting the phi coefficient from the contingency table. We can compute it by hand or by using the <code>psych</code> package by William Revelle <span class="citation" data-cites="psych:p2017">(<a href="#ref-psych:p2017" role="doc-biblioref">2017</a>)</span>.</p>
+<p>Now we can calculate the reliability of the group assignments by extracting the phi coefficient from the contingency table. We can compute it by hand or by using the <code>psych</code> package by William Revelle <span class="citation" data-cites="psych:p2017">(<a href="direct_range_restriction.html#ref-psych:p2017" role="doc-biblioref">2017</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Strategy 1: Using the {psych} package</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load in psych package (make sure it is installed first: install.packages('psych'))</span></span>
@@ -462,54 +486,55 @@ obs_1  A  B
 </div>
 </div>
 </section>
-<section id="correcting-for-group-misclassification-in-d-values" class="level2" data-number="6.5">
-<h2 data-number="6.5" class="anchored" data-anchor-id="correcting-for-group-misclassification-in-d-values"><span class="header-section-number">6.5</span> Correcting for Group Misclassification in <em>d</em> values</h2>
+<section id="correcting-for-group-misclassification-in-standardized-mean-difference" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="correcting-for-group-misclassification-in-standardized-mean-difference"><span class="header-section-number">6.5</span> Correcting for Group Misclassification in Standardized Mean Difference</h2>
 <section id="defining-our-estimand" class="level3" data-number="6.5.1">
 <h3 data-number="6.5.1" class="anchored" data-anchor-id="defining-our-estimand"><span class="header-section-number">6.5.1</span> Defining our Estimand</h3>
 <p>Our quantity of interest is the true population standardized mean difference, <span class="math inline">\(\delta\)</span>, between members of group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span> on the scores of the dependent variable, <span class="math inline">\(y\)</span>. However, the observed sample standardized mean difference (<span class="math inline">\(d_o\)</span>) is estimating the difference between individuals who are assigned group to <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>. Error in the assignment of groups (i.e., group misclassification) will bias the observed correlation by a factor we will label as <span class="math inline">\(a\)</span>. The relationship between the observed study standardized mean difference and the true population standardized mean difference</p>
 <p><span class="math display">\[
-d_o = a\delta + \varepsilon
-\]</span> Where <span class="math inline">\(\varepsilon\)</span> denotes the sampling error. Therefore an unbiased (corrected) estimate of the true population correlation would be:</p>
+d_o = a\delta + \varepsilon.
+\]</span></p>
+<p>Where <span class="math inline">\(\varepsilon\)</span> denotes the sampling error. Therefore an unbiased (corrected) estimate of the true population correlation would be:</p>
 <p><span class="math display">\[
-r_c = \frac{r_o}{a}
+r_c = \frac{r_o}{a}.
 \]</span></p>
 </section>
-<section id="artifact-correction-for-d-values" class="level3" data-number="6.5.2">
-<h3 data-number="6.5.2" class="anchored" data-anchor-id="artifact-correction-for-d-values"><span class="header-section-number">6.5.2</span> Artifact Correction for <em>d</em> values</h3>
-<p>Our estimand in this section is the standardized mean difference in the dependent variable between Standardized mean differences will become biased when subject’s assigned groups differ from their actual group. This is largely due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span> score differently on some outcome, <span class="math inline">\(y\)</span>. The true mean of <span class="math inline">\(y\)</span> for groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> can be denoted as <span class="math inline">\(\bar{y}^\text{true}_{A}\)</span> and <span class="math inline">\(\bar{y}^\text{true}_{B}\)</span>, respectively. Nonetheless, when some subjects are erroneously assigned to the wrong group, the <em>observed</em> mean within each group will reflect a weighted average of the respective means. This is due to the fact that the misclassified individuals are being drawn from a population with a different mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects</p>
+<section id="artifact-correction-for-standardized-mean-difference" class="level3" data-number="6.5.2">
+<h3 data-number="6.5.2" class="anchored" data-anchor-id="artifact-correction-for-standardized-mean-difference"><span class="header-section-number">6.5.2</span> Artifact Correction for Standardized Mean Difference</h3>
+<p>The standardized mean differences will become biased when subject’s assigned groups differ from their actual group. This is largely due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span> score differently on some outcome, <span class="math inline">\(y\)</span>. The true mean of <span class="math inline">\(y\)</span> for groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> can be denoted as <span class="math inline">\(\bar{y}^\text{true}_{A}\)</span> and <span class="math inline">\(\bar{y}^\text{true}_{B}\)</span>, respectively. Nonetheless, when some subjects are erroneously assigned to the wrong group, the <em>observed</em> mean within each group will reflect a weighted average of the respective means. This is due to the fact that the misclassified individuals are being drawn from a population with a different mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects,</p>
 <p><span class="math display">\[
 \bar{y}^\text{obs}_A = \left(\frac{n_{AA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_A + \left(\frac{n_{BA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_B
 \]</span></p>
 <p><span class="math display">\[
-\bar{y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_B + \left(\frac{n_{BA}}{n_{BB}+n_{BA}}\right)\bar{y}^\text{true}_A
+\bar{y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_B + \left(\frac{n_{AB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_A.
 \]</span></p>
-<p>From the above equations, it becomes evident that as the number of misclassified individuals increases (<span class="math inline">\(n_{AB}\)</span> and <span class="math inline">\(n_{BA}\)</span>), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, <a href="#fig-nomis">Figure&nbsp;<span class="quarto-unresolved-ref">fig-nomis</span></a> shows the distributions for groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> without any misclassification. In this case, there is no attenuation of the standardized mean difference.</p>
+<p>From the above equations, it becomes evident that as the number of misclassified individuals increases (<span class="math inline">\(n_{AB}\)</span> and <span class="math inline">\(n_{BA}\)</span>), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, the figure below shows the distributions for groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> without any misclassification. In this case, there is no attenuation of the standardized mean difference.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-nomis" class="quarto-figure quarto-figure-center anchored">
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="misclassification_files/figure-html/fig-nomis-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6.1: Distributions of scores without misclassification. True mean difference and observed mean differ only due to sampling error.</figcaption>
+<p><img src="misclassification_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Distributions of scores without misclassification. True mean difference and observed mean differ only due to sampling error.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>If some individual’s are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. <a href="#fig-mis">Figure&nbsp;<span class="quarto-unresolved-ref">fig-mis</span></a> shows what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of <span class="math inline">\(r_{gg'}=.60\)</span>.</p>
+<p>If some individual’s are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. Now lets display a figure showing what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of <span class="math inline">\(r_{gg'}=.60\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-mis" class="quarto-figure quarto-figure-center anchored">
+<div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="misclassification_files/figure-html/fig-mis-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;6.2: Distributions of scores with a 10% misclassification rate. Observed standardized mean differences are biased toward the null (i.e., SMD = 0). Note that a few members of group <span class="math inline">\(A\)</span> (red squares) are within observed group <span class="math inline">\(B\)</span> and vice versa (indicative of misclassification).</figcaption>
+<p><img src="misclassification_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Distributions of scores with a 10% misclassification rate. Observed standardized mean differences are biased toward the null (i.e., SMD = 0). Note that a few members of group <span class="math inline">\(A\)</span> (red squares) are within observed group <span class="math inline">\(B\)</span> and vice versa (indicative of misclassification).</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>The bias in the standardized mean difference can be expressed as a function of the classification reliability (<span class="math inline">\(r_{gg'}\)</span>). To illuminate this bias, we must first convert the true SMD to a point-biserial correlation coefficient (<span class="math inline">\(\rho\)</span>) using the proportion of individuals in group <span class="math inline">\(A\)</span> (<span class="math inline">\(p_A\)</span>) and group <span class="math inline">\(B\)</span> (<span class="math inline">\(1-p\)</span>),</p>
 <p><span class="math display">\[
-\rho = \frac{\delta}{\sqrt{\frac{1}{p(1-p)}-\delta^2}}
+\rho = \frac{\delta}{\sqrt{\frac{1}{p(1-p)}-\delta^2}}.
 \]</span></p>
-<p>Then attenuation of the correlation is similar to the attenuation of correlation coefficients in the section on unreliability (<span class="math inline">\(r = \rho\sqrt{r_{xx'}}\)</span>). However in this case, we also need to convert the point-biserial correlation to the observed SMD:</p>
+<p>Then attenuation of the correlation is similar to the attenuation of correlation coefficients in the section on unreliability (<span class="math inline">\(r = \rho\sqrt{r_{xx'}}\)</span>). However in this case, we also need to convert the point-biserial correlation to the observed standardized mean difference:</p>
 <p><span class="math display">\[
 \delta_o =\frac{ \rho \sqrt{r_{gg'}} }{\sqrt{p (p-1)\left(1- r_{gg'} \rho^2\right) }}.
 \]</span></p>
@@ -519,10 +544,11 @@ r_o = \frac{d_o}{\sqrt{\frac{1}{p(1-p)}-d_o^2}}.
 \]</span></p>
 <p>We can then correct the point-biserial correlation for group misclassification with the square root of the classification reliability:</p>
 <p><span class="math display">\[
-r_c = \frac{r_o}{\sqrt{r_{gg'}}}
-\]</span> If we also wanted to correct for measurement error in the dependent variable <span class="math inline">\(y\)</span>, we can use the correction formula used in the chapter, <em>Unreliability</em>.</p>
+r_c = \frac{r_o}{\sqrt{r_{gg'}}}.
+\]</span></p>
+<p>If we also wanted to correct for measurement error in the dependent variable <span class="math inline">\(y\)</span>, we can use the correction formula used in the chapter 4</p>
 <p><span class="math display">\[
-r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
+r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}.
 \]</span></p>
 <p>Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference (<span class="math inline">\(d_c\)</span>). When converting back to a standardized mean difference, we need to use the true group proportions, <span class="math inline">\(p^*\)</span>. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used <span class="math inline">\(p\)</span>:</p>
 <p><span class="math display">\[
@@ -540,7 +566,7 @@ r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
 </section>
 <section id="correcting-for-misclassification-in-r" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="correcting-for-misclassification-in-r"><span class="header-section-number">6.6</span> Correcting for Misclassification in R</h2>
-<p>We can correct for group misclassification in R by hand or by using the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. For our correction, say we got an observed standardized mean difference of <span class="math inline">\(d = 0.50\)</span> and we calculated the classification reliability to be <span class="math inline">\(r_{gg'} = .80\)</span>. Let us also say that the observed <em>and</em> the true proportion of individuals in one of the groups is <span class="math inline">\(p=p^*=.40\)</span>, therefore the other group would be <span class="math inline">\(1-p=1-p^*=.60\)</span>.</p>
+<p>We can correct for group misclassification in R by hand or by using the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="direct_range_restriction.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. For our correction, say we got an observed standardized mean difference of <span class="math inline">\(d = 0.50\)</span> and we calculated the classification reliability to be <span class="math inline">\(r_{gg'} = .80\)</span>. Let us also say that the observed <em>and</em> the true proportion of individuals in one of the groups is <span class="math inline">\(p=p^*=.40\)</span>, therefore the other group would be <span class="math inline">\(1-p=1-p^*=.60\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> .<span class="dv">50</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>rgg <span class="ot">=</span> .<span class="dv">70</span></span>
@@ -578,7 +604,7 @@ r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
 </section>
 <section id="correcting-by-hand" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="correcting-by-hand">Correcting by hand</h4>
-<p>To calculate the corrected standardized mean difference, we can use the equations in <a href="#sec-corrections"><span class="quarto-unresolved-ref">sec-corrections</span></a>.</p>
+<p>To calculate the corrected standardized mean difference, we can use the equations in <span class="quarto-unresolved-ref">?sec-corrections</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate point estimate</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1: convert d to r</span></span>
@@ -605,7 +631,7 @@ r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-dahlke2019" class="csl-entry" role="listitem">
 Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
 </div>

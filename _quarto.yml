@@ -2,11 +2,18 @@ project:
   type: book
 
 book:
-  title: "Correcting Effect Sizes for Statistical Artifacts"
+  favicon: figure/favicon_book.png
+  title: "Artifact Corrections for Effect Sizes"
+  twitter-card: true
   subtitle: "Implementation in R and Application to Meta-Analysis"
   page-navigation: true
-  author: "Matthew B. Jané"
-  date: "10/08/2023"
+  url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
+  date: 10/08/2023
+  author:
+  - name: "Matthew B. Jané"
+    url: https://matthewbjane.com
+    affiliation: University of Connecticut
+  cover-image: figure/cover_photo.png
   chapters:
     - index.qmd
     - dedication.qmd
@@ -25,15 +32,14 @@ book:
         - metaanalysis_intro.qmd
         - artifact_correction_metaanalysis.qmd
     - references.qmd
-    
 bibliography: references.bib
-
 format:
   html:
-    theme: sandstone
-    linkcolor: 'forestgreen'
-  pdf:
-    documentclass: scrreprt
-
+    theme: lux
+    linkcolor: '#a62675ff'
+    title-block-banner: true
+    title-block-style: default
+    title-block-banner-color: white
+    code-overflow: scroll
 editor: visual
 

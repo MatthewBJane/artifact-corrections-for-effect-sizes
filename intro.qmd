@@ -53,7 +53,7 @@ th_red <- theme(aspect.ratio = 1,
 
 ## What are Effect Sizes?
 
-Effect sizes are statistics that measure the magnitude of a relationship between two variables. It's important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights, rather than being the ultimate objective themselves. Effect sizes aide in researcher's ability to draw meaningful inferences from data and therefore it is important that they are accurate. Biased effect sizes can be likened to a foggy windshield. Just as condensation on glass obstructs a clear view of the road, biased effect sizes can obscure the true association between variables. Similar to how one must clean the windshield to drive safely, researchers must correct for biases in effect sizes to attain a clear and accurate perspective on their data. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book. To see how an effect size may look in practice, the example below will illustrate how calculating one may look in a clinical setting.
+Effect sizes are statistics that measure the magnitude of a relationship between two variables. It's important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights from data, rather than being the ultimate objective themselves. Effect sizes aide in researcher's ability to draw meaningful inferences from data and therefore it is crucial that they are accurate. Biased effect sizes can be likened to a foggy windshield. Just as condensation on glass obstructs a clear view of the road, biased effect sizes can obscure the true association between variables. Similar to how one must clean the windshield to drive safely, researchers must correct for biases in effect sizes to attain a clear and accurate perspective on their data. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book. To see how an effect size may look in practice, the example below will illustrate how calculating one may look in a clinical setting.
 
 ### Applied Example
 
@@ -134,7 +134,9 @@ Note that if $a=1$ this would indicate that there is no artifactual bias ($\vart
 
 $$
 \vartheta = \frac{\vartheta_o}{a}.
-$$ For a single study that computes an effect size from a sample drawn from the population, the observed study effect size ($\theta_o$) would be expressed by
+$$
+
+For a single study that computes an effect size from a sample drawn from the population, the observed study effect size ($\theta_o$) would be expressed by
 
 $$
 \theta_o = \vartheta_o + \varepsilon_o
@@ -176,7 +178,7 @@ Because of the nature of the topic, this book will cover a large amount of equat
     -   Population value: $\delta$
     -   Study/sample value: $d$
 
-In the most cases, continuous independent variables will be denoted with $x$ and dependent variables with $y$ (note that this notation may differ when referring to observed and true scores). Categorical (i.e., groupings) variables will be denoted with $g$ (these will be used for standardized mean differences).
+In most cases, continuous independent variables will be denoted with $x$ and dependent variables with $y$ (note that this notation may differ when referring to observed and true scores). Categorical (i.e., groupings) variables will be denoted with $g$ (this notation will be used primarily for standardized mean differences).
 
 ## Correlations
 
@@ -195,11 +197,11 @@ r = \frac{
 }.
 $$ {#eq-pearson-raw}
 
-For digestibility, we can break down the formula into parts. The correlation coefficient can be defined as the covariance between $x$ and $y$ standardized by the product of their variances,
+For digestibility, we can break down the formula into parts. The correlation coefficient can be defined as the covariance between $x$ and $y$ standardized by the product of their standard deviations (i.e., square root variance),
 
 $$
 r = \frac{\sigma_{xy}}
-{\sigma_x\sigma_y}
+{\sigma_x\sigma_y}.
 $$ {#eq-pearson}
 
 we can first define the covariance ($\sigma_{xy}$) as the average product of errors for $x$ and $y$,
@@ -224,35 +226,44 @@ $$
 r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}.
 $$ {#eq-1}
 
-In the absence of artifacts, the Pearson correlation $r$ is an asymptotically (i.e., as $n$ approaches infinity) unbiased estimator (in small sample sizes, it is biased see section on small samples). We can express $r$ similarly to @eq-B,
+In the absence of artifacts, the Pearson correlation $r$ is an asymptotically (i.e., as $n$ approaches infinity) unbiased estimator (in small sample sizes, it is biased see chapter 4). We can express $r$ similarly to @eq-B,
 
 $$
-r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon)
+r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon).
 $$ {#eq-2}
 
 Where $\sigma^2_\varepsilon$ is the sampling variance of the observed correlation. The sampling variance can be calculated from the sample size ($n$) and the population correlation,
 
 $$
-\sigma_\varepsilon^2 =\frac{1 - \rho^2}{n-2}
+\sigma_\varepsilon^2 =\frac{(1 - \rho^2)^2}{n}.
 $$ {#eq-3}
 
-In practice, the population correlation is unknown so the study correlation can be used instead ($r$) in the above formula. Note that the sampling variance is the square of the standard error. If the observed correlation is biased relative to the true correlation, we can see that the observed population correlation is systematically biased by an artifact factor, $a$, $$
-\rho_o = a\rho
-$$
+In practice, the population correlation is unknown so the study correlation can be used instead ($r$) in the above formula as an estimate of the population correlation. Note that the sampling variance is the square of the standard error. 
 
-The observed study correlation would then be defined as, $$
-r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o
-$$
-
-The corrected correlation coefficient ($r_c$) and it's sampling variance ($\sigma_{\varepsilon_c}$) can both be defined as:
+In the context of artifacts, if the observed correlation is biased relative to the true correlation, we can see model the observed population ($\rho_o$) correlation as a function of the true population correlation ($\rho$) and a artifact biasing factor, $a$, 
 
 $$
-r_{c} = \frac{r_o}{a}
+\rho_o = a\rho.
 $$
 
+The observed study (sample) correlation would then be defined as, 
+
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}
+r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o.
 $$
+
+To obtain an unbiased estimate of the true population correlation, we can correct the correlation coefficient ($r_c$) by dividing by the biasing factor, $a$,
+
+$$
+r_{c} = \frac{r_o}{a}.
+$$
+
+Note that the sampling error would also need to be adjusted and therefore it's sampling variance ($\sigma_{\varepsilon_c}$) would be corrected to be,
+
+$$
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}.
+$$
+
 
 ## Standardized Mean Differences
 
@@ -263,31 +274,37 @@ Standardized mean differences are used to quantify the average difference in som
 If we draw a sample of $n_A$ subjects from group $A$ and $n_B$ subjects from group $B$, the mean difference between groups ($d$) on variable $y$ can be defined as,
 
 $$
-d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_p}
+d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_p}.
 $$
 
-Where the standardizer, $\sigma_p$ is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom.
+Where the standardizer, $\sigma_p$ is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom (e.g., $\text{df}_A=n_A-1$),
 
 $$
-\sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}
+\sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}.
 $$
 
-Where $\sigma_{A}$ and $\sigma_{B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This SMD estimator is commonly referred to as Cohen's $d$. We can define the study/sample $d$ value as a function of the population $d$ value ($\delta$): $$
-d = \delta + \varepsilon
-$$ Similar to the previous section on correlation coefficients, the observed $d$ value is a function of the true population value and artifactual bias ($a$), $$
+Where $\sigma_{A}$ and $\sigma_{B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This SMD estimator is commonly referred to as Cohen's $d$. We can define the study/sample $d$ value as a function of the population $d$ value ($\delta$):
+$$
+d = \delta + \varepsilon.
+$$ 
+Similar to the previous section on correlation coefficients, the observed $d$ value is a function of the true population value and an artifactual biasing factor ($a$),
+
+$$
 \delta_o = a\delta.
-$$ Therefore the observed study/sample $d$ value can be defined as a function of the observed population value *or* the true population value plus artifactual bias:
+$$ 
+
+Therefore the observed study/sample $d$ value can be defined as a function of the observed population value *or* the true population value and bias:
 
 $$
 d = \delta_o + \varepsilon_o = a\delta + \varepsilon_o.
 $$
 
-Thus the corrected standardized mean difference ($d_c$) and it's sampling variance ($\sigma^2_{\varepsilon_c}$) can both be defined as:
+Thus the corrected standardized mean difference ($d_c$) and it's corresponding sampling variance ($\sigma^2_{\varepsilon_c}$) can both be defined as:
 
 $$
 d_c = \frac{d_o}{a}
 $$
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
 $$

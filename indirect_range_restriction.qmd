@@ -87,7 +87,7 @@ However it is not always the case that an estimate of the unrestricted standard 
 
 $$
 u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}
-$$ 
+$$
 
 Where $r_{xx'_S}$ and $r_{xx'}$ are the reliability estimates within the selected and unrestricted groups respectively. In the context of indirect range restriction, the selection does not occur directly on $x$ (or $y$), instead it occurs on a selector variable, $z$. Therefore we can see how the $u$-ratio of the selector variable ($u_z$) relates to the $u$-ratio of $x$,
 
@@ -96,7 +96,6 @@ u_x = \sqrt{\rho_{xz}^2u_z^2 -\rho_{xz}^2 + 1 }
 $$
 
 The formulation above is also dependent on the correlation between the selector, $z$, and $x$. If the correlation between $z$ and $x$ is $\rho_{xz}=0$, then you will notice that $u_x=u_z$. Notice that a correlation of $\rho_{xz}=1$ would also simplify to a direct range restriction problem. A correlation of $\rho_{xz}=0$, would effectively have no selection effect (i.e., restriction nor enhancement) since the equation would simplify to $u_x=1$.
-
 
 ## Correcting Correlations for Direct Range Restriction
 
@@ -112,8 +111,7 @@ Therefore an unbiased estimate of the unrestricted population correlation would 
 
 $$
 r_c = \frac{ r_{xy_S} }{ a}.
-$$
-Note that we may also want to correct for measurement on top of range restriction. In this case, using the true score model for x ($x=T+e_x$) and y ($y = U+e_y$), we may want to estimate the unrestricted correlation between true scores ($\rho_{TU}$). The figure below shows the relationship between three variables: the selector ($z$), the independent variable ($x$), and the dependent variable ($y$). The correlation between $x$ and $y$ ($\rho_{xy}$) is our estimand (i.e., the quantity we want to estimate), however as we will show, under selection on $z$, the correlations between the selector and the independent/dependent variable can severely bias the observed correlation.
+$$ Note that we may also want to correct for measurement on top of range restriction. In this case, using the true score model for x ($x=T+e_x$) and y ($y = U+e_y$), we may want to estimate the unrestricted correlation between true scores ($\rho_{TU}$). The figure below shows the relationship between three variables: the selector ($z$), the independent variable ($x$), and the dependent variable ($y$). The correlation between $x$ and $y$ ($\rho_{xy}$) is our estimand (i.e., the quantity we want to estimate), however as we will show, under selection on $z$, the correlations between the selector and the independent/dependent variable can severely bias the observed correlation.
 
 ![](figure/ind_selection.png)
 
@@ -348,31 +346,25 @@ $$
 r_c = \frac{r_{xy_S}}{\sqrt{r_{xy_S}^2 + u_{x}^2 (1- r_{xy_S}^2)  }}
 $$ {#eq-univariate}
 
-This correction formula is only meant for observed scores only. If one wants to correct for range restriction and measurement error, we need to adjust the $u$-ratio for measurement error, as well as adjust the reliability coefficients for range restriction/enhancement. We can incorporate these adjustments into a single correction formula using the equation in table 3 of @wiernik2020,
-$$
+This correction formula is only meant for observed scores only. If one wants to correct for range restriction and measurement error, we need to adjust the $u$-ratio for measurement error, as well as adjust the reliability coefficients for range restriction/enhancement. We can incorporate these adjustments into a single correction formula using the equation in table 3 of @wiernik2020, $$
 r_c=\frac{r_{xy_S}}{\sqrt{r_{xy_S}^2 + \frac{u_{x}^2 r_{xx'_S}\left(r_{xx'_S}r_{yy'_S} - r_{xy_S}^2\right) }{1 - u_{x}^2 \left(1-r_{xx'_S}\right)} }}
-$$
-Where $r_{xx'_S}$ and $r_{yy'_S}$ are the reliabilities within the selected sample. If the reliability coefficients come from the unrestricted population (e.g., from a norm/standardization sample), we can estimate the restricted reliability using the following formulas:
+$$ Where $r_{xx'_S}$ and $r_{yy'_S}$ are the reliabilities within the selected sample. If the reliability coefficients come from the unrestricted population (e.g., from a norm/standardization sample), we can estimate the restricted reliability using the following formulas:
 
 $$
 r_{xx'_S} = 1-\frac{1-r_{xx'}}{u_x^2}
-$$ {#eq-rel-x}
-$$
+$$ {#eq-rel-x} $$
 r_{yy'_S} = 1-\frac{1-r_{yy'}}{u_y^2}
 $$ {#eq-rel-y}
 
 Now once the the correlation is corrected the observed sampling variance ($\sigma_{\varepsilon_o}$) must also be adjusted as well. To do this, we can simply use the corrected correlation and the observed correlation to adjust the sampling variance:
 
-
 $$
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
 $$ {#eq-univariate-se}
 
-
-
 #### The Bivariate Case {.unnumbered}
 
-Bivariate direct range restriction/enhancement occurs when the selection variable has independent relationships with both the independent and dependent variable. Like we did for the univariate case, let's visualize the correlation between independent ($x$) and dependent ($y$) variables under range restriction by only selecting individuals above some cut off point in our selector variable, $z$. We will fix the correlations between the selector and independent variable ($\rho_{xz}$), as well as the selector and dependent variable ($\rho_{yz}$) to be .80. The $x$ and $y$ scores of individuals that have been selected above some threshold of $z$ will show less variance than the entire pool of individuals. Specifically, the scenario below shows a $u$-ratio of about ~0.82 in the independent variable and dependent variables. We see in the figure below that the correlation in the restricted sample ($\rho_{xy_S}=.24$) is attenuated relative to the unrestricted (true) correlation ($\rho_{xy}=.50$).
+Bivariate direct range restriction/enhancement occurs when the selection variable has independent relationships with both the independent and dependent variable. Like we did for the univariate case, let's visualize the correlation between independent ($x$) and dependent ($y$) variables under range restriction by only selecting individuals above some cut off point in our selector variable, $z$. We will fix the correlations between the selector and independent variable ($\rho_{xz}$), as well as the selector and dependent variable ($\rho_{yz}$) to be .80. The $x$ and $y$ scores of individuals that have been selected above some threshold of $z$ will show less variance than the entire pool of individuals. Specifically, the scenario below shows a $u$-ratio of about \~0.82 in the independent variable and dependent variables. We see in the figure below that the correlation in the restricted sample ($\rho_{xy_S}=.24$) is attenuated relative to the unrestricted (true) correlation ($\rho_{xy}=.50$).
 
 ```{r, echo=FALSE,warning=FALSE,fig.height=5}
 data <- mvrnorm(n=2000,
@@ -421,7 +413,7 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
   ggtitle('Bivariate Range Restriction') 
 ```
 
-Likewise let's visualize what happens to the correlation when the range is enhanced. Enhancement in both variables can be accomplished by selecting individuals at the ends of the distribution of $z$. In the visualization below, we observe an over-estimation of observed correlation ($\rho_{xy_S}=.75$) relative to the unrestricted correlation ($\rho_{xy}=.50$). The scenario below has a $u$-ratio of about ~1.38 in both the independent variable and dependent variable.
+Likewise let's visualize what happens to the correlation when the range is enhanced. Enhancement in both variables can be accomplished by selecting individuals at the ends of the distribution of $z$. In the visualization below, we observe an over-estimation of observed correlation ($\rho_{xy_S}=.75$) relative to the unrestricted correlation ($\rho_{xy}=.50$). The scenario below has a $u$-ratio of about \~1.38 in both the independent variable and dependent variable.
 
 ```{r, echo=FALSE,warning=FALSE,fig.height=5}
 Selected <- ( z < -1 | z > 1 )
@@ -461,8 +453,9 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
   ggtitle('Bivariate Range Enhancement')
 ```
 
-Note that bivariate restriction or bivariate enhancement will increase the amount of bias in the correlation coefficients similar to that of measurement error in both variables rather than just one (see chapter 5). A bias correction formula for bivariate range restriction is much more complicated than the univariate formulation. Particularly we need to have a basic idea of the selection mechanism at play [@dahlke2019]. The correction formula requires the direction of the correlation between the selector variable, $z$, and the independent ($\rho_{xz}$) and dependent variable ($\rho_{yz}$). For example, if we run a study on a college admissions test and college academic performance (indexed by grade-point average), we can be reasonably certain that the selection (i.e., admissions decisions) are positively correlated with both academic performance and SAT scores. Other situations this may not be as straight-forward however laying out the correlational structure of the selection mechanism is vital step of the correction procedure. To break down the correction formula into simpler parts, let us first define a factor we will denote with $\lambda$. This factor is what takes into account the direction of the correlation of $\rho_{xz}$ (if positive, we can set $\rho_{yz}=1$, if negative, $\rho_{yz}=-1$, if zero,  $\rho_{yz}=0$) and $\rho_{yz}$ (repeat the same procedure as $\rho_{xz}$). 
+Note that bivariate restriction or bivariate enhancement will increase the amount of bias in the correlation coefficients similar to that of measurement error in both variables rather than just one (see chapter 5). A bias correction formula for bivariate range restriction is much more complicated than the univariate formulation. Particularly we need to have a basic idea of the selection mechanism at play [@dahlke2019]. The correction formula requires the direction of the correlation between the selector variable, $z$, and the independent ($\rho_{xz}$) and dependent variable ($\rho_{yz}$). For example, if we run a study on a college admissions test and college academic performance (indexed by grade-point average), we can be reasonably certain that the selection (i.e., admissions decisions) are positively correlated with both academic performance and SAT scores. Other situations this may not be as straight-forward however laying out the correlational structure of the selection mechanism is vital step of the correction procedure. To break down the correction formula into simpler parts, let us first define a factor we will denote with $\lambda$. This factor is what takes into account the direction of the correlation of $\rho_{xz}$ (if positive, we can set $\rho_{yz}=1$, if negative, $\rho_{yz}=-1$, if zero, $\rho_{yz}=0$) and $\rho_{yz}$ (repeat the same procedure as $\rho_{xz}$).
 
+```{=tex}
 \begin{align}
 \lambda =& \text{ sign}\left(\rho_{xz}\rho_{yz} [1-u_x][1-u_y]\right)\times \\
 &\frac{\text{sign}
@@ -472,13 +465,12 @@ Note that bivariate restriction or bivariate enhancement will increase the amoun
 \min\left(u_x,\frac{1}{u_x}\right)+\min\left(u_y,\frac{1}{u_y}\right)
 }
 \end{align}
-
+```
 The output of $\lambda$ will be either -1, 0, or 1. We can then plug this factor into the full correction equation that provides us with an unbiased estimate of the correlation in the unrestricted population,
 
 $$
 r_c = r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}
-$$
-Similar to the univariate formula, we can also incorporate measurement error into the correction. Measurement error will bias the observed correlation on top of the bias induced by range restriction/enhancement. Therefore we can incorporate the reliabilities estimated within the restricted sample ($_{xx'_S}$ and $r_{yy'_S}$), into our correction formula:
+$$ Similar to the univariate formula, we can also incorporate measurement error into the correction. Measurement error will bias the observed correlation on top of the bias induced by range restriction/enhancement. Therefore we can incorporate the reliabilities estimated within the restricted sample ($_{xx'_S}$ and $r_{yy'_S}$), into our correction formula:
 
 $$
 r_c = \frac{r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}}{\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{1-u_y^2(1-r_{yy'_S})}}
@@ -490,12 +482,10 @@ $$
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
 $$
 
-
 ### Correcting Correlations in R
 
-
-
 #### Univariate Indirect Range Restriction {.unnumbered}
+
 To correct correlations for range restriction we can start by simulating data from the the `mvrnorm` function in the `MASS` package. Lets first simulate 1000 data points. Then we will select values above the mean of the selector variable, $z$.
 
 ```{r,message=FALSE}
@@ -521,7 +511,6 @@ z <- x + rnorm(n,0,.5)
 selected <- z > 0
 ```
 
-
 We can start with univariate indirect range restriction by selecting only on the independent variable. We will select only the values above the mean.
 
 ```{r}
@@ -536,7 +525,7 @@ rbind(paste0('unrestricted: rxy = ',round(rxy,2)),
 
 ```
 
-As expected, we observe an attenuation of the correlation under range restriction. Now lets calculate the $u$-ratios for both variables. We should expect the variability not only in $x$, but also $y$ in the restricted sample to be smaller than the unrestricted sample. Since $x$ and $y$ are positively correlated, restriction $x$ will restrict 
+As expected, we observe an attenuation of the correlation under range restriction. Now lets calculate the $u$-ratios for both variables. We should expect the variability not only in $x$, but also $y$ in the restricted sample to be smaller than the unrestricted sample. Since $x$ and $y$ are positively correlated, restriction $x$ will restrict
 
 ```{r}
 # calculate u-ratios
@@ -570,7 +559,7 @@ rbind(paste0('corrected cor: r = ',round(rc,3)),
       )
 ```
 
-The correction formula produced a very close estimate of the true population correlation ($r_c = .50$ vs $\rho_{xy}=.50$). Lets also correct the correlation using the `correct_r` function in the psychmeta package, `psychmeta` [@dahlke2019]. 
+The correction formula produced a very close estimate of the true population correlation ($r_c = .50$ vs $\rho_{xy}=.50$). Lets also correct the correlation using the `correct_r` function in the psychmeta package, `psychmeta` [@dahlke2019].
 
 ```{r}
 # load packages
@@ -587,12 +576,8 @@ correct_r(rxyi = rxyS,
 
 We can see that the correction made by the `correct_r` function provides identical results to the one done by hand.
 
-
-
-
-
-
 #### Bivariate Indirect Range Restriction {.unnumbered}
+
 To correct correlations for range restriction we can start by simulating data from the the `mvrnorm` function in the `MASS` package. Lets first simulate 1000 data points. Then we will select values above the mean of the selector variable, $z$.
 
 ```{r,message=FALSE}
@@ -619,7 +604,6 @@ y <- data[,2]
 z <- data[,3]
 selected <- z > 0
 ```
-
 
 We can see how the correlations are attenuated under bivariate indirect range restriction. We will select only the values above the mean.
 
@@ -674,7 +658,7 @@ rbind(paste0('corrected cor: r = ',round(rc,3)),
       )
 ```
 
-The correction formula produced a very close estimate of the true population correlation ($r_c = .50$ vs $\rho_{xy}=.50$). Lets also correct the correlation using the `correct_r` function in the psychmeta package, `psychmeta` [@dahlke2019]. 
+The correction formula produced a very close estimate of the true population correlation ($r_c = .50$ vs $\rho_{xy}=.50$). Lets also correct the correlation using the `correct_r` function in the psychmeta package, `psychmeta` [@dahlke2019].
 
 ```{r}
 # load packages
@@ -690,8 +674,3 @@ correct_r(rxyi = rxyS,
 ```
 
 We can see that the correction made by the `correct_r` function provides identical results to the one done by hand.
-
-
-
-
-

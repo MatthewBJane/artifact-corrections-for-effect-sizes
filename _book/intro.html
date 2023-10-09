@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Correcting Effect Sizes for Statistical Artifacts - 3&nbsp; Effect Sizes and Notation</title>
+<title>Artifact Corrections for Effect Sizes - 3&nbsp; Effect Sizes and Notation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -51,6 +51,7 @@ div.csl-indent {
 <meta name="quarto:offset" content="./">
 <link href="./small_samples.html" rel="next">
 <link href="./dedication.html" rel="prev">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -80,10 +81,30 @@ div.csl-indent {
     "search-label": "Search"
   }
 }</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: white;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: white;
+      }
+</style>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 3&nbsp; Effect Sizes and Notation">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="intro_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating">
@@ -105,12 +126,28 @@ div.csl-indent {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Correcting Effect Sizes for Statistical Artifacts</a> 
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -250,28 +287,14 @@ div.csl-indent {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
 
 <section id="what-are-effect-sizes" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="what-are-effect-sizes"><span class="header-section-number">3.1</span> What are Effect Sizes?</h2>
-<p>Effect sizes are statistics that measure the magnitude of a relationship between two variables. It’s important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights, rather than being the ultimate objective themselves. Effect sizes aide in researcher’s ability to draw meaningful inferences from data and therefore it is important that they are accurate. Biased effect sizes can be likened to a foggy windshield. Just as condensation on glass obstructs a clear view of the road, biased effect sizes can obscure the true association between variables. Similar to how one must clean the windshield to drive safely, researchers must correct for biases in effect sizes to attain a clear and accurate perspective on their data. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book. To see how an effect size may look in practice, the example below will illustrate how calculating one may look in a clinical setting.</p>
+<p>Effect sizes are statistics that measure the magnitude of a relationship between two variables. It’s important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights from data, rather than being the ultimate objective themselves. Effect sizes aide in researcher’s ability to draw meaningful inferences from data and therefore it is crucial that they are accurate. Biased effect sizes can be likened to a foggy windshield. Just as condensation on glass obstructs a clear view of the road, biased effect sizes can obscure the true association between variables. Similar to how one must clean the windshield to drive safely, researchers must correct for biases in effect sizes to attain a clear and accurate perspective on their data. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book. To see how an effect size may look in practice, the example below will illustrate how calculating one may look in a clinical setting.</p>
 <section id="applied-example" class="level3" data-number="3.1.1">
 <h3 data-number="3.1.1" class="anchored" data-anchor-id="applied-example"><span class="header-section-number">3.1.1</span> Applied Example</h3>
 <p>Lets say we want to test whether a new drug can alleviate anxiety, therefore we decide to conduct an experiment to see how well this drug performs. We first randomly assign each participant in the study to either a treatment group (<span class="math inline">\(T\)</span>) or a control group (<span class="math inline">\(C\)</span>). In our experiment we want test how well the experimental drug reduces anxiety, therefore we measure the subjects’ self reported anxiety after under-going the treatment. To see if the drug actually worked in alleviating anxiety, we want to compare the scores from the treatment group and the control group. To do this we can estimate the average treatment effect (<span class="math inline">\(ATE\)</span>), which is the difference in the mean value of self-reported anxiety scores between the treatment group and the control group such that, <span class="math inline">\(ATE = \text{Mean}(X_T) - \text{Mean}(X_C)\)</span>. However, anxiety scores have no meaningful units, so if we obtain an <span class="math inline">\(ATE\)</span> value of <span class="math inline">\(-3\)</span> there is no way to tell if this value is large or small, since it is entirely dependent on how the anxiety scores are scaled. Standardization can allow us to draw meaningful inferences about the size of the effect that can be comparable across scales. We can standardize the <span class="math inline">\(ATE\)</span> by dividing by the standard deviation of scores in the control group, (<span class="math inline">\(\text{SD}\)</span>): <span class="math inline">\(\text{Effect Size} = \frac{ATE}{\text{SD}_C}\)</span>. The effect size is now on an interpretable scale (standard deviations). If we achieve an standardized effect size value of <span class="math inline">\(-0.50\)</span>, we can interpret this as the treatment group exhibiting a reduction in anxiety equivalent to half a standard deviation compared to the control group.</p>
@@ -305,13 +328,14 @@ div.csl-indent {
 <p><span id="eq-A"><span class="math display">\[
 \vartheta_o = a\vartheta
 \tag{3.2}\]</span></span></p>
-<p>Note that if <span class="math inline">\(a=1\)</span> this would indicate that there is no artifactual bias (<span class="math inline">\(\vartheta_o=\vartheta\)</span>), if <span class="math inline">\(a&gt;1\)</span> then it would indicate effect size inflation (i.e., biased away from zero), and if <span class="math inline">\(a&lt;1\)</span> that would indicate effect size attenuation (i.e., biased toward zero). It can be seen in <a href="#eq-A">Equation&nbsp;<span class="quarto-unresolved-ref">eq-A</span></a> that we can re-arrange the formula to obtain the true population effect size by dividing the observed population effect size by <span class="math inline">\(a\)</span>,</p>
+<p>Note that if <span class="math inline">\(a=1\)</span> this would indicate that there is no artifactual bias (<span class="math inline">\(\vartheta_o=\vartheta\)</span>), if <span class="math inline">\(a&gt;1\)</span> then it would indicate effect size inflation (i.e., biased away from zero), and if <span class="math inline">\(a&lt;1\)</span> that would indicate effect size attenuation (i.e., biased toward zero). It can be seen in <a href="#eq-A">Equation&nbsp;<span>3.2</span></a> that we can re-arrange the formula to obtain the true population effect size by dividing the observed population effect size by <span class="math inline">\(a\)</span>,</p>
 <p><span class="math display">\[
 \vartheta = \frac{\vartheta_o}{a}.
-\]</span> For a single study that computes an effect size from a sample drawn from the population, the observed study effect size (<span class="math inline">\(\theta_o\)</span>) would be expressed by</p>
+\]</span></p>
+<p>For a single study that computes an effect size from a sample drawn from the population, the observed study effect size (<span class="math inline">\(\theta_o\)</span>) would be expressed by</p>
 <p><span class="math display">\[
 \theta_o = \vartheta_o + \varepsilon_o
-\]</span> Using <a href="#eq-A">Equation&nbsp;<span class="quarto-unresolved-ref">eq-A</span></a> we can express the observed effect size in terms of the true population effect size rather than the observed population effect size,</p>
+\]</span> Using <a href="#eq-A">Equation&nbsp;<span>3.2</span></a> we can express the observed effect size in terms of the true population effect size rather than the observed population effect size,</p>
 <p><span class="math display">\[
 \theta_o = a\vartheta + \varepsilon_o
 \]</span> Then we can correct the observed effect size by dividing by the biasing factor, <span class="math inline">\(a\)</span>, to obtain an unbiased estimate of the true effect size:</p>
@@ -351,11 +375,11 @@ z_{\theta_o} = \frac{\theta_o}{\sigma_{\varepsilon_o}} = \frac{\frac{\theta_o}{a
 <li>Study/sample value: <span class="math inline">\(d\)</span></li>
 </ul></li>
 </ul>
-<p>In the most cases, continuous independent variables will be denoted with <span class="math inline">\(x\)</span> and dependent variables with <span class="math inline">\(y\)</span> (note that this notation may differ when referring to observed and true scores). Categorical (i.e., groupings) variables will be denoted with <span class="math inline">\(g\)</span> (these will be used for standardized mean differences).</p>
+<p>In most cases, continuous independent variables will be denoted with <span class="math inline">\(x\)</span> and dependent variables with <span class="math inline">\(y\)</span> (note that this notation may differ when referring to observed and true scores). Categorical (i.e., groupings) variables will be denoted with <span class="math inline">\(g\)</span> (this notation will be used primarily for standardized mean differences).</p>
 </section>
 <section id="correlations" class="level2" data-number="3.5">
 <h2 data-number="3.5" class="anchored" data-anchor-id="correlations"><span class="header-section-number">3.5</span> Correlations</h2>
-<p>A correlation describes the relationship between two continuous variables. The Pearson correlation coefficient was first introduced by Auguste <span class="citation" data-cites="bravais1844">Bravais (<a href="#ref-bravais1844" role="doc-biblioref">1844</a>)</span>. Later developed by Karl Pearson, lending itself to the name.</p>
+<p>A correlation describes the relationship between two continuous variables. The Pearson correlation coefficient was first introduced by Auguste <span class="citation" data-cites="bravais1844">Bravais (<a href="direct_range_restriction.html#ref-bravais1844" role="doc-biblioref">1844</a>)</span>. Later developed by Karl Pearson, lending itself to the name.</p>
 <section id="technical-overview-correlations-r" class="level3" data-number="3.5.1">
 <h3 data-number="3.5.1" class="anchored" data-anchor-id="technical-overview-correlations-r"><span class="header-section-number">3.5.1</span> Technical Overview Correlations (<em>r</em>)</h3>
 <p>If we draw a sample of <span class="math inline">\(n\)</span> observations from a population, we can calculate the study correlation (<span class="math inline">\(r\)</span>) between variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> using the following Pearson’s product-moment estimator,</p>
@@ -367,10 +391,10 @@ r = \frac{
 \sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
 }.
 \tag{3.3}\]</span></span></p>
-<p>For digestibility, we can break down the formula into parts. The correlation coefficient can be defined as the covariance between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> standardized by the product of their variances,</p>
+<p>For digestibility, we can break down the formula into parts. The correlation coefficient can be defined as the covariance between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> standardized by the product of their standard deviations (i.e., square root variance),</p>
 <p><span id="eq-pearson"><span class="math display">\[
 r = \frac{\sigma_{xy}}
-{\sigma_x\sigma_y}
+{\sigma_x\sigma_y}.
 \tag{3.4}\]</span></span></p>
 <p>we can first define the covariance (<span class="math inline">\(\sigma_{xy}\)</span>) as the average product of errors for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>,</p>
 <p><span id="eq-cov"><span class="math display">\[
@@ -383,64 +407,70 @@ r = \frac{\sigma_{xy}}
 <p><span id="eq-vary"><span class="math display">\[
 \sigma^2_y = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2.
 \tag{3.7}\]</span></span></p>
-<p>Plugging in <a href="#eq-cov">Equation&nbsp;<span class="quarto-unresolved-ref">eq-cov</span></a>, <a href="#eq-varx">Equation&nbsp;<span class="quarto-unresolved-ref">eq-varx</span></a>, and <a href="#eq-vary">Equation&nbsp;<span class="quarto-unresolved-ref">eq-vary</span></a> into <a href="#eq-pearson">Equation&nbsp;<span class="quarto-unresolved-ref">eq-pearson</span></a> we can see that the term, <span class="math inline">\(\frac{1}{n-1}\)</span>, will cancel out and we will be left with the original pearson correlation coefficient formula from <a href="#eq-pearson-raw">Equation&nbsp;<span class="quarto-unresolved-ref">eq-pearson-raw</span></a>,</p>
+<p>Plugging in <a href="#eq-cov">Equation&nbsp;<span>3.5</span></a>, <a href="#eq-varx">Equation&nbsp;<span>3.6</span></a>, and <a href="#eq-vary">Equation&nbsp;<span>3.7</span></a> into <a href="#eq-pearson">Equation&nbsp;<span>3.4</span></a> we can see that the term, <span class="math inline">\(\frac{1}{n-1}\)</span>, will cancel out and we will be left with the original pearson correlation coefficient formula from <a href="#eq-pearson-raw">Equation&nbsp;<span>3.3</span></a>,</p>
 <p><span id="eq-1"><span class="math display">\[
 r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}.
 \tag{3.8}\]</span></span></p>
-<p>In the absence of artifacts, the Pearson correlation <span class="math inline">\(r\)</span> is an asymptotically (i.e., as <span class="math inline">\(n\)</span> approaches infinity) unbiased estimator (in small sample sizes, it is biased see section on small samples). We can express <span class="math inline">\(r\)</span> similarly to <a href="#eq-B">Equation&nbsp;<span class="quarto-unresolved-ref">eq-B</span></a>,</p>
+<p>In the absence of artifacts, the Pearson correlation <span class="math inline">\(r\)</span> is an asymptotically (i.e., as <span class="math inline">\(n\)</span> approaches infinity) unbiased estimator (in small sample sizes, it is biased see chapter 4). We can express <span class="math inline">\(r\)</span> similarly to <a href="#eq-B">Equation&nbsp;<span>3.1</span></a>,</p>
 <p><span id="eq-2"><span class="math display">\[
-r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon)
+r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon).
 \tag{3.9}\]</span></span></p>
 <p>Where <span class="math inline">\(\sigma^2_\varepsilon\)</span> is the sampling variance of the observed correlation. The sampling variance can be calculated from the sample size (<span class="math inline">\(n\)</span>) and the population correlation,</p>
 <p><span id="eq-3"><span class="math display">\[
-\sigma_\varepsilon^2 =\frac{1 - \rho^2}{n-2}
+\sigma_\varepsilon^2 =\frac{(1 - \rho^2)^2}{n}.
 \tag{3.10}\]</span></span></p>
-<p>In practice, the population correlation is unknown so the study correlation can be used instead (<span class="math inline">\(r\)</span>) in the above formula. Note that the sampling variance is the square of the standard error. If the observed correlation is biased relative to the true correlation, we can see that the observed population correlation is systematically biased by an artifact factor, <span class="math inline">\(a\)</span>, <span class="math display">\[
-\rho_o = a\rho
-\]</span></p>
-<p>The observed study correlation would then be defined as, <span class="math display">\[
-r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o
-\]</span></p>
-<p>The corrected correlation coefficient (<span class="math inline">\(r_c\)</span>) and it’s sampling variance (<span class="math inline">\(\sigma_{\varepsilon_c}\)</span>) can both be defined as:</p>
+<p>In practice, the population correlation is unknown so the study correlation can be used instead (<span class="math inline">\(r\)</span>) in the above formula as an estimate of the population correlation. Note that the sampling variance is the square of the standard error.</p>
+<p>In the context of artifacts, if the observed correlation is biased relative to the true correlation, we can see model the observed population (<span class="math inline">\(\rho_o\)</span>) correlation as a function of the true population correlation (<span class="math inline">\(\rho\)</span>) and a artifact biasing factor, <span class="math inline">\(a\)</span>,</p>
 <p><span class="math display">\[
-r_{c} = \frac{r_o}{a}
+\rho_o = a\rho.
 \]</span></p>
+<p>The observed study (sample) correlation would then be defined as,</p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}
+r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o.
+\]</span></p>
+<p>To obtain an unbiased estimate of the true population correlation, we can correct the correlation coefficient (<span class="math inline">\(r_c\)</span>) by dividing by the biasing factor, <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+r_{c} = \frac{r_o}{a}.
+\]</span></p>
+<p>Note that the sampling error would also need to be adjusted and therefore it’s sampling variance (<span class="math inline">\(\sigma_{\varepsilon_c}\)</span>) would be corrected to be,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}.
 \]</span></p>
 </section>
 </section>
 <section id="standardized-mean-differences" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="standardized-mean-differences"><span class="header-section-number">3.6</span> Standardized Mean Differences</h2>
-<p>Standardized mean differences are used to quantify the average difference in some variable between groups. The most commonly used formulation is Cohen’s <span class="math inline">\(d\)</span> <span class="citation" data-cites="cohen1988">(<a href="#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span> which quantifies the average difference between groups (e.g., men vs.&nbsp;women) and standardizes by the pooled standard deviation. Note that the other most commonly used estimator is Hedges’ <span class="math inline">\(g\)</span>, but the difference between the two is a small sample correction factor that can be found in the chapter on small samples.</p>
+<p>Standardized mean differences are used to quantify the average difference in some variable between groups. The most commonly used formulation is Cohen’s <span class="math inline">\(d\)</span> <span class="citation" data-cites="cohen1988">(<a href="direct_range_restriction.html#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span> which quantifies the average difference between groups (e.g., men vs.&nbsp;women) and standardizes by the pooled standard deviation. Note that the other most commonly used estimator is Hedges’ <span class="math inline">\(g\)</span>, but the difference between the two is a small sample correction factor that can be found in the chapter on small samples.</p>
 <section id="technical-overview-of-standardized-mean-difference-d" class="level3" data-number="3.6.1">
 <h3 data-number="3.6.1" class="anchored" data-anchor-id="technical-overview-of-standardized-mean-difference-d"><span class="header-section-number">3.6.1</span> Technical Overview of Standardized Mean Difference (<em>d</em>)</h3>
 <p>If we draw a sample of <span class="math inline">\(n_A\)</span> subjects from group <span class="math inline">\(A\)</span> and <span class="math inline">\(n_B\)</span> subjects from group <span class="math inline">\(B\)</span>, the mean difference between groups (<span class="math inline">\(d\)</span>) on variable <span class="math inline">\(y\)</span> can be defined as,</p>
 <p><span class="math display">\[
-d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_p}
+d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_p}.
 \]</span></p>
-<p>Where the standardizer, <span class="math inline">\(\sigma_p\)</span> is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom.</p>
+<p>Where the standardizer, <span class="math inline">\(\sigma_p\)</span> is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom (e.g., <span class="math inline">\(\text{df}_A=n_A-1\)</span>),</p>
 <p><span class="math display">\[
-\sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}
+\sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}.
 \]</span></p>
 <p>Where <span class="math inline">\(\sigma_{A}\)</span> and <span class="math inline">\(\sigma_{B}\)</span> are the standard deviations of <span class="math inline">\(y\)</span> within groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> respectively. This SMD estimator is commonly referred to as Cohen’s <span class="math inline">\(d\)</span>. We can define the study/sample <span class="math inline">\(d\)</span> value as a function of the population <span class="math inline">\(d\)</span> value (<span class="math inline">\(\delta\)</span>): <span class="math display">\[
-d = \delta + \varepsilon
-\]</span> Similar to the previous section on correlation coefficients, the observed <span class="math inline">\(d\)</span> value is a function of the true population value and artifactual bias (<span class="math inline">\(a\)</span>), <span class="math display">\[
+d = \delta + \varepsilon.
+\]</span> Similar to the previous section on correlation coefficients, the observed <span class="math inline">\(d\)</span> value is a function of the true population value and an artifactual biasing factor (<span class="math inline">\(a\)</span>),</p>
+<p><span class="math display">\[
 \delta_o = a\delta.
-\]</span> Therefore the observed study/sample <span class="math inline">\(d\)</span> value can be defined as a function of the observed population value <em>or</em> the true population value plus artifactual bias:</p>
+\]</span></p>
+<p>Therefore the observed study/sample <span class="math inline">\(d\)</span> value can be defined as a function of the observed population value <em>or</em> the true population value and bias:</p>
 <p><span class="math display">\[
 d = \delta_o + \varepsilon_o = a\delta + \varepsilon_o.
 \]</span></p>
-<p>Thus the corrected standardized mean difference (<span class="math inline">\(d_c\)</span>) and it’s sampling variance (<span class="math inline">\(\sigma^2_{\varepsilon_c}\)</span>) can both be defined as:</p>
+<p>Thus the corrected standardized mean difference (<span class="math inline">\(d_c\)</span>) and it’s corresponding sampling variance (<span class="math inline">\(\sigma^2_{\varepsilon_c}\)</span>) can both be defined as:</p>
 <p><span class="math display">\[
 d_c = \frac{d_o}{a}
 \]</span></p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
 \]</span></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-bravais1844" class="csl-entry" role="listitem">
 Bravais, A. 1844. <em>Analyse mathématique sur les probabilités des erreurs de situation d’un point</em>. Impr. Royale.
 </div>
