@@ -382,7 +382,7 @@ r_{gg'} = \sqrt{\frac{\chi^2}{n}}.
 <p><span class="math display">\[
 r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2
 \]</span></p>
-<p>This approximation assumes that the group sizes are approximately equal <em>and</em> the misclassification rates are approximately equal between groups. Otherwise, <span class="math inline">\(r_{gg'}\)</span> will be overestimated <span class="citation" data-cites="wiernik2020">(<a href="#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>.</p>
+<p>This approximation assumes that the group sizes are approximately equal <em>and</em> the misclassification rates are approximately equal between groups. Otherwise, <span class="math inline">\(r_{gg'}\)</span> will be overestimated <span class="citation" data-cites="wiernik2020">(<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>.</p>
 <p>In the chapter <em>unreliability</em>, we discussed the relationship between reliability and the correlation between observed and true scores. The classification reliability will also be related similarly to the correlation between observed group membership and true group membership (<span class="math inline">\(r_{gG}\)</span>) such that,</p>
 <p><span class="math display">\[
 r_{gG}=\sqrt{r_{gg'}}
@@ -434,7 +434,7 @@ obs_1  A  B
     B 10 40</code></pre>
 </div>
 </div>
-<p>Now we can calculate the reliability of the group assignments by extracting the phi coefficient from the contingency table. We can compute it by hand or by using the <code>psych</code> package by William Revelle <span class="citation" data-cites="psych:p2017">(<a href="#ref-psych:p2017" role="doc-biblioref">2017</a>)</span>.</p>
+<p>Now we can calculate the reliability of the group assignments by extracting the phi coefficient from the contingency table. We can compute it by hand or by using the <code>psych</code> package by William Revelle <span class="citation" data-cites="psych:p2017">(<a href="direct_range_restriction.html#ref-psych:p2017" role="doc-biblioref">2017</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Strategy 1: Using the {psych} package</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load in psych package (make sure it is installed first: install.packages('psych'))</span></span>
@@ -483,7 +483,7 @@ r_c = \frac{r_o}{a}
 <p><span class="math display">\[
 \bar{y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_B + \left(\frac{n_{BA}}{n_{BB}+n_{BA}}\right)\bar{y}^\text{true}_A
 \]</span></p>
-<p>From the above equations, it becomes evident that as the number of misclassified individuals increases (<span class="math inline">\(n_{AB}\)</span> and <span class="math inline">\(n_{BA}\)</span>), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, <a href="#fig-nomis">Figure&nbsp;<span class="quarto-unresolved-ref">fig-nomis</span></a> shows the distributions for groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> without any misclassification. In this case, there is no attenuation of the standardized mean difference.</p>
+<p>From the above equations, it becomes evident that as the number of misclassified individuals increases (<span class="math inline">\(n_{AB}\)</span> and <span class="math inline">\(n_{BA}\)</span>), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, <a href="#fig-nomis">Figure&nbsp;<span>6.1</span></a> shows the distributions for groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> without any misclassification. In this case, there is no attenuation of the standardized mean difference.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-nomis" class="quarto-figure quarto-figure-center anchored">
@@ -494,7 +494,7 @@ r_c = \frac{r_o}{a}
 </div>
 </div>
 </div>
-<p>If some individual’s are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. <a href="#fig-mis">Figure&nbsp;<span class="quarto-unresolved-ref">fig-mis</span></a> shows what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of <span class="math inline">\(r_{gg'}=.60\)</span>.</p>
+<p>If some individual’s are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. <a href="#fig-mis">Figure&nbsp;<span>6.2</span></a> shows what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of <span class="math inline">\(r_{gg'}=.60\)</span>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-mis" class="quarto-figure quarto-figure-center anchored">
@@ -540,7 +540,7 @@ r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
 </section>
 <section id="correcting-for-misclassification-in-r" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="correcting-for-misclassification-in-r"><span class="header-section-number">6.6</span> Correcting for Misclassification in R</h2>
-<p>We can correct for group misclassification in R by hand or by using the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. For our correction, say we got an observed standardized mean difference of <span class="math inline">\(d = 0.50\)</span> and we calculated the classification reliability to be <span class="math inline">\(r_{gg'} = .80\)</span>. Let us also say that the observed <em>and</em> the true proportion of individuals in one of the groups is <span class="math inline">\(p=p^*=.40\)</span>, therefore the other group would be <span class="math inline">\(1-p=1-p^*=.60\)</span>.</p>
+<p>We can correct for group misclassification in R by hand or by using the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="direct_range_restriction.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. For our correction, say we got an observed standardized mean difference of <span class="math inline">\(d = 0.50\)</span> and we calculated the classification reliability to be <span class="math inline">\(r_{gg'} = .80\)</span>. Let us also say that the observed <em>and</em> the true proportion of individuals in one of the groups is <span class="math inline">\(p=p^*=.40\)</span>, therefore the other group would be <span class="math inline">\(1-p=1-p^*=.60\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> .<span class="dv">50</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>rgg <span class="ot">=</span> .<span class="dv">70</span></span>
@@ -578,7 +578,7 @@ r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
 </section>
 <section id="correcting-by-hand" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="correcting-by-hand">Correcting by hand</h4>
-<p>To calculate the corrected standardized mean difference, we can use the equations in <a href="#sec-corrections"><span class="quarto-unresolved-ref">sec-corrections</span></a>.</p>
+<p>To calculate the corrected standardized mean difference, we can use the equations in <span class="quarto-unresolved-ref">?sec-corrections</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate point estimate</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1: convert d to r</span></span>
@@ -605,7 +605,7 @@ r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-dahlke2019" class="csl-entry" role="listitem">
 Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
 </div>

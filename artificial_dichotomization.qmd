@@ -107,8 +107,7 @@ h1 + h2
 
 ```
 
-Even with a perfectly reliable measure, dichotomization will introduce measurement error variance. We can define naturally continuous scores ($\ddagger$) that have been artificially dichotomized as, 
-$$
+Even with a perfectly reliable measure, dichotomization will introduce measurement error variance. We can define naturally continuous scores ($\ddagger$) that have been artificially dichotomized as, $$
  x_\ddagger= 
 \begin{cases}
     1,& \text{if } x>C_x\\
@@ -156,8 +155,7 @@ The first step in estimating the attenuation of the correlation is to first iden
 
 $$
 p_x = \frac{ n_{\text{high}} }{n_{\text{high}} + n_{\text{low}}}
-$$ 
-or
+$$ or
 
 $$
 p_x = \frac{ n_{\text{low}} }{n_{\text{high}} + n_{\text{low}}}.
@@ -227,7 +225,6 @@ In some cases, both independent and dependent variables are dichotomized inducin
 : {.bordered}
 :::
 
-
 ::: {.column width="25%"}
 :::
 :::
@@ -239,9 +236,7 @@ We can also show how this contingency table would relate to a bivariate normal d
 :::
 
 ::: {.column width="60%"}
-
 ![](figure/diagram-dich)
-
 :::
 
 ::: {.column width="20%"}
@@ -260,13 +255,13 @@ $$
 r_c = \text{cos}\left(\frac{\pi}{1+\sqrt{OR}}\right)
 $$
 
-The sampling variance must be calculated from the contingency table as well. A sampling variance approximation can be obtained from @pearson1913, however due to the complexity of the formulation and because it is simply an approximation, instead I recommend that researchers use a bootstrap procedure to obtain approximate confidence intervals. To do this, we must resample the contingency table (>10,000 iterations), calculating the tetrachoric correlation using @eq-tet upon each iteration. Once you obtain a tetrachoric correlation from each iteration, the standard deviation of all correlations can be used as an estimate of the standard error and the square of the standard error is the sampling variance.
+The sampling variance must be calculated from the contingency table as well. A sampling variance approximation can be obtained from @pearson1913, however due to the complexity of the formulation and because it is simply an approximation, instead I recommend that researchers use a bootstrap procedure to obtain approximate confidence intervals. To do this, we must resample the contingency table (\>10,000 iterations), calculating the tetrachoric correlation using @eq-tet upon each iteration. Once you obtain a tetrachoric correlation from each iteration, the standard deviation of all correlations can be used as an estimate of the standard error and the square of the standard error is the sampling variance.
 
 Unfortunately, studies may not report the full contingency table. Instead they may report summary statistics like a chi-squared value or a phi coefficient (i.e., the pearson correlation on binary variables). If the $\chi^2$-statistic is reported, we can first convert that to a phi coefficient by using,
 
 $$
 r_{x_\ddagger y_\ddagger} = \sqrt{\frac{\chi^2}{n}}
-$$ 
+$$
 
 Where $n$ is the total sample size. From the phi coefficient, we can estimate the correlation of the continuous variables with a formula similar to @eq-dich-r,
 
@@ -330,7 +325,7 @@ print(paste0('r = ',round(rc,3),', var = ',round(var_e_c,3)))
 
 ### Defining our estimand
 
-We would like to know the group difference between scores of a naturally continuous variable. Our estimand can thus be defined as the population standardized mean difference between groups $A$ and $B$ on continuous scores of the dependent variable ($y$), $\delta_{y}$. Where dichotomized scores can be defined as 
+We would like to know the group difference between scores of a naturally continuous variable. Our estimand can thus be defined as the population standardized mean difference between groups $A$ and $B$ on continuous scores of the dependent variable ($y$), $\delta_{y}$. Where dichotomized scores can be defined as
 
 $$
  y_{A\ddagger}= 
@@ -356,17 +351,13 @@ The simplest way to correct for dichotomization in a standardized mean differenc
 
 $$
 r_{\text{phi}} = \frac{d_{y_\ddagger}}{\sqrt{d_{y_\ddagger}^2+\frac{1}{p(1-p)}}}
-$$
-We can then correct the phi coefficient similar to how we correct the point-biserial correlation in @sec-corr-artifacts,
+$$ We can then correct the phi coefficient similar to how we correct the point-biserial correlation in @sec-corr-artifacts,
 
 $$
 r_c = \frac{r_{\text{phi}}}{\left[\frac{\varphi(C_y)}{\sqrt{p_y (1-p_y)}}\right]}.
-$$
-Then we can convert the corrected correlation back into a standardized mean difference,
-$$
+$$ Then we can convert the corrected correlation back into a standardized mean difference, $$
 d_c = \frac{r_c}{\sqrt{p\left(1-p\right)\left(1-r_c^2\right)}}
-$$
-Where $d_c$ is our corrected correlation. The sampling variance must also be corrected using the same three step procedure. For simplicity, we will consolidate this into one formula,
+$$ Where $d_c$ is our corrected correlation. The sampling variance must also be corrected using the same three step procedure. For simplicity, we will consolidate this into one formula,
 
 $$
 \sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o} \left(\frac{r_c}{r_\text{phi}}\right)^2} {\left(1+d_{y_\ddagger}^2p[1-p]\right)^3(1-r_c^2)^3}
@@ -407,7 +398,6 @@ var_e_c <- (var_e_o * (rc/r)^2) / ((1+d^2*p*(1-p))^3 * (1-rc^2)^3)
 # print results
 print(paste0('r = ',round(dc,3),', var = ',round(var_e_c,3) ))
 ```
-
 
 [@naggara2011]
 
