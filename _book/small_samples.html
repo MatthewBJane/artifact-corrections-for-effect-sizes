@@ -455,10 +455,10 @@ a \approx \frac{1}{1+\frac{1-r_o^2}{2(n-3)}}.
 \]</span></p>
 <p>Then we can correct the point-estimate the sampling variance for small sample bias</p>
 <p><span class="math display">\[
-r_c = \frac{r_o}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]}
+r_c = r_o \times\left[1+\frac{1-r_o^2}{2(n-3)}\right]
 \]</span></p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]^2}.
+\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o} \times \left[1+\frac{1-r_o^2}{2(n-3)}\right]^2.
 \]</span></p>
 </section>
 <section id="correcting-correlations-in-r" class="level3" data-number="4.4.3">

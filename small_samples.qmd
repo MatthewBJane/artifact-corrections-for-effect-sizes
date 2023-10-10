@@ -226,11 +226,11 @@ $$
 Then we can correct the point-estimate the sampling variance for small sample bias
 
 $$
-r_c = \frac{r_o}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]}
+r_c = r_o \times\left[1+\frac{1-r_o^2}{2(n-3)}\right]
 $$
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]^2}.
+\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o} \times \left[1+\frac{1-r_o^2}{2(n-3)}\right]^2.
 $$
 
 ### Correcting Correlations in R
