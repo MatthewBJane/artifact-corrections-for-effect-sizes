@@ -55,7 +55,7 @@ th_red <- theme(aspect.ratio = 1,
 
 ## Introduction
 
-The purpose of sample statistics such as correlations and standardized mean differences is to draw meaningful inferences about the population. However, effect size estimators such as Pearson's correlation coefficient and Cohen's $d$ are biased in small sample sizes. This small sample bias will impair our ability to draw accurate inferences about the population.
+The purpose of sample statistics such as correlations and standardized mean differences is to draw meaningful inferences about the population. However, effect size estimators such as Pearson's correlation coefficient and standardized mean difference are biased in small sample sizes. This small sample bias will impair our ability to draw accurate inferences about the population.
 
 ## When Correcting alongside other Artifacts
 
@@ -226,11 +226,11 @@ $$
 Then we can correct the point-estimate the sampling variance for small sample bias
 
 $$
-r_c = \frac{r_o}{\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]}
+r_c = \frac{r_o}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]}
 $$
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]^2}.
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]^2}.
 $$
 
 ### Correcting Correlations in R
@@ -273,6 +273,3 @@ rbind(paste0('Observed: ro = ',round(ro,3)),
 ```
 
 You will notice that the small sample correction increases the observed correlation however it is still far away from the true value. This is simply due to the fact that there is a large amount of sampling error on top of the bias.
-
-
-

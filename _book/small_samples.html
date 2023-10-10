@@ -185,26 +185,9 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <div class="dropdown">
-      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
-      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Artifact-Corrections-for-Effect-Sizes.pdf">
-              <i class="bi bi-bi-file-pdf pe-1"></i>
-            Download PDF
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Artifact-Corrections-for-Effect-Sizes.epub">
-              <i class="bi bi-bi-journal pe-1"></i>
-            Download ePub
-            </a>
-          </li>
-      </ul>
-    </div>
-    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -361,7 +344,7 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">4.1</span> Introduction</h2>
-<p>The purpose of sample statistics such as correlations and standardized mean differences is to draw meaningful inferences about the population. However, effect size estimators such as Pearson’s correlation coefficient and Cohen’s <span class="math inline">\(d\)</span> are biased in small sample sizes. This small sample bias will impair our ability to draw accurate inferences about the population.</p>
+<p>The purpose of sample statistics such as correlations and standardized mean differences is to draw meaningful inferences about the population. However, effect size estimators such as Pearson’s correlation coefficient and standardized mean difference are biased in small sample sizes. This small sample bias will impair our ability to draw accurate inferences about the population.</p>
 </section>
 <section id="when-correcting-alongside-other-artifacts" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="when-correcting-alongside-other-artifacts"><span class="header-section-number">4.2</span> When Correcting alongside other Artifacts</h2>
@@ -472,10 +455,10 @@ a \approx \frac{1}{1+\frac{1-r_o^2}{2(n-3)}}.
 \]</span></p>
 <p>Then we can correct the point-estimate the sampling variance for small sample bias</p>
 <p><span class="math display">\[
-r_c = \frac{r_o}{\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]}
+r_c = \frac{r_o}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]}
 \]</span></p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{\left[ 1+\frac{1-r_o^2}{2(n-3)}\right]^2}.
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{\left[\frac{1}{1+\frac{1-r_o^2}{2(n-3)}}\right]^2}.
 \]</span></p>
 </section>
 <section id="correcting-correlations-in-r" class="level3" data-number="4.4.3">

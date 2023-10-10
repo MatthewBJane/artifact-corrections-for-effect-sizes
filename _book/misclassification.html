@@ -185,26 +185,9 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
-        <div class="sidebar-tools-main tools-wide">
+        <div class="sidebar-tools-main">
     <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <div class="dropdown">
-      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
-      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Artifact-Corrections-for-Effect-Sizes.pdf">
-              <i class="bi bi-bi-file-pdf pe-1"></i>
-            Download PDF
-            </a>
-          </li>
-          <li>
-            <a class="dropdown-item sidebar-tools-main-item" href="./Artifact-Corrections-for-Effect-Sizes.epub">
-              <i class="bi bi-bi-journal pe-1"></i>
-            Download ePub
-            </a>
-          </li>
-      </ul>
-    </div>
-    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -339,7 +322,7 @@ div.csl-indent {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">6.1</span> Introduction</a></li>
   <li><a href="#defining-group-misclassification" id="toc-defining-group-misclassification" class="nav-link" data-scroll-target="#defining-group-misclassification"><span class="header-section-number">6.2</span> Defining Group Misclassification</a></li>
   <li><a href="#classification-reliability" id="toc-classification-reliability" class="nav-link" data-scroll-target="#classification-reliability"><span class="header-section-number">6.3</span> Classification Reliability</a></li>
-  <li><a href="#calculating-classification-reliability-in-r" id="toc-calculating-classification-reliability-in-r" class="nav-link" data-scroll-target="#calculating-classification-reliability-in-r"><span class="header-section-number">6.4</span> Calculating Classification Reliability in R</a></li>
+  <li><a href="#calculating-group-classification-reliability-in-r" id="toc-calculating-group-classification-reliability-in-r" class="nav-link" data-scroll-target="#calculating-group-classification-reliability-in-r"><span class="header-section-number">6.4</span> Calculating Group Classification Reliability in R</a></li>
   <li><a href="#correcting-for-group-misclassification-in-standardized-mean-difference" id="toc-correcting-for-group-misclassification-in-standardized-mean-difference" class="nav-link" data-scroll-target="#correcting-for-group-misclassification-in-standardized-mean-difference"><span class="header-section-number">6.5</span> Correcting for Group Misclassification in Standardized Mean Difference</a>
   <ul class="collapse">
   <li><a href="#defining-our-estimand" id="toc-defining-our-estimand" class="nav-link" data-scroll-target="#defining-our-estimand"><span class="header-section-number">6.5.1</span> Defining our Estimand</a></li>
@@ -442,8 +425,8 @@ r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2.
 r_{gG}=\sqrt{r_{gg'}}.
 \]</span></p>
 </section>
-<section id="calculating-classification-reliability-in-r" class="level2" data-number="6.4">
-<h2 data-number="6.4" class="anchored" data-anchor-id="calculating-classification-reliability-in-r"><span class="header-section-number">6.4</span> Calculating Classification Reliability in R</h2>
+<section id="calculating-group-classification-reliability-in-r" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="calculating-group-classification-reliability-in-r"><span class="header-section-number">6.4</span> Calculating Group Classification Reliability in R</h2>
 <p>To calculate classification reliability we will first need data. We can simulate 100 subjects with a group value for three variables: a true group membership and two sets of assigned (observed) group membership. We will set the misclassification rate to 10%.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>

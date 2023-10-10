@@ -1,6 +1,5 @@
 project:
   type: book
-
 book:
   favicon: figure/favicon_book.png
   title: "Artifact Corrections for Effect Sizes"
@@ -13,7 +12,6 @@ book:
   site-url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
   date: "10/08/2023"
   repo-url: https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/
-  sharing: [twitter]
   downloads: [pdf]
   author:
   - name: "Matthew B. Jané"
