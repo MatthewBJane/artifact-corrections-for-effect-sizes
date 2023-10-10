@@ -144,10 +144,10 @@ h2 + h1
 
 ### Defining our Estimand
 
-For our study we want to estimate the population correlation of the unrestricted scores of the independent ($x$) and dependent variable ($y$). We can denote this correlation as $\rho_{xy_S}$. The restricted population correlation can be denoted as $\rho_{xy_S}$. Within a study that suffers from range restriction, the study correlation ($r_{xy_S}$) will be biased relative to our estimand, $\rho_{xy}$. This bias can be denoted by $a$ such that,
+For our study we want to estimate the population correlation of the unrestricted scores of the independent ($x$) and dependent variable ($y$). We can denote this correlation as $\rho_{xy_S}$. Within a study that suffers from range restriction, the correlation ($r_{xy_S}$) will be biased relative to our estimand, $\rho_{xy}$. This bias can be denoted by $a$ such that,
 
 $$
-r_{xy} = a \rho_{xy_S} + \varepsilon.
+r_{xy} = a \rho_{xy} + \varepsilon.
 $$
 
 Therefore an unbiased estimate of the unrestricted population correlation would be
@@ -156,7 +156,7 @@ $$
 r_c = \frac{ r_{xy_S} }{ a}.
 $$
 
-### Artifact Correction for Correlations
+### Artifact Correction for Correlations {#sec-corr-DDR}
 
 #### The Univariate Case {.unnumbered}
 
@@ -248,16 +248,29 @@ It starts to become apparent that if $u_x>1$ (i.e., $\sigma_x>\sigma_{x_S}$) the
 A bias correction formula for univariate direct range restriction was first developed by @pearson1903 and provided more recently by @hunter1990a. To correct for the systematic bias in correlations, we can use the $u$-ratio of the independent variable such that,
 
 $$
-r_c = \frac{r_{xy_S}}{u_x\left(1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]\right)}
+r_c = \frac{r_{xy_S}}{u_x\sqrt{1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]}}.
 $$ {#eq-univariate}
 
-Where the sampling variance of the corrected correlation is
+Where the sampling variance of the corrected correlation is,
 
 $$
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
 $$ {#eq-univariate-se}
 
-#### The Bivariate Case
+If we want to also correct for measurement error in both samples, then we can also incorporate measurement into these equations. Note that the following equations will incorporate the reliability within the selected sample ($r_{xx'_S}$) rather than the unrestricted population ($r_{xx'}$). If the reliability coefficient comes from the unrestricted population, then we can estimate the selected (restricted or enhanced) sample reliability with the corresponding $u$-ratio,
+
+$$
+r_{xx'_S} = 1-\frac{1-r_{xx'}}{u^2_x}.
+$$ {#eq-samp-reliability}
+
+Then we can use the calculated reliability in the following equation to obtain an unbiased estimate of the true score unrestricted population correlation ($r_c = \hat{\rho}_{TU}$),
+
+$$
+r_c=\frac{r_{xy_S}}{u_x\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{r_{yy'_S}+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]}}.
+$$
+We can use the same equation as @eq-univariate-se to calculate the corrected sampling variance.
+
+#### The Bivariate Case {.unnumbered}
 
 Bivariate direct range restriction/enhancement occurs when the variability in both independent and dependent variables within the selected sample is less than or greater than the variability in the unrestricted population. Let us consider a case where just the independent variable is restricted (or enhanced) such that $u_x\neq 1$ and $u_y \neq 1$. Like we showed for the univariate case, let's visualize the correlation between independent ($x$) and dependent ($y$) variables under range restriction by only selecting individuals above some cut off point for both $x$ and $y$. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a $u$-ratio of about 0.70 in the independent variable and dependent variables. We see in the figure that the correlation in the restricted sample ($\rho_{xy_S}$) is attenuated relative to the unrestricted (true) correlation ($\rho_{xy}$).
 
@@ -343,7 +356,9 @@ A bias correction formula for bivariate range restriction is much more complicat
 
 $$
 \psi = \frac{u_x u_y\left(r_{xy_S}^2-1\right)}{2r_{xy_S}}
-$$ {#eq-biv-1} This factor contains all the parameters needed to correct the correlation coefficient under direct selection ($r_{xy_S}$). Then we can plug it into the formula
+$$ {#eq-biv-1}
+
+This factor contains all the parameters needed to correct the correlation coefficient under direct selection ($r_{xy_S}$). Then we can plug it into the formula
 
 $$
 r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
@@ -354,6 +369,20 @@ Where the sampling variance of the corrected correlation is,
 $$
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
 $$ {#eq-biv-se}
+
+Now let us also consider a case where measurement error is present in both independent and dependent variables. Note again that the following equations will incorporate the reliability within the selected sample ($r_{xx'_S}$) rather than the unrestricted population ($r_{xx'}$). Then we can use the restricted/enhanced (selected) sample reliability and the $u$-ratios in the following equation to obtain an unbiased estimate of the true score unrestricted population correlation ($r_c = \hat{\rho}_{TU}$),
+
+$$
+r_c = \frac{\psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}}{\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{1-u_y^2(1-r_{yy'_S})}}.
+$$
+If the reliability coefficient comes from the unrestricted population, the formula simplifies to,
+
+$$
+r_c = \frac{\psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}}{\sqrt{r_{xx'}}\sqrt{r_{yy'}}}.
+$$
+
+We can use the same equation as @eq-biv-se to calculate the corrected sampling variance.
+
 
 ### Correcting Correlations in R
 
@@ -488,7 +517,7 @@ rc <- psi + sign(rxyS)*sqrt(psi^2 + 1)
 n <- length(xS)
 
 # calculate the observed correlation sampling variance
-var_e_o <- (1-rxyS^2)^2 / (n-1)
+var_e_o <- (1-rxyS^2)^2 / n
 
 # correct sampling variance
 var_e_c <- var_e_o * (rc/rxyS)^2
@@ -515,4 +544,130 @@ correct_r(rxyi = rxyS,
 ```
 
 We can see that the correction exactly reflects the correction done by hand.
+
+
+## Correcting Standardized Mean Differences for Direct Range Restriction
+
+### Defining our Estimand
+
+The quantity of interest is the unrestricted population standardized mean difference between groups $A$ and $B$ on variable, $y$. We can denote this standardized mean difference as $\delta$. Within a study that suffers from direct selection, the observed standardized mean difference ($d_S$) will be biased relative to our estimand, $\delta$. This bias can be denoted by $a$ such that,
+
+$$
+d_S= a \delta + \varepsilon.
+$$
+
+Therefore an unbiased estimate of the unrestricted population standardized mean difference would be
+
+$$
+d_c = \frac{ d_S }{ a}.
+$$
+### Artifact Correction for Standardized Mean Difference
+
+#### Selection on the Continuous Variable
+
+To correct for direct selection on the continuous variable, we can first convert the observed standardized mean difference ($d_S$) to a point-biserial correlation ($r_o$). Converting $d_S$ to $r_o$ can be done by using the observed proportion of individuals in group $A$ (or $B$), $p$,
+
+$$
+r_o = \frac{d_o}{\sqrt{\frac{1}{p(1-p)}-d_o^2}}.
+$$
+
+We can then correct the point-biserial correlation for univariate direct range restriction using the formulas in @sec-cor-DDR. Note that if you want to correct for measurement error as well, replace $r_{xx'}$ with $r_{gg'}$ (i.e., group classification reliability; see chapter on *group misclassification*) whenever you are working with standardized mean differences. Once we obtained the corrected correlation, $r_c$, we can convert back to a standardized mean difference, we need to use an adjusted group proportions, $p^*$:
+
+$$
+d_c = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
+$$
+Where $p^*$ is
+
+$$
+p^* = \frac{1-\sqrt{1-4p(1-p)\left[1+\frac{r_o^2}{u^2_x}-r_o^2\right]}}{2}
+$$
+
+The adjusted proportion, $p^*$, can also be estimated from the proportion of individuals in the unrestricted population (e.g., the proportion of men vs women in the general population). This adjustment is necessary in order to account for indirect selection in the grouping variable when $d\neq 0$. This is similar to the situation described in @sec-corr-DDR, where one variable suffers from direct range restriction and any variable that is correlated with it, will suffer from indirect selection. The corresponding corrected sampling error $\sigma_{\varepsilon_c d}$ can also be computed with the observed and adjusted proportions such that,
+
+$$
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}.
+$$
+
+### Correcting Standardized Mean Differences in R
+
+To correct for standardized mean differences in R, let us start by simulating data for groups, $A$ and $B$ with a true standardized mean difference of $\delta=0.50$.
+```{r,message=FALSE}
+# set seed
+set.seed(343)
+
+# define parameters 
+delta <- .50
+nA <- nB <- 500
+n <- nA+nB
+
+# sample data from a normal distribution for each group
+yA <- rnorm(nA,delta,1)
+yB <- rnorm(nB,0,1)
+
+# obtain unrestricted data
+y = c(yA,yB)
+group = c(rep('A',nA),rep('B',nB))
+```
+
+Now lets select individuals above the mean ($y$=0) and calculate the total sample $u_y$.
+
+```{r}
+# select individuals above the mean
+selected <- y > 0
+yS <- y[selected]
+groupS <- group[selected]
+
+# calculate u-ratio
+uy <- sd(yS)/sd(y)
+
+# print results
+paste0('uy = ',round(uy,3))
+```
+
+We can then calculate the observed standardized mean difference and correct it for univariate range restriction using the equations from the previous section.
+
+```{r}
+
+# calculate the observed standardized mean difference
+MeanDiff <- mean(yS[groupS=='A']) - mean(yS[groupS=='B'])
+SD_pooled <- sqrt((var(yS[groupS=='A']) + var(yS[groupS=='B']))/2)
+dS <- MeanDiff / SD_pooled 
+p <- mean(groupS=='A')
+
+## correct dS with three step procedure
+# step 1: convert d to r
+ro = dS / sqrt( 1/(p*(1-p)) + dS^2 )
+
+# step 2: correct r
+rc = ro / (uy * sqrt(1 + ro^2 * (1/uy^2-1)) )
+
+# step 3: obtain unrestricted proportion and then convert r to d
+p_true <- .5
+dc <- rc / sqrt( p_true*(1-p_true)*(1-rc^2) )
+
+
+# print results
+rbind(paste0('observed: do = ',round(dS,2)),
+      paste0('corrected: dc = ',round(dc,3)))
+
+```
+
+
+
+We can also use the `correct_d` function in the `psychmeta` package to correct for range restriction.
+
+```{r,message=FALSE}
+# load packages
+# install.packages('psychmeta')
+library(psychmeta)
+
+# correct using correct_d
+correct_d(d=dS,
+          correction = "uvdrr_y",
+          pi = p,
+          pa = p_true,
+          uy = uy)
+```
+
+In this case, columns ending with the letter `a` (indicating unrestricted sample) are the corrected values we are looking for.
 

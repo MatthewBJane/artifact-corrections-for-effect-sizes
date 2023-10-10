@@ -137,10 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 7&nbsp; Artificial Dichotomization">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/artificial_dichotomization_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/figure/twitter-card-image.png">
 <meta name="twitter:creator" content="@MatthewBJane">
-<meta name="twitter:image-height" content="960">
-<meta name="twitter:image-width" content="1344">
+<meta name="twitter:image-height" content="2241">
+<meta name="twitter:image-width" content="3424">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -186,7 +186,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
     <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
 </div>
@@ -419,13 +419,18 @@ a =\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}}.
 <p><span id="eq-dich-r"><span class="math display">\[
 r_c = \frac{r_{x_\ddagger y}}{\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \right]}.
 \tag{7.1}\]</span></span></p>
-<p>Where the sampling variance of the corrected correlation (<span class="math inline">\(\sigma^2_{\varepsilon_c}\)</span>) must also be adjusted using the compound attenuation factor and the observed sampling variance (<span class="math inline">\(\sigma^2_{\varepsilon_o}\)</span>),</p>
+<p>Where the sampling variance of the corrected correlation (<span class="math inline">\(\sigma^2_{\varepsilon_c}\)</span>) must also be adjusted using the artifact biasing factor (<span class="math inline">\(a\)</span>), and the observed sampling variance (<span class="math inline">\(\sigma^2_{\varepsilon_o}\)</span>),</p>
 <p><span class="math display">\[
 \sigma^2_{\varepsilon_c} =\frac{\sigma^2_{\varepsilon_o}} {a^2} =\frac{\sigma^2_{\varepsilon_o}} {\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \right]^2}.
 \]</span></p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="artificial_dichotomization_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="artificial_dichotomization_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">This figure shows the continuous distribution of scores split into a high scoring and low scoring group. The symbols relate to the notation in the equations shown in this section.</figcaption>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -436,28 +441,26 @@ r_c = \frac{r_{x_\ddagger y}}{\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \righ
 <div class="column" style="width:25%;">
 
 </div><div class="column" style="width:50%;">
-<table class="table-bordered table">
+<table class="table-hover table">
 <caption></caption>
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
 <col style="width: 33%">
 </colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;"></th>
-<th style="text-align: center;"><span class="math inline">\(x_\ddagger=\text{Low}\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(x_\ddagger=\text{High}\)</span></th>
-</tr>
-</thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(y_\ddagger=\text{Low}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">\(\boldsymbol{x_\ddagger=\text{Low}}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\boldsymbol{x_\ddagger=\text{High}}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\boldsymbol{y_\ddagger=\text{Low}}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(n_{LL}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(n_{HL}\)</span></td>
 </tr>
-<tr class="even">
-<td style="text-align: center;"><span class="math inline">\(y_\ddagger=\text{High}\)</span></td>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\boldsymbol{y_\ddagger=\text{High}}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(n_{LH}\)</span></td>
 <td style="text-align: center;"><span class="math inline">\(n_{HH}\)</span></td>
 </tr>
@@ -635,7 +638,13 @@ OR = \frac{\left(\frac{n_{A,\text{high}}}{n_{A,\text{low}}}\right)}{\left(\frac{
 <p><span class="math display">\[
 \sigma^2_{\log(OR)} = \frac{1}{n_{A,\text{low}}} + \frac{1}{n_{A,\text{high}}} + \frac{1}{n_{B,\text{low}}} + \frac{1}{n_{B,\text{high}}}
 \]</span></p>
-<p>The equation above requires the full contingency table to compute.</p>
+<p>The equation above requires the full contingency table to compute. From there we can use the cox-logit method to convert the odds ratio to a $d$ value <span class="citation" data-cites="cox1989 haddock1998">(<a href="references_page.html#ref-cox1989" role="doc-biblioref"><strong>cox1989?</strong></a>; <a href="references_page.html#ref-haddock1998" role="doc-biblioref"><strong>haddock1998?</strong></a>)</span>. Them method is quite simple as it just divides the log odds ratio by 1.65,</p>
+<p><span class="math display">\[
+d_c = \frac{\log(OR)}{1.65}
+\]</span> and the corresponding sampling variance of the <span class="math inline">\(d\)</span> value is,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\log(OR)}}{1.65^2}.
+\]</span></p>
 </section>
 </section>
 <section id="correcting-standardized-mean-differences-in-r" class="level3" data-number="7.4.3">

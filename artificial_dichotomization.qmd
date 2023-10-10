@@ -189,13 +189,15 @@ $$
 r_c = \frac{r_{x_\ddagger y}}{\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \right]}.
 $$ {#eq-dich-r}
 
-Where the sampling variance of the corrected correlation ($\sigma^2_{\varepsilon_c}$) must also be adjusted using the compound attenuation factor and the observed sampling variance ($\sigma^2_{\varepsilon_o}$),
+Where the sampling variance of the corrected correlation ($\sigma^2_{\varepsilon_c}$) must also be adjusted using the artifact biasing factor ($a$), and the observed sampling variance ($\sigma^2_{\varepsilon_o}$),
 
 $$
 \sigma^2_{\varepsilon_c} =\frac{\sigma^2_{\varepsilon_o}} {a^2} =\frac{\sigma^2_{\varepsilon_o}} {\left[\frac{\varphi(C_x)}{\sqrt{p_x(1-p_x)}} \right]^2}.
 $$
 
 ```{r,warning=FALSE, echo=FALSE}
+#| fig-cap: This figure shows the continuous distribution of scores split into a high scoring and low scoring group. The symbols relate to the notation in the equations shown in this section.
+
 ggplot(data = NULL, aes(y = 0, 
                         xdist = distributional::dist_normal(0,1),
                         fill=after_stat(x<qnorm(.70)))) +
@@ -227,12 +229,13 @@ In some cases, both independent and dependent variables are dichotomized inducin
 :::
 
 ::: {.column width="50%"}
-|                          | $x_\ddagger=\text{Low}$ | $x_\ddagger=\text{High}$ |
+|                          |                         |                          |
 |:----------------------:|:----------------------:|:----------------------:|
-| $y_\ddagger=\text{Low}$  |        $n_{LL}$         |         $n_{HL}$         |
-| $y_\ddagger=\text{High}$ |        $n_{LH}$         |         $n_{HH}$         |
+|                          | $\boldsymbol{x_\ddagger=\text{Low}}$ | $\boldsymbol{x_\ddagger=\text{High}}$ |
+| $\boldsymbol{y_\ddagger=\text{Low}}$  |        $n_{LL}$         |         $n_{HL}$         |
+| $\boldsymbol{y_\ddagger=\text{High}}$ |        $n_{LH}$         |         $n_{HH}$         |
 
-: {.bordered}
+: {.hover}
 :::
 
 ::: {.column width="25%"}
@@ -404,7 +407,7 @@ We can then correct the phi coefficient similar to how we correct the point-bise
 
 $$
 r_c = \frac{r_o}{\left[\frac{\varphi(C_y)}{\sqrt{p_y (1-p_y)}}\right]}.
-$$ 
+$$
 
 Then we can convert the corrected correlation back into a standardized mean difference,
 
@@ -424,16 +427,21 @@ In most cases, difference in dichotomized outcomes between two groups is unlikel
 
 $$
 OR = \frac{\left(\frac{n_{A,\text{high}}}{n_{A,\text{low}}}\right)}{\left(\frac{n_{B,\text{high}}}{n_{B,\text{low}}}\right)}
-$$
-Where $n_{Group,\text{high/low}}$ is the corresponding sample size. The odds ratio is asymmetric about $1$ (null), but we can make it symmetric by log transforming it ($\log(OR)$). The sampling variance of the log odds ratio $\sigma^2_{\log(OR)}$ can be defined as,
+$$ Where $n_{Group,\text{high/low}}$ is the corresponding sample size. The odds ratio is asymmetric about $1$ (null), but we can make it symmetric by log transforming it ($\log(OR)$). The sampling variance of the log odds ratio $\sigma^2_{\log(OR)}$ can be defined as,
 
 $$
 \sigma^2_{\log(OR)} = \frac{1}{n_{A,\text{low}}} + \frac{1}{n_{A,\text{high}}} + \frac{1}{n_{B,\text{low}}} + \frac{1}{n_{B,\text{high}}}
 $$
 
-The equation above requires the full contingency table to compute.
+The equation above requires the full contingency table to compute. From there we can use the cox-logit method to convert the odds ratio to a \$d\$ value [@cox1989; @haddock1998]. Them method is quite simple as it just divides the log odds ratio by 1.65,
 
+$$
+d_c = \frac{\log(OR)}{1.65}
+$$ and the corresponding sampling variance of the $d$ value is,
 
+$$
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\log(OR)}}{1.65^2}.
+$$
 
 ### Correcting Standardized Mean Differences in R
 

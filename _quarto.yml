@@ -12,13 +12,12 @@ book:
   url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
   site-url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
   date: "10/08/2023"
-  repo-url: https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages
+  repo-url: https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/
   sharing: [twitter]
   downloads: [pdf]
   author:
   - name: "Matthew B. Jané"
     url: https://matthewbjane.com
-    affiliation: University of Connecticut
   cover-image: figure/cover_photo.png
   chapters:
     - index.qmd
@@ -53,6 +52,8 @@ format:
     code-overflow: scroll
   pdf: 
     documentclass: book
-    
+
+citeproc: true
+
 editor: visual
 

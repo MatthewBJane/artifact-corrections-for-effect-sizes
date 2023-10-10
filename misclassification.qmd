@@ -66,12 +66,13 @@ Misclassification can be defined as any deviations between true group membership
 :::
 
 ::: {.column width="50%"}
-|       | $G=A$ | $G=B$ |
-|:------|:-----:|:-----:|
-| $g=A$ | $AA$  | $BA$  |
-| $g=B$ | $AB$  | $BB$  |
+|       |       |       |
+|:-----:|:-----:|:-----:|
+|       | $\boldsymbol{G=A}$ | $\boldsymbol{G=B}$ |
+| $\boldsymbol{g=A}$ | $AA$  | $BA$  |
+| $\boldsymbol{g=B}$ | $AB$  | $BB$  |
 
-: {.bordered .hover}
+: {.hover}
 :::
 
 ::: {.column width="25%"}
@@ -89,12 +90,13 @@ Similar to quantifying reliability in continuous variables by calculating the co
 :::
 
 ::: {.column width="50%"}
-|        | $g=A$ | $g=B$ |
+|        |       |       |
 |:------:|:-----:|:-----:|
-| $g'=A$ | $AA$  | $BA$  |
-| $g'=B$ | $AB$  | $BB$  |
+|        | $\boldsymbol{g=A}$ | $\boldsymbol{g=B}$ |
+| $\boldsymbol{g'=A}$ | $AA$  | $BA$  |
+| $\boldsymbol{g'=B}$ | $AB$  | $BB$  |
 
-: {.bordered}
+: {.hover}
 :::
 
 ::: {.column width="25%"}
@@ -129,7 +131,7 @@ $$
 r_{gG}=\sqrt{r_{gg'}}.
 $$
 
-## Calculating Classification Reliability in R
+## Calculating Group Classification Reliability in R
 
 To calculate classification reliability we will first need data. We can simulate 100 subjects with a group value for three variables: a true group membership and two sets of assigned (observed) group membership. We will set the misclassification rate to 10%.
 
@@ -211,7 +213,7 @@ Our quantity of interest is the true population standardized mean difference, $\
 
 $$
 d_o = a\delta + \varepsilon.
-$$ 
+$$
 
 Where $\varepsilon$ denotes the sampling error. Therefore an unbiased (corrected) estimate of the true population correlation would be:
 
@@ -416,7 +418,7 @@ We can then correct the point-biserial correlation for group misclassification w
 
 $$
 r_c = \frac{r_o}{\sqrt{r_{gg'}}}.
-$$ 
+$$
 
 If we also wanted to correct for measurement error in the dependent variable $y$, we can use the correction formula used in the chapter 4
 
@@ -427,7 +429,7 @@ $$
 Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference ($d_c$). When converting back to a standardized mean difference, we need to use the true group proportions, $p^*$. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used $p$:
 
 $$
-\hat{\delta} = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
+d_c = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
 $$
 
 Instead of doing the converting, correcting, and back-converting for the sampling variance, we can correct the sampling variance in a single step,
@@ -444,18 +446,16 @@ $$
 
 ## Correcting for Misclassification in R
 
-We can correct for group misclassification in R by hand or by using the `psychmeta` package [@dahlke2019]. For our correction, say we got an observed standardized mean difference of $d = 0.50$ and we calculated the classification reliability to be $r_{gg'} = .80$. Let us also say that the observed *and* the true proportion of individuals in one of the groups is $p=p^*=.40$, therefore the other group would be $1-p=1-p^*=.60$.
+We can correct for group misclassification in R by hand or by using the `psychmeta` package [@dahlke2019]. For our correction, say we have an observed standardized mean difference of $d_o = 0.40$ and we calculated the classification reliability to be $r_{gg'} = .80$. Let us also say that the observed *and* the true proportion of individuals in one of the groups is $p=p^*=.40$, therefore the other group would be $1-p=1-p^*=.60$.
 
 ```{r}
-d = .50
+do = .40
 rgg = .70
 nA = 40
 nB = 60
 ```
 
-#### Using the *psychmeta* package {.unnumbered}
-
-The `psychmeta` package has a function, `correct_d`, that is dedicated to correcting standardized mean differences multiple types of artifacts including group misclassification.
+The `psychmeta` package [@dahlke2019] has a function, `correct_d`, that is dedicated to correcting standardized mean differences multiple types of artifacts including group misclassification.
 
 ```{r, message=FALSE}
 # step 1: install and load in psychmeta
@@ -463,11 +463,11 @@ The `psychmeta` package has a function, `correct_d`, that is dedicated to correc
 library(psychmeta)
 
 # step 2: calculate proportion of group membership
-p = nA / (nA + nB)
+p <- nA / (nA + nB)
 # p = nB / (nA + nB) # alternative calculation
 
 # step 3: correct d for group misclassification
-correct_d(d = d,
+correct_d(d = do,
           rGg = sqrt(rgg), # square root of rgg = rGg
           correction = "meas",
           pi = p,
@@ -479,28 +479,29 @@ correct_d(d = d,
 
 The output provides the corrected standardized mean difference (`value`), the upper and lower 95% confidence intervals (`CI_LL_95` and `CI_UL_95`), the sample size (`n`), and the effective sample size (`n_effective`).
 
-#### Correcting by hand {.unnumbered}
-
-To calculate the corrected standardized mean difference, we can use the equations in @sec-corrections.
+To calculate the corrected standardized mean difference, we can also use the equations in the previous section.
 
 ```{r}
-## Calculate point estimate
+## correct using three step procedure
 # step 1: convert d to r
-r = d / sqrt( 1/(p*(1-p)) + d^2)
+ro <- do / sqrt( 1/(p*(1-p)) + do^2)
 
 # step 2: correct r
-rho = r / sqrt(rgg)
+rc <- ro / sqrt(rgg)
 
 # step 3: convert r to d
-delta = rho / sqrt( p*(1-p)*(1-rho^2) )
+dc <- rc / sqrt( p*(1-p)*(1-rc^2) )
 
-## Calculate sampling variance
-# step 1: compute sampling variance for r
-v_d = (nA+nB)/(nA*nB) + d^2 / (2*(nA+nB))
+## correct sampling variance
+# step 1: compute sampling variance for do
+var_e_o <- (nA+nB)/(nA*nB) + do^2 / (2*(nA+nB))
 
 # step 2: adjust sampling variance for correction
-v_delta = (v_d * (rho/r)^2) / ((1 + d^2)^3 * p*(1-p) * (1-rho^2)^3)
+var_e_c <- (var_e_o * (rc/ro)^2) / ((1 + do^2)^3 * p*(1-p) * (1-rc^2)^3)
 
 # print corrected values
-paste0('corrected: d = ',round(delta,3),',  var = ', round(v_delta,3))
+rbind(paste0('corrected: do = ',round(do,3)),
+      paste0('corrected: var = ', round(var_e_o,3)),
+      paste0('corrected: dc = ',round(dc,3)),
+      paste0('corrected: var = ', round(var_e_c,3)))
 ```

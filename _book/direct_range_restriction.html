@@ -137,10 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 9&nbsp; Direct Selection">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/direct_range_restriction_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/figure/twitter-card-image.png">
 <meta name="twitter:creator" content="@MatthewBJane">
-<meta name="twitter:image-height" content="960">
-<meta name="twitter:image-width" content="1344">
+<meta name="twitter:image-height" content="2241">
+<meta name="twitter:image-width" content="3424">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -186,8 +186,24 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
         <div class="sidebar-tools-main tools-wide">
-    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
-    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Artifact-Corrections-for-Effect-Sizes.pdf">
+              <i class="bi bi-bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Artifact-Corrections-for-Effect-Sizes.epub">
+              <i class="bi bi-bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
     <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
 </div>
     </div>
@@ -326,8 +342,13 @@ div.csl-indent {
   <li><a href="#correcting-correlations-for-direct-range-restriction" id="toc-correcting-correlations-for-direct-range-restriction" class="nav-link" data-scroll-target="#correcting-correlations-for-direct-range-restriction"><span class="header-section-number">9.4</span> Correcting Correlations for Direct Range Restriction</a>
   <ul class="collapse">
   <li><a href="#defining-our-estimand" id="toc-defining-our-estimand" class="nav-link" data-scroll-target="#defining-our-estimand"><span class="header-section-number">9.4.1</span> Defining our Estimand</a></li>
-  <li><a href="#artifact-correction-for-correlations" id="toc-artifact-correction-for-correlations" class="nav-link" data-scroll-target="#artifact-correction-for-correlations"><span class="header-section-number">9.4.2</span> Artifact Correction for Correlations</a></li>
+  <li><a href="#sec-corr-DDR" id="toc-sec-corr-DDR" class="nav-link" data-scroll-target="#sec-corr-DDR"><span class="header-section-number">9.4.2</span> Artifact Correction for Correlations</a></li>
   <li><a href="#correcting-correlations-in-r" id="toc-correcting-correlations-in-r" class="nav-link" data-scroll-target="#correcting-correlations-in-r"><span class="header-section-number">9.4.3</span> Correcting Correlations in R</a></li>
+  </ul></li>
+  <li><a href="#correcting-standardized-mean-differences-for-direct-range-restriction" id="toc-correcting-standardized-mean-differences-for-direct-range-restriction" class="nav-link" data-scroll-target="#correcting-standardized-mean-differences-for-direct-range-restriction"><span class="header-section-number">9.5</span> Correcting Standardized Mean Differences for Direct Range Restriction</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-estimand-1" id="toc-defining-our-estimand-1" class="nav-link" data-scroll-target="#defining-our-estimand-1"><span class="header-section-number">9.5.1</span> Defining our Estimand</a></li>
+  <li><a href="#correcting-standardized-mean-differences-in-r" id="toc-correcting-standardized-mean-differences-in-r" class="nav-link" data-scroll-target="#correcting-standardized-mean-differences-in-r"><span class="header-section-number">9.5.2</span> Correcting Standardized Mean Differences in R</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -371,17 +392,17 @@ u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}.
 <h2 data-number="9.4" class="anchored" data-anchor-id="correcting-correlations-for-direct-range-restriction"><span class="header-section-number">9.4</span> Correcting Correlations for Direct Range Restriction</h2>
 <section id="defining-our-estimand" class="level3" data-number="9.4.1">
 <h3 data-number="9.4.1" class="anchored" data-anchor-id="defining-our-estimand"><span class="header-section-number">9.4.1</span> Defining our Estimand</h3>
-<p>For our study we want to estimate the population correlation of the unrestricted scores of the independent (<span class="math inline">\(x\)</span>) and dependent variable (<span class="math inline">\(y\)</span>). We can denote this correlation as <span class="math inline">\(\rho_{xy_S}\)</span>. The restricted population correlation can be denoted as <span class="math inline">\(\rho_{xy_S}\)</span>. Within a study that suffers from range restriction, the study correlation (<span class="math inline">\(r_{xy_S}\)</span>) will be biased relative to our estimand, <span class="math inline">\(\rho_{xy}\)</span>. This bias can be denoted by <span class="math inline">\(a\)</span> such that,</p>
+<p>For our study we want to estimate the population correlation of the unrestricted scores of the independent (<span class="math inline">\(x\)</span>) and dependent variable (<span class="math inline">\(y\)</span>). We can denote this correlation as <span class="math inline">\(\rho_{xy_S}\)</span>. Within a study that suffers from range restriction, the correlation (<span class="math inline">\(r_{xy_S}\)</span>) will be biased relative to our estimand, <span class="math inline">\(\rho_{xy}\)</span>. This bias can be denoted by <span class="math inline">\(a\)</span> such that,</p>
 <p><span class="math display">\[
-r_{xy} = a \rho_{xy_S} + \varepsilon.
+r_{xy} = a \rho_{xy} + \varepsilon.
 \]</span></p>
 <p>Therefore an unbiased estimate of the unrestricted population correlation would be</p>
 <p><span class="math display">\[
 r_c = \frac{ r_{xy_S} }{ a}.
 \]</span></p>
 </section>
-<section id="artifact-correction-for-correlations" class="level3" data-number="9.4.2">
-<h3 data-number="9.4.2" class="anchored" data-anchor-id="artifact-correction-for-correlations"><span class="header-section-number">9.4.2</span> Artifact Correction for Correlations</h3>
+<section id="sec-corr-DDR" class="level3" data-number="9.4.2">
+<h3 data-number="9.4.2" class="anchored" data-anchor-id="sec-corr-DDR"><span class="header-section-number">9.4.2</span> Artifact Correction for Correlations</h3>
 <section id="the-univariate-case" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="the-univariate-case">The Univariate Case</h4>
 <p>Range restriction (or enhancement) in either the independent or dependent variable will induce bias into the correlation coefficient. Let us consider a case where just the independent variable is restricted (or enhanced) such that <span class="math inline">\(u_x\neq 1\)</span>, but the dependent variable is not restricted (directly). It is important to note, that if there is direct selection one of the two variables, then there will be indirect selection in the other variable too if the two are correlated. This would suggest that if <span class="math inline">\(u_x\neq 1\)</span> and <span class="math inline">\(\rho_{xy}\neq 0\)</span> then <span class="math inline">\(u_y\neq 1\)</span>. Lets visualize the correlation between independent (<span class="math inline">\(x\)</span>) and dependent (<span class="math inline">\(y\)</span>) variables under this range restriction by only selecting individuals above some cut off. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of about 0.69 in the independent variable. We see in the figure that the correlation in the restricted scores (<span class="math inline">\(\rho_{xy_S}\)</span>) is attenuated relative to the unrestricted (true) correlation (<span class="math inline">\(\rho_{xy}\)</span>).</p>
@@ -399,15 +420,23 @@ r_c = \frac{ r_{xy_S} }{ a}.
 <p>It starts to become apparent that if <span class="math inline">\(u_x&gt;1\)</span> (i.e., <span class="math inline">\(\sigma_x&gt;\sigma_{x_S}\)</span>) the observed correlation over-estimates the true, unrestricted correlation and under-estimates the unrestricted correlation when <span class="math inline">\(u_x&lt;1\)</span> <span class="citation" data-cites="sackett2000">(i.e., <span class="math inline">\(\sigma_x&lt;\sigma_{x_S}\)</span>, <a href="references_page.html#ref-sackett2000" role="doc-biblioref">Sackett and Yang 2000</a>)</span>.</p>
 <p>A bias correction formula for univariate direct range restriction was first developed by <span class="citation" data-cites="pearson1903">Pearson (<a href="references_page.html#ref-pearson1903" role="doc-biblioref">1903</a>)</span> and provided more recently by <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="references_page.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span>. To correct for the systematic bias in correlations, we can use the <span class="math inline">\(u\)</span>-ratio of the independent variable such that,</p>
 <p><span id="eq-univariate"><span class="math display">\[
-r_c = \frac{r_{xy_S}}{u_x\left(1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]\right)}
+r_c = \frac{r_{xy_S}}{u_x\sqrt{1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]}}.
 \tag{9.1}\]</span></span></p>
-<p>Where the sampling variance of the corrected correlation is</p>
+<p>Where the sampling variance of the corrected correlation is,</p>
 <p><span id="eq-univariate-se"><span class="math display">\[
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
 \tag{9.2}\]</span></span></p>
+<p>If we want to also correct for measurement error in both samples, then we can also incorporate measurement into these equations. Note that the following equations will incorporate the reliability within the selected sample (<span class="math inline">\(r_{xx'_S}\)</span>) rather than the unrestricted population (<span class="math inline">\(r_{xx'}\)</span>). If the reliability coefficient comes from the unrestricted population, then we can estimate the selected (restricted or enhanced) sample reliability with the corresponding <span class="math inline">\(u\)</span>-ratio,</p>
+<p><span id="eq-samp-reliability"><span class="math display">\[
+r_{xx'_S} = 1-\frac{1-r_{xx'}}{u^2_x}.
+\tag{9.3}\]</span></span></p>
+<p>Then we can use the calculated reliability in the following equation to obtain an unbiased estimate of the true score unrestricted population correlation (<span class="math inline">\(r_c = \hat{\rho}_{TU}\)</span>),</p>
+<p><span class="math display">\[
+r_c=\frac{r_{xy_S}}{u_x\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{r_{yy'_S}+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]}}.
+\]</span> We can use the same equation as <a href="indirect_range_restriction.html#eq-univariate-se">Equation&nbsp;<span>10.4</span></a> to calculate the corrected sampling variance.</p>
 </section>
-<section id="the-bivariate-case" class="level4" data-number="9.4.2.1">
-<h4 data-number="9.4.2.1" class="anchored" data-anchor-id="the-bivariate-case"><span class="header-section-number">9.4.2.1</span> The Bivariate Case</h4>
+<section id="the-bivariate-case" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="the-bivariate-case">The Bivariate Case</h4>
 <p>Bivariate direct range restriction/enhancement occurs when the variability in both independent and dependent variables within the selected sample is less than or greater than the variability in the unrestricted population. Let us consider a case where just the independent variable is restricted (or enhanced) such that <span class="math inline">\(u_x\neq 1\)</span> and <span class="math inline">\(u_y \neq 1\)</span>. Like we showed for the univariate case, let’s visualize the correlation between independent (<span class="math inline">\(x\)</span>) and dependent (<span class="math inline">\(y\)</span>) variables under range restriction by only selecting individuals above some cut off point for both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of about 0.70 in the independent variable and dependent variables. We see in the figure that the correlation in the restricted sample (<span class="math inline">\(\rho_{xy_S}\)</span>) is attenuated relative to the unrestricted (true) correlation (<span class="math inline">\(\rho_{xy}\)</span>).</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -423,14 +452,23 @@ r_c = \frac{r_{xy_S}}{u_x\left(1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]\right)
 <p>A bias correction formula for bivariate range restriction is much more complicated than the univariate formulation. This is due to the fact that there is inter-dependence between the correlation, the <span class="math inline">\(u\)</span>-ratio of <span class="math inline">\(x\)</span>, and the <span class="math inline">\(u\)</span>-ratio of <span class="math inline">\(y\)</span>. For instance, if <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> are positively correlated and if there is direct range restriction in <span class="math inline">\(x\)</span> this will also restrict the variability in y even if there is no range restriction in <span class="math inline">\(y\)</span>. To break down the correction formula into simpler parts, let us first define a factor we will denote with <span class="math inline">\(\psi\)</span>,</p>
 <p><span id="eq-biv-1"><span class="math display">\[
 \psi = \frac{u_x u_y\left(r_{xy_S}^2-1\right)}{2r_{xy_S}}
-\tag{9.3}\]</span></span> This factor contains all the parameters needed to correct the correlation coefficient under direct selection (<span class="math inline">\(r_{xy_S}\)</span>). Then we can plug it into the formula</p>
+\tag{9.4}\]</span></span></p>
+<p>This factor contains all the parameters needed to correct the correlation coefficient under direct selection (<span class="math inline">\(r_{xy_S}\)</span>). Then we can plug it into the formula</p>
 <p><span id="eq-biv-2"><span class="math display">\[
 r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
-\tag{9.4}\]</span></span></p>
+\tag{9.5}\]</span></span></p>
 <p>Where the sampling variance of the corrected correlation is,</p>
 <p><span id="eq-biv-se"><span class="math display">\[
 \sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
-\tag{9.5}\]</span></span></p>
+\tag{9.6}\]</span></span></p>
+<p>Now let us also consider a case where measurement error is present in both independent and dependent variables. Note again that the following equations will incorporate the reliability within the selected sample (<span class="math inline">\(r_{xx'_S}\)</span>) rather than the unrestricted population (<span class="math inline">\(r_{xx'}\)</span>). Then we can use the restricted/enhanced (selected) sample reliability and the <span class="math inline">\(u\)</span>-ratios in the following equation to obtain an unbiased estimate of the true score unrestricted population correlation (<span class="math inline">\(r_c = \hat{\rho}_{TU}\)</span>),</p>
+<p><span class="math display">\[
+r_c = \frac{\psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}}{\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{1-u_y^2(1-r_{yy'_S})}}.
+\]</span> If the reliability coefficient comes from the unrestricted population, the formula simplifies to,</p>
+<p><span class="math display">\[
+r_c = \frac{\psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}}{\sqrt{r_{xx'}}\sqrt{r_{yy'}}}.
+\]</span></p>
+<p>We can use the same equation as <a href="#eq-biv-se">Equation&nbsp;<span>9.6</span></a> to calculate the corrected sampling variance.</p>
 </section>
 </section>
 <section id="correcting-correlations-in-r" class="level3" data-number="9.4.3">
@@ -565,7 +603,7 @@ r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
 [2,] "restricted: rxyS = 0.29"</code></pre>
 </div>
 </div>
-<p>Notice that there is even more attenuation in the selected correlation coefficient than there was in the univariate case. Now we can correct for bivariate range restriction by hand using <a href="#eq-biv-1">Equation&nbsp;<span>9.3</span></a>, <a href="#eq-biv-2">Equation&nbsp;<span>9.4</span></a>, <a href="#eq-biv-se">Equation&nbsp;<span>9.5</span></a>.</p>
+<p>Notice that there is even more attenuation in the selected correlation coefficient than there was in the univariate case. Now we can correct for bivariate range restriction by hand using <a href="#eq-biv-1">Equation&nbsp;<span>9.4</span></a>, <a href="#eq-biv-2">Equation&nbsp;<span>9.5</span></a>, <a href="#eq-biv-se">Equation&nbsp;<span>9.6</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the factor, psi</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>psi <span class="ot">&lt;-</span> ux<span class="sc">*</span>uy<span class="sc">*</span>(rxyS<span class="sc">^</span><span class="dv">2-1</span>) <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>rxyS)</span>
@@ -577,7 +615,7 @@ r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(xS)</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the observed correlation sampling variance</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>var_e_o <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>rxyS<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (n<span class="dv">-1</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>var_e_o <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>rxyS<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># correct sampling variance</span></span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>var_e_c <span class="ot">&lt;-</span> var_e_o <span class="sc">*</span> (rc<span class="sc">/</span>rxyS)<span class="sc">^</span><span class="dv">2</span></span>
@@ -612,6 +650,125 @@ r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
 </div>
 </div>
 <p>We can see that the correction exactly reflects the correction done by hand.</p>
+</section>
+</section>
+</section>
+<section id="correcting-standardized-mean-differences-for-direct-range-restriction" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="correcting-standardized-mean-differences-for-direct-range-restriction"><span class="header-section-number">9.5</span> Correcting Standardized Mean Differences for Direct Range Restriction</h2>
+<section id="defining-our-estimand-1" class="level3" data-number="9.5.1">
+<h3 data-number="9.5.1" class="anchored" data-anchor-id="defining-our-estimand-1"><span class="header-section-number">9.5.1</span> Defining our Estimand</h3>
+<p>The quantity of interest is the unrestricted population standardized mean difference between groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> on variable, <span class="math inline">\(y\)</span>. We can denote this standardized mean difference as <span class="math inline">\(\delta\)</span>. Within a study that suffers from direct selection, the observed standardized mean difference (<span class="math inline">\(d_S\)</span>) will be biased relative to our estimand, <span class="math inline">\(\delta\)</span>. This bias can be denoted by <span class="math inline">\(a\)</span> such that,</p>
+<p><span class="math display">\[
+d_S= a \delta + \varepsilon.
+\]</span></p>
+<p>Therefore an unbiased estimate of the unrestricted population standardized mean difference would be</p>
+<p><span class="math display">\[
+d_c = \frac{ d_S }{ a}.
+\]</span> ### Artifact Correction for Standardized Mean Difference</p>
+<section id="selection-on-the-continuous-variable" class="level4" data-number="9.5.1.1">
+<h4 data-number="9.5.1.1" class="anchored" data-anchor-id="selection-on-the-continuous-variable"><span class="header-section-number">9.5.1.1</span> Selection on the Continuous Variable</h4>
+<p>To correct for direct selection on the continuous variable, we can first convert the observed standardized mean difference (<span class="math inline">\(d_S\)</span>) to a point-biserial correlation (<span class="math inline">\(r_o\)</span>). Converting <span class="math inline">\(d_S\)</span> to <span class="math inline">\(r_o\)</span> can be done by using the observed proportion of individuals in group <span class="math inline">\(A\)</span> (or <span class="math inline">\(B\)</span>), <span class="math inline">\(p\)</span>,</p>
+<p><span class="math display">\[
+r_o = \frac{d_o}{\sqrt{\frac{1}{p(1-p)}-d_o^2}}.
+\]</span></p>
+<p>We can then correct the point-biserial correlation for univariate direct range restriction using the formulas in <span class="quarto-unresolved-ref">?sec-cor-DDR</span>. Note that if you want to correct for measurement error as well, replace <span class="math inline">\(r_{xx'}\)</span> with <span class="math inline">\(r_{gg'}\)</span> (i.e., group classification reliability; see chapter on <em>group misclassification</em>) whenever you are working with standardized mean differences. Once we obtained the corrected correlation, <span class="math inline">\(r_c\)</span>, we can convert back to a standardized mean difference, we need to use an adjusted group proportions, <span class="math inline">\(p^*\)</span>:</p>
+<p><span class="math display">\[
+d_c = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
+\]</span> Where <span class="math inline">\(p^*\)</span> is</p>
+<p><span class="math display">\[
+p^* = \frac{1-\sqrt{1-4p(1-p)\left[1+\frac{r_o^2}{u^2_x}-r_o^2\right]}}{2}
+\]</span></p>
+<p>The adjusted proportion, <span class="math inline">\(p^*\)</span>, can also be estimated from the proportion of individuals in the unrestricted population (e.g., the proportion of men vs women in the general population). This adjustment is necessary in order to account for indirect selection in the grouping variable when <span class="math inline">\(d\neq 0\)</span>. This is similar to the situation described in <a href="#sec-corr-DDR"><span>Section&nbsp;9.4.2</span></a>, where one variable suffers from direct range restriction and any variable that is correlated with it, will suffer from indirect selection. The corresponding corrected sampling error <span class="math inline">\(\sigma_{\varepsilon_c d}\)</span> can also be computed with the observed and adjusted proportions such that,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}.
+\]</span></p>
+</section>
+</section>
+<section id="correcting-standardized-mean-differences-in-r" class="level3" data-number="9.5.2">
+<h3 data-number="9.5.2" class="anchored" data-anchor-id="correcting-standardized-mean-differences-in-r"><span class="header-section-number">9.5.2</span> Correcting Standardized Mean Differences in R</h3>
+<p>To correct for standardized mean differences in R, let us start by simulating data for groups, <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> with a true standardized mean difference of <span class="math inline">\(\delta=0.50\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">343</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># define parameters </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>nA <span class="ot">&lt;-</span> nB <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> nA<span class="sc">+</span>nB</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># sample data from a normal distribution for each group</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>yA <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nA,delta,<span class="dv">1</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>yB <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(nB,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># obtain unrestricted data</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">c</span>(yA,yB)</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>group <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">'A'</span>,nA),<span class="fu">rep</span>(<span class="st">'B'</span>,nB))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now lets select individuals above the mean (<span class="math inline">\(y\)</span>=0) and calculate the total sample <span class="math inline">\(u_y\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select individuals above the mean</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>selected <span class="ot">&lt;-</span> y <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>yS <span class="ot">&lt;-</span> y[selected]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>groupS <span class="ot">&lt;-</span> group[selected]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate u-ratio</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>uy <span class="ot">&lt;-</span> <span class="fu">sd</span>(yS)<span class="sc">/</span><span class="fu">sd</span>(y)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(<span class="st">'uy = '</span>,<span class="fu">round</span>(uy,<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "uy = 0.613"</code></pre>
+</div>
+</div>
+<p>We can then calculate the observed standardized mean difference and correct it for univariate range restriction using the equations from the previous section.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the observed standardized mean difference</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>MeanDiff <span class="ot">&lt;-</span> <span class="fu">mean</span>(yS[groupS<span class="sc">==</span><span class="st">'A'</span>]) <span class="sc">-</span> <span class="fu">mean</span>(yS[groupS<span class="sc">==</span><span class="st">'B'</span>])</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>SD_pooled <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((<span class="fu">var</span>(yS[groupS<span class="sc">==</span><span class="st">'A'</span>]) <span class="sc">+</span> <span class="fu">var</span>(yS[groupS<span class="sc">==</span><span class="st">'B'</span>]))<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>dS <span class="ot">&lt;-</span> MeanDiff <span class="sc">/</span> SD_pooled </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">mean</span>(groupS<span class="sc">==</span><span class="st">'A'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="do">## correct dS with three step procedure</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># step 1: convert d to r</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>ro <span class="ot">=</span> dS <span class="sc">/</span> <span class="fu">sqrt</span>( <span class="dv">1</span><span class="sc">/</span>(p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)) <span class="sc">+</span> dS<span class="sc">^</span><span class="dv">2</span> )</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># step 2: correct r</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>rc <span class="ot">=</span> ro <span class="sc">/</span> (uy <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">+</span> ro<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span>uy<span class="sc">^</span><span class="dv">2-1</span>)) )</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># step 3: obtain unrestricted proportion and then convert r to d</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>p_true <span class="ot">&lt;-</span> .<span class="dv">5</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>dc <span class="ot">&lt;-</span> rc <span class="sc">/</span> <span class="fu">sqrt</span>( p_true<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_true)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>rc<span class="sc">^</span><span class="dv">2</span>) )</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rbind</span>(<span class="fu">paste0</span>(<span class="st">'observed: do = '</span>,<span class="fu">round</span>(dS,<span class="dv">2</span>)),</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">'corrected: dc = '</span>,<span class="fu">round</span>(dc,<span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]                   
+[1,] "observed: do = 0.27"  
+[2,] "corrected: dc = 0.426"</code></pre>
+</div>
+</div>
+<p>We can also use the <code>correct_d</code> function in the <code>psychmeta</code> package to correct for range restriction.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('psychmeta')</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># correct using correct_d</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">correct_d</span>(<span class="at">d=</span>dS,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">correction =</span> <span class="st">"uvdrr_y"</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">pi =</span> p,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">pa =</span> p_true,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">uy =</span> uy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>d Values Corrected for Measurement Error and Univariate Direct Range Restriction:
+---------------------------------------------------------------------------------------
+   dgyi  dgpi  dGyi  dGpi  dgya  dgpa  dGya  dGpa
+1 0.262 0.262 0.262 0.262 0.426 0.426 0.426 0.426</code></pre>
+</div>
+</div>
+<p>In this case, columns ending with the letter <code>a</code> (indicating unrestricted sample) are the corrected values we are looking for.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -637,7 +794,6 @@ Wechsler, David. 2008. <em>Wechsler Adult Intelligence Scale–Fourth Edition</e
 Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining Unbiased Results in Meta-Analysis: The Importance of Correcting for Statistical Artifacts.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
 </div>
 </div>
-</section>
 </section>
 </section>
 
