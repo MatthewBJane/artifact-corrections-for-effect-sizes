@@ -137,7 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 9&nbsp; Direct Selection">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="direct_range_restriction_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/direct_range_restriction_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="960">
+<meta name="twitter:image-width" content="1344">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -182,6 +185,11 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -285,12 +293,23 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -310,7 +329,6 @@ div.csl-indent {
   <li><a href="#artifact-correction-for-correlations" id="toc-artifact-correction-for-correlations" class="nav-link" data-scroll-target="#artifact-correction-for-correlations"><span class="header-section-number">9.4.2</span> Artifact Correction for Correlations</a></li>
   <li><a href="#correcting-correlations-in-r" id="toc-correcting-correlations-in-r" class="nav-link" data-scroll-target="#correcting-correlations-in-r"><span class="header-section-number">9.4.3</span> Correcting Correlations in R</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">9.5</span> References</a></li>
   </ul>
 </nav>
     </div>
@@ -322,25 +340,25 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">9.1</span> Introduction</h2>
-<p>Direct selection occurs when subjects are explicitly selected based on some eligibility criterion on the variables of interest (rather than a third variable). Range restriction is a form of selection bias that describes a situation where there is less variation in our sample then there is in the population. Whereas range enhancement indicates that there is <em>more</em> variation in a sample then there is in the population. Direct range restriction/enhancement (as opposed to indirect range restriction) is when selection into the sample is based on the variable(s) of interest (i.e., the independent and/or dependent variable). This selection into the sample will either restrict or enhance the variation in the variable, thus causing</p>
+<p>Direct selection occurs when subjects are explicitly selected based on some eligibility criterion on the variables of interest (rather than a third variable). Range restriction is a form of selection bias that describes a situation where there is less variation in our sample then there is in the population. Whereas range enhancement indicates that there is <em>more</em> variation in a sample then there is in the population. Direct range restriction/enhancement biases the variances and effect size estimates.</p>
 </section>
 <section id="an-applied-example-of-direct-range-restriction" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="an-applied-example-of-direct-range-restriction"><span class="header-section-number">9.2</span> An Applied Example of Direct Range Restriction</h2>
-<p>Imagine a tech company that wants to assess the correlation between years of experience and programming proficiency for their software engineers. They have two primary divisions: Division A and Division B. Division A primarily hires entry-level software engineers, with less than 3 years of experience. Division B, on the other hand, hires experienced software engineers with more than 3 years of experience. The company decides to conduct a study to assess the correlation between years of experience and programming proficiency. However, they only collect data from Division A due to logistical reasons, assuming that the relationship found there would be represent. the entire company. In this scenario, direct range restriction occurs because the sample used for the study (Division A) represents a narrow range of years of experience (0-3 years) compared to the broader range present in the entire company (0+ years). Consequently, the standard deviation will be smaller in the sample then it would if we had sampled from the entire company. As we will see in later sections of this chapter, the observed correlation between years of experience and programming proficiency would be attenuated, underestimating the true correlation.</p>
+<p>Imagine a tech company that wants to assess the correlation between years of experience and programming proficiency for their software engineers. They have two primary divisions: Division A and Division B. Division A primarily hires entry-level software engineers, with less than 3 years of experience. Division B, on the other hand, hires experienced software engineers with more than 3 years of experience. The company decides to conduct a study to assess the correlation between years of experience and programming proficiency. However, they only collect data from Division A due to logistical reasons, assuming that the relationship found there would be represent the entire company. In this scenario, direct range restriction occurs because the sample used for the study (Division A) represents a narrow range of years of experience (0-3 years) compared to the broader range present in the entire company (0+ years). Consequently, the standard deviation will be smaller in the sample then it would if we had sampled from the entire company. As we will see in later sections of this chapter, the observed correlation between years of experience and programming proficiency would be attenuated, underestimating the true correlation.</p>
 </section>
 <section id="indexing-range-restriction-with-the-u-ratio" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="indexing-range-restriction-with-the-u-ratio"><span class="header-section-number">9.3</span> Indexing Range Restriction with the <em>u</em>-ratio</h2>
-<p>The distribution of scores in the unrestricted pool of individuals will exhibit a greater (or lesser) degree of variability compared to the sample that has been selected into the study. Therefore the standard deviation of scores in the unrestricted population (<span class="math inline">\(\sigma_x\)</span>) will differ from that of the selected (restricted/enhanced) sample (<span class="math inline">\(\sigma_{x_{S}}\)</span>). To index the difference between the two standard deviations, we can calculate the <span class="math inline">\(u\)</span>-ratio <span class="citation" data-cites="hunter1990a">Wiernik and Dahlke (<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>. The <span class="math inline">\(u\)</span>-ratio is the ratio between the standard deviations of the selected sample to the unrestricted sample such that,</p>
+<p>The distribution of scores in the unrestricted pool of individuals will exhibit a greater (or lesser) degree of variability compared to the sample that has been selected into the study. Therefore the standard deviation of scores in the unrestricted population (<span class="math inline">\(\sigma_x\)</span>) will differ from that of the selected (restricted/enhanced) sample (<span class="math inline">\(\sigma_{x_{S}}\)</span>). To index the difference between the two standard deviations, we can calculate the <span class="math inline">\(u\)</span>-ratio <span class="citation" data-cites="hunter1990a">Wiernik and Dahlke (<a href="references_page.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>. The <span class="math inline">\(u\)</span>-ratio is the ratio between the standard deviations of the selected sample to the unrestricted sample such that,</p>
 <p><span class="math display">\[
 u_x = \frac{\sigma_{x_S}}{\sigma_x}
 \]</span></p>
-<p>The <span class="math inline">\(u\)</span>-ratio in cases of range restriction will exist in the interval (0–1). Conversely, when the <span class="math inline">\(u\)</span>-ratio is greater than 1 it is indicative of range enhancement. The unrestricted standard deviation is often quite difficult to acquire since we do not usually have access to the unrestricted group. However, the unrestricted standard deviation can be estimated from some reference study that has been conducted on the unrestricted group. This often comes in the form of standardization samples or norm samples (obtained from test manuals) if the unrestricted group is the general population. For example, the distribution full-scale IQ scores derived from the Wechsler Adult Intelligence Test has a standard deviation of 15 in the US population <span class="citation" data-cites="wechsler2008">(<a href="direct_range_restriction.html#ref-wechsler2008" role="doc-biblioref">Wechsler 2008</a>)</span>. We can use this estimate as the standard deviation for the unrestricted population. Lets say we select a sample from members of Mensa, a high IQ society, who are specifically selected on the basis high IQ scores. If the standard deviation of Mensa members is 5, then the <span class="math inline">\(u\)</span>-ratio would be,</p>
+<p>The <span class="math inline">\(u\)</span>-ratio in cases of range restriction will exist in the interval (0–1). Conversely, when the <span class="math inline">\(u\)</span>-ratio is greater than 1 it is indicative of range enhancement. The unrestricted standard deviation is often quite difficult to acquire since we do not usually have access to the unrestricted group. However, the unrestricted standard deviation can be estimated from some reference study that has been conducted on the unrestricted group. This often comes in the form of standardization samples or norm samples (obtained from test manuals) if the unrestricted group is the general population. For example, the distribution full-scale IQ scores derived from the Wechsler Adult Intelligence Test has a standard deviation of 15 in the US population <span class="citation" data-cites="wechsler2008">(<a href="references_page.html#ref-wechsler2008" role="doc-biblioref">Wechsler 2008</a>)</span>. We can use this estimate as the standard deviation for the unrestricted population. Lets say we select a sample from members of Mensa, a high IQ society, who are specifically selected on the basis high IQ scores. If the standard deviation of Mensa members is 5, then the <span class="math inline">\(u\)</span>-ratio would be,</p>
 <p><span class="math display">\[
-u =  \frac{\sigma_{x_S}}{\sigma_x} = \frac{5}{15}= .33
+u_x =  \frac{\sigma_{x_S}}{\sigma_x} = \frac{5}{15}= .33\, .
 \]</span></p>
 <p>However it is not always the case that an estimate of the unrestricted standard deviation is readily available. Therefore if the reliability coefficient from the unrestricted and selected sample can be used to estimate the <span class="math inline">\(u\)</span>-ratio,</p>
 <p><span class="math display">\[
-u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}
+u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}.
 \]</span></p>
 <p>Where <span class="math inline">\(r_{xx'_S}\)</span> and <span class="math inline">\(r_{xx'}\)</span> are the reliability estimates within the selected and unrestricted groups respectively.</p>
 <div class="cell">
@@ -353,9 +371,9 @@ u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}
 <h2 data-number="9.4" class="anchored" data-anchor-id="correcting-correlations-for-direct-range-restriction"><span class="header-section-number">9.4</span> Correcting Correlations for Direct Range Restriction</h2>
 <section id="defining-our-estimand" class="level3" data-number="9.4.1">
 <h3 data-number="9.4.1" class="anchored" data-anchor-id="defining-our-estimand"><span class="header-section-number">9.4.1</span> Defining our Estimand</h3>
-<p>For our study we want to estimate the population correlation of the unrestricted scores of the independent (<span class="math inline">\(x_\mathcal{U}\)</span>) and dependent variable (<span class="math inline">\(y_S\)</span>). We can denote this correlation as <span class="math inline">\(\rho_{xy_S}\)</span>. The restricted population correlation can be denoted as <span class="math inline">\(\rho_{xy_S}\)</span>. Within a study that suffers from range restriction, the study correlation (<span class="math inline">\(r_{xy_{\mathcal{R}}}\)</span>) will be biased relative to our estimand, <span class="math inline">\(\rho_{xy_{\mathcal{U}}}\)</span>. This bias can be denoted by <span class="math inline">\(a\)</span> such that,</p>
+<p>For our study we want to estimate the population correlation of the unrestricted scores of the independent (<span class="math inline">\(x\)</span>) and dependent variable (<span class="math inline">\(y\)</span>). We can denote this correlation as <span class="math inline">\(\rho_{xy_S}\)</span>. The restricted population correlation can be denoted as <span class="math inline">\(\rho_{xy_S}\)</span>. Within a study that suffers from range restriction, the study correlation (<span class="math inline">\(r_{xy_S}\)</span>) will be biased relative to our estimand, <span class="math inline">\(\rho_{xy}\)</span>. This bias can be denoted by <span class="math inline">\(a\)</span> such that,</p>
 <p><span class="math display">\[
-r_{xy} = a \rho_{xy_S} + \varepsilon  
+r_{xy} = a \rho_{xy_S} + \varepsilon.
 \]</span></p>
 <p>Therefore an unbiased estimate of the unrestricted population correlation would be</p>
 <p><span class="math display">\[
@@ -366,20 +384,20 @@ r_c = \frac{ r_{xy_S} }{ a}.
 <h3 data-number="9.4.2" class="anchored" data-anchor-id="artifact-correction-for-correlations"><span class="header-section-number">9.4.2</span> Artifact Correction for Correlations</h3>
 <section id="the-univariate-case" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="the-univariate-case">The Univariate Case</h4>
-<p>Range restriction (or enhancement) in either the independent or dependent variable will induce bias into the correlation coefficient. Let us consider a case where just the independent variable is restricted (or enhanced) such that <span class="math inline">\(u_x\neq 1\)</span>, but the dependent variable is not restricted (directly). It is important to note, that if there is direct selection one of the two variables, then there will be indirect selection in the other variable if the two are correlated. This would suggest that if <span class="math inline">\(u_x\neq 1\)</span> and <span class="math inline">\(\rho_{xy}\neq 0\)</span> then <span class="math inline">\(u_y\neq 1\)</span>. Lets visualize the correlation between independent (<span class="math inline">\(x\)</span>) and dependent (<span class="math inline">\(y\)</span>) variables under this range restriction by only selecting individuals above some cut off. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of about 0.69 in the independent variable. We see in the figure that the correlation in the restricted scores (<span class="math inline">\(\rho_{xy_S}\)</span>) is attenuated relative to the unrestricted (true) correlation (<span class="math inline">\(\rho_{xy}\)</span>).</p>
+<p>Range restriction (or enhancement) in either the independent or dependent variable will induce bias into the correlation coefficient. Let us consider a case where just the independent variable is restricted (or enhanced) such that <span class="math inline">\(u_x\neq 1\)</span>, but the dependent variable is not restricted (directly). It is important to note, that if there is direct selection one of the two variables, then there will be indirect selection in the other variable too if the two are correlated. This would suggest that if <span class="math inline">\(u_x\neq 1\)</span> and <span class="math inline">\(\rho_{xy}\neq 0\)</span> then <span class="math inline">\(u_y\neq 1\)</span>. Lets visualize the correlation between independent (<span class="math inline">\(x\)</span>) and dependent (<span class="math inline">\(y\)</span>) variables under this range restriction by only selecting individuals above some cut off. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of about 0.69 in the independent variable. We see in the figure that the correlation in the restricted scores (<span class="math inline">\(\rho_{xy_S}\)</span>) is attenuated relative to the unrestricted (true) correlation (<span class="math inline">\(\rho_{xy}\)</span>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="direct_range_restriction_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>We can also visualize what happens to the correlation when the range is enhanced. Enhancement can be accomplished by selecting individuals at the ends of the distribution <span class="citation" data-cites="taylor1976">(<a href="direct_range_restriction.html#ref-taylor1976" role="doc-biblioref">Taylor and Griess 1976</a>)</span>. In the visualization below, we see an opposite effect on the correlation, that is, an over-estimate of the unrestricted correlation rather than an attenuation like we see under range restriction. The scenario below has a <span class="math inline">\(u\)</span>-ratio of about 1.39 in the independent variable.</p>
+<p>We can also visualize what happens to the correlation when the range is enhanced. Enhancement can be accomplished by selecting individuals at the ends of the distribution <span class="citation" data-cites="taylor1976">(<a href="references_page.html#ref-taylor1976" role="doc-biblioref">Taylor and Griess 1976</a>)</span>. In the visualization below, we see an opposite effect on the correlation, that is, an over-estimate of the unrestricted correlation rather than an attenuation like we see under range restriction. The scenario below has a <span class="math inline">\(u\)</span>-ratio of about 1.26 in the independent variable.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="direct_range_restriction_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>It starts to become apparent that if <span class="math inline">\(u_x&gt;1\)</span> (i.e., <span class="math inline">\(\sigma_x&gt;\sigma_\mathcal{x_S}\)</span>) the observed correlation over-estimates the true, unrestricted correlation and under-estimates the unrestricted correlation when <span class="math inline">\(u_x&lt;1\)</span> <span class="citation" data-cites="sackett2000">(i.e., <span class="math inline">\(\sigma_x&lt;\sigma_\mathcal{x_S}\)</span>, <a href="direct_range_restriction.html#ref-sackett2000" role="doc-biblioref">Sackett and Yang 2000</a>)</span>.</p>
-<p>A bias correction formula for univariate direct range restriction was first developed by <span class="citation" data-cites="pearson1903">Pearson (<a href="direct_range_restriction.html#ref-pearson1903" role="doc-biblioref">1903</a>)</span> and provided more recently by <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span>. To correct for the systematic bias in correlations, we can use the <span class="math inline">\(u\)</span>-ratio of the independent variable such that,</p>
+<p>It starts to become apparent that if <span class="math inline">\(u_x&gt;1\)</span> (i.e., <span class="math inline">\(\sigma_x&gt;\sigma_{x_S}\)</span>) the observed correlation over-estimates the true, unrestricted correlation and under-estimates the unrestricted correlation when <span class="math inline">\(u_x&lt;1\)</span> <span class="citation" data-cites="sackett2000">(i.e., <span class="math inline">\(\sigma_x&lt;\sigma_{x_S}\)</span>, <a href="references_page.html#ref-sackett2000" role="doc-biblioref">Sackett and Yang 2000</a>)</span>.</p>
+<p>A bias correction formula for univariate direct range restriction was first developed by <span class="citation" data-cites="pearson1903">Pearson (<a href="references_page.html#ref-pearson1903" role="doc-biblioref">1903</a>)</span> and provided more recently by <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="references_page.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span>. To correct for the systematic bias in correlations, we can use the <span class="math inline">\(u\)</span>-ratio of the independent variable such that,</p>
 <p><span id="eq-univariate"><span class="math display">\[
 r_c = \frac{r_{xy_S}}{u_x\left(1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]\right)}
 \tag{9.1}\]</span></span></p>
@@ -390,7 +408,7 @@ r_c = \frac{r_{xy_S}}{u_x\left(1+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]\right)
 </section>
 <section id="the-bivariate-case" class="level4" data-number="9.4.2.1">
 <h4 data-number="9.4.2.1" class="anchored" data-anchor-id="the-bivariate-case"><span class="header-section-number">9.4.2.1</span> The Bivariate Case</h4>
-<p>Bivariate direct range restriction/enhancement occurs when the variability in both independent and dependent variables within the selected sample is less than or greater than the variability in the unrestricted population. Let us consider a case where just the independent variable is restricted (or enhanced) such that <span class="math inline">\(u_x\neq 1\)</span> and <span class="math inline">\(u_y \neq 1\)</span>. Like we showed for the univariate case, let’s visualize the correlation between independent (<span class="math inline">\(x\)</span>) and dependent (<span class="math inline">\(y\)</span>) variables under range restriction by only selecting individuals above some cut off point for both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of about 0.69 in the independent variable and dependent variables. We see in the figure that the correlation in the restricted sample (<span class="math inline">\(\rho_{xy_S}\)</span>) is attenuated relative to the unrestricted (true) correlation (<span class="math inline">\(\rho_{xy}\)</span>).</p>
+<p>Bivariate direct range restriction/enhancement occurs when the variability in both independent and dependent variables within the selected sample is less than or greater than the variability in the unrestricted population. Let us consider a case where just the independent variable is restricted (or enhanced) such that <span class="math inline">\(u_x\neq 1\)</span> and <span class="math inline">\(u_y \neq 1\)</span>. Like we showed for the univariate case, let’s visualize the correlation between independent (<span class="math inline">\(x\)</span>) and dependent (<span class="math inline">\(y\)</span>) variables under range restriction by only selecting individuals above some cut off point for both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of about 0.70 in the independent variable and dependent variables. We see in the figure that the correlation in the restricted sample (<span class="math inline">\(\rho_{xy_S}\)</span>) is attenuated relative to the unrestricted (true) correlation (<span class="math inline">\(\rho_{xy}\)</span>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="direct_range_restriction_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
@@ -504,7 +522,7 @@ r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
 [2,] "corrected var: var_e = 0.02"</code></pre>
 </div>
 </div>
-<p>The correction formula produced a very close estimate of the true population correlation (<span class="math inline">\(r_c = .49\)</span> vs <span class="math inline">\(\rho_{xy}=.50\)</span>). Lets also correct the correlation using the <code>correct_r</code> function in the psychmeta package, <code>psychmeta</code> <span class="citation" data-cites="dahlke2019">(<a href="direct_range_restriction.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>.</p>
+<p>The correction formula produced a very close estimate of the true population correlation (<span class="math inline">\(r_c = .49\)</span> vs <span class="math inline">\(\rho_{xy}=.50\)</span>). Lets also correct the correlation using the <code>correct_r</code> function in the psychmeta package, <code>psychmeta</code> <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load packages</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('psychmeta')</span></span>
@@ -594,240 +612,33 @@ r_c = \psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}
 </div>
 </div>
 <p>We can see that the correction exactly reflects the correction done by hand.</p>
-</section>
-</section>
-</section>
-<section id="references" class="level2" data-number="9.5">
-<h2 data-number="9.5" class="anchored" data-anchor-id="references"><span class="header-section-number">9.5</span> References</h2>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-aguinis2009" class="csl-entry" role="listitem">
-Aguinis, Herman, Charles A Pierce, and Steven A Culpepper. 2009.
-<span>“Scale Coarseness as a Methodological Artifact,”</span> September.
-</div>
-<div id="ref-borenstein2010" class="csl-entry" role="listitem">
-Borenstein, Michael, Larry V. Hedges, Julian P. T. Higgins, and Hannah
-R. Rothstein. 2010. <span>“A Basic Introduction to Fixed-Effect and
-Random-Effects Models for Meta-Analysis.”</span> <em>Research Synthesis
-Methods</em> 1 (2): 97–111. <a href="https://doi.org/10.1002/jrsm.12">https://doi.org/10.1002/jrsm.12</a>.
-</div>
-<div id="ref-borsboom2002" class="csl-entry" role="listitem">
-Borsboom, Denny, and Gideon J Mellenbergh. 2002. <span>“True Scores,
-Latent Variables, and Constructs: A Comment on Schmidt and
-Hunter.”</span>
-</div>
-<div id="ref-borsboom2004" class="csl-entry" role="listitem">
-Borsboom, Denny, Gideon J. Mellenbergh, and Jaap Van Heerden. 2004.
-<span>“The Concept of Validity.”</span> <em>Psychological Review</em>
-111 (4): 1061–71. <a href="https://doi.org/10.1037/0033-295X.111.4.1061">https://doi.org/10.1037/0033-295X.111.4.1061</a>.
-</div>
-<div id="ref-brannick2019" class="csl-entry" role="listitem">
-Brannick, Michael T., Sean M. Potter, Bryan Benitez, and Scott B.
-Morris. 2019. <span>“Bias and Precision of Alternate Estimators in
-Meta-Analysis: Benefits of Blending Schmidt-Hunter and Hedges
-Approaches.”</span> <em>Organizational Research Methods</em> 22 (2):
-490–514. <a href="https://doi.org/10.1177/1094428117741966">https://doi.org/10.1177/1094428117741966</a>.
-</div>
-<div id="ref-bravais1844" class="csl-entry" role="listitem">
-Bravais, A. 1844. <em>Analyse mathématique sur les probabilités des
-erreurs de situation d’un point</em>. Impr. Royale.
-</div>
-<div id="ref-callender1980" class="csl-entry" role="listitem">
-Callender, John C., and H. G. Osburn. 1980. <span>“Development and Test
-of a New Model for Validity Generalization.”</span> <em>Journal of
-Applied Psychology</em> 65 (5): 543–58. <a href="https://doi.org/10.1037/0021-9010.65.5.543">https://doi.org/10.1037/0021-9010.65.5.543</a>.
-</div>
-<div id="ref-cohen1988" class="csl-entry" role="listitem">
-Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral
-Sciences</em>. Academic Press.
-</div>
-<div id="ref-cohen1977" class="csl-entry" role="listitem">
-———. 2013. <em>Statistical Power Analysis for the Behavioral
-Sciences</em>. Academic Press.
-</div>
-<div id="ref-cronbach1955" class="csl-entry" role="listitem">
-Cronbach, Lee J., and Paul E. Meehl. 1955. <span>“Construct Validity in
-Psychological Tests.”</span> <em>Psychological Bulletin</em> 52 (4):
-281–302. <a href="https://doi.org/10.1037/h0040957">https://doi.org/10.1037/h0040957</a>.
-</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-dahlke2019" class="csl-entry" role="listitem">
-Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R
-Package for Psychometric Meta-Analysis.”</span> <em>Applied
-Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
-</div>
-<div id="ref-dahlke2020" class="csl-entry" role="listitem">
-———. 2020. <span>“Not Restricted to Selection Research: Accounting for
-Indirect Range Restriction in Organizational Research.”</span>
-<em>Organizational Research Methods</em> 23 (4): 717–49. <a href="https://doi.org/10.1177/1094428119859398">https://doi.org/10.1177/1094428119859398</a>.
-</div>
-<div id="ref-dersimonian2007" class="csl-entry" role="listitem">
-DerSimonian, Rebecca, and Raghu N. Kacker. 2007. <span>“Random-Effects
-Model for Meta-Analysis of Clinical Trials: An Update.”</span>
-<em>NIST</em> 28 (January): 105–14. <a href="https://www.nist.gov/publications/random-effects-model-meta-analysis-clinical-trials-update">https://www.nist.gov/publications/random-effects-model-meta-analysis-clinical-trials-update</a>.
-</div>
-<div id="ref-galton1907" class="csl-entry" role="listitem">
-Galton, Francis. 1907. <span>“Vox Populi.”</span> <em>Nature</em> 75
-(1949): 450–51. <a href="https://doi.org/10.1038/075450a0">https://doi.org/10.1038/075450a0</a>.
-</div>
-<div id="ref-haertel2006" class="csl-entry" role="listitem">
-Haertel, Edward H. 2006. <span>“3. Reliability.”</span> In, 4th ed.
-</div>
-<div id="ref-hedges1981" class="csl-entry" role="listitem">
-Hedges, Larry V. 1981. <span>“Distribution Theory for Glass’s Estimator
-of Effect Size and Related Estimators.”</span> <em>Journal of
-Educational Statistics</em> 6 (2): 107–28. <a href="https://doi.org/10.3102/10769986006002107">https://doi.org/10.3102/10769986006002107</a>.
-</div>
-<div id="ref-hedges1989" class="csl-entry" role="listitem">
-———. 1989. <span>“An Unbiased Correction for Sampling Error in Validity
-Generalization Studies.”</span> <em>Journal of Applied Psychology</em>
-74 (3): 469–77. <a href="https://doi.org/10.1037/0021-9010.74.3.469">https://doi.org/10.1037/0021-9010.74.3.469</a>.
-</div>
-<div id="ref-hedges2014" class="csl-entry" role="listitem">
-Hedges, Larry V., and Ingram Olkin. 2014. <em>Statistical Methods for
-Meta-Analysis</em>. Academic press. <a href="https://books.google.com/books?hl=en&amp;lr=&amp;id=7GviBQAAQBAJ&amp;oi=fnd&amp;pg=PP1&amp;dq=info:e6P1zfh2T6QJ:scholar.google.com&amp;ots=Dx-YqN6_9B&amp;sig=-39HgbYdWPp_BwSTzA9cRODs2Q0">https://books.google.com/books?hl=en&amp;lr=&amp;id=7GviBQAAQBAJ&amp;oi=fnd&amp;pg=PP1&amp;dq=info:e6P1zfh2T6QJ:scholar.google.com&amp;ots=Dx-YqN6_9B&amp;sig=-39HgbYdWPp_BwSTzA9cRODs2Q0</a>.
-</div>
-<div id="ref-hedges1998" class="csl-entry" role="listitem">
-Hedges, Larry V., and Jack L. Vevea. 1998. <span>“Fixed- and
-Random-Effects Models in Meta-Analysis.”</span> <em>Psychological
-Methods</em> 3 (4): 486–504. <a href="https://doi.org/10.1037/1082-989X.3.4.486">https://doi.org/10.1037/1082-989X.3.4.486</a>.
+Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
 </div>
 <div id="ref-hunter1990a" class="csl-entry" role="listitem">
-Hunter, John E., and Frank L. Schmidt. 1990. <em>Methods of
-meta-analysis: correcting error and bias in research findings</em>.
-Newbury Park: Sage Publications.
-</div>
-<div id="ref-hunter1990" class="csl-entry" role="listitem">
-Hunter, John, and Frank Schmidt. 1990. <span>“Dichotomization of
-Continuous Variables: The Implications for Meta-Analysis.”</span>
-<em>Journal of Applied Psychology</em> 75 (June): 334–49. <a href="https://doi.org/10.1037/0021-9010.75.3.334">https://doi.org/10.1037/0021-9010.75.3.334</a>.
-</div>
-<div id="ref-johnson1995" class="csl-entry" role="listitem">
-Johnson, Blair T., Brian Mullen, and Eduardo Salas. 1995.
-<span>“Comparison of Three Major Meta-Analytic Approaches.”</span>
-<em>Journal of Applied Psychology</em> 80 (1): 94–106. <a href="https://doi.org/10.1037/0021-9010.80.1.94">https://doi.org/10.1037/0021-9010.80.1.94</a>.
-</div>
-<div id="ref-kelley1927" class="csl-entry" role="listitem">
-Kelley, Truman Lee. 1927. <em>Interpretation of Educational
-Measurements</em>. World Book Company.
-</div>
-<div id="ref-laird1990" class="csl-entry" role="listitem">
-Laird, Nan M., and Frederick Mosteller. 1990. <span>“Some Statistical
-Methods for Combining Experimental Results.”</span> <em>International
-Journal of Technology Assessment in Health Care</em> 6 (1): 5–30. <a href="https://doi.org/10.1017/S0266462300008916">https://doi.org/10.1017/S0266462300008916</a>.
-</div>
-<div id="ref-mcdaniel1994" class="csl-entry" role="listitem">
-McDaniel, Michael A., Deborah L. Whetzel, Frank L. Schmidt, and Steven
-D. Maurer. 1994. <span>“The Validity of Employment Interviews: A
-Comprehensive Review and Meta-Analysis.”</span> <em>Journal of Applied
-Psychology</em> 79 (4): 599–616. <a href="https://doi.org/10.1037/0021-9010.79.4.599">https://doi.org/10.1037/0021-9010.79.4.599</a>.
-</div>
-<div id="ref-morris2014" class="csl-entry" role="listitem">
-Morris, Scott, Rebecca Daisley, Megan Wheeler, and Peggy Boyer. 2014.
-<span>“A Meta-Analysis of the Relationship Between Individual
-Assessments and Job Performance.”</span> <em>The Journal of Applied
-Psychology</em> 100 (May). <a href="https://doi.org/10.1037/a0036938">https://doi.org/10.1037/a0036938</a>.
-</div>
-<div id="ref-murphy2003" class="csl-entry" role="listitem">
-Murphy, Kevin R. 2003. <em>Validity Generalization: A Critical
-Review</em>. Psychology Press.
-</div>
-<div id="ref-olkin1958" class="csl-entry" role="listitem">
-Olkin, Ingram, and John W. Pratt. 1958. <span>“Unbiased Estimation of
-Certain Correlation Coefficients.”</span> <em>The Annals of Mathematical
-Statistics</em> 29 (1): 201–11. <a href="https://www.jstor.org/stable/2237306">https://www.jstor.org/stable/2237306</a>.
+Hunter, John E., and Frank L. Schmidt. 1990. <em>Methods of meta-analysis: correcting error and bias in research findings</em>. Newbury Park: Sage Publications.
 </div>
 <div id="ref-pearson1903" class="csl-entry" role="listitem">
-Pearson, Karl. 1903. <span>“I. Mathematical Contributions to the Theory
-of Evolution. <span></span>XI. On the Influence of Natural Selection on
-the Variability and Correlation of Organs.”</span> <em>Philosophical
-Transactions of the Royal Society of London. Series A, Containing Papers
-of a Mathematical or Physical Character</em> 200 (321-330): 1–66. <a href="https://doi.org/10.1098/rsta.1903.0001">https://doi.org/10.1098/rsta.1903.0001</a>.
-</div>
-<div id="ref-pearson1913" class="csl-entry" role="listitem">
-———. 1913. <span>“On the Probable Error of a Coefficient of Correlation
-as Found from a Fourfold Table.”</span> <em>Biometrika</em> 9 (1/2):
-22–33. <a href="https://doi.org/10.2307/2331798">https://doi.org/10.2307/2331798</a>.
-</div>
-<div id="ref-peters1940" class="csl-entry" role="listitem">
-Peters, Charles C., and Walter R. Van Voorhis. 1940. <span>“Further
-Methods of Correlation.”</span> In, 362–403. New York, NY, US:
-McGraw-Hill Book Company. <a href="https://doi.org/10.1037/13596-013">https://doi.org/10.1037/13596-013</a>.
-</div>
-<div id="ref-psych:p2017" class="csl-entry" role="listitem">
-<span>“Psych: Procedures for Personality and Psychological
-Research.”</span> 2017. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.
-</div>
-<div id="ref-raju1983" class="csl-entry" role="listitem">
-Raju, Nambury, and Michael Burke. 1983. <span>“Two Procedures for
-Studying Validity Generalization.”</span> <em>Journal of Applied
-Psychology</em> 68 (August): 382–95. <a href="https://doi.org/10.1037/0021-9010.68.3.382">https://doi.org/10.1037/0021-9010.68.3.382</a>.
-</div>
-<div id="ref-roth2015" class="csl-entry" role="listitem">
-Roth, Bettina. 2015. <span>“Intelligence and School Grades: A
-Meta-Analysis.”</span>
+Pearson, Karl. 1903. <span>“I. Mathematical Contributions to the Theory of Evolution. <span></span>XI. On the Influence of Natural Selection on the Variability and Correlation of Organs.”</span> <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em> 200 (321-330): 1–66. <a href="https://doi.org/10.1098/rsta.1903.0001">https://doi.org/10.1098/rsta.1903.0001</a>.
 </div>
 <div id="ref-sackett2000" class="csl-entry" role="listitem">
-Sackett, Paul R., and Hyuckseung Yang. 2000. <span>“Correction for Range
-Restriction: An Expanded Typology.”</span> <em>Journal of Applied
-Psychology</em> 85 (1): 112–18. <a href="https://doi.org/10.1037/0021-9010.85.1.112">https://doi.org/10.1037/0021-9010.85.1.112</a>.
-</div>
-<div id="ref-schmidt1977" class="csl-entry" role="listitem">
-Schmidt, Frank, and John Hunter. 1977. <span>“Development of a General
-Solution to the Problem of Validity Generalization.”</span> <em>Journal
-of Applied Psychology</em> 62 (October): 529–40. <a href="https://doi.org/10.1037/0021-9010.62.5.529">https://doi.org/10.1037/0021-9010.62.5.529</a>.
-</div>
-<div id="ref-spearman1904" class="csl-entry" role="listitem">
-Spearman, C. 1904. <span>“The Proof and Measurement of Association
-Between Two Things.”</span> <em>International Journal of
-Epidemiology</em> 39 (5): 1137–50. <a href="https://doi.org/10.1093/ije/dyq191">https://doi.org/10.1093/ije/dyq191</a>.
+Sackett, Paul R., and Hyuckseung Yang. 2000. <span>“Correction for Range Restriction: An Expanded Typology.”</span> <em>Journal of Applied Psychology</em> 85 (1): 112–18. <a href="https://doi.org/10.1037/0021-9010.85.1.112">https://doi.org/10.1037/0021-9010.85.1.112</a>.
 </div>
 <div id="ref-taylor1976" class="csl-entry" role="listitem">
-Taylor, Erwin K., and Thomas Griess. 1976. <span>“The Missing Middle in
-Validation Research.”</span> <em>Personnel Psychology</em> 29 (1): 5–11.
-<a href="https://doi.org/10.1111/j.1744-6570.1976.tb00397.x">https://doi.org/10.1111/j.1744-6570.1976.tb00397.x</a>.
-</div>
-<div id="ref-viechtbauer2010" class="csl-entry" role="listitem">
-Viechtbauer, Wolfgang. 2010. <span>“Conducting meta-analyses in R with
-the metafor package.”</span> <em>Journal of Statistical Software</em> 36
-(3): 1–48. <a href="https://doi.org/10.18637/jss.v036.i03">https://doi.org/10.18637/jss.v036.i03</a>.
-</div>
-<div id="ref-viechtbauer" class="csl-entry" role="listitem">
-———. n.d. <span>“Fixed-Effects and Random-Effects Models in
-Meta-Analysis.”</span> <a href="https://wviechtb.github.io/metafor/index.html">https://wviechtb.github.io/metafor/index.html</a>.
-</div>
-<div id="ref-viswesvaran1995" class="csl-entry" role="listitem">
-Viswesvaran, Chockalingam, and Deniz S. Ones. 1995. <span>“Theory
-Testing: Combining Psychometric Meta-Analysis and Structural Equations
-Modeling.”</span> <em>Personnel Psychology</em> 48 (4): 865–85. <a href="https://doi.org/10.1111/j.1744-6570.1995.tb01784.x">https://doi.org/10.1111/j.1744-6570.1995.tb01784.x</a>.
-</div>
-<div id="ref-vos2022" class="csl-entry" role="listitem">
-Vos, Paul, and Don Holbert. 2022. <span>“Frequentist Statistical
-Inference Without Repeated Sampling.”</span> <em>Synthese</em> 200 (2):
-89. <a href="https://doi.org/10.1007/s11229-022-03560-x">https://doi.org/10.1007/s11229-022-03560-x</a>.
+Taylor, Erwin K., and Thomas Griess. 1976. <span>“The Missing Middle in Validation Research.”</span> <em>Personnel Psychology</em> 29 (1): 5–11. <a href="https://doi.org/10.1111/j.1744-6570.1976.tb00397.x">https://doi.org/10.1111/j.1744-6570.1976.tb00397.x</a>.
 </div>
 <div id="ref-wechsler2008" class="csl-entry" role="listitem">
-Wechsler, David. 2008. <em>Wechsler Adult Intelligence Scale–Fourth
-Edition</em>. 4th ed. <a href="https://doi.org/10.1037/t15169-000">https://doi.org/10.1037/t15169-000</a>.
-</div>
-<div id="ref-whitener1990" class="csl-entry" role="listitem">
-Whitener, Ellen M. 1990. <span>“Confusion of Confidence Intervals and
-Credibility Intervals in Meta-Analysis.”</span> <em>Journal of Applied
-Psychology</em> 75 (3): 315–21. <a href="https://doi.org/10.1037/0021-9010.75.3.315">https://doi.org/10.1037/0021-9010.75.3.315</a>.
+Wechsler, David. 2008. <em>Wechsler Adult Intelligence Scale–Fourth Edition</em>. 4th ed. <a href="https://doi.org/10.1037/t15169-000">https://doi.org/10.1037/t15169-000</a>.
 </div>
 <div id="ref-wiernik2020" class="csl-entry" role="listitem">
-Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining
-Unbiased Results in Meta-Analysis: The Importance of Correcting for
-Statistical Artifacts.”</span> <em>Advances in Methods and Practices in
-Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
-</div>
-<div id="ref-wylie1976" class="csl-entry" role="listitem">
-Wylie, Peter B. 1976. <span>“Effects of Coarse Grouping and Skewed
-Marginal Distributions on the Pearson Product Moment Correlation
-Coefficient.”</span> <em>Educational and Psychological Measurement</em>
-36 (1): 1–7. <a href="https://doi.org/10.1177/001316447603600101">https://doi.org/10.1177/001316447603600101</a>.
+Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining Unbiased Results in Meta-Analysis: The Importance of Correcting for Statistical Artifacts.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
 </div>
 </div>
-
-
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

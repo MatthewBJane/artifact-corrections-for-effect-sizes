@@ -59,17 +59,16 @@ $$
 This weighted average will be an unbiased estimate of the population effect size. However, even though this mean effect size is more precise compared to single-study estimates, it is not exempt from error itself. In the fixed-effects model, we can obtain the standard error of our estimate of the population effect size using,
 
 $$
-SE_\hat{\vartheta} = \sqrt{\frac{\sigma^2_\varepsilon}{k}}
-$$
+SE_{\hat{\vartheta}} = \sqrt{\frac{\sigma^2_\varepsilon}{k}}
+$$ 
 The standard error can be used to comput the 95% confidence intervals of the meta-analytic point estimate:
 
 $$
-\vartheta_{\text{Lower}} = \hat{\vartheta}- 1.96 \cdot SE_\hat{\vartheta}
+\vartheta_{\text{Lower}} = \hat{\vartheta}- 1.96 \cdot SE_{\hat{\vartheta}}
+$$ 
 $$
+\vartheta_{\text{Upper}} = \hat{\vartheta}+ 1.96\cdot SE_{\hat{\vartheta}}
 $$
-\vartheta_{\text{Upper}} = \hat{\vartheta}+ 1.96\cdot SE_\hat{\vartheta}
-$$
-
 
 ### Fixed Effects Meta-Analysis of Correlations {#sec-fixed-corr}
 
@@ -91,18 +90,17 @@ $$
 \sigma^2_{\varepsilon_i} = \frac{\left(1-\rho^2\right)^2}{n_i}
 $$ {#eq-fixed-cor-se}
 
-Note that formulation includes the population correlation, which is unknown. Also notice that, since the population correlation is fixed, the inverse sampling variance would be proportional to the sample size ($1/\sigma_{\varepsilon_i} \propto n_i$). For this reason, we can use the sample size as our weights. We can estimate the population correlation, $\rho$, by taking the $n$-weighted average,
+Note that formulation includes the population correlation, which is unknown. Also notice that, since the population correlation is fixed, the inverse sampling variance would be proportional to the sample size ($1/\sigma^2_{\varepsilon_i} \propto n_i$). For this reason, we can use the sample size as our weights. We can estimate the population correlation, $\rho$, by taking the $n$-weighted average,
 
 $$
 \hat{\rho} = \frac{\sum^k_{i=1} n_i r_i}{\sum^k_{i=1}n_i}
-$$ 
+$$
 
 We can use this estimate of the population correlation in the equation in @eq-fixed-cor-se to estimate the sampling variance for each study.
 
 $$
 \sigma^2_{\varepsilon_i} = \frac{\left(1-\hat{\rho}^2\right)^2}{n_i}
-$$
-We also can acquire the standard error of our population correlation estimate ($\hat{\rho}$). To do so, we must first calculate the weighted average of the sampling variance from each study,
+$$ We also can acquire the standard error of our population correlation estimate ($\hat{\rho}$). To do so, we must first calculate the weighted average of the sampling variance from each study,
 
 $$
 \sigma_\varepsilon^2 = \frac{\sum^k_{i=1} n_i \sigma^2_{\varepsilon_i}}{\sum^k_{i=1}n_i}
@@ -111,20 +109,18 @@ $$
 then we can calculate the standard error of the population correlation from this by dividing by the number of studies, $k$,
 
 $$
-SE_\hat{\rho} = \sqrt{\frac{\sigma^2_{\varepsilon}}{k}}
+SE_{\hat{\rho}} = \sqrt{\frac{\sigma^2_{\varepsilon}}{k}}
 $$
 
 The standard error can be used to comput the 95% confidence intervals of the meta-analytic point estimate:
 
 $$
-\rho_{\text{Lower}} = \hat{\rho}- 1.96 \cdot SE_\hat{\rho}
-$$
-$$
-\rho_{\text{Upper}} = \hat{\rho}+ 1.96\cdot SE_\hat{\rho}
+\rho_{\text{Lower}} = \hat{\rho}- 1.96 \cdot SE_{\hat{\rho}}
+$$ $$
+\rho_{\text{Upper}} = \hat{\rho}+ 1.96\cdot SE_{\hat{\rho}}
 $$
 
-
-### Fixed Effects Meta-Analysis of *d* values
+### Fixed Effects Meta-Analysis of Standardized Mean Differences
 
 Similar to @eq-fixed-mdl, we can model sample standardized mean differences similarly,
 
@@ -141,7 +137,7 @@ $$
 Where $p_i$ is the observed proportion of group membership in either group $A$ or group $B$. The sampling variance of the study standardized mean difference is defined as
 
 $$
-\sigma_{\varepsilon_di} = \frac{n_A+n_B}{n_A n_B} + \frac{d_i^2}{2(n_A+n_B)}
+\sigma^2_{\varepsilon_di} = \frac{n_A+n_B}{n_A n_B} + \frac{d_i^2}{2(n_A+n_B)}
 $$
 
 Which can then be converted to the standard error of the point-biserial correlation,
@@ -163,10 +159,9 @@ $$
 Where $k$ is the number of studies. The standard error can be used to comput the 95% confidence intervals of the meta-analytic point estimate:
 
 $$
-\delta_{\text{Lower}} = \hat{\delta}- 1.96 \cdot SE_\hat{\delta}
-$$
-$$
-\delta_{\text{Upper}} = \hat{\delta}+ 1.96\cdot SE_\hat{\delta}
+\delta_{\text{Lower}} = \hat{\delta}- 1.96 \cdot SE_{\hat{\delta}}
+$$ $$
+\delta_{\text{Upper}} = \hat{\delta}+ 1.96\cdot SE_{\hat{\delta}}
 $$
 
 ### Example from Roth et al. (2015)
@@ -285,7 +280,7 @@ With these weights and the estimate of the population effect size, we can now es
     \sigma^2_{\vartheta} = \sigma^2_{\theta} - \sigma^2_{\varepsilon}
     $$
 
-In other conventions, $\sigma^2_\vartheta$ is denoted as $\tau^2$ [@borenstein2010; @dersimonian2007; @hedges1998], but conceptually these are identical. Taking the root of $\sigma^2_\vartheta$, $\sigma_\vartheta$, is the standard deviation of population effect sizes which can be a useful measure of heterogeneity. Furthermore, we can use $\sigma_\vartheta$ to calculate credibility (prediction) intervals which allows us to draw inferences about the range of plausible population effect sizes. For example, the 90% credibility interval can be calculated with the following equations:
+In other conventions, $\sigma^2_\vartheta$ is denoted as $\tau^2$ [@borenstein2010; @dersimonian2007; @hedges1998], but conceptually these are identical. Taking the root of $\sigma^2_\vartheta$, $\sigma_\vartheta$ is the standard deviation of population effect sizes which can be a useful measure of heterogeneity. Furthermore, we can use $\sigma_\vartheta$ to calculate credibility (prediction) intervals which allows us to draw inferences about the range of plausible population effect sizes. For example, the 90% credibility interval can be calculated with the following equations:
 
 $$
 \vartheta_\text{Upper} = \hat{\bar{\vartheta}} + 1.645\sigma_\vartheta
@@ -298,17 +293,17 @@ $$
 We can also calculate the standard error of the mean of population effect sizes ($SE_{\hat{\bar{\vartheta}}}$) by dividing the sampling error variance component by the number of studies, $k$,
 
 $$
-SE_\hat{\bar{\vartheta}} = \sqrt{\frac{\sigma^2_\theta}{k}}
+SE_{\hat{\bar{\vartheta}}} = \sqrt{\frac{\sigma^2_\theta}{k}}
 $$
 
 Which can then be used to calculate 95% confidence intervals:
 
 $$
-\bar{\vartheta}_\text{Upper} = \hat{\bar{\vartheta}} + 1.96\cdot SE_\hat{\bar{\vartheta}}
+\bar{\vartheta}_\text{Upper} = \hat{\bar{\vartheta}} + 1.96\cdot SE_{\hat{\bar{\vartheta}}}
 $$
 
 $$
-\bar{\vartheta}_\text{Lower} = \hat{\bar{\vartheta}} - 1.96\cdot SE_\hat{\bar{\vartheta}}
+\bar{\vartheta}_\text{Lower} = \hat{\bar{\vartheta}} - 1.96\cdot SE_{\hat{\bar{\vartheta}}}
 $$
 
 The confidence interval and credibility interval have fundamentally different interpretations that are often misinterpreted in published work [@whitener1990]. When we are interpreting a single realized interval (i.e., our estimate-in-hand), the 90% credibility interval can be interpreted as the region in which 90% of population effect sizes exist, however, a 95% confidence interval describes the interval in which there is a 95% probability of containing the true mean of population effect sizes. It is important to note that the confidence interval interpretation here is only valid in the case of a single realized interval [@vos2022], if there is more than one computed intervals the same population of studies, then the interpretation does not hold (this would be an exceedingly rare scenario in a meta-analysis).
@@ -345,7 +340,7 @@ With the weights we can estimate a precise estimate of the mean of population co
 
 $$
 \hat{\bar{\rho}} = \frac{\sum^k_{i=1}w_ir_i}{\sum^k_{i=1}w_i}
-$$ 
+$$
 
 Where the variance components can be calculated as:
 
@@ -372,20 +367,20 @@ $$
 We can also calculate the standard error of the mean of population effect sizes ($SE_{\hat{\bar{\rho}}}$) by dividing the sampling error variance component by the number of studies, $k$,
 
 $$
-SE_\hat{\bar{\rho}} = \sqrt{\frac{\sigma^2_r}{k}}
+SE_{\hat{\bar{\rho}}} = \sqrt{\frac{\sigma^2_r}{k}}
 $$
 
 Which can then be used to calculate 95% confidence intervals:
 
 $$
-\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_\hat{\bar{\rho}}
+\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_{\hat{\bar{\rho}}}
 $$
 
 $$
-\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_\hat{\bar{\rho}}
+\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_{\hat{\bar{\rho}}}
 $$
 
-### Random Effects Meta-Analysis of *d* values {#sec-random-d}
+### Random Effects Meta-Analysis of Standardized Mean Differences {#sec-random-d}
 
 We can model sample standardized mean differences similarly to that of correlations,
 
@@ -403,9 +398,7 @@ Where $p_i$ is the observed proportion of group membership in either group $A$ o
 
 $$
 \sigma^2_{\varepsilon_id} = \frac{n_A+n_B}{n_A n_B} + \frac{\delta_i^2}{2(n_A+n_B)}
-$$
-Where the population standardized mean difference, $\delta_i$ can be approximated with the sample size weighted mean $d$ value ($\bar{d}$).
-
+$$ Where the population standardized mean difference, $\delta_i$ can be approximated with the sample size weighted mean $d$ value ($\bar{d}$).
 
 $$
 \sigma^2_{\varepsilon_id} = \frac{n_A+n_B}{n_A n_B} + \frac{\bar{d}^2}{2(n_A+n_B)}

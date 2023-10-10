@@ -137,7 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 6&nbsp; Group Misclassification">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="misclassification_files/figure-html/unnamed-chunk-4-1.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/misclassification_files/figure-html/unnamed-chunk-4-1.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="960">
+<meta name="twitter:image-width" content="1344">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -182,6 +185,11 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -285,12 +293,23 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -405,7 +424,7 @@ r_{gg'} = \sqrt{\frac{\chi^2}{n}}.
 <p><span class="math display">\[
 r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2.
 \]</span></p>
-<p>This approximation assumes that the group sizes are approximately equal <em>and</em> the misclassification rates are approximately equal between groups. Otherwise, <span class="math inline">\(r_{gg'}\)</span> will be overestimated <span class="citation" data-cites="wiernik2020">(<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>.</p>
+<p>This approximation assumes that the group sizes are approximately equal <em>and</em> the misclassification rates are approximately equal between groups. Otherwise, <span class="math inline">\(r_{gg'}\)</span> will be overestimated <span class="citation" data-cites="wiernik2020">(<a href="references_page.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>.</p>
 <p>In the chapter 5, we discussed the relationship between reliability and the correlation between observed and true scores. The classification reliability will also be related similarly to the correlation between observed group membership and true group membership (<span class="math inline">\(r_{gG}\)</span>) such that,</p>
 <p><span class="math display">\[
 r_{gG}=\sqrt{r_{gg'}}.
@@ -458,7 +477,7 @@ obs_1  A  B
     B 10 40</code></pre>
 </div>
 </div>
-<p>Now we can calculate the reliability of the group assignments by extracting the phi coefficient from the contingency table. We can compute it by hand or by using the <code>psych</code> package by William Revelle <span class="citation" data-cites="psych:p2017">(<a href="direct_range_restriction.html#ref-psych:p2017" role="doc-biblioref">2017</a>)</span>.</p>
+<p>Now we can calculate the reliability of the group assignments by extracting the phi coefficient from the contingency table. We can compute it by hand or by using the <code>psych</code> package by William Revelle <span class="citation" data-cites="psych:p2017">(<a href="references_page.html#ref-psych:p2017" role="doc-biblioref">2017</a>)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Strategy 1: Using the {psych} package</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load in psych package (make sure it is installed first: install.packages('psych'))</span></span>
@@ -552,21 +571,21 @@ r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}.
 \]</span></p>
 <p>Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference (<span class="math inline">\(d_c\)</span>). When converting back to a standardized mean difference, we need to use the true group proportions, <span class="math inline">\(p^*\)</span>. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used <span class="math inline">\(p\)</span>:</p>
 <p><span class="math display">\[
-\hat{\delta} = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}
+\hat{\delta} = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
 \]</span></p>
-<p>The s converting to a point-biserial correlation, correcting, and converting back to a standardized mean difference. This time we will do this in a single step. Therefore the adjusted sampling variance (squared standard error) can be calculated as,</p>
+<p>Instead of doing the converting, correcting, and back-converting for the sampling variance, we can correct the sampling variance in a single step,</p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}.
 \]</span></p>
 <p>This can be simplified if we assume that misclassification rates are equal between groups,</p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{\hat{\rho}}{r}\right)^2} {\left(1+d_o^2p[1-p]\right)^3(1-r_c^2)^3}
+\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^3(1-r_c^2)^3}.
 \]</span></p>
 </section>
 </section>
 <section id="correcting-for-misclassification-in-r" class="level2" data-number="6.6">
 <h2 data-number="6.6" class="anchored" data-anchor-id="correcting-for-misclassification-in-r"><span class="header-section-number">6.6</span> Correcting for Misclassification in R</h2>
-<p>We can correct for group misclassification in R by hand or by using the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="direct_range_restriction.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. For our correction, say we got an observed standardized mean difference of <span class="math inline">\(d = 0.50\)</span> and we calculated the classification reliability to be <span class="math inline">\(r_{gg'} = .80\)</span>. Let us also say that the observed <em>and</em> the true proportion of individuals in one of the groups is <span class="math inline">\(p=p^*=.40\)</span>, therefore the other group would be <span class="math inline">\(1-p=1-p^*=.60\)</span>.</p>
+<p>We can correct for group misclassification in R by hand or by using the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. For our correction, say we got an observed standardized mean difference of <span class="math inline">\(d = 0.50\)</span> and we calculated the classification reliability to be <span class="math inline">\(r_{gg'} = .80\)</span>. Let us also say that the observed <em>and</em> the true proportion of individuals in one of the groups is <span class="math inline">\(p=p^*=.40\)</span>, therefore the other group would be <span class="math inline">\(1-p=1-p^*=.60\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> .<span class="dv">50</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>rgg <span class="ot">=</span> .<span class="dv">70</span></span>

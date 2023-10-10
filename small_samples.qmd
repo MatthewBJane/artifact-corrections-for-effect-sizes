@@ -113,7 +113,7 @@ h1 = ggplot(data_df, aes(x = Sample_Size, y = Sample_StdDev)) +
   geom_line(linewidth = .8,alpha = .3) +  # Line plot
   geom_hline(yintercept = 1,linetype = "dashed",
              color = main_color_red,linewidth = .8) +
-  labs(x = "Sample Size", y = "Sample SD") +  
+  labs(x = "Sample Size", y = "Standard Deviation") +  
   th_red +   # Use a minimal theme for the plot
   annotate(geom = 'text',x=7,y=.9,label = "sample SD",
            hjust='left',fontface = 'italic',color = text_color_red) +
@@ -130,7 +130,7 @@ h2 = ggplot(data_df, aes(x = Sample_Size, y = sam_SMD)) +
   geom_line(linewidth = .8,alpha = .3) +  # Line plot
   geom_hline(yintercept = pop_SMD,linetype = "dashed",
              color = main_color_blue,linewidth = .8) +
-  labs(x = "Sample Size", y = "Sample SMD (d value)") +  
+  labs(x = "Sample Size", y = "Standardized Mean Diff.") +  
   th_blue +   # Use a minimal theme for the plot
   annotate(geom = 'text',x=6.5,y=.60,label = "sample SMD",
            hjust='left',fontface = 'italic',color = text_color_blue) +
@@ -221,7 +221,7 @@ Correlation coefficients also are biased in small sample sizes [@olkin1958]. As 
 
 $$
 a \approx \frac{1}{1+\frac{1-r_o^2}{2(n-3)}}.
-$$ 
+$$
 
 Then we can correct the point-estimate the sampling variance for small sample bias
 
@@ -273,3 +273,6 @@ rbind(paste0('Observed: ro = ',round(ro,3)),
 ```
 
 You will notice that the small sample correction increases the observed correlation however it is still far away from the true value. This is simply due to the fact that there is a large amount of sampling error on top of the bias.
+
+
+

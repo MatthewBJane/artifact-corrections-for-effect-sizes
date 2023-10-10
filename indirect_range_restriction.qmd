@@ -340,7 +340,7 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
 
 ```
 
-It starts to become apparent that if $u_x>1$ (i.e., $\sigma_x>\sigma_\mathcal{x_S}$) the observed correlation over-estimates the true, unrestricted correlation and under-estimates the unrestricted correlation when $u_x<1$ [i.e., $\sigma_x<\sigma_\mathcal{x_S}$, @sackett2000]. A bias correction formula for univariate direct range restriction was first developed by @pearson1903 and provided more recently by @hunter1990a. To correct for the systematic bias in correlations, we can use the $u$-ratio of the independent variable such that,
+It starts to become apparent that if $u_x>1$ (i.e., $\sigma_x>\sigma_{x_S}$) the observed correlation over-estimates the true, unrestricted correlation and under-estimates the unrestricted correlation when $u_x<1$ [i.e., $\sigma_x<\sigma_{x_S}$, @sackett2000]. A bias correction formula for univariate direct range restriction was first developed by @pearson1903 and provided more recently by @hunter1990a. To correct for the systematic bias in correlations, we can use the $u$-ratio of the independent variable such that,
 
 $$
 r_c = \frac{r_{xy_S}}{\sqrt{r_{xy_S}^2 + u_{x}^2 (1- r_{xy_S}^2)  }}
@@ -470,7 +470,9 @@ The output of $\lambda$ will be either -1, 0, or 1. We can then plug this factor
 
 $$
 r_c = r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}
-$$ Similar to the univariate formula, we can also incorporate measurement error into the correction. Measurement error will bias the observed correlation on top of the bias induced by range restriction/enhancement. Therefore we can incorporate the reliabilities estimated within the restricted sample ($_{xx'_S}$ and $r_{yy'_S}$), into our correction formula:
+$$ 
+
+Similar to the univariate formula, we can also incorporate measurement error into the correction. Measurement error will bias the observed correlation on top of the bias induced by range restriction/enhancement. Therefore we can incorporate the reliabilities estimated within the restricted sample ($_{xx'_S}$ and $r_{yy'_S}$), into our correction formula:
 
 $$
 r_c = \frac{r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}}{\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{1-u_y^2(1-r_{yy'_S})}}

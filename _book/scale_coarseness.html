@@ -137,7 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 8&nbsp; Scale Coarseness">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="scale_coarseness_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/scale_coarseness_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="960">
+<meta name="twitter:image-width" content="1344">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -182,6 +185,11 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -285,12 +293,23 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -312,7 +331,7 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#defining-our-estimand-1" id="toc-defining-our-estimand-1" class="nav-link" data-scroll-target="#defining-our-estimand-1"><span class="header-section-number">8.3.1</span> Defining our Estimand</a></li>
   <li><a href="#artifact-correction-for-coarseness" id="toc-artifact-correction-for-coarseness" class="nav-link" data-scroll-target="#artifact-correction-for-coarseness"><span class="header-section-number">8.3.2</span> Artifact Correction for Coarseness</a></li>
-  <li><a href="#correcting-d-values-in-r" id="toc-correcting-d-values-in-r" class="nav-link" data-scroll-target="#correcting-d-values-in-r"><span class="header-section-number">8.3.3</span> Correcting <em>d</em> values in R</a></li>
+  <li><a href="#correcting-standardized-mean-differences-in-r" id="toc-correcting-standardized-mean-differences-in-r" class="nav-link" data-scroll-target="#correcting-standardized-mean-differences-in-r"><span class="header-section-number">8.3.3</span> Correcting Standardized Mean Differences in R</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -325,7 +344,7 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
-<p>Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase <span class="citation" data-cites="aguinis2009">(<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement device itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution, and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.</p>
+<p>Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase <span class="citation" data-cites="aguinis2009">(<a href="references_page.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement instrument itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="scale_coarseness_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
@@ -339,21 +358,21 @@ div.csl-indent {
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="defining-our-estimand"><span class="header-section-number">8.2.1</span> Defining our Estimand</h3>
 <p>Our quantity of interest is the population correlation, <span class="math inline">\(\rho\)</span>, between continuous independent variable, <span class="math inline">\(x\)</span>, and continuous dependent variable, <span class="math inline">\(y\)</span>. We can model the relationship between the observed sample correlation on coarse scores and the true population correlation,</p>
 <p><span class="math display">\[
-r_o = a\rho+\varepsilon
+r_o = a\rho+\varepsilon.
 \]</span></p>
-<p>Where <span class="math inline">\(a\)</span> is our coarseness biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population correlation by correcting the observed standardized mean difference as follows,</p>
+<p>Where <span class="math inline">\(a\)</span> is our coarseness biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population correlation by correcting the observed correlation as follows,</p>
 <p><span class="math display">\[
-r_c = \frac{r_o}{a}
+r_c = \frac{r_o}{a}.
 \]</span></p>
 </section>
 <section id="sec-coarse-cor" class="level3" data-number="8.2.2">
 <h3 data-number="8.2.2" class="anchored" data-anchor-id="sec-coarse-cor"><span class="header-section-number">8.2.2</span> Artifact Correction for Coarseness</h3>
-<p>To correct the correlation between coarse scores for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we need to know the correlation between coarse scores and their underlying continuous scores. These correlations between coarse scores and their underlying continuous scores do not have a specific closed form equation as of now <span class="citation" data-cites="aguinis2009">(<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. To find this we need to make a couple of assumptions:</p>
+<p>To correct the correlation between coarse scores for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we need to know the correlation between coarse scores and their underlying continuous scores. These correlations between coarse scores and their underlying continuous scores do not have a specific closed form equation as of now <span class="citation" data-cites="aguinis2009">(<a href="references_page.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. To find this we need to make a couple of assumptions:</p>
 <ol type="1">
 <li>The shape of the underlying distribution (i.e., normal or uniform).</li>
 <li>The intervals between scale-points are equal.</li>
 </ol>
-<p><span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="direct_range_restriction.html#ref-peters1940" role="doc-biblioref">1940</a>)</span> constructed a table based on these assumptions that is also reported more recently by <span class="citation" data-cites="aguinis2009">Aguinis, Pierce, and Culpepper (<a href="direct_range_restriction.html#ref-aguinis2009" role="doc-biblioref">2009</a>)</span>. The table below shows the correction factor for a given number of scale points and underlying distribution shape. The correction factor is equal to the square of the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well <span class="citation" data-cites="wylie1976">Wylie (<a href="direct_range_restriction.html#ref-wylie1976" role="doc-biblioref">1976</a>)</span>.</p>
+<p><span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="references_page.html#ref-peters1940" role="doc-biblioref">1940</a>)</span> constructed a table based on these assumptions that is also reported more recently by <span class="citation" data-cites="aguinis2009">Aguinis, Pierce, and Culpepper (<a href="references_page.html#ref-aguinis2009" role="doc-biblioref">2009</a>)</span>. The table below shows the correction factor for a given number of scale points and underlying distribution shape (either normal or uniform). The correction factor is equal to the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well <span class="citation" data-cites="wylie1976">Wylie (<a href="references_page.html#ref-wylie1976" role="doc-biblioref">1976</a>)</span>.</p>
 <table class="table">
 <colgroup>
 <col style="width: 19%">
@@ -442,10 +461,11 @@ r_c = \frac{r_o}{a}
 </table>
 <p>These correction factors can be applied similarly to the correction formula for reliability (see chapter 5),</p>
 <p><span class="math display">\[
-r_c = \frac{r_o}{a_x a_y}
-\]</span> Where <span class="math inline">\(a_x\)</span> and <span class="math inline">\(a_y\)</span> are the appropriate correction factors from the table for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. We must also adjust the sampling variance as well,</p>
+r_c = \frac{r_o}{a_x a_y}.
+\]</span></p>
+<p>Where <span class="math inline">\(a_x\)</span> and <span class="math inline">\(a_y\)</span> are the appropriate correction factors from the table for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. We must also adjust the sampling variance as well,</p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_x a_y}
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2_x a^2_y}.
 \]</span></p>
 </section>
 <section id="correcting-correlations-in-r" class="level3" data-number="8.2.3">
@@ -504,25 +524,26 @@ r_c = \frac{r_o}{a_x a_y}
 <h3 data-number="8.3.1" class="anchored" data-anchor-id="defining-our-estimand-1"><span class="header-section-number">8.3.1</span> Defining our Estimand</h3>
 <p>Our quantity of interest is the population standardized mean difference, <span class="math inline">\(\delta\)</span>, between groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> on variable, <span class="math inline">\(y\)</span>. We can model the relationship between the observed sample standardized mean difference on coarse scores and the true population standardized mean difference,</p>
 <p><span class="math display">\[
-d_o = a\delta+\varepsilon
+d_o = a\delta+\varepsilon.
 \]</span></p>
 <p>Where <span class="math inline">\(a\)</span> is our coarseness biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population standardized mean difference by correcting the observed standardized mean difference as follows,</p>
 <p><span class="math display">\[
-d_c = \frac{d_o}{a}
+d_c = \frac{d_o}{a}.
 \]</span></p>
 </section>
 <section id="artifact-correction-for-coarseness" class="level3" data-number="8.3.2">
 <h3 data-number="8.3.2" class="anchored" data-anchor-id="artifact-correction-for-coarseness"><span class="header-section-number">8.3.2</span> Artifact Correction for Coarseness</h3>
 <p>To correct a standardized mean difference for coarseness in the outcome variable, <span class="math inline">\(y\)</span>, we can use the correction factors from the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>,</p>
 <p><span class="math display">\[
-d_c = \frac{d_o}{a_y}
-\]</span> Where <span class="math inline">\(a_x\)</span> and <span class="math inline">\(a_y\)</span> are the appropriate correction factors from the table for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. We must also adjust the sampling variance as well,</p>
+d_c = \frac{d_o}{a}.
+\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is the appropriate correction factor from the table. We must also adjust the sampling variance as well,</p>
 <p><span class="math display">\[
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_y}
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
 \]</span></p>
 </section>
-<section id="correcting-d-values-in-r" class="level3" data-number="8.3.3">
-<h3 data-number="8.3.3" class="anchored" data-anchor-id="correcting-d-values-in-r"><span class="header-section-number">8.3.3</span> Correcting <em>d</em> values in R</h3>
+<section id="correcting-standardized-mean-differences-in-r" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="correcting-standardized-mean-differences-in-r"><span class="header-section-number">8.3.3</span> Correcting Standardized Mean Differences in R</h3>
 <p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>. Lets start by simulating a coarse data (5 scale-points) set of 1000 individuals with a true population standardized mean difference of <span class="math inline">\(\delta = .50\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed</span></span>

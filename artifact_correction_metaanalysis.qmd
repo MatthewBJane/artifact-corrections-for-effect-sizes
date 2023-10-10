@@ -28,10 +28,10 @@ $$
 \theta_{o_i} = A_i\vartheta_i + \varepsilon_{o_i}
 $$ {#eq-art-mdl}
 
-So now instead of the model being in terms of the observed population value ($\vartheta_{o_i}$), it is now in terms of the *true* population value ($\vartheta_{i}$).The compound biasing factor, $A_i$ is a product of $K$ independent artifact values (e.g., unreliability and range restriction),
+So now instead of the model being in terms of the observed population value ($\vartheta_{o_i}$), it is now in terms of the *true* population value ($\vartheta_{i}$). The compound biasing factor, $A_i$ is a product of multiple independent artifact values (e.g., unreliability and range restriction),
 
 $$
-A_i = a_{1i} a_{2i} ... a_{Ki}
+A_i = a_{1i} a_{2i} a_{3i} ...
 $$
 
 This compound artifact formula assumes that the values are independent of one another, which is not always the case, see chapter 11 on independence of artifacts. Therefore adjustments must be made to ensure independence. eq-art-mdl can be re-arranged to obtain unbiased estimates of the true population effect size:
@@ -128,13 +128,14 @@ $$
 
 In order to compute the variance components as well as the mean true population correlation, we first need to calculate the study weights. We will follow a similar procedure for calculating random effects weights in chapter 11. Lets define the corrected random effects weights as,
 
-\$\$
-
-w_i = \frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}.
-
+$$
+w_i = \frac{1}{\sigma^2_{\varepsilon_ci}+\sigma^2_\rho}.
 $$
 However the variance components, $\sigma^2_{\varepsilon_ci}$ and $\sigma^2_\rho$, require the weights themselves to actually estimate them, so instead we can approximate the variance components using the sample size as the weights such that,
-$$ w_i =\frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}= \frac{1}{\sigma^2_{\varepsilon_ci}+(\sigma^2_{r_c}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_ci}+\left(\frac{\sum^k_{i=1}n_i(r_{c_i} - \bar{r}_c)^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}n_i}\right)} \$\$
+
+$$ 
+w_i =\frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}= \frac{1}{\sigma^2_{\varepsilon_ci}+(\sigma^2_{r_c}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_ci}+\left(\frac{\sum^k_{i=1}n_i(r_{c_i} - \bar{r}_c)^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}n_i}\right)} 
+$$
 
 Where $\bar{r}_c$ is the sample size weighted average corrected correlation. These weights can then be used to obtain a more precise estimate of the true population correlation,
 
@@ -163,17 +164,17 @@ $$
 We can also calculate the standard error of the mean of true population effect sizes ($SE_{\hat{\bar{\rho}}}$) by dividing the sampling error variance component by the number of studies, $k$,
 
 $$
-SE_\hat{\bar{\rho}} = \sqrt{\frac{\sigma^2_{r_c}}{k}}
+SE_{\hat{\bar{\rho}}} = \sqrt{\frac{\sigma^2_{r_c}}{k}}
 $$
 
 Which can then be used to calculate 95% confidence intervals:
 
 $$
-\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_\hat{\bar{\rho}}
+\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_{\hat{\bar{\rho}}}
 $$
 
 $$
-\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_\hat{\bar{\rho}}
+\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_{\hat{\bar{\rho}}}
 $$
 
 ### Applied Example in R
@@ -451,16 +452,3 @@ credibility(mean = summary_stats$mean_rho[1],
 
 Lets compare these results to the bare-bones model. In `psychmeta` the bare-bones model can be conduced using `ma_r_bb`. However, the `ma_r_ic` function also reports the bare-bones results as well. Therefore we can just extract the necessary statistics from the model.
 
-[@hunter1990a]
-
-[@wiernik2020]
-
-[@schmidt1977]
-
-[@murphy2003]
-
-[@viswesvaran1995]
-
-[@raju1983]
-
-[@callender1980]

@@ -137,7 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 5&nbsp; Unreliability">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="figure/unreliability_diagram_1.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/figure/unreliability_diagram_1.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="1017">
+<meta name="twitter:image-width" content="1372">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -182,6 +185,11 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -285,12 +293,23 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -344,7 +363,7 @@ div.csl-indent {
 <p><span class="math display">\[
 x_{im} = T_i+e_{im}.
 \]</span></p>
-<p>Here, measurements are <em>strictly parallel</em>. Strictly parallel measurements have the following four properties <span class="citation" data-cites="haertel2006">(p.&nbsp;69, <a href="direct_range_restriction.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>:</p>
+<p>Here, measurements are <em>strictly parallel</em>. Strictly parallel measurements have the following four properties <span class="citation" data-cites="haertel2006">(p.&nbsp;69, <a href="references_page.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>:</p>
 <ol type="1">
 <li>Measurements have identical specifications. That is, each measurement is obtained with an identical format and procedure.</li>
 <li>The distribution of observed scores for each measurement are identical: <span class="math inline">\(f(x_1) = f(x_2) = \ldots\)</span>.</li>
@@ -362,7 +381,7 @@ r_{xx'}=\frac{\sigma_{xx'}}{\sigma_x\sigma_{x'}}  = \frac{\sigma_T^2}{\sigma^2_{
 <p><span id="eq-reliability"><span class="math display">\[
 r_{xx'} = \frac{\sigma_T^2}{\sigma_{x}^2} = \frac{(\sigma_T^2)^2}{\sigma_x^2 \sigma_T^2}= \frac{\sigma_{xT}^2}{\sigma^2_x\sigma^2_T} = r^2_{xT}.
 \tag{5.2}\]</span></span></p>
-<p>It is important to emphasize that true scores are expected values over repeated observations and they do not necessarily correspond to an actual, tangible quantity of interest <span class="citation" data-cites="borsboom2002">(<a href="direct_range_restriction.html#ref-borsboom2002" role="doc-biblioref">Borsboom and Mellenbergh 2002</a>)</span>. As a result, every measurement has a true score, regardless of whether it gauges a concrete attribute or not. For example, if we construct a test by summing the responses to the items: “how many languages can you confidently hold a conversation in?” and “Estimate the number of photos you’ve taken in the last year across all devices”. Even in such nonsensical cases, the test’s composite score retains a true score, but this true score does not mirror a tangible reality.</p>
+<p>It is important to emphasize that true scores are expected values over repeated observations and they do not necessarily correspond to an actual, tangible quantity of interest <span class="citation" data-cites="borsboom2002">(<a href="references_page.html#ref-borsboom2002" role="doc-biblioref">Borsboom and Mellenbergh 2002</a>)</span>. As a result, every measurement has a true score, regardless of whether it gauges a concrete attribute or not. For example, if we construct a test by summing the responses to the items: “how many languages can you confidently hold a conversation in?” and “Estimate the number of photos you’ve taken in the last year across all devices”. Even in such nonsensical cases, the test’s composite score retains a true score, but this true score does not mirror a tangible reality.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figure/unreliability_diagram_1.png" class="img-fluid figure-img" width="400"></p>
@@ -372,19 +391,19 @@ r_{xx'} = \frac{\sigma_T^2}{\sigma_{x}^2} = \frac{(\sigma_T^2)^2}{\sigma_x^2 \si
 </section>
 <section id="reliability-vs-validity" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="reliability-vs-validity"><span class="header-section-number">5.3</span> Reliability vs Validity</h2>
-<p>Reliability and validity are distinct properties in measurement theory. Validity pertains to whether the scores produced by a measure reflects the quantities it is intended to measure <span class="citation" data-cites="kelley1927">(p.&nbsp;14 <a href="direct_range_restriction.html#ref-kelley1927" role="doc-biblioref">Kelley 1927</a>)</span>. According to <span class="citation" data-cites="borsboom2004">Borsboom, Mellenbergh, and Van Heerden (<a href="direct_range_restriction.html#ref-borsboom2004" role="doc-biblioref">2004</a>)</span>, a measure is <em>valid</em> if both of the following statements are true:</p>
+<p>Reliability and validity are distinct properties in measurement theory. Validity pertains to whether the scores produced by a measure reflects the quantities it is intended to measure <span class="citation" data-cites="kelley1927">(p.&nbsp;14 <a href="references_page.html#ref-kelley1927" role="doc-biblioref">Kelley 1927</a>)</span>. According to <span class="citation" data-cites="borsboom2004">Borsboom, Mellenbergh, and Van Heerden (<a href="references_page.html#ref-borsboom2004" role="doc-biblioref">2004</a>)</span>, a measure is <em>valid</em> if both of the following statements are true:</p>
 <ol type="1">
 <li><p>The attribute exists.</p></li>
 <li><p>Variations in the attribute causally produce variations in the outcomes of the measurement procedure.</p></li>
 </ol>
-<p>Borsboom’s formulation of validity is simpler and more practical than other formulations such as Cronbach and Meehl’s <span class="citation" data-cites="cronbach1955">(<a href="direct_range_restriction.html#ref-cronbach1955" role="doc-biblioref">1955</a>)</span> nomological network approach to validity. It is important to note that even if an attribute does not exist (statement 1), scores may still provide predictive utility. For example, socio-economic status (SES) is a formative quantity that is constructed from a composite of education, income, occupation status, etc. Although SES is not causal to these indicators, SES can still be used as a predictor of important life outcomes.</p>
+<p>Borsboom’s formulation of validity is simpler and more practical than other formulations such as Cronbach and Meehl’s <span class="citation" data-cites="cronbach1955">(<a href="references_page.html#ref-cronbach1955" role="doc-biblioref">1955</a>)</span> nomological network approach to validity. It is important to note that even if an attribute does not exist (statement 1), scores may still provide predictive utility. For example, socio-economic status (SES) is a formative quantity that is constructed from a composite of education, income, occupation status, etc. Although SES is not causal to these indicators, SES can still be used as a predictor of important life outcomes.</p>
 </section>
 <section id="estimating-reliability" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="estimating-reliability"><span class="header-section-number">5.4</span> Estimating Reliability</h2>
 <p>In practice, reliability must be estimated through indirect methods, this is due to the fact that true scores and errors are unknown. There are many reliability estimators that can be used, however we will go over a selection of internal consistency estimators as well as test-retest stability estimators.</p>
 <section id="internal-consistency-estimators" class="level3" data-number="5.4.1">
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="internal-consistency-estimators"><span class="header-section-number">5.4.1</span> Internal Consistency Estimators</h3>
-<p>Taking multiple measurements and then averaging tends to provide a more stable estimate of true values. For instance, let’s consider the case of Francis <span class="citation" data-cites="galton1907">Galton (<a href="direct_range_restriction.html#ref-galton1907" role="doc-biblioref">1907</a>)</span>, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person’s estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the true value. This principle can be extended to broader applications, such as measuring psychological constructs. If we were to assess someone’s level of extraversion using ratings from their mother, father, friend, and sibling, the average of their combined assessments would yield a more reliable score compared to relying solely on a single evaluator. So to create a more stable composite score (<span class="math inline">\(x\)</span>), we can take the score from <span class="math inline">\(\kappa\)</span> items (<span class="math inline">\(\mathbb{x}\)</span>) and sum them such that,</p>
+<p>Taking multiple measurements and then averaging tends to provide a more stable estimate of true values. For instance, let’s consider the case of Francis <span class="citation" data-cites="galton1907">Galton (<a href="references_page.html#ref-galton1907" role="doc-biblioref">1907</a>)</span>, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person’s estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the true value. This principle can be extended to broader applications, such as measuring psychological constructs. If we were to assess someone’s level of extraversion using ratings from their mother, father, friend, and sibling, the average of their combined assessments would yield a more reliable score compared to relying solely on a single evaluator. So to create a more stable composite score (<span class="math inline">\(x\)</span>), we can take the score from <span class="math inline">\(\kappa\)</span> items (<span class="math inline">\(\mathbb{x}\)</span>) and sum them such that,</p>
 <p><span class="math display">\[
 x = \mathbb{x}_1 + \mathbb{x}_2 +...+\mathbb{x}_\kappa
 \]</span></p>
@@ -402,7 +421,7 @@ _\alpha r_{xx'} = \frac{\kappa}{\kappa-1}\left( 1 - \frac{\sum_{m=1}^\kappa \sig
 </div>
 </div>
 </div>
-<p>With tighter assumptions <span class="citation" data-cites="haertel2006">(see <a href="direct_range_restriction.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>, the formula for coefficient alpha can be simplified to just two parameters: the number of measurements (<span class="math inline">\(\kappa\)</span>) and the average correlation between measured scores (<span class="math inline">\(\bar{r}_{\mathbb{x}_i \mathbb{x}_j}\)</span>, where <span class="math inline">\(i\neq j\)</span>). This formula is known as Spearman-Brown’s prophecy,</p>
+<p>With tighter assumptions <span class="citation" data-cites="haertel2006">(see <a href="references_page.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>, the formula for coefficient alpha can be simplified to just two parameters: the number of measurements (<span class="math inline">\(\kappa\)</span>) and the average correlation between measured scores (<span class="math inline">\(\bar{r}_{\mathbb{x}_i \mathbb{x}_j}\)</span>, where <span class="math inline">\(i\neq j\)</span>). This formula is known as Spearman-Brown’s prophecy,</p>
 <p><span id="eq-sp-brown"><span class="math display">\[
 _\text{sb} r_{xx'}= \frac{\kappa \bar{r}_{\mathbb{x}_i \mathbb{x}_j}}{1+(\kappa-1)\bar{r}_{\mathbb{x}_i \mathbb{x}_j}}
 \tag{5.4}\]</span></span></p>
@@ -508,7 +527,7 @@ _\text{sh}r_{xx'}= \frac{2r_{\mathbb{x}_1 \mathbb{x}_2}}{1+r_{\mathbb{x}_1 \math
 <pre><code>[1] 0.734</code></pre>
 </div>
 </div>
-<p>In this case, the reliability estimates do a fairly good job of estimating the true reliability of the observed scores. We can also use the <code>alpha</code> function from the <code>psych</code> package <span class="citation" data-cites="psych:p2017">(<a href="direct_range_restriction.html#ref-psych:p2017" role="doc-biblioref"><span>“Psych: Procedures for Personality and Psychological Research”</span> 2017</a>)</span> to estimate coefficient alpha too. It also provides additional item level information that is quite useful:</p>
+<p>In this case, the reliability estimates do a fairly good job of estimating the true reliability of the observed scores. We can also use the <code>alpha</code> function from the <code>psych</code> package <span class="citation" data-cites="psych:p2017">(<a href="references_page.html#ref-psych:p2017" role="doc-biblioref"><span>“Psych: Procedures for Personality and Psychological Research”</span> 2017</a>)</span> to estimate coefficient alpha too. It also provides additional item level information that is quite useful:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in package</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('psych')</span></span>
@@ -581,7 +600,7 @@ _\text{tr}r_{xx'}= r_{x_{t_1}x_{t_2}}.
 </section>
 <section id="sec-sources" class="level3" data-number="5.4.5">
 <h3 data-number="5.4.5" class="anchored" data-anchor-id="sec-sources"><span class="header-section-number">5.4.5</span> Sources of Measurement Error</h3>
-<p>Measurement error variance can itself be broken down into multiple sources of error (e.g., transient, ). Depending on the study, different sources of error may be more relevant than others. It is important for a researcher to choose the right reliability estimator for their study since they account for different sources of measurement error. A description of four of the most common sources of error is adapted from table 1 of <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>:</p>
+<p>Measurement error variance can itself be broken down into multiple sources of error (e.g., transient, ). Depending on the study, different sources of error may be more relevant than others. It is important for a researcher to choose the right reliability estimator for their study since they account for different sources of measurement error. A description of four of the most common sources of error is adapted from table 1 of <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="references_page.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>:</p>
 <ol type="1">
 <li><p>Random Response Error: Genuine randomness in responses. Examples include: motor errors and variation in response time.</p></li>
 <li><p>Time/Environment-Specific (Transient) Error: Fluctuations in scores as a result of the specific time or environment of the measurement. For instance, if researchers administered an ability test to a sample of undergraduate students throughout the course of a day, the student’s who complete the test at the end of the day will likely perform worse than participant’s who completed due to fatigue rather than ability. Errors due to illness, mood, hunger, environmental distractors, etc. all fall under the umbrella of transient errors.</p></li>
@@ -718,7 +737,7 @@ r_c = \frac{r_{xy}}{a}.
 </section>
 <section id="sec-r-corr" class="level3" data-number="5.5.2">
 <h3 data-number="5.5.2" class="anchored" data-anchor-id="sec-r-corr"><span class="header-section-number">5.5.2</span> Artifactual Bias and Correction</h3>
-<p>Measurement error induces systematic bias in effect size estimates such as correlation coefficients <span class="citation" data-cites="hunter1990a">Spearman (<a href="direct_range_restriction.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. In the population, let us assume there is some factor <span class="math inline">\(a\)</span> that accounts for the systematic bias in observed score correlations (<span class="math inline">\(\rho_{xy}\)</span>) relative to true score correlations (<span class="math inline">\(\rho_{TU}\)</span>), such that</p>
+<p>Measurement error induces systematic bias in effect size estimates such as correlation coefficients <span class="citation" data-cites="hunter1990a">Spearman (<a href="references_page.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. In the population, let us assume there is some factor <span class="math inline">\(a\)</span> that accounts for the systematic bias in observed score correlations (<span class="math inline">\(\rho_{xy}\)</span>) relative to true score correlations (<span class="math inline">\(\rho_{TU}\)</span>), such that</p>
 <p><span class="math display">\[
 \rho_{xy} = a \rho_{TU}.
 \]</span></p>
@@ -748,7 +767,7 @@ r_c = \frac{r_{xy}}{a}.
 \\ &amp;= \frac{\sigma_{T U}}{\sigma_{T}\sigma_{U}} \cdot \sqrt{r_{yy'}}\sqrt{r_{xx'}}
 \\ &amp;= \rho_{TU} \sqrt{r_{yy'}}\sqrt{r_{xx'}}
 \end{align}\]</span>
-<p>This attenuation formula was first derived by <span class="citation" data-cites="spearman1904">Spearman (<a href="direct_range_restriction.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. Note that this formulation requires that there is no correlation between <span class="math inline">\(e_x\)</span> and <span class="math inline">\(e_y\)</span> (<span class="math inline">\(r_{e_xe_y}=0\)</span>). The study observed correlation will also contain sampling error and thus can be expressed by, <span class="math display">\[
+<p>This attenuation formula was first derived by <span class="citation" data-cites="spearman1904">Spearman (<a href="references_page.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. Note that this formulation requires that there is no correlation between <span class="math inline">\(e_x\)</span> and <span class="math inline">\(e_y\)</span> (<span class="math inline">\(r_{e_xe_y}=0\)</span>). The study observed correlation will also contain sampling error and thus can be expressed by, <span class="math display">\[
 r_{xy} = \rho_{xy} + \varepsilon_o
 \]</span> We can also express it in terms of our estimand, the population true score correlation (<span class="math inline">\(\rho_{TU}\)</span>),</p>
 <p><span class="math display">\[

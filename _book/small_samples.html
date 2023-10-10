@@ -137,7 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 4&nbsp; Small Samples">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="small_samples_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/small_samples_files/figure-html/unnamed-chunk-1-1.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="768">
+<meta name="twitter:image-width" content="1344">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -182,6 +185,11 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -285,12 +293,23 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -347,7 +366,7 @@ d_c = \frac{d_o}{a}.
 </section>
 <section id="artifact-correction-for-small-sample-bias" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="artifact-correction-for-small-sample-bias"><span class="header-section-number">4.3.2</span> Artifact Correction for Small Sample Bias</h3>
-<p>As the sample size approaches infinity, Cohen’s standardized mean difference estimator is an unbiased estimator of the population standardized mean difference <span class="citation" data-cites="hedges1981 cohen1977">(<a href="direct_range_restriction.html#ref-hedges1981" role="doc-biblioref">Hedges 1981</a>; <a href="direct_range_restriction.html#ref-cohen1977" role="doc-biblioref">Cohen 2013</a>)</span>. However, in small sample sizes Cohen’s estimator is biased upward, that is, on average, it overestimates the population standardized mean difference. To see why this is the case, we can first define the standardized mean difference between group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span> such that,</p>
+<p>As the sample size approaches infinity, Cohen’s standardized mean difference estimator is an unbiased estimator of the population standardized mean difference <span class="citation" data-cites="hedges1981 cohen1977">(<a href="references_page.html#ref-hedges1981" role="doc-biblioref">Hedges 1981</a>; <a href="references_page.html#ref-cohen1977" role="doc-biblioref">Cohen 2013</a>)</span>. However, in small sample sizes Cohen’s estimator is biased upward, that is, on average, it overestimates the population standardized mean difference. To see why this is the case, we can first define the standardized mean difference between group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span> such that,</p>
 <p><span class="math display">\[
 d = \frac{\bar{y_A}-\bar{y}_B}{\sigma_p}.
 \]</span></p>
@@ -362,7 +381,7 @@ d = \frac{\bar{y_A}-\bar{y}_B}{\sigma_p}.
 </div>
 </div>
 </div>
-<p>To obtain an unbiased estimate of the population standardized mean difference, we need to estimate a correction factor that can account for this bias. The small sample correction factor has been derived previously by <span class="citation" data-cites="hedges1989">Hedges (<a href="direct_range_restriction.html#ref-hedges1989" role="doc-biblioref">1989</a>)</span>. When applied to a <span class="math inline">\(d\)</span> value, it is common convention to refer to resulting corrected value as “Hedges’ <span class="math inline">\(g\)</span>”, giving credit to the originator and to keep it similar in style to the conventionally termed “Cohen’s <span class="math inline">\(d\)</span>”. However this convention will not be used here, instead we will denote it in this section as the small sample corrected <span class="math inline">\(d\)</span> value (<span class="math inline">\(d_c\)</span>). We can compute the artifact biasing factor, <span class="math inline">\(a\)</span>, with the total sample size (<span class="math inline">\(n=n_A+n_B\)</span>) and Gamma functions (<span class="math inline">\(\Gamma(\cdot)\)</span>),</p>
+<p>To obtain an unbiased estimate of the population standardized mean difference, we need to estimate a correction factor that can account for this bias. The small sample correction factor has been derived previously by <span class="citation" data-cites="hedges1989">Hedges (<a href="references_page.html#ref-hedges1989" role="doc-biblioref">1989</a>)</span>. When applied to a <span class="math inline">\(d\)</span> value, it is common convention to refer to resulting corrected value as “Hedges’ <span class="math inline">\(g\)</span>”, giving credit to the originator and to keep it similar in style to the conventionally termed “Cohen’s <span class="math inline">\(d\)</span>”. However this convention will not be used here, instead we will denote it in this section as the small sample corrected <span class="math inline">\(d\)</span> value (<span class="math inline">\(d_c\)</span>). We can compute the artifact biasing factor, <span class="math inline">\(a\)</span>, with the total sample size (<span class="math inline">\(n=n_A+n_B\)</span>) and Gamma functions (<span class="math inline">\(\Gamma(\cdot)\)</span>),</p>
 <p><span class="math display">\[
 a = \frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}.
 \]</span></p>
@@ -370,7 +389,7 @@ a = \frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\fra
 <p><span class="math display">\[
 d_c = \frac{d_o}{a} = \frac{d_o}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}.
 \]</span></p>
-<p>It is important to point out that there is not a sample size threshold in which this correction does not apply, therefore common suggestions such as “small sample correction should be applied when n&lt;30” is misguided since this correction can (and should) be applied at any sample size. Since the formula is quite complicated, there is also a simpler approximation of the this formula also given by <span class="citation" data-cites="hedges1989">Hedges (<a href="direct_range_restriction.html#ref-hedges1989" role="doc-biblioref">1989</a>)</span>, <span class="math inline">\(a\approx 1/\left(1-\frac{3}{4n-3}\right)\)</span>. When this correction is made, we must also adjust the sampling variance (<span class="math inline">\(\sigma_{\varepsilon_o}\)</span>),</p>
+<p>It is important to point out that there is not a sample size threshold in which this correction does not apply, therefore common suggestions such as “small sample correction should be applied when n&lt;30” is misguided since this correction can (and should) be applied at any sample size. Since the formula is quite complicated, there is also a simpler approximation of the this formula also given by <span class="citation" data-cites="hedges1989">Hedges (<a href="references_page.html#ref-hedges1989" role="doc-biblioref">1989</a>)</span>, <span class="math inline">\(a\approx 1/\left(1-\frac{3}{4n-3}\right)\)</span>. When this correction is made, we must also adjust the sampling variance (<span class="math inline">\(\sigma_{\varepsilon_o}\)</span>),</p>
 <p><span class="math display">\[
 \sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2} =\frac{\sigma^2_{\varepsilon_o}}{\left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]^2}.
 \]</span></p>
@@ -431,7 +450,7 @@ r_c = \frac{r_o}{a}
 </section>
 <section id="artifact-corrections" class="level3" data-number="4.4.2">
 <h3 data-number="4.4.2" class="anchored" data-anchor-id="artifact-corrections"><span class="header-section-number">4.4.2</span> Artifact Corrections</h3>
-<p>Correlation coefficients also are biased in small sample sizes <span class="citation" data-cites="olkin1958">(<a href="direct_range_restriction.html#ref-olkin1958" role="doc-biblioref">Olkin and Pratt 1958</a>)</span>. As opposed to standardized mean differences, correlations are under-estimated, rather than over-estimated, in small samples. The bias is quite small, however we can apply a correction factor to obtain unbiased estimates of the population correlation. Because the bias is so small and the exact formula is a hypergometric function using infinite power series, we will instead focus on the extremely close approximation provided in <span class="citation" data-cites="olkin1958">Olkin and Pratt (<a href="direct_range_restriction.html#ref-olkin1958" role="doc-biblioref">1958</a>)</span>. Therefore, the biasing factor can be calculated such that,</p>
+<p>Correlation coefficients also are biased in small sample sizes <span class="citation" data-cites="olkin1958">(<a href="references_page.html#ref-olkin1958" role="doc-biblioref">Olkin and Pratt 1958</a>)</span>. As opposed to standardized mean differences, correlations are under-estimated, rather than over-estimated, in small samples. The bias is quite small, however we can apply a correction factor to obtain unbiased estimates of the population correlation. Because the bias is so small and the exact formula is a hypergometric function using infinite power series, we will instead focus on the extremely close approximation provided in <span class="citation" data-cites="olkin1958">Olkin and Pratt (<a href="references_page.html#ref-olkin1958" role="doc-biblioref">1958</a>)</span>. Therefore, the biasing factor can be calculated such that,</p>
 <p><span class="math display">\[
 a \approx \frac{1}{1+\frac{1-r_o^2}{2(n-3)}}.
 \]</span></p>

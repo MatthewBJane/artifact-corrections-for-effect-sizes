@@ -55,7 +55,7 @@ th_red <- theme(aspect.ratio = 1,
 
 ## Introduction
 
-Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase [@aguinis2009]. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement device itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution, and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.
+Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase [@aguinis2009]. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement instrument itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.
 
 ```{r,echo=FALSE}
 
@@ -87,13 +87,13 @@ Notice that the correlation between coarse and continuous scores is not perfect,
 Our quantity of interest is the population correlation, $\rho$, between continuous independent variable, $x$, and continuous dependent variable, $y$. We can model the relationship between the observed sample correlation on coarse scores and the true population correlation,
 
 $$
-r_o = a\rho+\varepsilon
-$$ 
+r_o = a\rho+\varepsilon.
+$$
 
-Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population correlation by correcting the observed standardized mean difference as follows,
+Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population correlation by correcting the observed correlation as follows,
 
 $$
-r_c = \frac{r_o}{a}
+r_c = \frac{r_o}{a}.
 $$
 
 ### Artifact Correction for Coarseness {#sec-coarse-cor}
@@ -103,7 +103,7 @@ To correct the correlation between coarse scores for $x$ and $y$, we need to kno
 1)  The shape of the underlying distribution (i.e., normal or uniform).
 2)  The intervals between scale-points are equal.
 
-@peters1940 constructed a table based on these assumptions that is also reported more recently by @aguinis2009. The table below shows the correction factor for a given number of scale points and underlying distribution shape. The correction factor is equal to the square of the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well @wylie1976.
+@peters1940 constructed a table based on these assumptions that is also reported more recently by @aguinis2009. The table below shows the correction factor for a given number of scale points and underlying distribution shape (either normal or uniform). The correction factor is equal to the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well @wylie1976.
 
 | Scale Points | Correction Factor (normal) | Correction Factor (uniform) |
 |:------------:|:--------------------------:|:---------------------------:|
@@ -122,22 +122,21 @@ To correct the correlation between coarse scores for $x$ and $y$, we need to kno
 |      14      |            .992            |            .997             |
 |      15      |            .994            |            .998             |
 
-
 These correction factors can be applied similarly to the correction formula for reliability (see chapter 5),
 
 $$
-r_c = \frac{r_o}{a_x a_y}
-$$
+r_c = \frac{r_o}{a_x a_y}.
+$$ 
+
 Where $a_x$ and $a_y$ are the appropriate correction factors from the table for $x$ and $y$. We must also adjust the sampling variance as well,
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_x a_y}
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2_x a^2_y}.
 $$
 
 ### Correcting Correlations in R
 
 To correct scale coarseness in R, we can use the table in @sec-coarse-cor. Lets start by simulating a coarse data (5 scale-points for x and 7 scale-points for y) set of 500 individuals with a true population correlation of $\rho = .50$.
-
 
 ```{r}
 # set seed
@@ -181,6 +180,7 @@ rc <- ro/(ax*ay)
 rbind(paste0('Observed: ro = ', round(ro,3)),
       paste0('Corrected: rc = ', round(rc,3)))
 ```
+
 ## Correcting for Coarseness in *d* values
 
 ### Defining our Estimand
@@ -188,13 +188,13 @@ rbind(paste0('Observed: ro = ', round(ro,3)),
 Our quantity of interest is the population standardized mean difference, $\delta$, between groups $A$ and $B$ on variable, $y$. We can model the relationship between the observed sample standardized mean difference on coarse scores and the true population standardized mean difference,
 
 $$
-d_o = a\delta+\varepsilon
-$$ 
+d_o = a\delta+\varepsilon.
+$$
 
 Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population standardized mean difference by correcting the observed standardized mean difference as follows,
 
 $$
-d_c = \frac{d_o}{a}
+d_c = \frac{d_o}{a}.
 $$
 
 ### Artifact Correction for Coarseness
@@ -202,18 +202,18 @@ $$
 To correct a standardized mean difference for coarseness in the outcome variable, $y$, we can use the correction factors from the table in @sec-coarse-cor,
 
 $$
-d_c = \frac{d_o}{a_y}
-$$
-Where $a_x$ and $a_y$ are the appropriate correction factors from the table for $x$ and $y$. We must also adjust the sampling variance as well,
+d_c = \frac{d_o}{a}.
+$$ 
+
+Where $a$ is the appropriate correction factor from the table. We must also adjust the sampling variance as well,
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a_y}
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
 $$
 
-### Correcting *d* values in R
+### Correcting Standardized Mean Differences in R
 
 To correct scale coarseness in R, we can use the table in @sec-coarse-cor. Lets start by simulating a coarse data (5 scale-points) set of 1000 individuals with a true population standardized mean difference of $\delta = .50$.
-
 
 ```{r}
 # set seed
@@ -248,4 +248,3 @@ dc <- do/ay
 rbind(paste0('Observed: do = ', round(do,3)),
       paste0('Corrected: dc = ', round(dc,3)))
 ```
-

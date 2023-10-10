@@ -83,7 +83,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
+<link href="./references_page.html" rel="next">
 <link href="./metaanalysis_intro.html" rel="prev">
 <link href="./figure/favicon_book.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -137,7 +137,10 @@ div.csl-indent {
 
 <meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 12&nbsp; Artifact Correction Meta-Analysis">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="figure/correction_forest.png">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/figure/correction_forest.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="1076">
+<meta name="twitter:image-width" content="1522">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -182,6 +185,11 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/tree/gh-pages" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="https://twitter.com/intent/tweet?url=|url|" title="Twitter" class="quarto-navigation-tool px-1" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -285,12 +293,23 @@ div.csl-indent {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -325,7 +344,7 @@ div.csl-indent {
 
 <section id="introduction" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">12.1</span> Introduction</h2>
-<p>Artifact correction meta-analysis, also referred to as psychometric meta-analysis, is a form of meta-analysis where effect sizes are systematically corrected for sources of bias. These sources of bias have been discussed in previous chapters 4-10. Methodology for conducting artifact correction style meta-analyses were originally pioneered by Frank Schmidt and John Hunter <span class="citation" data-cites="hunter1990a schmidt1977">(<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>; <a href="direct_range_restriction.html#ref-schmidt1977" role="doc-biblioref">Schmidt and Hunter 1977</a>)</span> and then reviewed more recently by Brenton Wiernik and Jeffrey Dahlke <span class="citation" data-cites="wiernik2020">(<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>. There has also been powerful R packages developed to aide in the application of artifact correction meta-analyses that we have used in previous chapters <span class="citation" data-cites="dahlke2019">(<a href="direct_range_restriction.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. You will notice that in this section, we do not discuss standardized mean differences. This is due to the fact that the artifact correction model is designed for pearson correlations, in order to use this method for standardized mean differences, convert to pearson correlations using the methods described in chapter 11, and then use the correction methods used below. Once you apply the corrections to the converted correlations they can then be converted back to a standardized mean difference.</p>
+<p>Artifact correction meta-analysis, also referred to as psychometric meta-analysis, is a form of meta-analysis where effect sizes are systematically corrected for sources of bias. These sources of bias have been discussed in previous chapters 4-10. Methodology for conducting artifact correction style meta-analyses were originally pioneered by Frank Schmidt and John Hunter <span class="citation" data-cites="hunter1990a schmidt1977">(<a href="references_page.html#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>; <a href="references_page.html#ref-schmidt1977" role="doc-biblioref">Schmidt and Hunter 1977</a>)</span> and then reviewed more recently by Brenton Wiernik and Jeffrey Dahlke <span class="citation" data-cites="wiernik2020">(<a href="references_page.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>. There has also been powerful R packages developed to aide in the application of artifact correction meta-analyses that we have used in previous chapters <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. You will notice that in this section, we do not discuss standardized mean differences. This is due to the fact that the artifact correction model is designed for pearson correlations, in order to use this method for standardized mean differences, convert to pearson correlations using the methods described in chapter 11, and then use the correction methods used below. Once you apply the corrections to the converted correlations they can then be converted back to a standardized mean difference.</p>
 </section>
 <section id="bare-bones-vs-artifact-correction-meta-analysis" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="bare-bones-vs-artifact-correction-meta-analysis"><span class="header-section-number">12.2</span> Bare Bones vs Artifact Correction Meta-Analysis</h2>
@@ -346,9 +365,9 @@ div.csl-indent {
 <p><span id="eq-art-mdl"><span class="math display">\[
 \theta_{o_i} = A_i\vartheta_i + \varepsilon_{o_i}
 \tag{12.1}\]</span></span></p>
-<p>So now instead of the model being in terms of the observed population value (<span class="math inline">\(\vartheta_{o_i}\)</span>), it is now in terms of the <em>true</em> population value (<span class="math inline">\(\vartheta_{i}\)</span>).The compound biasing factor, <span class="math inline">\(A_i\)</span> is a product of <span class="math inline">\(K\)</span> independent artifact values (e.g., unreliability and range restriction),</p>
+<p>So now instead of the model being in terms of the observed population value (<span class="math inline">\(\vartheta_{o_i}\)</span>), it is now in terms of the <em>true</em> population value (<span class="math inline">\(\vartheta_{i}\)</span>). The compound biasing factor, <span class="math inline">\(A_i\)</span> is a product of multiple independent artifact values (e.g., unreliability and range restriction),</p>
 <p><span class="math display">\[
-A_i = a_{1i} a_{2i} ... a_{Ki}
+A_i = a_{1i} a_{2i} a_{3i} ...
 \]</span></p>
 <p>This compound artifact formula assumes that the values are independent of one another, which is not always the case, see chapter 11 on independence of artifacts. Therefore adjustments must be made to ensure independence. eq-art-mdl can be re-arranged to obtain unbiased estimates of the true population effect size:</p>
 <p><span id="eq-correction-mdl"><span class="math display">\[
@@ -398,7 +417,7 @@ A_i = a_{1i} a_{2i} ... a_{Ki}
 <p><span class="math display">\[
 \vartheta_{\text{Lower}} = \hat{\bar{\vartheta}} - 1.645\sigma_\vartheta\, .
 \]</span></p>
-<p>Note that this is not to be confused with <em>confidence</em> intervals which denotes the range of plausible values that the <em>mean</em> of true effects can take on. This differentiation is akin to understanding the disparity between the standard error of the mean and the standard deviation in the context of a normal distribution. We can also see how the corrections reduced the heterogeneity in the effect size estimates by comparing variance in true effect sizes (<span class="math inline">\(\sigma^2_{\vartheta_o}\)</span>) to the variance in observed effect sizes (<span class="math inline">\(\sigma^2_{\vartheta_o}\)</span>; this can be calculated by conducting a bare-bones random effects meta-analysis described in chapter 11). The percent reduction in heterogeneity can be computed by taking the ratio of the two, <span class="math inline">\(\sigma^2_{\vartheta}/\sigma^2_{\vartheta_o}\)</span>. <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> suggest that if 75% of the heterogeneity is accounted for by artifact corrections, then we can assume that the remaining heterogeneity is attributable to remaining artifacts that have not been addressed in the current meta-analysis. Although it is important to point out that this is simply a rule of thumb rather than a mathematical property.</p>
+<p>Note that this is not to be confused with <em>confidence</em> intervals which denotes the range of plausible values that the <em>mean</em> of true effects can take on. This differentiation is akin to understanding the disparity between the standard error of the mean and the standard deviation in the context of a normal distribution. We can also see how the corrections reduced the heterogeneity in the effect size estimates by comparing variance in true effect sizes (<span class="math inline">\(\sigma^2_{\vartheta_o}\)</span>) to the variance in observed effect sizes (<span class="math inline">\(\sigma^2_{\vartheta_o}\)</span>; this can be calculated by conducting a bare-bones random effects meta-analysis described in chapter 11). The percent reduction in heterogeneity can be computed by taking the ratio of the two, <span class="math inline">\(\sigma^2_{\vartheta}/\sigma^2_{\vartheta_o}\)</span>. <span class="citation" data-cites="hunter1990a">Hunter and Schmidt (<a href="references_page.html#ref-hunter1990a" role="doc-biblioref">1990</a>)</span> suggest that if 75% of the heterogeneity is accounted for by artifact corrections, then we can assume that the remaining heterogeneity is attributable to remaining artifacts that have not been addressed in the current meta-analysis. Although it is important to point out that this is simply a rule of thumb rather than a mathematical property.</p>
 </section>
 <section id="individual-corrections-in-correlations" class="level3" data-number="12.3.2">
 <h3 data-number="12.3.2" class="anchored" data-anchor-id="individual-corrections-in-correlations"><span class="header-section-number">12.3.2</span> Individual Corrections in Correlations</h3>
@@ -415,11 +434,12 @@ r_{c_i} = \rho_i + \varepsilon_{c_i}
 \sigma^2_{r_c} = \sigma^2_\rho + \sigma^2_{\varepsilon_c}
 \]</span></p>
 <p>In order to compute the variance components as well as the mean true population correlation, we first need to calculate the study weights. We will follow a similar procedure for calculating random effects weights in chapter 11. Lets define the corrected random effects weights as,</p>
-<p>$$</p>
-<p>w_i = .</p>
 <p><span class="math display">\[
-However the variance components, $\sigma^2_{\varepsilon_ci}$ and $\sigma^2_\rho$, require the weights themselves to actually estimate them, so instead we can approximate the variance components using the sample size as the weights such that,
-\]</span> w_i == $$</p>
+w_i = \frac{1}{\sigma^2_{\varepsilon_ci}+\sigma^2_\rho}.
+\]</span> However the variance components, <span class="math inline">\(\sigma^2_{\varepsilon_ci}\)</span> and <span class="math inline">\(\sigma^2_\rho\)</span>, require the weights themselves to actually estimate them, so instead we can approximate the variance components using the sample size as the weights such that,</p>
+<p><span class="math display">\[
+w_i =\frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}= \frac{1}{\sigma^2_{\varepsilon_ci}+(\sigma^2_{r_c}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_ci}+\left(\frac{\sum^k_{i=1}n_i(r_{c_i} - \bar{r}_c)^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}n_i}\right)}
+\]</span></p>
 <p>Where <span class="math inline">\(\bar{r}_c\)</span> is the sample size weighted average corrected correlation. These weights can then be used to obtain a more precise estimate of the true population correlation,</p>
 <p><span class="math display">\[
 \hat{\bar{\rho}}=\frac{\sum_{i=1}^k w_i r_{c_i}}{\sum_{i=1}^k w_i}
@@ -442,19 +462,19 @@ However the variance components, $\sigma^2_{\varepsilon_ci}$ and $\sigma^2_\rho$
 \]</span></p>
 <p>We can also calculate the standard error of the mean of true population effect sizes (<span class="math inline">\(SE_{\hat{\bar{\rho}}}\)</span>) by dividing the sampling error variance component by the number of studies, <span class="math inline">\(k\)</span>,</p>
 <p><span class="math display">\[
-SE_\hat{\bar{\rho}} = \sqrt{\frac{\sigma^2_{r_c}}{k}}
+SE_{\hat{\bar{\rho}}} = \sqrt{\frac{\sigma^2_{r_c}}{k}}
 \]</span></p>
 <p>Which can then be used to calculate 95% confidence intervals:</p>
 <p><span class="math display">\[
-\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_\hat{\bar{\rho}}
+\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_{\hat{\bar{\rho}}}
 \]</span></p>
 <p><span class="math display">\[
-\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_\hat{\bar{\rho}}
+\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_{\hat{\bar{\rho}}}
 \]</span></p>
 </section>
 <section id="applied-example-in-r" class="level3" data-number="12.3.3">
 <h3 data-number="12.3.3" class="anchored" data-anchor-id="applied-example-in-r"><span class="header-section-number">12.3.3</span> Applied Example in R</h3>
-<p>Lets conduct an individual correction meta-analysis in r using the data set by <span class="citation" data-cites="roth2015">Roth (<a href="direct_range_restriction.html#ref-roth2015" role="doc-biblioref">2015</a>)</span>. This data set consists of correlations between school grades and intelligence test scores. It also contains information on the reliability of the intelligence test scores and the extent of range restriction in test scores. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in test scores. The compound artifact biasing factor for the correlation would be: <span class="math display">\[
+<p>Lets conduct an individual correction meta-analysis in r using the data set by <span class="citation" data-cites="roth2015">Roth (<a href="references_page.html#ref-roth2015" role="doc-biblioref">2015</a>)</span>. This data set consists of correlations between school grades and intelligence test scores. It also contains information on the reliability of the intelligence test scores and the extent of range restriction in test scores. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in test scores. The compound artifact biasing factor for the correlation would be: <span class="math display">\[
 A_i=\sqrt{r_{o_i}^2 + \frac{u_{x_i}^2 r_{xx'_i}(r_{xx'_i} - r_{o_i}^2) }{1 - u_{x_i}^2 (1-r_{xx'_i})} }
 \]</span> Sticking with our theme of doing everything in base R first, lets use the equations from the previous section to conduct the meta-analysis.</p>
 <div class="cell">
@@ -518,7 +538,7 @@ A_i=\sqrt{r_{o_i}^2 + \frac{u_{x_i}^2 r_{xx'_i}(r_{xx'_i} - r_{o_i}^2) }{1 - u_{
 1 240 105151    0.5398838 0.01339916 0.2022865</code></pre>
 </div>
 </div>
-<p>The estimated mean correlation of .540 is precisely what is precisely what the original paper reported <span class="citation" data-cites="roth2015">(<a href="direct_range_restriction.html#ref-roth2015" role="doc-biblioref">Roth 2015</a>)</span>. Lets conduct the meta-analysis using the the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="direct_range_restriction.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. The function <code>ma_r_ic</code> is designed to conduct an individual correction meta-analysis on correlation coefficients.</p>
+<p>The estimated mean correlation of .540 is precisely what is precisely what the original paper reported <span class="citation" data-cites="roth2015">(<a href="references_page.html#ref-roth2015" role="doc-biblioref">Roth 2015</a>)</span>. Lets conduct the meta-analysis using the the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>. The function <code>ma_r_ic</code> is designed to conduct an individual correction meta-analysis on correlation coefficients.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('psychmeta')</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
@@ -570,7 +590,7 @@ A_i=\sqrt{r_{o_i}^2 + \frac{u_{x_i}^2 r_{xx'_i}(r_{xx'_i} - r_{o_i}^2) }{1 - u_{
 </section>
 <section id="artifact-distribution-model" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="artifact-distribution-model"><span class="header-section-number">12.4</span> Artifact Distribution Model</h2>
-<p>When we observe a lot of missingness in artifact values (e.g., studies not reporting reliability), we may choose to use an artifact distribution model. The artifact distribution model conducts a meta-analysis on the observed effect sizes and artifact values separately, and then uses the aggregate artifact values to correct for the observed mean effect size. Since the artifact distribution method uses Taylor series approximations <span class="citation" data-cites="dahlke2020">(<a href="direct_range_restriction.html#ref-dahlke2020" role="doc-biblioref">Dahlke and Wiernik 2020</a>)</span> that are custom-tailored to estimate the sampling variance of corrected correlations, we will skip the general case to focus on its application to correlations.</p>
+<p>When we observe a lot of missingness in artifact values (e.g., studies not reporting reliability), we may choose to use an artifact distribution model. The artifact distribution model conducts a meta-analysis on the observed effect sizes and artifact values separately, and then uses the aggregate artifact values to correct for the observed mean effect size. Since the artifact distribution method uses Taylor series approximations <span class="citation" data-cites="dahlke2020">(<a href="references_page.html#ref-dahlke2020" role="doc-biblioref">Dahlke and Wiernik 2020</a>)</span> that are custom-tailored to estimate the sampling variance of corrected correlations, we will skip the general case to focus on its application to correlations.</p>
 <section id="the-correlational-case" class="level3" data-number="12.4.1">
 <h3 data-number="12.4.1" class="anchored" data-anchor-id="the-correlational-case"><span class="header-section-number">12.4.1</span> The Correlational Case</h3>
 <p>The model here can be broken down into two parts, the first part aggregates the observed effect sizes and the second part aggregates the artifact values. The artifact values we will focus on here are the reliability coefficients (see chapter 5 and 6), however other artifact values like <span class="math inline">\(u\)</span>-ratios will follow similar procedures. We can start with the bare-bones meta-analysis model: <span class="math inline">\(r_{o_i} = \rho_{o_i} + \varepsilon_{o_i}\)</span>. We can estimate the observed population correlation (<span class="math inline">\(\vartheta_{o_i}\)</span>) by first calculating the weights (using the <span class="math inline">\(n\)</span>-weighted mean correlation in the formula for sampling variance, <span class="math inline">\(\bar{r}\)</span>):</p>
@@ -633,12 +653,12 @@ B_{r_{yU}}=\frac{\partial}{\partial r_{yU}} (\hat{\bar{\rho}}\cdot \bar{r}_{xT}\
 <p><span class="math display">\[
 \sigma_\rho^2= \frac{\sigma^2_{\rho_o} - \sigma^2_A}{\bar{A}^2}
 \]</span></p>
-<p>Where the artifact biasing factor is: <span class="math inline">\(\bar{A}=\bar{r}_{xT}\cdot \bar{r}_{yU}\)</span>. See the supplementary materials of <span class="citation" data-cites="dahlke2020">Dahlke and Wiernik (<a href="direct_range_restriction.html#ref-dahlke2020" role="doc-biblioref">2020</a>)</span> for detailed Taylor series approximation derivations for the immensely more complicated bivariate indirect range restriction plus measurement error correction.</p>
+<p>Where the artifact biasing factor is: <span class="math inline">\(\bar{A}=\bar{r}_{xT}\cdot \bar{r}_{yU}\)</span>. See the supplementary materials of <span class="citation" data-cites="dahlke2020">Dahlke and Wiernik (<a href="references_page.html#ref-dahlke2020" role="doc-biblioref">2020</a>)</span> for detailed Taylor series approximation derivations for the immensely more complicated bivariate indirect range restriction plus measurement error correction.</p>
 </section>
 </section>
 <section id="applied-example-in-r-1" class="level3" data-number="12.4.2">
 <h3 data-number="12.4.2" class="anchored" data-anchor-id="applied-example-in-r-1"><span class="header-section-number">12.4.2</span> Applied Example in R</h3>
-<p>Lets conduct an artifact distribution correction meta-analysis in R, instead using data from the meta-analysis by <span class="citation" data-cites="mcdaniel1994">McDaniel et al. (<a href="direct_range_restriction.html#ref-mcdaniel1994" role="doc-biblioref">1994</a>)</span>. This dataset contains correlations between employment interviews and job performance. This data set has a lot of missing values for reliability coefficients and <span class="math inline">\(u\)</span>-ratios which might suggest that the artifact distribution approach is a better choice compared to the individual correction approach. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in both job performance and employment interviews. The attenuation formula will be important for calculating the Taylro series approximation can be defined as</p>
+<p>Lets conduct an artifact distribution correction meta-analysis in R, instead using data from the meta-analysis by <span class="citation" data-cites="mcdaniel1994">McDaniel et al. (<a href="references_page.html#ref-mcdaniel1994" role="doc-biblioref">1994</a>)</span>. This dataset contains correlations between employment interviews and job performance. This data set has a lot of missing values for reliability coefficients and <span class="math inline">\(u\)</span>-ratios which might suggest that the artifact distribution approach is a better choice compared to the individual correction approach. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in both job performance and employment interviews. The attenuation formula will be important for calculating the Taylro series approximation can be defined as</p>
 <p><span class="math display">\[
 \bar{\rho}_o=\bar{\rho}\sqrt{\bar{r}_{o_i}^2 + \frac{\bar{u}_{x_i}^2 \bar{r}_{xx'_i}(\bar{r}_{xx'_i}\bar{r}_{yy'_i} - \bar{r}_{o_i}^2) }{1 - \bar{u}_{x_i}^2 (1-\bar{r}_{xx'_i})} }
 \]</span> Instead of conducting a taylor series approximation by hand, we will simply use the <code>psychmeta</code> package to perform the artifact distribution meta-analysis. The function <code>ma_r_ad</code> is designed to conduct an artifact distribution meta-analysis on correlation coefficients. The function also reports the bare-bones model allowing us to compare the corrected estimates to the uncorrected.</p>
@@ -709,19 +729,9 @@ B_{r_{yU}}=\frac{\partial}{\partial r_{yU}} (\hat{\bar{\rho}}\cdot \bar{r}_{xT}\
 </div>
 </div>
 <p>Lets compare these results to the bare-bones model. In <code>psychmeta</code> the bare-bones model can be conduced using <code>ma_r_bb</code>. However, the <code>ma_r_ic</code> function also reports the bare-bones results as well. Therefore we can just extract the necessary statistics from the model.</p>
-<p><span class="citation" data-cites="hunter1990a">(<a href="direct_range_restriction.html#ref-hunter1990a" role="doc-biblioref">Hunter and Schmidt 1990</a>)</span></p>
-<p><span class="citation" data-cites="wiernik2020">(<a href="direct_range_restriction.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span></p>
-<p><span class="citation" data-cites="schmidt1977">(<a href="direct_range_restriction.html#ref-schmidt1977" role="doc-biblioref">Schmidt and Hunter 1977</a>)</span></p>
-<p><span class="citation" data-cites="murphy2003">(<a href="direct_range_restriction.html#ref-murphy2003" role="doc-biblioref">Murphy 2003</a>)</span></p>
-<p><span class="citation" data-cites="viswesvaran1995">(<a href="direct_range_restriction.html#ref-viswesvaran1995" role="doc-biblioref">Viswesvaran and Ones 1995</a>)</span></p>
-<p><span class="citation" data-cites="raju1983">(<a href="direct_range_restriction.html#ref-raju1983" role="doc-biblioref">Raju and Burke 1983</a>)</span></p>
-<p><span class="citation" data-cites="callender1980">(<a href="direct_range_restriction.html#ref-callender1980" role="doc-biblioref">Callender and Osburn 1980</a>)</span></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-callender1980" class="csl-entry" role="listitem">
-Callender, John C., and H. G. Osburn. 1980. <span>“Development and Test of a New Model for Validity Generalization.”</span> <em>Journal of Applied Psychology</em> 65 (5): 543–58. <a href="https://doi.org/10.1037/0021-9010.65.5.543">https://doi.org/10.1037/0021-9010.65.5.543</a>.
-</div>
 <div id="ref-dahlke2019" class="csl-entry" role="listitem">
 Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
 </div>
@@ -734,20 +744,11 @@ Hunter, John E., and Frank L. Schmidt. 1990. <em>Methods of meta-analysis: corre
 <div id="ref-mcdaniel1994" class="csl-entry" role="listitem">
 McDaniel, Michael A., Deborah L. Whetzel, Frank L. Schmidt, and Steven D. Maurer. 1994. <span>“The Validity of Employment Interviews: A Comprehensive Review and Meta-Analysis.”</span> <em>Journal of Applied Psychology</em> 79 (4): 599–616. <a href="https://doi.org/10.1037/0021-9010.79.4.599">https://doi.org/10.1037/0021-9010.79.4.599</a>.
 </div>
-<div id="ref-murphy2003" class="csl-entry" role="listitem">
-Murphy, Kevin R. 2003. <em>Validity Generalization: A Critical Review</em>. Psychology Press.
-</div>
-<div id="ref-raju1983" class="csl-entry" role="listitem">
-Raju, Nambury, and Michael Burke. 1983. <span>“Two Procedures for Studying Validity Generalization.”</span> <em>Journal of Applied Psychology</em> 68 (August): 382–95. <a href="https://doi.org/10.1037/0021-9010.68.3.382">https://doi.org/10.1037/0021-9010.68.3.382</a>.
-</div>
 <div id="ref-roth2015" class="csl-entry" role="listitem">
 Roth, Bettina. 2015. <span>“Intelligence and School Grades: A Meta-Analysis.”</span>
 </div>
 <div id="ref-schmidt1977" class="csl-entry" role="listitem">
 Schmidt, Frank, and John Hunter. 1977. <span>“Development of a General Solution to the Problem of Validity Generalization.”</span> <em>Journal of Applied Psychology</em> 62 (October): 529–40. <a href="https://doi.org/10.1037/0021-9010.62.5.529">https://doi.org/10.1037/0021-9010.62.5.529</a>.
-</div>
-<div id="ref-viswesvaran1995" class="csl-entry" role="listitem">
-Viswesvaran, Chockalingam, and Deniz S. Ones. 1995. <span>“Theory Testing: Combining Psychometric Meta-Analysis and Structural Equations Modeling.”</span> <em>Personnel Psychology</em> 48 (4): 865–85. <a href="https://doi.org/10.1111/j.1744-6570.1995.tb01784.x">https://doi.org/10.1111/j.1744-6570.1995.tb01784.x</a>.
 </div>
 <div id="ref-wiernik2020" class="csl-entry" role="listitem">
 Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining Unbiased Results in Meta-Analysis: The Importance of Correcting for Statistical Artifacts.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
@@ -997,7 +998,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
+      <a href="./references_page.html" class="pagination-link">
         <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
