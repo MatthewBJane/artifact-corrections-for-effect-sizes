@@ -82,7 +82,7 @@ $$
 As the sample size approaches infinity, Cohen's standardized mean difference estimator is an unbiased estimator of the population standardized mean difference [@hedges1981; @cohen1977]. However, in small sample sizes Cohen's estimator is biased upward, that is, on average, it overestimates the population standardized mean difference. To see why this is the case, we can first define the standardized mean difference between group $A$ and group $B$ such that,
 
 $$
-d = \frac{\bar{y_A}-\bar{y}_B}{\sigma_p}.
+d = \frac{\bar{y}_A-\bar{y}_B}{\sigma_p}.
 $$
 
 Where $\bar{y}_A$ and $\bar{y}_B$ are the observed arithmetic means of group $A$ and group $B$, respectively. The raw difference between these two means will be unbiased, since the arithmetic means themselves are unbiased estimators at all sample sizes. However, the pooled standard deviation, $\sigma_p$, is biased when sample sizes are small. Statisticians ultimately had to choose whether the estimator of the standard deviation or the variance (the square of the standard deviation) would be unbiased. Since the variance has more utility in much of statistics, it was more important for the estimator of variance to be unbiased. Therefore the resulting bias in the standard deviation will bleed over into the equation for standardized mean differences. This bias can be visualized in the figure below. Notice that the sample standard deviation is under-estimated in small sample sizes (left plot), and the standardized mean difference is over-estimated in small sample sizes (right plot).

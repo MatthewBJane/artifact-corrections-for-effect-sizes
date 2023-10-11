@@ -108,19 +108,19 @@ ggplot(data = NULL, aes(y = `Treatment`,
 
 ### Defining effect sizes
 
-Lets say we have an effect size of interest that quantifies the relationship between an independent and dependent variable. The population effect size can be denoted as $\vartheta$, however this population value is unknown. We can obtain an estimate the population effect size by conducting a study on a sample drawn from the population and then calculating a study effect size, $\theta$. The study effect size is a function of the population effect size and sampling error ($\varepsilon$) such that,
+Lets say we have an effect size of interest that quantifies the relationship between an independent and dependent variable. The population effect size can be denoted as $\vartheta$, however this population value is unknown. We can obtain an estimate the population effect size by conducting a study on a sample of individuals drawn from the population and then calculating a study effect size, $\theta$. The study effect size is a function of the population effect size and sampling error ($\varepsilon$) such that,
 
 $$
 \theta = \vartheta + \varepsilon
 $$ {#eq-B}
 
-Effect sizes will differ from study to study, this can be due to two reasons: variance in population effect sizes ($\sigma^2_\vartheta$) or variance in sampling error ($\sigma_\varepsilon$). Accordingly, we can express the variance in study effect sizes ($\sigma_\theta$) as,
+Effect sizes will differ from study to study, this can be due to two reasons: variance in population effect sizes ($\sigma^2_\vartheta$) or variance in sampling error ($\sigma^2_\varepsilon$). Accordingly, we can express the variance in study effect sizes ($\sigma^2_\theta$) as,
 
 $$
 \sigma^2_\theta = \sigma^2_\vartheta + \sigma^2_\varepsilon
 $$
 
-If studies were drawing samples from the same population, the variance in the population effect size would be zero ($\sigma^2_\vartheta = 0$) and the expected value (i.e., the mean) of study effect sizes would be equal to the population effect size, $\mathbb{E}[\theta]=\vartheta$.
+If studies were drawing samples from the same population, the variance in the population effect size would be zero ($\sigma^2_\vartheta = 0$) and the variation in study effect sizes would be solely attributable to sampling error variance ($\sigma^2_\theta=\sigma^2_\varepsilon$).
 
 ## Effect Sizes and Artifacts
 
@@ -238,15 +238,15 @@ $$
 \sigma_\varepsilon^2 =\frac{(1 - \rho^2)^2}{n}.
 $$ {#eq-3}
 
-In practice, the population correlation is unknown so the study correlation can be used instead ($r$) in the above formula as an estimate of the population correlation. Note that the sampling variance is the square of the standard error. 
+In practice, the population correlation is unknown so the study correlation can be used instead ($r$) in the above formula as an estimate of the population correlation. Note that the sampling variance is the square of the standard error.
 
-In the context of artifacts, if the observed correlation is biased relative to the true correlation, we can see model the observed population ($\rho_o$) correlation as a function of the true population correlation ($\rho$) and a artifact biasing factor, $a$, 
+In the context of artifacts, if the observed correlation is biased relative to the true correlation, we can see model the observed population ($\rho_o$) correlation as a function of the true population correlation ($\rho$) and a artifact biasing factor, $a$,
 
 $$
 \rho_o = a\rho.
 $$
 
-The observed study (sample) correlation would then be defined as, 
+The observed study (sample) correlation would then be defined as,
 
 $$
 r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o.
@@ -263,7 +263,6 @@ Note that the sampling error would also need to be adjusted and therefore it's s
 $$
 \sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}.
 $$
-
 
 ## Standardized Mean Differences
 
@@ -283,15 +282,13 @@ $$
 \sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}.
 $$
 
-Where $\sigma_{A}$ and $\sigma_{B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This SMD estimator is commonly referred to as Cohen's $d$. We can define the study/sample $d$ value as a function of the population $d$ value ($\delta$):
-$$
+Where $\sigma_{A}$ and $\sigma_{B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This SMD estimator is commonly referred to as Cohen's $d$. We can define the study/sample $d$ value as a function of the population $d$ value ($\delta$): $$
 d = \delta + \varepsilon.
-$$ 
-Similar to the previous section on correlation coefficients, the observed $d$ value is a function of the true population value and an artifactual biasing factor ($a$),
+$$ Similar to the previous section on correlation coefficients, the observed $d$ value is a function of the true population value and an artifactual biasing factor ($a$),
 
 $$
 \delta_o = a\delta.
-$$ 
+$$
 
 Therefore the observed study/sample $d$ value can be defined as a function of the observed population value *or* the true population value and bias:
 
