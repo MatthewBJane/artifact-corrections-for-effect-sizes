@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artifact Corrections for Effect Sizes - 3&nbsp; Effect Sizes and Notation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./small_samples.html" rel="next">
+<link href="./dedication.html" rel="prev">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: white;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: white;
+      }
+</style>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 3&nbsp; Effect Sizes and Notation">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/figure/MJB_twitter.jpg">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Notation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Artifact Corrections</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./small_samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Small Samples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./unreliability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unreliability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misclassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./artificial_dichotomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scale_coarseness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./direct_range_restriction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indirect_range_restriction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Application to Meta-Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metaanalysis_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Meta-Analysis Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./artifact_correction_metaanalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Artifact Correction Meta-Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-are-effect-sizes" id="toc-what-are-effect-sizes" class="nav-link active" data-scroll-target="#what-are-effect-sizes"><span class="header-section-number">3.1</span> What are Effect Sizes?</a>
+  <ul class="collapse">
+  <li><a href="#applied-example" id="toc-applied-example" class="nav-link" data-scroll-target="#applied-example"><span class="header-section-number">3.1.1</span> Applied Example</a></li>
+  <li><a href="#defining-effect-sizes" id="toc-defining-effect-sizes" class="nav-link" data-scroll-target="#defining-effect-sizes"><span class="header-section-number">3.1.2</span> Defining effect sizes</a></li>
+  </ul></li>
+  <li><a href="#effect-sizes-and-artifacts" id="toc-effect-sizes-and-artifacts" class="nav-link" data-scroll-target="#effect-sizes-and-artifacts"><span class="header-section-number">3.2</span> Effect Sizes and Artifacts</a></li>
+  <li><a href="#defining-an-effect-size-estimand" id="toc-defining-an-effect-size-estimand" class="nav-link" data-scroll-target="#defining-an-effect-size-estimand"><span class="header-section-number">3.3</span> Defining an Effect Size Estimand</a></li>
+  <li><a href="#effect-size-notation" id="toc-effect-size-notation" class="nav-link" data-scroll-target="#effect-size-notation"><span class="header-section-number">3.4</span> Effect Size Notation</a></li>
+  <li><a href="#correlations" id="toc-correlations" class="nav-link" data-scroll-target="#correlations"><span class="header-section-number">3.5</span> Correlations</a>
+  <ul class="collapse">
+  <li><a href="#technical-overview-correlations-r" id="toc-technical-overview-correlations-r" class="nav-link" data-scroll-target="#technical-overview-correlations-r"><span class="header-section-number">3.5.1</span> Technical Overview Correlations (<em>r</em>)</a></li>
+  </ul></li>
+  <li><a href="#standardized-mean-differences" id="toc-standardized-mean-differences" class="nav-link" data-scroll-target="#standardized-mean-differences"><span class="header-section-number">3.6</span> Standardized Mean Differences</a>
+  <ul class="collapse">
+  <li><a href="#technical-overview-of-standardized-mean-difference-d" id="toc-technical-overview-of-standardized-mean-difference-d" class="nav-link" data-scroll-target="#technical-overview-of-standardized-mean-difference-d"><span class="header-section-number">3.6.1</span> Technical Overview of Standardized Mean Difference (<em>d</em>)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="what-are-effect-sizes" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="what-are-effect-sizes"><span class="header-section-number">3.1</span> What are Effect Sizes?</h2>
+<p>Effect sizes are statistics that measure the magnitude of a relationship between two variables. It’s important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights from data, rather than being the ultimate objective themselves. Effect sizes aide in researcher’s ability to draw meaningful inferences from data and therefore it is crucial that they are accurate. Biased effect sizes can be likened to a foggy windshield. Just as condensation on glass obstructs a clear view of the road, biased effect sizes can obscure the true association between variables. Similar to how one must clean the windshield to drive safely, researchers must correct for biases in effect sizes to attain a clear and accurate perspective on their data. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book. To see how an effect size may look in practice, the example below will illustrate how calculating one may look in a clinical setting.</p>
+<section id="applied-example" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="applied-example"><span class="header-section-number">3.1.1</span> Applied Example</h3>
+<p>Lets say we want to test whether a new drug can alleviate anxiety, therefore we decide to conduct an experiment to see how well this drug performs. We first randomly assign each participant in the study to either a treatment group (<span class="math inline">\(T\)</span>) or a control group (<span class="math inline">\(C\)</span>). In our experiment we want test how well the experimental drug reduces anxiety, therefore we measure the subjects’ self reported anxiety after under-going the treatment. To see if the drug actually worked in alleviating anxiety, we want to compare the scores from the treatment group and the control group. To do this we can estimate the average treatment effect (<span class="math inline">\(ATE\)</span>), which is the difference in the mean value of self-reported anxiety scores between the treatment group and the control group such that, <span class="math inline">\(ATE = \text{Mean}(X_T) - \text{Mean}(X_C)\)</span>. However, anxiety scores have no meaningful units, so if we obtain an <span class="math inline">\(ATE\)</span> value of <span class="math inline">\(-3\)</span> there is no way to tell if this value is large or small, since it is entirely dependent on how the anxiety scores are scaled. Standardization can allow us to draw meaningful inferences about the size of the effect that can be comparable across scales. We can standardize the <span class="math inline">\(ATE\)</span> by dividing by the standard deviation of scores in the control group, (<span class="math inline">\(\text{SD}\)</span>): <span class="math inline">\(\text{Effect Size} = \frac{ATE}{\text{SD}_C}\)</span>. The effect size is now on an interpretable scale (standard deviations). If we achieve an standardized effect size value of <span class="math inline">\(-0.50\)</span>, we can interpret this as the treatment group exhibiting a reduction in anxiety equivalent to half a standard deviation compared to the control group.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Simulated experimental data</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="defining-effect-sizes" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="defining-effect-sizes"><span class="header-section-number">3.1.2</span> Defining effect sizes</h3>
+<p>Lets say we have an effect size of interest that quantifies the relationship between an independent and dependent variable. The population effect size can be denoted as <span class="math inline">\(\vartheta\)</span>, however this population value is unknown. We can obtain an estimate the population effect size by conducting a study on a sample of individuals drawn from the population and then calculating a study effect size, <span class="math inline">\(\theta\)</span>. The study effect size is a function of the population effect size and sampling error (<span class="math inline">\(\varepsilon\)</span>) such that,</p>
+<p><span id="eq-B"><span class="math display">\[
+\theta = \vartheta + \varepsilon
+\tag{3.1}\]</span></span></p>
+<p>Effect sizes will differ from study to study, this can be due to two reasons: variance in population effect sizes (<span class="math inline">\(\sigma^2_\vartheta\)</span>) or variance in sampling error (<span class="math inline">\(\sigma^2_\varepsilon\)</span>). Accordingly, we can express the variance in study effect sizes (<span class="math inline">\(\sigma^2_\theta\)</span>) as,</p>
+<p><span class="math display">\[
+\sigma^2_\theta = \sigma^2_\vartheta + \sigma^2_\varepsilon
+\]</span></p>
+<p>If studies were drawing samples from the same population, the variance in the population effect size would be zero (<span class="math inline">\(\sigma^2_\vartheta = 0\)</span>) and the variation in study effect sizes would be solely attributable to sampling error variance (<span class="math inline">\(\sigma^2_\theta=\sigma^2_\varepsilon\)</span>).</p>
+</section>
+</section>
+<section id="effect-sizes-and-artifacts" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="effect-sizes-and-artifacts"><span class="header-section-number">3.2</span> Effect Sizes and Artifacts</h2>
+<p>In practice, <em>observed</em> effect size estimates are often biased relative to the <em>true</em> effect size of interest, that is, the observed population effect size (<span class="math inline">\(\vartheta_o\)</span>) is a product of the true population effect size (<span class="math inline">\(\vartheta\)</span>) and artifactual bias (<span class="math inline">\(a\)</span>):</p>
+<p><span id="eq-A"><span class="math display">\[
+\vartheta_o = a\vartheta
+\tag{3.2}\]</span></span></p>
+<p>Note that if <span class="math inline">\(a=1\)</span> this would indicate that there is no artifactual bias (<span class="math inline">\(\vartheta_o=\vartheta\)</span>), if <span class="math inline">\(a&gt;1\)</span> then it would indicate effect size inflation (i.e., biased away from zero), and if <span class="math inline">\(a&lt;1\)</span> that would indicate effect size attenuation (i.e., biased toward zero). It can be seen in <a href="#eq-A">Equation&nbsp;<span class="quarto-unresolved-ref">eq-A</span></a> that we can re-arrange the formula to obtain the true population effect size by dividing the observed population effect size by <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+\vartheta = \frac{\vartheta_o}{a}.
+\]</span></p>
+<p>For a single study that computes an effect size from a sample drawn from the population, the observed study effect size (<span class="math inline">\(\theta_o\)</span>) would be expressed by</p>
+<p><span class="math display">\[
+\theta_o = \vartheta_o + \varepsilon_o
+\]</span> Using <a href="#eq-A">Equation&nbsp;<span class="quarto-unresolved-ref">eq-A</span></a> we can express the observed effect size in terms of the true population effect size rather than the observed population effect size,</p>
+<p><span class="math display">\[
+\theta_o = a\vartheta + \varepsilon_o
+\]</span> Then we can correct the observed effect size by dividing by the biasing factor, <span class="math inline">\(a\)</span>, to obtain an unbiased estimate of the true effect size:</p>
+<p><span class="math display">\[
+\theta_c = \frac{\theta_o}{a}
+\]</span> The sampling error and it’s variance must also be corrected,</p>
+<p><span class="math display">\[
+\varepsilon_c = \frac{\varepsilon_o}{a}
+\]</span> <span class="math display">\[
+\sigma_{\varepsilon_c}^2 = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
+\]</span> The corrected effect size should be an unbiased estimate of the true population effect size as long as the systematic bias multiplier is accurately measured (which is not a trivial task). It is important to note that the corrected effect size will not yield additional statistical power, that is, test-statistics and p-values will remain unchanged. We can demonstrate this mathematically that the z-statistic of the observed effect size (<span class="math inline">\(z_{\theta_o}\)</span>) is identical to the z-statistic of the corrected effecct size (<span class="math inline">\(z_{\theta_c}\)</span>),</p>
+<p><span class="math display">\[
+z_{\theta_o} = \frac{\theta_o}{\sigma_{\varepsilon_o}} = \frac{\frac{\theta_o}{a}}{\frac{\sigma_{\theta_o}}{a}} = \frac{\theta_c}{\sigma_{\varepsilon_c}} = z_{\theta_c}
+\]</span></p>
+</section>
+<section id="defining-an-effect-size-estimand" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="defining-an-effect-size-estimand"><span class="header-section-number">3.3</span> Defining an Effect Size Estimand</h2>
+<p>An effect size <em>estimand</em> is the theoretical quantity that we are trying to estimate. Before delving into the application of correction factors, it is important to clearly define the effect size estimand you aim to capture, including the summary statistic, relevant variables, and the target population. This preliminary step might appear trivial, but it is crucial, as it determines the accuracy and relevance of any subsequent artifact corrections. For instance, consider a scenario where we conduct a study involving a sample of college students with the aim of generalizing our findings to the broader general population. In this context, it is important to correct for range restriction, given the evident selection effects that exist in the college student populations. However, if our sole objective is to draw conclusions pertaining exclusively to the college student demographic, correcting for range restriction would be inappropriate. Furthermore, let’s examine the variable of interest, such as grade-point average (GPA), within this population. Do we intend to focus solely on the raw GPA score, or is our goal to capture what GPA represents, namely, academic achievement? If our aim is to investigate the raw GPA score, then correcting for measurement error would be inappropriate. However, if our primary focus lies in assessing the student’s academic achievement, then it may be relevant to correct GPA scores for measurement error. Defining our estimand guides our approach to artifact correction and ensures that these correction procedures align with the underlying research goals.</p>
+</section>
+<section id="effect-size-notation" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="effect-size-notation"><span class="header-section-number">3.4</span> Effect Size Notation</h2>
+<p>Because of the nature of the topic, this book will cover a large amount of equations and computer code. Therefore to make it as straight-forward as possible the notation will follow a systematic framework to distinguish between types of effect sizes. This book will only be covering two main types of effect sizes: correlations (<span class="math inline">\(r\)</span>) and standardized mean differences (<span class="math inline">\(d\)</span>). Throughout the book variations of <span class="math inline">\(r\)</span> and <span class="math inline">\(d\)</span> will show up frequently, these variations will be differentiated with subscripts that are consistent with that section. Also, to distinguish between population-level values (i.e., the effect size across all potential observations) and effect sizes specific to a study or sample (i.e., the effect size observed within a single sample drawn from the population), we will use the following notation:</p>
+<ul>
+<li>Arbitrary Effect Size
+<ul>
+<li>Population value: <span class="math inline">\(\vartheta\)</span></li>
+<li>Study/sample value: <span class="math inline">\(\theta\)</span></li>
+</ul></li>
+<li>Correlations
+<ul>
+<li>Population value: <span class="math inline">\(\rho\)</span></li>
+<li>Study/sample value: <span class="math inline">\(r\)</span></li>
+</ul></li>
+<li>Standardized Mean Differences
+<ul>
+<li>Population value: <span class="math inline">\(\delta\)</span></li>
+<li>Study/sample value: <span class="math inline">\(d\)</span></li>
+</ul></li>
+</ul>
+<p>In most cases, continuous independent variables will be denoted with <span class="math inline">\(x\)</span> and dependent variables with <span class="math inline">\(y\)</span> (note that this notation may differ when referring to observed and true scores). Categorical (i.e., groupings) variables will be denoted with <span class="math inline">\(g\)</span> (this notation will be used primarily for standardized mean differences).</p>
+</section>
+<section id="correlations" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="correlations"><span class="header-section-number">3.5</span> Correlations</h2>
+<p>A correlation describes the relationship between two continuous variables. The Pearson correlation coefficient was first introduced by Auguste <span class="citation" data-cites="bravais1844">Bravais (<a href="#ref-bravais1844" role="doc-biblioref">1844</a>)</span>. Later developed by Karl Pearson, lending itself to the name.</p>
+<section id="technical-overview-correlations-r" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="technical-overview-correlations-r"><span class="header-section-number">3.5.1</span> Technical Overview Correlations (<em>r</em>)</h3>
+<p>If we draw a sample of <span class="math inline">\(n\)</span> observations from a population, we can calculate the study correlation (<span class="math inline">\(r\)</span>) between variables <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> using the following Pearson’s product-moment estimator,</p>
+<p><span id="eq-pearson-raw"><span class="math display">\[
+r = \frac{
+\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})
+}{
+\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
+}.
+\tag{3.3}\]</span></span></p>
+<p>For digestibility, we can break down the formula into parts. The correlation coefficient can be defined as the covariance between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> standardized by the product of their standard deviations (i.e., square root variance),</p>
+<p><span id="eq-pearson"><span class="math display">\[
+r = \frac{\sigma_{xy}}
+{\sigma_x\sigma_y}.
+\tag{3.4}\]</span></span></p>
+<p>we can first define the covariance (<span class="math inline">\(\sigma_{xy}\)</span>) as the average product of errors for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>,</p>
+<p><span id="eq-cov"><span class="math display">\[
+\sigma_{xy} =\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y}).
+\tag{3.5}\]</span></span></p>
+<p>Then we can find the variance for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> by taking the average squared error from the mean for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>,</p>
+<p><span id="eq-varx"><span class="math display">\[
+\sigma^2_x = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2
+\tag{3.6}\]</span></span></p>
+<p><span id="eq-vary"><span class="math display">\[
+\sigma^2_y = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2.
+\tag{3.7}\]</span></span></p>
+<p>Plugging in <a href="#eq-cov">Equation&nbsp;<span class="quarto-unresolved-ref">eq-cov</span></a>, <a href="#eq-varx">Equation&nbsp;<span class="quarto-unresolved-ref">eq-varx</span></a>, and <a href="#eq-vary">Equation&nbsp;<span class="quarto-unresolved-ref">eq-vary</span></a> into <a href="#eq-pearson">Equation&nbsp;<span class="quarto-unresolved-ref">eq-pearson</span></a> we can see that the term, <span class="math inline">\(\frac{1}{n-1}\)</span>, will cancel out and we will be left with the original pearson correlation coefficient formula from <a href="#eq-pearson-raw">Equation&nbsp;<span class="quarto-unresolved-ref">eq-pearson-raw</span></a>,</p>
+<p><span id="eq-1"><span class="math display">\[
+r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}.
+\tag{3.8}\]</span></span></p>
+<p>In the absence of artifacts, the Pearson correlation <span class="math inline">\(r\)</span> is an asymptotically (i.e., as <span class="math inline">\(n\)</span> approaches infinity) unbiased estimator (in small sample sizes, it is biased see chapter 4). We can express <span class="math inline">\(r\)</span> similarly to <a href="#eq-B">Equation&nbsp;<span class="quarto-unresolved-ref">eq-B</span></a>,</p>
+<p><span id="eq-2"><span class="math display">\[
+r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon).
+\tag{3.9}\]</span></span></p>
+<p>Where <span class="math inline">\(\sigma^2_\varepsilon\)</span> is the sampling variance of the observed correlation. The sampling variance can be calculated from the sample size (<span class="math inline">\(n\)</span>) and the population correlation,</p>
+<p><span id="eq-3"><span class="math display">\[
+\sigma_\varepsilon^2 =\frac{(1 - \rho^2)^2}{n}.
+\tag{3.10}\]</span></span></p>
+<p>In practice, the population correlation is unknown so the study correlation can be used instead (<span class="math inline">\(r\)</span>) in the above formula as an estimate of the population correlation. Note that the sampling variance is the square of the standard error.</p>
+<p>In the context of artifacts, if the observed correlation is biased relative to the true correlation, we can see model the observed population (<span class="math inline">\(\rho_o\)</span>) correlation as a function of the true population correlation (<span class="math inline">\(\rho\)</span>) and a artifact biasing factor, <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+\rho_o = a\rho.
+\]</span></p>
+<p>The observed study (sample) correlation would then be defined as,</p>
+<p><span class="math display">\[
+r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o.
+\]</span></p>
+<p>To obtain an unbiased estimate of the true population correlation, we can correct the correlation coefficient (<span class="math inline">\(r_c\)</span>) by dividing by the biasing factor, <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+r_{c} = \frac{r_o}{a}.
+\]</span></p>
+<p>Note that the sampling error would also need to be adjusted and therefore it’s sampling variance (<span class="math inline">\(\sigma_{\varepsilon_c}\)</span>) would be corrected to be,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}.
+\]</span></p>
+</section>
+</section>
+<section id="standardized-mean-differences" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="standardized-mean-differences"><span class="header-section-number">3.6</span> Standardized Mean Differences</h2>
+<p>Standardized mean differences are used to quantify the average difference in some variable between groups. The most commonly used formulation is Cohen’s <span class="math inline">\(d\)</span> <span class="citation" data-cites="cohen1988">(<a href="#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span> which quantifies the average difference between groups (e.g., men vs.&nbsp;women) and standardizes by the pooled standard deviation. Note that the other most commonly used estimator is Hedges’ <span class="math inline">\(g\)</span>, but the difference between the two is a small sample correction factor that can be found in the chapter on small samples.</p>
+<section id="technical-overview-of-standardized-mean-difference-d" class="level3" data-number="3.6.1">
+<h3 data-number="3.6.1" class="anchored" data-anchor-id="technical-overview-of-standardized-mean-difference-d"><span class="header-section-number">3.6.1</span> Technical Overview of Standardized Mean Difference (<em>d</em>)</h3>
+<p>If we draw a sample of <span class="math inline">\(n_A\)</span> subjects from group <span class="math inline">\(A\)</span> and <span class="math inline">\(n_B\)</span> subjects from group <span class="math inline">\(B\)</span>, the mean difference between groups (<span class="math inline">\(d\)</span>) on variable <span class="math inline">\(y\)</span> can be defined as,</p>
+<p><span class="math display">\[
+d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_p}.
+\]</span></p>
+<p>Where the standardizer, <span class="math inline">\(\sigma_p\)</span> is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom (e.g., <span class="math inline">\(\text{df}_A=n_A-1\)</span>),</p>
+<p><span class="math display">\[
+\sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}.
+\]</span></p>
+<p>Where <span class="math inline">\(\sigma_{A}\)</span> and <span class="math inline">\(\sigma_{B}\)</span> are the standard deviations of <span class="math inline">\(y\)</span> within groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> respectively. This SMD estimator is commonly referred to as Cohen’s <span class="math inline">\(d\)</span>. We can define the study/sample <span class="math inline">\(d\)</span> value as a function of the population <span class="math inline">\(d\)</span> value (<span class="math inline">\(\delta\)</span>): <span class="math display">\[
+d = \delta + \varepsilon.
+\]</span> Similar to the previous section on correlation coefficients, the observed <span class="math inline">\(d\)</span> value is a function of the true population value and an artifactual biasing factor (<span class="math inline">\(a\)</span>),</p>
+<p><span class="math display">\[
+\delta_o = a\delta.
+\]</span></p>
+<p>Therefore the observed study/sample <span class="math inline">\(d\)</span> value can be defined as a function of the observed population value <em>or</em> the true population value and bias:</p>
+<p><span class="math display">\[
+d = \delta_o + \varepsilon_o = a\delta + \varepsilon_o.
+\]</span></p>
+<p>Thus the corrected standardized mean difference (<span class="math inline">\(d_c\)</span>) and it’s corresponding sampling variance (<span class="math inline">\(\sigma^2_{\varepsilon_c}\)</span>) can both be defined as:</p>
+<p><span class="math display">\[
+d_c = \frac{d_o}{a}
+\]</span></p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
+\]</span></p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-bravais1844" class="csl-entry" role="listitem">
+Bravais, A. 1844. <em>Analyse mathématique sur les probabilités des erreurs de situation d’un point</em>. Impr. Royale.
+</div>
+<div id="ref-cohen1988" class="csl-entry" role="listitem">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. Academic Press.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./dedication.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./small_samples.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Small Samples</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

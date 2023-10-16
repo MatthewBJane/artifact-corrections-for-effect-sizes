@@ -12,7 +12,7 @@ book:
   site-url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
   date: "10/08/2023"
   repo-url: https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/
-  downloads: [pdf]
+  downloads: [pdf, epub]
   author:
   - name: "Matthew B. Jané"
     url: https://matthewbjane.com
