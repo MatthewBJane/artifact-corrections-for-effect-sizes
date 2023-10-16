@@ -1,5 +1,6 @@
 project:
   type: book
+  out
 book:
   favicon: figure/favicon_book.png
   title: "Artifact Corrections for Effect Sizes"
@@ -55,8 +56,6 @@ format:
     mainfont: Times
     header-includes: |
       \titlehead{\includegraphics[width=7in]{figure/MJB_cover.jpg}}
-  epub:
-    cover-image: figure/MJB_cover.jpg
 
 citeproc: true
 
