@@ -432,17 +432,17 @@ Measurement error variance can itself be broken down into multiple sources of er
 
 Different estimators of reliability account for different sources of measurement error therefore depending on the research design, it is important to carefully choose which reliability is most relevant for your use case. Note that even if two estimators account for the same types of measurement error, they likely hold different assumptions that may be violated in a given research context.
 
-| Estimator                              | Description                                                                                                                             |  1  |  2  |  3  |  4  |
-|------------|------------|:----------:|:----------:|:----------:|:----------:|
-| Coefficient Alpha                      | Internal consistency coefficient for composite measures.                                                                                |  X️  |     |  X️  |     |
-| Coefficient Omega                      | Internal consistency coefficient for composite measures with specified factor structure.                                                |  X️  |     |  X️  |     |
-| Split-Half                             | Internal consistency coefficient for measurements that are split into two halves.                                                       |  X️  |     |  X️  |     |
-| Kuder-Richardson 20                    | Internal consistency when observed scores are binary (special case of coefficient alpha).                                               |  X️  |     |  X️  |     |
-| Item Response Theory Reliability       | Reliability coefficient derived from item response theory (as opposed to classical test theory)                                         |  X️  |     |  X️  |     |
-| Inter-Rater/Inter-Observer Reliability | Consistency in scoring between raters/observers.                                                                                        |  X️  |     |     |  X️  |
-| Test-Retest                            | Stability coefficient for repeated measurements across time                                                                             |  X️  |  X️  |     |     |
-| Delayed Coefficient Alpha              | Average of all possible split-half reliabilities                                                                                        |  X️  |  X️  |  X️  |     |
-| G-Coefficient                          | Reliability coefficient derived from generalizability theory (G-theory). Can incorporate any source of error if enough data is present. |  X️  |  X️  |  X️  |  X️  |
+| Estimator    | Description         |  1  |  2  |  3  |  4  |
+|------------|------------|:---:|:---:|:---:|:---:|
+| Coefficient Alpha     | Internal consistency coefficient for composite measures. |X||X||
+| Coefficient Omega     | Internal consistency coefficient for composite measures with specified factor structure.|X||X||
+| Split-Half            | Internal consistency coefficient for measurements that are split into two halves.|X||X||
+| Kuder-Richardson 20   | Internal consistency when observed scores are binary (special case of coefficient alpha).|X||X||
+| Item Response Theory Reliability| Reliability coefficient derived from item response theory (as opposed to classical test theory) |X||X||
+| Inter-Rater/Inter-Observer Reliability | Consistency in scoring between raters/observers. |X|||X|
+| Test-Retest                            | Stability coefficient for repeated measurements across time |X|X|||
+| Delayed Alpha              | Average of all possible split-half reliabilities     |X|X|X||
+| G-Coefficient                          | Reliability coefficient derived from generalizability theory (G-theory). Can incorporate any source of error if enough data is present. |X|X|X|X|
 
 : List of reliability coefficients and the sources of error they account for. The sources of error are denoted by the columns labeled 1-4, corresponding to each of the four sources of error.
 
@@ -466,7 +466,7 @@ $$
 \rho_{TU} = \frac{\sigma_{TU}}{\sigma_{T}\sigma_{U}}.
 $$
 
-In a given study, we will only have knowledge of the observed scores of the independent and dependent variables, $x$ and $y$, therefore the observed study correlation is $r_{xy}$. The relationship between the observed correlation and the true population correlation is, 
+In a given study, we will only have knowledge of the observed scores of the independent and dependent variables, $x$ and $y$, therefore the observed study correlation is $r_{xy}$. The relationship between the observed correlation and the true population correlation is,
 
 $$
 r_{xy} = a\rho_{TU} + \varepsilon.

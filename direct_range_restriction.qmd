@@ -34,7 +34,7 @@ main_color_red       = '#d74ea2ff'
 darkmain_color_red   = '#bf2986ff'
 border_color_red     = '#d74ea2ff'
 
-group_color_red = '#e383be'
+group_color_red = '#e383be' 
 group_color_blue = '#4c8596'
 
 
@@ -267,8 +267,7 @@ Then we can use the calculated reliability in the following equation to obtain a
 
 $$
 r_c=\frac{r_{xy_S}}{u_x\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{r_{yy'_S}+r_{xy_S}^2\left[\frac{1}{u^2_x}-1\right]}}.
-$$
-We can use the same equation as @eq-univariate-se to calculate the corrected sampling variance.
+$$ We can use the same equation as @eq-univariate-se to calculate the corrected sampling variance.
 
 #### The Bivariate Case {.unnumbered}
 
@@ -374,15 +373,13 @@ Now let us also consider a case where measurement error is present in both indep
 
 $$
 r_c = \frac{\psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}}{\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{1-u_y^2(1-r_{yy'_S})}}.
-$$
-If the reliability coefficient comes from the unrestricted population, the formula simplifies to,
+$$ If the reliability coefficient comes from the unrestricted population, the formula simplifies to,
 
 $$
 r_c = \frac{\psi + \text{sign}\left[r_{xy_S}\right]\sqrt{\psi^2+1}}{\sqrt{r_{xx'}}\sqrt{r_{yy'}}}.
 $$
 
 We can use the same equation as @eq-biv-se to calculate the corrected sampling variance.
-
 
 ### Correcting Correlations in R
 
@@ -545,7 +542,6 @@ correct_r(rxyi = rxyS,
 
 We can see that the correction exactly reflects the correction done by hand.
 
-
 ## Correcting Standardized Mean Differences for Direct Range Restriction
 
 ### Defining our Estimand
@@ -560,8 +556,7 @@ Therefore an unbiased estimate of the unrestricted population standardized mean 
 
 $$
 d_c = \frac{ d_S }{ a}.
-$$
-### Artifact Correction for Standardized Mean Difference
+$$ \### Artifact Correction for Standardized Mean Difference
 
 #### Selection on the Continuous Variable
 
@@ -571,12 +566,11 @@ $$
 r_o = \frac{d_o}{\sqrt{\frac{1}{p(1-p)}-d_o^2}}.
 $$
 
-We can then correct the point-biserial correlation for univariate direct range restriction using the formulas in @sec-cor-DDR. Note that if you want to correct for measurement error as well, replace $r_{xx'}$ with $r_{gg'}$ (i.e., group classification reliability; see chapter on *group misclassification*) whenever you are working with standardized mean differences. Once we obtained the corrected correlation, $r_c$, we can convert back to a standardized mean difference, we need to use an adjusted group proportions, $p^*$:
+We can then correct the point-biserial correlation for univariate direct range restriction using the formulas in @sec-corr-DDR. Note that if you want to correct for measurement error as well, replace $r_{xx'}$ with $r_{gg'}$ (i.e., group classification reliability; see chapter on *group misclassification*) whenever you are working with standardized mean differences. Once we obtained the corrected correlation, $r_c$, we can convert back to a standardized mean difference, we need to use an adjusted group proportions, $p^*$:
 
 $$
 d_c = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
-$$
-Where $p^*$ is
+$$ Where $p^*$ is
 
 $$
 p^* = \frac{1-\sqrt{1-4p(1-p)\left[1+\frac{r_o^2}{u^2_x}-r_o^2\right]}}{2}
@@ -591,6 +585,7 @@ $$
 ### Correcting Standardized Mean Differences in R
 
 To correct for standardized mean differences in R, let us start by simulating data for groups, $A$ and $B$ with a true standardized mean difference of $\delta=0.50$.
+
 ```{r,message=FALSE}
 # set seed
 set.seed(343)
@@ -652,8 +647,6 @@ rbind(paste0('observed: do = ',round(dS,2)),
 
 ```
 
-
-
 We can also use the `correct_d` function in the `psychmeta` package to correct for range restriction.
 
 ```{r,message=FALSE}
@@ -670,4 +663,3 @@ correct_d(d=dS,
 ```
 
 In this case, columns ending with the letter `a` (indicating unrestricted sample) are the corrected values we are looking for.
-

@@ -6,7 +6,7 @@ book:
   subtitle: "Implementation in R and Application to Meta-Analysis"
   twitter-card: 
     creator: "@MatthewBJane"
-    image: figure/twitter-card-image.png
+    image: figure/MJB_twitter.jpg
   page-navigation: true
   url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
   site-url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
@@ -16,7 +16,7 @@ book:
   author:
   - name: "Matthew B. Jané"
     url: https://matthewbjane.com
-  cover-image: figure/cover_photo.png
+  cover-image: figure/MJB_cover.jpg
   chapters:
     - index.qmd
     - dedication.qmd
@@ -43,13 +43,20 @@ bibliography: references.bib
 format:
   html:
     theme: lux
-    linkcolor: '#a62675ff'
+    linkcolor: '#a62675'
     title-block-banner: true
     title-block-style: default
     title-block-banner-color: white
     code-overflow: scroll
-  pdf: 
-    documentclass: book
+  pdf:
+    code-block-bg: '#f5f7ff'
+    code-block-border-left: false
+    highlight-style: breeze
+    mainfont: Times
+    header-includes: |
+      \titlehead{\includegraphics[width=7in]{figure/MJB_cover.jpg}}
+  epub:
+    cover-image: figure/MJB_cover.jpg
 
 citeproc: true
 

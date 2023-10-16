@@ -1,7 +1,6 @@
-
 # Greetings
 
-Welcome to the living open source textbook ***Correcting Effect Sizes for Statistical Artifacts***. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis.
+Welcome to the living open source textbook ***Artifact Corrections for Effect Sizes***. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis.
 
 #### What are Statistical Artifacts? {.unnumbered}
 
@@ -13,21 +12,13 @@ A living textbook is one that constantly updates with new features and is open t
 
 #### Open Science Practices {.unnumbered}
 
-The current maintainer of the site is [Matthew B. Jané](https://matthewbjane.com).
+It is important that this book is both open-source and open-access. All the figures, code, and documents are available in a [github repository](https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/). The current maintainer of the book is [Matthew B. Jané](https://matthewbjane.com). This work is under a [CC-BY license](LICENSE), therefore if you use any part of this work in your own work, it is important that you acknowledge it and cite it as follows:
 
-It is important that this book is both open-source and open-access. is also open source ([CC-BY license](LICENSE)). All the figures, code, and documents are available in my [github repository](https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/).
-
-#### Contributions {.unnumbered}
-
-Please feel free to contribute to this textbook, if your contribution makes it to the published version of this book, your name will be included in the contributor list below with a description of your work.
-
-## Cite This Work {.unnumbered}
-
-#### APA {.unnumbered}
+##### APA {.unnumbered}
 
 Jané, M. B. (2023). Correcting Effect Sizes for Statistical Artifacts: Implementation in R and Application to Meta-Analysis. (n.p.). https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
 
-#### BibTeX {.unnumbered}
+##### BibTeX {.unnumbered}
 
 ``` default
 @book{MatthewBJane2023,
@@ -38,3 +29,11 @@ Jané, M. B. (2023). Correcting Effect Sizes for Statistical Artifacts: Implemen
   url      = {https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/}
 }
 ```
+
+#### Contributions {.unnumbered}
+
+Please feel free to contribute to this textbook, if your contribution makes it to the published version of this book, your name will be included in the contributor list below with a description of your work.
+
+| Name  |Affiliation| Role  |
+|--|--|---|
+| [Velu Immonen, BS](https://www.instagram.com/veluimmonen/?hl=en) |Solent University| Designed cover and twitter preview. |
