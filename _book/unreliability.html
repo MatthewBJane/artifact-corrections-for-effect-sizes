@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artifact Corrections for Effect Sizes - 5&nbsp; Unreliability</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./misclassification.html" rel="next">
+<link href="./small_samples.html" rel="prev">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 5&nbsp; Unreliability">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/figure/MJB_twitter.jpg">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./small_samples.html">Artifact Corrections</a></li><li class="breadcrumb-item"><a href="./unreliability.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unreliability</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Artifact Corrections</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./small_samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Small Samples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./unreliability.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unreliability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misclassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./artificial_dichotomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scale_coarseness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./direct_range_restriction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indirect_range_restriction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Application to Meta-Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metaanalysis_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Meta-Analysis Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./artifact_correction_metaanalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Artifact Correction Meta-Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">5.1</span> Introduction</a></li>
+  <li><a href="#sec-true-score-theory" id="toc-sec-true-score-theory" class="nav-link" data-scroll-target="#sec-true-score-theory"><span class="header-section-number">5.2</span> Reliability in True Score Theory</a></li>
+  <li><a href="#reliability-vs-validity" id="toc-reliability-vs-validity" class="nav-link" data-scroll-target="#reliability-vs-validity"><span class="header-section-number">5.3</span> Reliability vs Validity</a></li>
+  <li><a href="#estimating-reliability" id="toc-estimating-reliability" class="nav-link" data-scroll-target="#estimating-reliability"><span class="header-section-number">5.4</span> Estimating Reliability</a>
+  <ul class="collapse">
+  <li><a href="#internal-consistency-estimators" id="toc-internal-consistency-estimators" class="nav-link" data-scroll-target="#internal-consistency-estimators"><span class="header-section-number">5.4.1</span> Internal Consistency Estimators</a></li>
+  <li><a href="#test-retest-stability-estimator" id="toc-test-retest-stability-estimator" class="nav-link" data-scroll-target="#test-retest-stability-estimator"><span class="header-section-number">5.4.2</span> Test-Retest Stability Estimator</a></li>
+  <li><a href="#sec-sources" id="toc-sec-sources" class="nav-link" data-scroll-target="#sec-sources"><span class="header-section-number">5.4.3</span> Sources of Measurement Error</a></li>
+  </ul></li>
+  <li><a href="#sec-correcting-correlations-me" id="toc-sec-correcting-correlations-me" class="nav-link" data-scroll-target="#sec-correcting-correlations-me"><span class="header-section-number">5.5</span> Correction for Bias in Correlations</a>
+  <ul class="collapse">
+  <li><a href="#defining-the-target-quantity" id="toc-defining-the-target-quantity" class="nav-link" data-scroll-target="#defining-the-target-quantity"><span class="header-section-number">5.5.1</span> Defining the Target Quantity</a></li>
+  <li><a href="#sec-r-corr" id="toc-sec-r-corr" class="nav-link" data-scroll-target="#sec-r-corr"><span class="header-section-number">5.5.2</span> Artifactual Correction for Unreliability</a></li>
+  </ul></li>
+  <li><a href="#correction-for-bias-in-standardized-mean-differences-d" id="toc-correction-for-bias-in-standardized-mean-differences-d" class="nav-link" data-scroll-target="#correction-for-bias-in-standardized-mean-differences-d"><span class="header-section-number">5.6</span> Correction for Bias in Standardized Mean Differences (<em>d</em>)</a>
+  <ul class="collapse">
+  <li><a href="#defining-the-target-quantity-1" id="toc-defining-the-target-quantity-1" class="nav-link" data-scroll-target="#defining-the-target-quantity-1"><span class="header-section-number">5.6.1</span> Defining the Target Quantity</a></li>
+  <li><a href="#sec-d-SMD" id="toc-sec-d-SMD" class="nav-link" data-scroll-target="#sec-d-SMD"><span class="header-section-number">5.6.2</span> Artifact Correction for Unreliability</a></li>
+  </ul></li>
+  <li><a href="#sec-lim-information" id="toc-sec-lim-information" class="nav-link" data-scroll-target="#sec-lim-information"><span class="header-section-number">5.7</span> Estimating Reliability with Limited Information</a></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix"><span class="header-section-number">5.8</span> Appendix</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unreliability</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">5.1</span> Introduction</h2>
+<p>In general terms, measurement is the process of quantifying an attribute or characteristic of something. In scientific measurement, the measurand is the quantity or the attribute we intend to measure. In the psychological sciences, measurands usually take the form of constructs such as intelligence or anxiety. Often the goal of measurement is to produce quantities (i.e., scores) that accurately reflect the measurand. However, quantities that do not reflect a <em>real</em> attribute can still have useful predictive value (e.g., socio-economic status). It is important to note that measures are not all created equal, some perform better than others. Ideally, measures should produce scores that are consistent and repeatable, this is referred to as the <em>reliability</em> of a measure. A high quality measure should produce highly reliable scores. This section will review what reliability is in theory, how to estimate reliability, and how to correct effect sizes for measurement error.</p>
+</section>
+<section id="sec-true-score-theory" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-true-score-theory"><span class="header-section-number">5.2</span> Reliability in True Score Theory</h2>
+<p>True score theory (or classical test theory) is a mathematical formalization of observed scores obtained from a measurement procedure. Observed scores, <span class="math inline">\(X_m\)</span>, is defined as a score obtained upon measurement <span class="math inline">\(m\)</span>. The true score model assumes that each individual, has a true score, <span class="math inline">\(T\)</span>, that stays constant over repeated measurements. Variation in observed scores over repeated measurements is due to measurement-specific error, <span class="math inline">\(E_{m}\)</span>,</p>
+<p><span class="math display">\[
+X_{m} = T+E_{m}.
+\]</span></p>
+<p>Here, measurements are <em>strictly parallel</em>. Strictly parallel measurements have the following four properties <span class="citation" data-cites="haertel2006">(p.&nbsp;69, <a href="references_page.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>:</p>
+<ol type="1">
+<li>Measurements have identical specifications. That is, each measurement uses the same measurement procedure.</li>
+<li>The distribution of observed scores for each measurement are identical: <span class="math inline">\(f(X_1) = f(X_2) = \ldots\)</span>.</li>
+<li>Any set of two measurements are assumed to covary the same as any other set of two measurements: <span class="math inline">\(\sigma_{X_1 X_2} = \sigma_{X_2 X_3} = \sigma_{X_1 X_3} = \ldots\)</span>.</li>
+<li>Each measurement equally covaries with any other variable: <span class="math inline">\(\sigma_{X_1 Y} = \sigma_{X_2 Y} = \ldots\)</span>.</li>
+</ol>
+<p>True scores can be defined as the expected value (i.e., the mean) of observed scores over repeated measurements such that, <span class="math inline">\(\mathbb{E}_m[X_{m}]=T\)</span>. Given this assumption, it follows that the average of the resultant errors is zero across repeated measurements, <span class="math inline">\(\mathbb{E}_m[E_{m}]=0\)</span>. It also follows that the covariance between observed scores from measurement to measurement must only be attributable to the variation in true scores (<span class="math inline">\(\sigma_{XX'}=\sigma^2_{T}\)</span>) and therefore true scores and errors are independent (<span class="math inline">\(\sigma_{ET}=0\)</span>). The independence between true scores and errors provide convenient parsing of the variance in observed scores,</p>
+<p><span id="eq-variance"><span class="math display">\[
+\sigma_{X}^2 = \sigma_T^2 + \sigma_{E}^2.
+\tag{5.1}\]</span></span></p>
+<p>In practice, the goal is to obtain observed scores that closely resemble true scores, therefore it is important to minimize measurement error variance (<span class="math inline">\(\sigma^2_E\)</span>). If <span class="math inline">\(\sigma^2_E = 0\)</span>, then the scores can be said to have perfect reliability, that is, observed scores do not vary upon repeated measurements and are thus identical to true scores. In practice, this is virtually never the case. In true score theory, <em>reliability</em> can be defined as the correlation between observed scores in parallel measurements,</p>
+<p><span class="math display">\[
+\rho_{XX'}=\frac{\sigma_{XX'}}{\sigma_X\sigma_{X'}}  = \frac{\sigma_T^2}{\sigma^2_X}.
+\]</span></p>
+<p>The reliability can also be expressed by the square of the correlation between observed scores and true scores. To understand why this is the case, note that the covariance between parallel forms of a measure is equivalent to the covariance between observed scores and true scores, <span class="math inline">\(\sigma_{XT}=\)</span><span class="math inline">\(\sigma_{(T+E)T}=\)</span><span class="math inline">\(\sigma^2_T + \sigma_{TE}=\)</span><span class="math inline">\(\sigma^2_T = \sigma_{XX'}\)</span> <span class="citation" data-cites="haertel2006">(<a href="references_page.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>,</p>
+<p><span id="eq-reliability"><span class="math display">\[
+\rho_{XX'} = \frac{\sigma_T^2}{\sigma_X^2} = \frac{\left(\sigma_T^2\right)^2}{\sigma_X^2 \sigma_T^2}= \frac{\sigma_{XT}^2}{\sigma^2_X\sigma^2_T} = \rho^2_{XT}.
+\tag{5.2}\]</span></span></p>
+<p>To visualize how reliability relates true scores and observed scores see the structural diagram <a href="#fig-rel">Figure&nbsp;<span>5.1</span></a>.</p>
+<p>It is important to emphasize that true scores are expected values over repeated observations and they do not necessarily correspond to an actual, tangible attribute of interest <span class="citation" data-cites="borsboom2002">(<a href="references_page.html#ref-borsboom2002" role="doc-biblioref">Borsboom and Mellenbergh 2002</a>)</span>. As a result, every measurement has a true score, regardless of whether it gauges a concrete attribute or not. For example, if we construct a test by summing the responses to the items: “how many languages can you confidently hold a conversation in?” and “Estimate the number of photos you’ve taken in the last year across all devices”. Even in such a nonsensical measure, the test’s composite score retains a true score, but this true score does not mirror a tangible reality.</p>
+<div id="fig-rel" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figure/unreliability_diagram_1.png" class="img-fluid figure-img" width="400"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.1: Structural diagram illustrating the relationship between true scores, observed scores, and error scores. The pink circle labeled <span class="math inline">\(t\)</span> indicates the true scores, the blue squares labeled with <span class="math inline">\(X\)</span> and <span class="math inline">\(X'\)</span> represent observed scores on parallel measurements, and the red <span class="math inline">\(E\)</span> denotes error. Correlations between <span class="math inline">\(T\)</span>, <span class="math inline">\(X\)</span>, and <span class="math inline">\(X'\)</span> are in terms of reliability (<span class="math inline">\(\rho_{XX'}\)</span>). Note that <span class="math inline">\(\rho_{XX'}=\rho_{XT}^2\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="reliability-vs-validity" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="reliability-vs-validity"><span class="header-section-number">5.3</span> Reliability vs Validity</h2>
+<p>Reliability and validity are distinct properties in measurement. Validity pertains to whether the scores produced by a measure reflects the quantities it is intended to measure <span class="citation" data-cites="kelley1927">(p.&nbsp;14 <a href="references_page.html#ref-kelley1927" role="doc-biblioref">Kelley 1927</a>)</span>. According to <span class="citation" data-cites="borsboom2004">Borsboom, Mellenbergh, and Van Heerden (<a href="references_page.html#ref-borsboom2004" role="doc-biblioref">2004</a>)</span>, a measure is <em>valid</em> if both of the following statements are true:</p>
+<ol type="1">
+<li><p>The attribute exists.</p></li>
+<li><p>Variations in the attribute causally produce variations in the outcomes of the measurement procedure.</p></li>
+</ol>
+<p>Borsboom’s formulation of validity is simpler and more practical than other formulations such as Cronbach and Meehl’s <span class="citation" data-cites="cronbach1955">(<a href="references_page.html#ref-cronbach1955" role="doc-biblioref">1955</a>)</span> nomological network approach to validity. It is important to note that even if an attribute does not exist (statement 1), scores may still provide predictive utility. For example, socio-economic status (SES) is a formative quantity that is constructed from a composite of education, income, occupation status, etc. Although SES is not causal to these indicators, SES can still be used as a predictor of important life outcomes.</p>
+</section>
+<section id="estimating-reliability" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="estimating-reliability"><span class="header-section-number">5.4</span> Estimating Reliability</h2>
+<p>In practice, reliability must be estimated through indirect methods, this is due to the fact that true scores and errors are unknown. There are many reliability estimators that can be used, however we will go over a selection of internal consistency estimators as well as test-retest stability estimators.</p>
+<section id="internal-consistency-estimators" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="internal-consistency-estimators"><span class="header-section-number">5.4.1</span> Internal Consistency Estimators</h3>
+<p>Taking multiple measurements and then averaging tends to provide a more stable estimate of true values. For instance, let’s consider the case of Francis <span class="citation" data-cites="galton1907">Galton (<a href="references_page.html#ref-galton1907" role="doc-biblioref">1907</a>)</span>, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person’s estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the true value. This principle can be extended to broader applications, such as measuring psychological constructs. If we were to assess someone’s level of extraversion using ratings from their mother, father, friend, and sibling, the average of their combined assessments would yield a more reliable score compared to relying solely on a single evaluator. So to create a more stable composite score (<span class="math inline">\(X\)</span>), we can take the score from <span class="math inline">\(\kappa\)</span> items (<span class="math inline">\(x\)</span>) and sum them such that,</p>
+<p><span class="math display">\[
+X = x_1 + x_2 +...+x_\kappa.
+\]</span></p>
+<p>The most commonly reported reliability estimator in the psychological sciences is coefficient alpha, also referred to as Cronbach’s alpha. Coefficient alpha, along with other internal consistency estimators, serves the purpose of assessing the reliability of composite scores comprising multiple item scores. Coefficient alpha was first derived by Lee Cronbach <span class="citation" data-cites="cronbach1951">(see equation 13, <a href="references_page.html#ref-cronbach1951" role="doc-biblioref">Cronbach 1951</a>)</span> only requires three parameters to calculate, the number of measurements (<span class="math inline">\(\kappa\)</span>), the sample variances of each item (<span class="math inline">\(S^2_{x_m}\)</span>), and the variance of the composite score (<span class="math inline">\(S^2_{X}\)</span>). Coefficient alpha will estimate the reliability of the composite observed score (<span class="math inline">\(r_{XX'}\)</span>),</p>
+<p><span id="eq-alpha"><span class="math display">\[
+_\alpha r_{XX'} = \frac{\kappa}{\kappa-1}\left( 1 - \frac{\sum_{m=1}^\kappa S^2_{x_m}}{S^2_{X}} \right).
+\tag{5.3}\]</span></span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="unreliability_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figures showing the observed scores upon 10 repeated measurements and the composite observed score for a single person (the true score is denoted with the dashed line). The left panel shows 10 observed scores with a lot of variation (i.e., low reliability). The composite score (dark red dot with error bars), shows wide error bars illustrating the low precision of the observed score score. The right panel also shows 10 observed scores with little variation (i.e., high reliability). The composite score (dark blue dot with error bars), shows narrow error bars illustrating the high precision of the observed score.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>With tighter assumptions <span class="citation" data-cites="haertel2006">(see <a href="references_page.html#ref-haertel2006" role="doc-biblioref">Haertel 2006</a>)</span>, the formula for coefficient alpha can be simplified to just two parameters: the number of measurements (<span class="math inline">\(\kappa\)</span>) and the average correlation between measured scores (<span class="math inline">\(\bar{r}_{x_i x_j}\)</span>, where <span class="math inline">\(i\neq j\)</span>). This formula is known as Spearman-Brown’s prophecy <span class="citation" data-cites="spearman1910 brown1910">(see equation III of <a href="references_page.html#ref-spearman1910" role="doc-biblioref">Charles Spearman 1910</a>; or the last equation on page 299 of <a href="references_page.html#ref-brown1910" role="doc-biblioref">Brown 1910</a>)</span>,</p>
+<p><span id="eq-sp-brown"><span class="math display">\[
+_\text{sb} r_{XX'}= \frac{\kappa \bar{r}_{x_i x_j}}{1+(\kappa-1)\bar{r}_{x_i x_j}}
+\tag{5.4}\]</span></span></p>
+<p>This can be simplified further if we have two observed item scores. This formulation is a variation of split-half reliability:</p>
+<p><span id="eq-split-half"><span class="math display">\[
+_\text{sh}r_{XX'}= \frac{2r_{x_1 x_2}}{1+r_{x_1 x_2}}
+\tag{5.5}\]</span></span></p>
+<p>All of these reliability estimators measure internal consistency, therefore they do not account for error outside of the measurement-specific error. There are other sources of error that internal consistency reliability estimates do not account for, such as transient error or rater-specific error.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figure/unreliability_diagram_2.png" class="img-fluid figure-img" width="400"></p>
+<figcaption class="figure-caption">Structural model illustrating internal consistency. The pink circle labeled <span class="math inline">\(T\)</span> indicates the true scores, the blue squares, <span class="math inline">\(x_{1...\kappa}\)</span>, represent the observed sub-scores across multiple measurements, and the red <span class="math inline">\(e\)</span> denotes error. The dark blue hexagon, <span class="math inline">\(X\)</span>, indicates a composite score as a sum of the observed scores (<span class="math inline">\(\mathbb{x}_{1...\kappa}\)</span>). Note that <span class="math inline">\(\rho_{XX'}=\rho_{XT}\)</span>.</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Applied Example
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Using the <code>anxiety</code> data set from the <code>irr</code> package <span class="citation" data-cites="irr">(<a href="references_page.html#ref-irr" role="doc-biblioref">Gamer et al. 2019</a>)</span>, we can estimate the reliability of three raters evaluating the anxiety in a sample of 20 individuals. Let us first load in the data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(irr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load in data</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"anxiety"</span>, <span class="at">package =</span> <span class="st">"irr"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(anxiety, <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  rater1 rater2 rater3
+1      3      3      2
+2      3      6      1
+3      3      4      4
+4      4      6      4</code></pre>
+</div>
+</div>
+<p>We can also use the <code>alpha()</code> function from the <code>psych</code> package <span class="citation" data-cites="psych">(<a href="references_page.html#ref-psych" role="doc-biblioref">William Revelle 2023</a>)</span> to estimate coefficient alpha too. The output of <code>alpha</code> provides a lot of useful information, and it reports two types of alphas: standardized and raw. The standardized alpha is based on the correlations between items rather than the covariance between items, which is useful if items are on completely different scales (standardized alpha equivalent to the Spearman-Brown prophecy formula found in <a href="#eq-sp-brown">Equation&nbsp;<span>5.4</span></a>). Also you will notice that the standardized alpha and ). If the ratings are on the same scale then the raw_alpha is preferred.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>reliability <span class="ot">&lt;-</span> <span class="fu">alpha</span>(anxiety)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>rXX <span class="ot">&lt;-</span> reliability<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>rXX</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4525862</code></pre>
+</div>
+</div>
+<p>The output shows a very low reliability between raters (<span class="math inline">\(r_{XX'}=.45\)</span>).</p>
+</div>
+</div>
+</section>
+<section id="test-retest-stability-estimator" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="test-retest-stability-estimator"><span class="header-section-number">5.4.2</span> Test-Retest Stability Estimator</h3>
+<p>Transient errors represent fluctuations in observed scores over time. These fluctuations, even if they are systematic (e.g., fatigue over the course of a single day), add extraneous within-person variance that can mask individual differences. Considering transient fluctuations as error depends on the research goal, so it is important for researchers to take care in considering which variance components should be considered error in their study (see <a href="#sec-sources"><span>Section&nbsp;5.4.3</span></a>). To estimate test-retest reliability, we can compute the correlation between the measurement at time 1 (<span class="math inline">\(X_{t_1}\)</span>) and the second measurement at time 2 (<span class="math inline">\(X_{t_2}\)</span>),</p>
+<p><span class="math display">\[
+_\text{tr}r_{XX'}= \text{corr}(X_{t_1}X_{t_2}).
+\]</span></p>
+<p>Note that calculating the pearson correlation coefficient between time-points ignores systematic changes (e.g., practice effects). We can visualize test-retest reliability in <a href="#fig-test-retest">Figure&nbsp;<span>5.2</span></a> where the top panels show the correlations between time points and the bottom panels show the within-person change between time-points for scores with high and low reliability.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-test-retest" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="unreliability_files/figure-html/fig-test-retest-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.2: Illustrating test-retest reliability. Top-left and top-right panels show the correlation between observed scores at both time-points for a measure that has low and high reliability, respectively. Bottom-left and bottom-right panels show the within-person change from time-point 1 to time-point 2 for scores with low and high reliability, respectively.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-sources" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="sec-sources"><span class="header-section-number">5.4.3</span> Sources of Measurement Error</h3>
+<p>Measurement error can itself be broken down into multiple sources of error. Depending on the study, different sources of error may be more relevant than others. Different reliability estimators will account for different sources of error therefore it is important for researchers to choose the right reliability estimator for their study. A description of four of the most common sources of error is adapted from table 1 of <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="references_page.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>:</p>
+<ol type="1">
+<li><p>Random Response Error: Genuine randomness in responses. Examples include: motor errors and variation in response time.</p></li>
+<li><p>Time/Environment-Specific (Transient) Error: Fluctuations in scores as a result of the specific time or environment of the measurement. For instance, if researchers administered an ability test to a sample of undergraduate students throughout the course of a day, the student’s who complete the test at the end of the day will likely perform worse than participant’s who completed due to fatigue rather than ability. Errors due to illness, mood, hunger, environmental distractors, etc. all fall under the umbrella of transient errors.</p></li>
+<li><p>Instrument-Specific Error: Error due to the specific content or make-up of the measurement instrument. For example, a psychological scale using Likert items may show participant’s idiosyncratic interpretations of questions and response options rather than their standing on the latent construct.</p></li>
+<li><p>Rater/Observer-Specific Error: Errors induced by idiosyncratic biases of individual raters and rater by ratee interactions (e.g., Teacher A gives higher grades to students who stay after class).</p></li>
+</ol>
+<p>Different estimators of reliability account for different sources of measurement error therefore depending on the research design, it is important to carefully choose which reliability is most relevant for your use case. Note that even if two estimators account for the same types of measurement error, they likely hold different assumptions that may be violated in a given research context.</p>
+<table class="table">
+<caption>List of reliability coefficients and the sources of error they account for. The sources of error are denoted by the columns labeled 1-4, corresponding to each of the four sources of error.</caption>
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estimator</th>
+<th>Description</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Coefficient Alpha</td>
+<td>Internal consistency coefficient for composite measures.</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Coefficient Omega</td>
+<td>Internal consistency coefficient for composite measures with specified factor structure.</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td>Split-Half</td>
+<td>Internal consistency coefficient for measurements that are split into two halves.</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Kuder-Richardson 20</td>
+<td>Internal consistency when observed scores are binary (special case of coefficient alpha).</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td>Item Response Theory Reliability</td>
+<td>Reliability coefficient derived from item response theory (as opposed to classical test theory)</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Inter-Rater/Inter-Observer Reliability</td>
+<td>Consistency in scoring between raters/observers.</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">X</td>
+</tr>
+<tr class="odd">
+<td>Test-Retest</td>
+<td>Stability coefficient for repeated measurements across time</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>Delayed Alpha</td>
+<td>Average of all possible split-half reliabilities</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td>G-Coefficient</td>
+<td>Reliability coefficient derived from generalizability theory (G-theory). Can incorporate any source of error if enough data is present.</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+<td style="text-align: center;">X</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sec-correcting-correlations-me" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="sec-correcting-correlations-me"><span class="header-section-number">5.5</span> Correction for Bias in Correlations</h2>
+<section id="defining-the-target-quantity" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="defining-the-target-quantity"><span class="header-section-number">5.5.1</span> Defining the Target Quantity</h3>
+<p>Continuing with our emphasis on clearly defining our quantity of interest prior to applying any corrections, let us define it here. Our target is the population correlation between true scores of our independent and dependent variables. We can define the observed scores of the independent and dependent variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> as,</p>
+<p><span class="math display">\[
+X=T+E_X
+\]</span></p>
+<p><span class="math display">\[
+Y=U+E_Y.
+\]</span></p>
+<p>Where <span class="math inline">\(T\)</span> and <span class="math inline">\(U\)</span> are the true scores for the independent and dependent variables, respectively. The population true score correlation can thus be be denoted by, <span class="math inline">\(\rho_{TU}\)</span>, and can be defined as the standardized covariance,</p>
+<p><span class="math display">\[
+\rho_{TU} = \frac{\sigma_{TU}}{\sigma_{T}\sigma_{U}}.
+\]</span></p>
+<p>In a given study, we will only have access to the observed scores of the independent and dependent variables, therefore the study correlation is <span class="math inline">\(r_{XY}\)</span>. The relationship between the observed correlation and the true population correlation can be defined as,</p>
+<p><span class="math display">\[
+r_{XY} = a\rho_{TU} + \varepsilon.
+\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is the artifact attenuation factor (we will see that measurement error attenuates rather than inflates the correlation). An unbiased estimate of the true score population correlation (<span class="math inline">\(\rho_{TU}\)</span>) can then be calculated by dividing the observed score correlation by an estimate of the artifact attenuation factor,</p>
+<p><span class="math display">\[
+r_{TU} = \frac{r_{XY}}{\hat{a}}.
+\]</span></p>
+<p>The measurement model can be visualized in <a href="#fig-corr-model">Figure&nbsp;<span>5.3</span></a>.</p>
+<div id="fig-corr-model" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="figure/diagram-estimand-reliability-r.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.3: This figure shows the relationship between the true scores, observed scores, and error scores. The true score correlation is denoted by the curved arrow connecting the circles indicating true score variables, <span class="math inline">\(T\)</span> and <span class="math inline">\(U\)</span>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-r-corr" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="sec-r-corr"><span class="header-section-number">5.5.2</span> Artifactual Correction for Unreliability</h3>
+<p>Measurement error induces systematic bias in effect size estimates such as correlation coefficients <span class="citation" data-cites="hunter1990a">C. Spearman (<a href="references_page.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. In the population, let us assume there is some factor <span class="math inline">\(a\)</span> that accounts for the systematic bias in observed score correlations (<span class="math inline">\(\rho_{XY}\)</span>) relative to true score correlations (<span class="math inline">\(\rho_{TU}\)</span>), such that</p>
+<p><span class="math display">\[
+\rho_{XY} = a \rho_{TU}.
+\]</span></p>
+<p>Since the correlation is defined as the covariance standardized by the standard deviations, the population correlation between true scores, <span class="math inline">\(T\)</span> and <span class="math inline">\(U\)</span>, is defined as,</p>
+<p><span class="math display">\[
+\rho_{TU}=\frac{\sigma_{TU}}{\sigma_{T} \sigma_{U}}.
+\]</span></p>
+<p>Likewise the correlation between the observed scores, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, would be the observed covariance divided by the observed standard deviations,</p>
+<p><span class="math display">\[
+\rho_{XY} =\frac{\sigma_{XY}}{\sigma_{X} \sigma_{Y}}.
+\]</span></p>
+<p>However, if we assume that there is no covariance between errors in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (<span class="math inline">\(\sigma_{E_X E_Y} = 0\)</span>), then the covariance between observed scores is only attributable to the covariance between true scores, therefore <span class="math inline">\(\sigma_{XY} = \sigma_{TU}\)</span>. This means that the observed score correlation can be expressed as,</p>
+<p><span id="eq-bias"><span class="math display">\[
+\rho_{XY} =\frac{\sigma_{TU}}{\sigma_{X} \sigma_{Y}}.
+\tag{5.6}\]</span></span></p>
+<p>Now the only difference between the observed score correlation and the true score correlation is the standard deviations in the denominator. In the presence of measurement error, the observed score standard deviations (<span class="math inline">\(\sigma_X\)</span> and <span class="math inline">\(\sigma_Y\)</span>) will be larger than the true score standard deviations (<span class="math inline">\(\sigma_{T}\)</span> and <span class="math inline">\(\sigma_{U}\)</span>). Using the definition of reliability, we can show how the observed variance is inflated compared to the true variance as a function of reliability. Since the reliability is defined as the ratio of true variance to total observed variance (see <a href="#eq-reliability">Equation&nbsp;<span>5.2</span></a>), we can see how reliability inflates the observed variance,</p>
+<p><span class="math display">\[\begin{aligned}
+\sigma^2_X &amp;=\sigma^2_{T} \left(\frac{\sigma^2_{X}}{\sigma^2_{T}} \right)\\[.3em]
+&amp;= \sigma^2_{T}\left(\frac{1}{\rho_{XX'}} \right)\\[.3em]
+&amp;= \frac{\sigma^2_{T}}{\rho_{XX'}}.
+\end{aligned}\]</span></p>
+<p>Therefore the observed standard deviation is,</p>
+<p><span id="eq-sd-me"><span class="math display">\[
+\sigma_X = \frac{\sigma_{T}}{\sqrt{\rho_{XX'}}}.
+\tag{5.7}\]</span></span></p>
+<p>Since the reliability, and its square root, will be less than 1, then the observed score variance will be larger than the If we use the definition of an observed score correlation (<a href="#eq-bias">Equation&nbsp;<span>5.6</span></a>), then we can replace <span class="math inline">\(\sigma_X\)</span> and <span class="math inline">\(\sigma_Y\)</span> with <span class="math inline">\(\frac{\sigma_{T}}{\sqrt{\rho_{XX'}}}\)</span> and <span class="math inline">\(\frac{\sigma_{U}}{\sqrt{\rho_{YY'}}}\)</span>, respectively. Now we can see how the observed score correlation differs from the true score correlation:</p>
+<p><span class="math display">\[\begin{aligned}
+\rho_{XY} &amp;= \frac{\sigma_{T U}}{\left[\frac{\sigma_{T}}{\sqrt{\rho_{XX'}}} \right] \left[ \frac{\sigma_{U}}{\sqrt{\rho_{YY'}}} \right] } \\[.3em]
+&amp;= \frac{\sigma_{T U}}{\sigma_{T}\sigma_{U}}  \sqrt{\rho_{XX'}}\sqrt{\rho_{YY'}}\\[.3em]
+&amp;= \rho_{TU} \sqrt{\rho_{XX'}}\sqrt{\rho_{YY'}}
+\end{aligned}\]</span></p>
+<p>This attenuation formula was first derived by Charles Spearman <span class="citation" data-cites="spearman1904">(<a href="references_page.html#ref-spearman1904" role="doc-biblioref">1904</a>)</span>. See <a href="#fig-attenuation">Figure&nbsp;<span>5.4</span></a> for a visualization of the attenuation. Note that this formulation requires that there is no correlation between <span class="math inline">\(E_X\)</span> and <span class="math inline">\(E_Y\)</span> (<span class="math inline">\(\rho_{E_X E_Y}=0\)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-attenuation" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="unreliability_files/figure-html/fig-attenuation-1.png" class="img-fluid figure-img" width="768"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.4: Visualizing the attenuation of an observed score correlation (<span class="math inline">\(\rho_{XY}\)</span>) due to measurement error. Top left panel shows a scatter plot of the correlation between the true scores of the independent (<span class="math inline">\(T\)</span>) and dependent variable (<span class="math inline">\(U\)</span>). Top right panel shows a scatter plot of the correlation between the observed scores of the independent (<span class="math inline">\(X\)</span>) and dependent variable (<span class="math inline">\(Y\)</span>). The bottom left panel shows the reliability of a single variable (<span class="math inline">\(X\)</span>) and it’s relationship with the observed score correlation (<span class="math inline">\(\rho_{XY}\)</span>) while varying the true score correlation (true score correlations are represented as the red dots, i.e., when reliability is perfect; <span class="math inline">\(\rho_{TU}=\{0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1.0\}\)</span>). The bottom right panel shows attenuation of a a true score correlation of <span class="math inline">\(\rho_{TU}=.5\)</span>, when both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are affected by measurement error. The darker red indicates a larger observed correlation, where it peaks at an observed score correlation of .50 (when reliability of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is 1) which is equivalent to the true score correlation</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Let us recall that we can express the observed score correlation as a function of the true score population correlation (i.e., the target quantity, <span class="math inline">\(\rho_{TU}\)</span>),</p>
+<p><span class="math display">\[
+r_{XY} = a\rho_{TU} + e.
+\]</span></p>
+<p>Where <span class="math inline">\(e\)</span> is the sampling error and <span class="math inline">\(a\)</span> is the artifact attenuation factor. <span class="math inline">\(a\)</span> can now be replaced with the square root of the reliabilities of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p><span class="math display">\[
+r_{XY} = \left(\sqrt{\rho_{XX'}}\sqrt{\rho_{YY'}}\right) \rho_{TU} + e.
+\]</span></p>
+<p>Therefore we can correct the observed score study correlation by dividing by an estimate the attenuation factor using,</p>
+<p><span class="math display">\[
+r_{TU} = \frac{r_{XY}}{\hat{a}} = \frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}
+\]</span></p>
+<p>The corrected correlation coefficient is an unbiased estimator of the target quantity, <span class="math inline">\(\rho_{TU}\)</span>. We also need to obtain the standard error of the corrected correlation coefficient. The standard error of the uncorrected correlation, <span class="math inline">\(se\)</span>, can be adjusted directly with one of two formulas:</p>
+<ol type="1">
+<li>If the reliability coefficients are estimated from the same sample as the correlation, then the standard error formula is,</li>
+</ol>
+<p><span class="math display">\[
+se_c =  \frac{se}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}
+\]</span></p>
+<ol start="2" type="1">
+<li>If the reliability coefficients and the correlation are all estimated from different samples (<span class="math inline">\(n\)</span> will denote the sample size of the standardized mean difference, <span class="math inline">\(n_{r_{XX'}}\)</span> and <span class="math inline">\(n_{r_{YY'}}\)</span> and will denote the sample size of the respective reliability coefficients) then the standard error of the corrected correlation is approximately (for the derivation, see the appendix of this section),</li>
+</ol>
+<p><span id="eq-se-me-r-tsa"><span class="math display">\[
+se(r_{TU}) = \sqrt{\frac{se(r_{XY})^2}{r_{XX'}r_{YY'}} +
+\frac{r^2_{XY}\left(1-r^2_{XX'}\right)^2}{4(n_{r_{XX'}}-1)r_{XX'}^3r_{YY'}} +
+\frac{r^2_{XY}\left(1-r^2_{YY'}\right)^2}{4(n_{r_{YY'}}-1)r_{XX'}r_{YY'}^3}}
+\tag{5.8}\]</span></span></p>
+<p>The two ways of calculating standard error are due to the fact that when the reliability and correlation coefficient are computed from the same sample, their sampling errors will be correlated <span class="citation" data-cites="bobko1980">(<a href="references_page.html#ref-bobko1980" role="doc-biblioref">Bobko and Rieck 1980</a>)</span>. Note that if you only want to correct for unreliability in one variable, than you can set the reliability of the other variable to 1 in all the equations above.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Applied Example in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s say we wanted to estimate the correlation between academic motivation and test performance among a sample of <span class="math inline">\(n=100\)</span> students. Motivation scores are obtained using a self-report measure with a reliability of <span class="math inline">\(r_{XX'}=.80\)</span>. Test performance is the sum of correctly answered multiple choice questions and the total scores were also fairly reliable (<span class="math inline">\(r_{YY'}=.80\)</span>). The correlation between observed motivation and performance scores is <span class="math inline">\(r_{XY}=.40\)</span>. To correct the correlation for measurement error, we can use the <code>correct_r</code> function in the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rXY <span class="ot">&lt;-</span> .<span class="dv">40</span>  <span class="co"># correlation between X and Y</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>rXX <span class="ot">&lt;-</span> .<span class="dv">80</span>  <span class="co"># reliability of X</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>rYY <span class="ot">&lt;-</span> .<span class="dv">80</span>  <span class="co"># reliability of Y</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span>    <span class="co"># sample size</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># correct correlation</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">correct_r</span>(<span class="at">correction =</span> <span class="st">'meas'</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">rxyi =</span> rXY,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">rxx =</span> rXX,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">ryy =</span> rYY,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Correlations Corrected for Measurement Error:
+---------------------------------------------------------------------------------------
+  value CI_LL_95 CI_UL_95   n n_effective
+1   0.5    0.276    0.691 100        51.5</code></pre>
+</div>
+</div>
+<p>The estimate of the true score correlation is <span class="math inline">\(r_{TU} = .50\;[.28, .69]\)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="correction-for-bias-in-standardized-mean-differences-d" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="correction-for-bias-in-standardized-mean-differences-d"><span class="header-section-number">5.6</span> Correction for Bias in Standardized Mean Differences (<em>d</em>)</h2>
+<section id="defining-the-target-quantity-1" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1" class="anchored" data-anchor-id="defining-the-target-quantity-1"><span class="header-section-number">5.6.1</span> Defining the Target Quantity</h3>
+<p>Prior to correcting for measurement error let us define our target. Our target is the difference in the means of group <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> with respect to the true scores, <span class="math inline">\(U\)</span>, of our dependent variable, <span class="math inline">\(Y\)</span>,</p>
+<p><span class="math display">\[
+Y_A = U_A + E_A
+\]</span></p>
+<p><span class="math display">\[
+Y_B = U_B + E_B.
+\]</span></p>
+<p>Where <span class="math inline">\(U_A\)</span> and <span class="math inline">\(U_B\)</span> are the true scores for group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>, respectively. The true score standardized mean difference can thus be be denoted by, <span class="math inline">\(\delta_{gU}\)</span> (<span class="math inline">\(g\)</span> indicates the grouping variable, and <span class="math inline">\(U\)</span> denotes the continuous true score outcome), and can be defined as the mean difference divided by the within-group standard deviation,</p>
+<p><span class="math display">\[
+\delta_{gU} = \frac{\mu_{U_A} - \mu_{U_B}}{\sigma_{U}}.
+\]</span></p>
+<p>Where <span class="math inline">\(\mu_U\)</span> indicates the population mean of true scores. The relationship between the population true score standardized mean difference (<span class="math inline">\(\delta_{gU}\)</span>) can be related to the observed study standardized mean difference with the following formulation:</p>
+<p><span class="math display">\[
+d_{gY} = a\delta_{gU}+e.
+\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is the attenuation factor induced by measurement error and <span class="math inline">\(e\)</span> denotes sampling error. To obtain an unbiased estimate of true score standardized mean difference, <span class="math inline">\(\delta_{gU}\)</span>, we can correct the observed standardized mean difference by dividing by an estimate of <span class="math inline">\(a\)</span>,</p>
+<p><span class="math display">\[
+d_{gU} = \frac{d_{gY}}{\hat{a}}.
+\]</span></p>
+</section>
+<section id="sec-d-SMD" class="level3" data-number="5.6.2">
+<h3 data-number="5.6.2" class="anchored" data-anchor-id="sec-d-SMD"><span class="header-section-number">5.6.2</span> Artifact Correction for Unreliability</h3>
+<p>The population mean of true scores and observed scores are identical since measurement error only affects the variance in scores. Therefore the population mean difference is equal between true and observed scores:</p>
+<p><span class="math display">\[
+\mu_{U_A} - \mu_{U_B} = \mu_{Y_A} - \mu_{Y_B}
+\]</span></p>
+<p>Note that this means that an unstandardized mean difference is <em>not</em> biased by measurement error. Since the mean difference in true scores and observed scores are the same, the observed score population standardized mean difference can also be expressed as the mean difference of true scores standardized by the observed score standard deviation,</p>
+<p><span class="math display">\[
+\delta_{gY} = \frac{\mu_{Y_A} - \mu_{Y_B}}{\sigma_Y}  = \frac{\mu_{U_A} - \mu_{U_B}}{\sigma_Y}
+\]</span></p>
+<p>We know from <a href="#eq-reliability">Equation&nbsp;<span>5.2</span></a> that the standard deviation of true scores, <span class="math inline">\(\sigma_U\)</span>, can be expressed as a function of reliability and the observed score standard deviation,</p>
+<p><span id="eq-sd-correction"><span class="math display">\[
+\sigma_U = \sigma_Y\sqrt{\rho_{YY'}}
+\tag{5.9}\]</span></span></p>
+<p>Therefore the true score standardized mean difference could be corrected for by dividing the observed score standardized mean difference by the reliability,</p>
+<p><span class="math display">\[
+\delta_{gU} = \frac{\mu_{U_A} - \mu_{U_B}}{\sigma_Y\sqrt{\rho_{YY'}}} = \frac{\delta_{gY}}{\sqrt{\rho_{YY'}}}
+\]</span></p>
+<p>The reliability in this case is the within-group reliability (<span class="math inline">\(\rho_{YY'}=\rho_{YY'_A}=\rho_{YY'_B}\)</span>) which is assumed to be equal between groups. Similarly, a sample estimator of the observed score standardized mean difference can be expressed as,</p>
+<p><span class="math display">\[
+d_{gY} = \frac{\overline{Y}_A - \overline{Y}_B}{S_{Y_P}}  = \frac{\overline{U}_A - \overline{U}_B}{S_{Y_P}}
+\]</span></p>
+<p>Where <span class="math inline">\(\overline{Y}\)</span> and <span class="math inline">\(\overline{U}\)</span> are sample means of observed scores and true scores, respectively. The within-group standard deviation of observed scores can be estimated by pooling the standard deviation from both groups,</p>
+<p><span class="math display">\[
+S_{Y_P} = \sqrt{\frac{(n_A+1)S^2_{Y_A}+(n_B+1)S^2_{Y_B}}{n_A + n_B - 2}}.
+\]</span></p>
+<p>Where <span class="math inline">\(n_A\)</span> and <span class="math inline">\(n_B\)</span> are the sample sizes within group <span class="math inline">\(A\)</span> and group <span class="math inline">\(B\)</span>, respectively.</p>
+<section id="pooled-reliability" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="pooled-reliability">Pooled Reliability</h4>
+<p>To obtain the pooled standard deviation of true scores, we can correct the observed score standard deviations for measurement error such that, <span class="math inline">\(S^2_{Y}=r_{YY'}S^2_{U}\)</span> (similar to what we see in <a href="#eq-sd-correction">Equation&nbsp;<span>5.9</span></a>). Therefore we can compute the pooled true score standard deviation (<span class="math inline">\(S_{U_P}\)</span>) with,</p>
+<p><span class="math display">\[
+S_{U_P} = \sqrt{\frac{(n_A+1)\left(S_{Y_A} \sqrt{r_{YY'_A}}\right)^2+(n_B+1)\left(S_{Y_B} \sqrt{r_{YY'_B}}\right)^2}{n_A + n_B - 2}}.
+\]</span></p>
+<p>Alternatively, we can pool the reliability and the true score standard deviations separately,</p>
+<p><span class="math display">\[
+S_{Y_P} = \sqrt{\frac{(n_A+1)S_{Y_A}^2+(n_B+1)S_{Y_B}^2}{n_A + n_B - 2}}
+\]</span></p>
+<p><span class="math display">\[
+r_{YY'_P} = \sqrt{\frac{(n_A+1) r_{YY'_A}^2+(n_B+1)r_{YY'_B}^2}{n_A + n_B - 2}}.
+\]</span></p>
+<p>Then we can express <span class="math inline">\(S_{U_P}\)</span> as the pooled standard deviation and the pooled reliability,</p>
+<p><span class="math display">\[
+S_{U_P} = S_{Y_P}\sqrt{r_{YY'_P}}.
+\]</span></p>
+<p>Now we can calculate the corrected sample standardized mean difference, so that it estimates the standardized mean difference in true scores rather than observed scores:</p>
+<p><span class="math display">\[
+d_{gU} = \frac{\overline{U}_A - \overline{U}_B}{S_{U_P}} =  \frac{\overline{U}_A - \overline{U}_B}{S_{Y_P}\sqrt{r_{YY'_P}}} = \frac{d_{gY}}{\sqrt{r_{YY'_P}}}
+\]</span></p>
+<p>The corrected (true score) standardized mean difference, <span class="math inline">\(d_{gU}\)</span>, will also need it’s standard error to be adjusted from the observed score estimate. The standard error can be computed one of two ways:</p>
+<ol type="1">
+<li>If the reliability coefficient and the standardized mean difference are computed from the same sample then the standard error can be estimated by, <span class="math display">\[
+se(d_{gU}) = \frac{se(d_{gY})}{\sqrt{r_{YY'_P}}}.
+\]</span></li>
+<li>If the reliability coefficient and the standardized mean difference are computed from separate samples (<span class="math inline">\(n\)</span> will denote the sample size of the standardized mean difference, <span class="math inline">\(n_{r_{YY'}}\)</span> and will denote the sample size of the reliability coefficient), we can use the following formulation (see appendix for derivation),</li>
+</ol>
+<p><span id="eq-se-me-d-tsa"><span class="math display">\[
+se(d_{gU}) = \sqrt{\frac{se(d_{gY})^2}{r_{YY'_P}} +\frac{d^2_{gY}\left(1-r^2_{YY'_P}\right)^2}{4\left(1-n_{r_{YY'_P}}\right)r^3_{YY'_P}}}
+\tag{5.10}\]</span></span></p>
+</section>
+<section id="total-sample-reliability" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="total-sample-reliability">Total Sample Reliability</h4>
+<p>It is common that studies will only report the full sample reliability and not the reliability within each group. If the groups differ substantially on the dependent variable, <span class="math inline">\(Y\)</span>, then the total sample reliability will over-estimate the within-group reliability. When the total sample reliability is all that is available, we can correct the standardized mean difference by first converting <span class="math inline">\(d_{gY}\)</span> to a point-biserial correlation, <span class="math inline">\(r_{gY}\)</span>. To do this we also need the observed proportion of subjects in group <span class="math inline">\(A\)</span> <em>or</em> <span class="math inline">\(B\)</span> (<span class="math inline">\(p_g\)</span> ; it does not matter which group is chosen, as long as it is consistent throughout).</p>
+<p><span class="math display">\[
+r_{gY} = \frac{d_{gY}}{\sqrt{\frac{1}{p_g(1-p_g)}+d_{gY}^2}}.
+\]</span></p>
+<p>Then we can the correlation coefficient as we did in <a href="#sec-r-corr"><span>Section&nbsp;5.5.2</span></a>. Taking the reliability of <span class="math inline">\(Y\)</span>, the <span class="math inline">\(r_{gY}\)</span> for the total sample reliability (see <a href="#sec-correcting-correlations-me"><span>Section&nbsp;5.5</span></a> for details),</p>
+<p><span class="math display">\[
+r_{gU} = \frac{r_{gY}}{\sqrt{r_{YY'}}}
+\]</span></p>
+<p>Then we can obtain the corrected (true score) standardized mean difference by converting <span class="math inline">\(r_{gU}\)</span> back into <span class="math inline">\(d_{gU}\)</span>,</p>
+<p><span class="math display">\[
+d_{gU} = \frac{r_{gU}}{\sqrt{p_g(1-p_g)(1-r_{gU}^2)}}
+\]</span></p>
+<p>The standard error of the corrected value will also need to be adjusted. The same process can be done for the sampling variance as well, but instead we can put it all into one equation,</p>
+<p><span class="math display">\[
+se_{c} = \frac {se\left(\frac{r_{gU}}{r_{gY}}\right)} {\sqrt{\left(1+d_{gY}^2p_g[1-p_g]\right)^3\left(1-r_{gU}^2\right)^3}}
+\]</span></p>
+<p>Note that this formula is specifically for the case where the standardized mean difference and the reliability coefficient are estimated from the same sample. If they are estimated from separate samples, then we can convert the standard error of the standardized mean difference to a standard error of a point-biserial correlation and then use <a href="#eq-se-me-r-tsa">Equation&nbsp;<span>5.8</span></a>. Once the point-biserial standard error is corrected, then it can be converted back to a correlation coefficient.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-d-attenuation" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="unreliability_files/figure-html/fig-d-attenuation-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;5.5: Visualizing the attenuation of the standardized mean differences in observed scores (bottom panel) from true scores (top panel). The true score standardized mean difference is <span class="math inline">\(\delta_{gU}=0.60\)</span>, but in the presense of measurement error (<span class="math inline">\(\rho_{YY'}=.70\)</span>) the observed score standardized mean difference is <span class="math inline">\(\delta_{gY}=0.50\)</span>. This occurs due to the increased standard deviation in observed scores relative to true scores (the mean difference does not change).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Applied Example in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imagine we want to test the effectiveness of a drug that is meant to alleviate stress. Therefore we conduct a study and randomize a sample of 150 people into a control group (<span class="math inline">\(n=75\)</span>) and a treatment group (<span class="math inline">\(n=75\)</span>). After the intervention, the subjects report their stress levels on a self-report scale. The scale was shown to have a reliability of <span class="math inline">\(r_{YY'}=.80\)</span>. We can correct the standardized mean differences on observed scores with the <code>correct_d</code> function in the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dgY <span class="ot">&lt;-</span> .<span class="dv">40</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>rYY <span class="ot">&lt;-</span> .<span class="dv">80</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> n2 <span class="ot">&lt;-</span> <span class="dv">75</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">correct_d</span>(<span class="at">correction =</span> <span class="st">'meas'</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">d =</span> dgY,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">ryy =</span> rYY,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>          <span class="at">n1 =</span> n1,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">n2 =</span> n2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>d Values Corrected for Measurement Error:
+---------------------------------------------------------------------------------------
+  value CI_LL_95 CI_UL_95   n n_effective
+1 0.449   0.0828    0.838 150         118</code></pre>
+</div>
+</div>
+<p>The output of psychmeta shows a slightly larger (<span class="math inline">\(d_{gU} = 0.45\,[0.08,0.84]\)</span>).</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-lim-information" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="sec-lim-information"><span class="header-section-number">5.7</span> Estimating Reliability with Limited Information</h2>
+<p>Reliability estimates should preferably be calculated from within the study’s sample, however there are a couple of ways to estimate reliability when this information is not provided. A common way to obtain an estimate of the reliability is to look in meta-analyses or a test manuals. If the number of items in a study differs from the test manual, you can approximate the reliability of the study’s test, with a re-arrangement of the Spearman-Brown prophecy formula,</p>
+<p><span class="math display">\[
+r_{xx'_{study}} \approx \frac{1}{\frac{\kappa_{\text{ref}}}{\kappa_{\text{study}}} \left(\frac{1}{r_{xx'_{study}}} - 1\right) + 1}.
+\]</span></p>
+<p>Where <span class="math inline">\(\kappa_{\text{ref}}\)</span> and <span class="math inline">\(\kappa_{\text{study}}\)</span> denote the number of items in the reference test and the test used in the study, respectively.</p>
+</section>
+<section id="appendix" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="appendix"><span class="header-section-number">5.8</span> Appendix</h2>
+<section id="deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors">Deriving the standard error of a corrected correlation with independent sampling errors</h5>
+<p><a href="#eq-se-me-r-tsa">Equation&nbsp;<span>5.8</span></a> - This Taylor series approximation derivation can also be found in the Mathematica script, <code>Derivations.nb</code>, denoted as (SE.1).</p>
+<p><span class="math display">\[\begin{aligned}
+\tiny{se_c} &amp;\tiny{\approx \sqrt{\frac{\partial}{\partial r_{XY}}\left[\frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}\right]^2 \widehat{var}(r_{XY}) + \frac{\partial}{\partial r_{XX'}}\left[\frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}\right]^2  \widehat{var}(r_{YY'}) + \frac{\partial}{\partial r_{XX'}}\left[\frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}\right]^2 \widehat{var}(r_{YY'})}}\\[.3em]
+&amp;\tiny{\approx \sqrt{ \left(\frac{1}{r_{XX'}r_{YY'}}\right) se^2 + \left( -\frac{r_{XY}}{2\sqrt{r_{XX'}^3r_{YY'}}} \right)^2\frac{\left(1-r^2_{XX'}\right)^2}{n_{r_{XX'}}-1}+  \left(  -\frac{r_{XY}}{2\sqrt{r_{XX'}r_{YY'}^3}} \right)^2\frac{\left(1-r^2_{YY'}\right)^2}{n_{r_{YY'}}-1}}}\\[.3em]
+&amp;\tiny{\approx \sqrt{\frac{se^2}{r_{XX'}r_{YY'}} +
+\frac{r^2_{XY}\left(1-r^2_{XX'}\right)^2}{4(n_{r_{XX'}}-1)r_{XX'}^3r_{YY'}} +
+\frac{r^2_{XY}\left(1-r^2_{YY'}\right)^2}{4(n_{r_{YY'}}-1)r_{XX'}r_{YY'}^3}}}
+\end{aligned}\]</span></p>
+</section>
+<section id="deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors-1" class="level5 unnumbered">
+<h5 class="unnumbered anchored" data-anchor-id="deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors-1">Deriving the standard error of a corrected correlation with independent sampling errors</h5>
+<p><a href="#eq-se-me-d-tsa">Equation&nbsp;<span>5.10</span></a> - Found in <code>Derivations.nb</code>, denoted as (SE.2).</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-bobko1980" class="csl-entry" role="listitem">
+Bobko, Philip, and Angela Rieck. 1980. <span>“Large Sample Estimators for Standard Errors of Functions of Correlation Coefficients.”</span> <em>Applied Psychological Measurement</em> 4 (3): 385–98. <a href="https://doi.org/10.1177/014662168000400309">https://doi.org/10.1177/014662168000400309</a>.
+</div>
+<div id="ref-borsboom2002" class="csl-entry" role="listitem">
+Borsboom, Denny, and Gideon J Mellenbergh. 2002. <span>“True Scores, Latent Variables, and Constructs: A Comment on Schmidt and Hunter.”</span>
+</div>
+<div id="ref-borsboom2004" class="csl-entry" role="listitem">
+Borsboom, Denny, Gideon J. Mellenbergh, and Jaap Van Heerden. 2004. <span>“The Concept of Validity.”</span> <em>Psychological Review</em> 111 (4): 1061–71. <a href="https://doi.org/10.1037/0033-295X.111.4.1061">https://doi.org/10.1037/0033-295X.111.4.1061</a>.
+</div>
+<div id="ref-brown1910" class="csl-entry" role="listitem">
+Brown, William. 1910. <span>“Some Experimental Results in the Correlation of Mental Abilities1.”</span> <em>British Journal of Psychology, 1904-1920</em> 3 (3): 296–322. <a href="https://doi.org/10.1111/j.2044-8295.1910.tb00207.x">https://doi.org/10.1111/j.2044-8295.1910.tb00207.x</a>.
+</div>
+<div id="ref-cronbach1951" class="csl-entry" role="listitem">
+Cronbach, Lee J. 1951. <span>“Coefficient Alpha and the Internal Structure of Tests.”</span> <em>Psychometrika</em> 16 (3): 297–334. <a href="https://doi.org/10.1007/BF02310555">https://doi.org/10.1007/BF02310555</a>.
+</div>
+<div id="ref-cronbach1955" class="csl-entry" role="listitem">
+Cronbach, Lee J., and Paul E. Meehl. 1955. <span>“Construct Validity in Psychological Tests.”</span> <em>Psychological Bulletin</em> 52 (4): 281–302. <a href="https://doi.org/10.1037/h0040957">https://doi.org/10.1037/h0040957</a>.
+</div>
+<div id="ref-dahlke2019" class="csl-entry" role="listitem">
+Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
+</div>
+<div id="ref-galton1907" class="csl-entry" role="listitem">
+Galton, Francis. 1907. <span>“Vox Populi.”</span> <em>Nature</em> 75 (1949): 450–51. <a href="https://doi.org/10.1038/075450a0">https://doi.org/10.1038/075450a0</a>.
+</div>
+<div id="ref-irr" class="csl-entry" role="listitem">
+Gamer, Matthias, Jim Lemon, Ian Fellows, and Puspendra Singh. 2019. <em>Irr: Various Coefficients of Interrater Reliability and Agreement</em>. <a href="https://CRAN.R-project.org/package=irr">https://CRAN.R-project.org/package=irr</a>.
+</div>
+<div id="ref-haertel2006" class="csl-entry" role="listitem">
+Haertel, Edward H. 2006. <span>“3. Reliability.”</span> In, 4th ed.
+</div>
+<div id="ref-hunter1990a" class="csl-entry" role="listitem">
+Hunter, John E., and Frank L. Schmidt. 2015. <em>Methods of meta-analysis: correcting error and bias in research findings (third)</em>. Third. Thousand Oaks, California: Sage Publications.
+</div>
+<div id="ref-kelley1927" class="csl-entry" role="listitem">
+Kelley, Truman Lee. 1927. <em>Interpretation of Educational Measurements</em>. World Book Company.
+</div>
+<div id="ref-mendoza1987" class="csl-entry" role="listitem">
+Mendoza, Jorge L., and Michael Mumford. 1987. <span>“Corrections for Attenuation and Range Restriction on the Predictor.”</span> <em>Journal of Educational Statistics</em> 12 (3): 282–93. <a href="https://doi.org/10.3102/10769986012003282">https://doi.org/10.3102/10769986012003282</a>.
+</div>
+<div id="ref-spearman1904" class="csl-entry" role="listitem">
+Spearman, C. 1904. <span>“The Proof and Measurement of Association Between Two Things.”</span> <em>International Journal of Epidemiology</em> 39 (5): 1137–50. <a href="https://doi.org/10.1093/ije/dyq191">https://doi.org/10.1093/ije/dyq191</a>.
+</div>
+<div id="ref-spearman1910" class="csl-entry" role="listitem">
+Spearman, Charles. 1910. <span>“Correlation Calculated from Faulty Data.”</span> <em>British Journal of Psychology</em> 3 (3): 271295. <a href="https://www.proquest.com/docview/1293688112/citation/7E133DC1091D4E47PQ/1">https://www.proquest.com/docview/1293688112/citation/7E133DC1091D4E47PQ/1</a>.
+</div>
+<div id="ref-viswesvaran2014" class="csl-entry" role="listitem">
+Viswesvaran, Chockalingam, Deniz S. Ones, Frank L. Schmidt, Huy Le, and In-Sue Oh. 2014. <span>“Measurement Error Obfuscates Scientific Knowledge: Path to Cumulative Knowledge Requires Corrections for Unreliability and Psychometric Meta-Analyses.”</span> <em>Industrial and Organizational Psychology</em> 7 (4): 507–18. <a href="https://doi.org/10.1017/S1754942600006799">https://doi.org/10.1017/S1754942600006799</a>.
+</div>
+<div id="ref-wiernik2020" class="csl-entry" role="listitem">
+Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining Unbiased Results in Meta-Analysis: The Importance of Correcting for Statistical Artifacts.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
+</div>
+<div id="ref-psych" class="csl-entry" role="listitem">
+William Revelle. 2023. <em>Psych: Procedures for Psychological, Psychometric, and Personality Research</em>. Evanston, Illinois: Northwestern University. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./small_samples.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Small Samples</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./misclassification.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

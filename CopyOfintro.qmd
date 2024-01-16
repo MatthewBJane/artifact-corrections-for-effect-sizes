@@ -1,0 +1,824 @@
+```{r color_scheme,echo = F,warning=F,message=F}
+
+library(raster)
+library(metR)
+library(isoband)
+library(latex2exp)
+library(extrafont)
+library(ggplot2)
+library(patchwork)
+library(MASS)
+library(ggdist)
+library(ggtext)
+
+
+text_color_blue      = '#326982ff'
+panel_color_blue     = '#f6fafbff'
+lightermain_color_blue = '#dbebf0'
+lightmain_color_blue = '#a4cdd9ff'
+main_color_blue      = '#5fa6bcff'
+darkmain_color_blue  = '#397689ff'
+border_color_blue    = '#5fa6bcff'
+
+text_color_red       = '#a62675ff'
+panel_color_red      = '#fdf6faff'
+lightermain_color_red  = '#f6d5e9'
+lightmain_color_red  = '#eeb4d7ff'
+main_color_red       = '#d74ea2ff'
+darkmain_color_red   = '#bf2986ff'
+border_color_red     = '#d74ea2ff'
+
+library(knitr)
+opts_chunk$set(fig.height = 4)
+
+th_blue <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_blue),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_blue),
+        axis.text.x = element_text(size=13, color = text_color_blue),
+        axis.text.y = element_text(size=13, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1)) 
+  
+th_red <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_red),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_red),
+        axis.text.x = element_text(size=13, color = text_color_red),
+        axis.text.y = element_text(size=13, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1)) 
+```
+
+# Effect Sizes and Notation
+
+## What are Effect Sizes?
+
+Effect sizes are statistics that measure the magnitude of a relationship between variables. It's important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights from data, rather than being the ultimate objective themselves. Effect sizes aide in researcher's ability to draw meaningful inferences from data and therefore it is crucial that they are accurate. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book.
+
+## Defining the Target Effect Size
+
+It is important to clearly define the quantity that we aim to estimate (i.e., the target effect size). A well-defined target effect size guides our statistical analyses and allows us to link our empirical observations to a theoretically meaningful quantity [@lundberg2021]. A target effect size is composed of two major components: the populations of interest and the variables of interest. If the methodology within a study produces effect size estimates that do not accurately reflect the variables and population of interest, then the findings can be severely biased relative to the target quantity. We can illustrate this with an example:
+
+For example, let's say we want to know the correlation between student motivation and stress among high-school students. Suppose we investigate this correlation by administering a survey to a sample of senior students at a private high school. The survey consists of a two questions asking student's to rate their level of motivation and stress on a scale of 1-10. Now we can compare how the target population differs from what we obtained from our study and what potential sources of contamination may exist when estimating the effect size (see @tbl-target)
+
++----------------+-----------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                | Target                | Study                                                                    | Potential sources of contamination                                                                                                                                                                               |
++================+=======================+==========================================================================+==================================================================================================================================================================================================================+
+| **Population** | High-School Students  | Seniors High-School students                                             | -   **Range Restriction.** Senior student's at private universities may have a more narrow range of characteristics such as stress and motivation than other classes (e.g., freshmen) and schools (e.g., public) |
++----------------+-----------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Variables**  | Motivation and Stress | Self-report 1-10 scale with questions referring to motivation and stress | -   **Coarseness.** Motivation and Stress is likely naturally continuous variable rather than a discrete variable with 10 levels.                                                                                |
+|                |                       |                                                                          |                                                                                                                                                                                                                  |
+|                |                       |                                                                          | -   **Unreliability.** The scale may have various interpretations between people that does not reflect true individual differences in motivation.                                                                |
++----------------+-----------------------+--------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: Comparison of the target population and variables and what the example study obtained. {#tbl-target}
+
+Knowing how the study effect size differs from our intended target can guide us on which corrections we want to apply in order to achieve an effect size estimate that more accurately reflects our target effect size.
+
+## Effect Sizes
+
+Let's start by differentiating between a population effect size and a sample estimate. The population effect size, represented by the Greek letter $\theta$, characterizes the entire population, which encompasses all possible observations of interest. In contrast, a sample effect size (we will denote this as $h$) is an estimate of this population value, estimated by a random sample of observations.
+
+The population effect size, $\theta$, is a fixed value that does not change from sample to sample. Therefore if we were to take a random sample, $i$, from the population and calculate an estimate, $h_i$, we will find that $h_i$ does not exactly reflect the population value. We can model $h_i$ with the following equation [equation 1, @borenstein2010],
+
+$$
+h_i = \theta + \varepsilon_i,
+$$ {#eq-ES}
+
+where $\varepsilon_i$ represents sampling error. Sampling error occurs because a random sample of observations will not be identical to the entire population. Therefore this sampling error will cause the effect size estimate, $h_i$, to vary from sample to sample (i.e., $h_1 \neq h_2 \neq h_3...$). We can visualize this variability in @fig-3.1.
+
+If $h_i$ is an unbiased estimator of $\theta$, then the average of $h_i$ across infinite repeated samples from the population (i.e., the expectation, denoted with $\mathbb{E}_i[\cdot]$), would equal $\theta$. For this to be true, we have to assume that the expectation of $\varepsilon_i$ is equal to zero, such that,
+
+```{=tex}
+\begin{align}
+\mathbb{E}_i[h_i] &= \mathbb{E}_i[\theta + \varepsilon_i] \\[.3em]
+&= \mathbb{E}_i[\theta] + \mathbb{E}_i[\varepsilon_i] \\[.3em]
+&= \theta + 0 \\[.3em]
+&= \theta.
+\end{align}
+```
+Because $\theta$ is fixed and has no variance across samples, the variance in the effect size estimates across repeated samples is entirely attributable to the variance in sampling error such that,
+
+```{=tex}
+\begin{align}
+\text{var}(h_i) &= \text{var}(\theta) + \text{var}(\varepsilon_i) \\[.3em]
+&= 0 + \text{var}(\varepsilon_i) \\[.3em]
+&= \text{var}(\varepsilon_i).
+\end{align}
+```
+Since we don't have access to all possible samples, the variance of $h_i$ (or $\varepsilon_i$) must be estimated. Estimates of sampling error variance are usually a function of the sample size (i.e., the number of observations in a given sample; will be denoted by $n$). The square root of the estimated sampling error variance estimate can be defined as the standard error [@borenstein2010, equation 10],
+
+$$
+se(h_i) = \sqrt{\widehat{\text{var}}(h_i)} = \sqrt{\widehat{\text{var}}(\varepsilon_i)},
+$$
+
+where the hat indicates a sample estimate ($\widehat{\cdot}$).
+
+```{r,echo=FALSE,fig.height=4, warning=FALSE, message=FALSE}
+#| id: fig-3.1
+#| fig-cap: Illustration of the equation described in @eq-ES. This figure shows the distribution of $h_i$. The dashed blue line denote the target population effect size, $\theta$. The red lines denote random sampling errors, $\varepsilon_i$ which represent the difference between the estimates $h_i$ and the population value, $\alpha\theta$.
+
+
+library(bbplot)
+
+set.seed(1)
+# simulate 70 true scores
+k = 20
+scores1 = MASS::mvrnorm(k,0,1.2,empirical = TRUE)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  theme_ggdist() + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 axis.text.y = element_text(size=20)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = c('',0,'','',TeX('$\\theta$'),'','','',''), 
+                     breaks=c(-2.75,-2,-1.25,-.50,0,.25,1,1.75,2.50),
+                     limits = c(-3,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(0,1.1)), 
+            fill = lightermain_color_red,scale=4, color=main_color_red) +
+  geom_line(aes(x = c(22.9,22.9), y=c(0,1.1)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="last", type = "closed"),
+            linewidth=.9,color = darkmain_color_red) +
+  geom_hline(yintercept = 0, alpha=.9, linewidth = .8,
+             color = darkmain_color_blue, linetype = 'dashed') +
+  geom_hline(yintercept = -2, alpha=.2, linewidth = .8,
+             color = 'black') +
+  geom_hline(yintercept = c(-2.75,-2,-1.25,-.50,0,.25,1,1.75,2.50), 
+             alpha=.05, linewidth = .4,
+             color = 'black') +
+  geom_line(aes(x=c(1:k,1:k),y=c(rep(0,k),scores1),group=c(1:k,1:k)),
+            color=main_color_red, alpha=1, linewidth = .9) + 
+  geom_point(data=NULL, aes(x = 1:k, y = scores1),alpha = 1, stroke = 0, size = 3.5) +
+  annotate(geom='text',x=1.5,y=1.2,label=TeX('$\\epsilon_i$'), 
+           color = text_color_red, size = 6) + 
+  annotate(geom='text',x=21.8,y=.50,label=TeX('$se(h_i)$'), 
+           color = text_color_red, size = 4) + 
+  annotate(geom='text',x=6.5,y=2.3,label=TeX('$h_i$'), 
+           color = 'black', size = 6) +
+  xlab('Sample (i)')+
+  ylab(TeX('Effect Size ($h_i$)')) +
+  ggtitle(label='Unbiased Estimator',
+          subtitle=TeX('visualizing equation 3.1: $h_i=\\theta+\\epsilon_i$'))+
+  geom_curve(aes(x = 6, y = scores1[4]+.5, xend = 4.5, yend = scores1[4]+.05),
+             colour = "black",
+             curvature = -0.2,
+             arrow = arrow(length = unit(0.03, "npc"))) +
+  geom_curve(aes(x = 2, y = scores1[4]-.5, xend = 3.7, yend = scores1[4]-.7),
+             colour = main_color_red,
+             curvature = 0.2,
+             arrow = arrow(length = unit(0.03, "npc")))
+```
+
+## Effect Sizes and Study Artifacts
+
+In practice, effect sized estimated within a study are often biased relative to the target population effect size. Specifically, the expectation of the effect size estimate over replications is not equal to the target population effect size. These sources of bias is what we will refer to as study artifacts. The target effect size is the quantity that we want to estimate which will depend on the research goal. We will continue with the same notation as the previous section, therefore $\theta$ will represent the target population effect size. We can define bias as the difference between the target population effect size, $\theta$, and the expectation of the effect size estimate contaminated by artifacts, $h_i$, such that,
+
+$$
+\text{bias} = \mathbb{E}_i[h_i] - \theta.
+$$ {#eq-bias}
+
+To account for this bias in contaminated effect size estimates, we can append @eq-ES to now include an artifact attenuation/inflation factor we can denote as $\alpha$ [@hunter1990a, adapted from the third equation of p. 134 and the second equation of p. 139]:
+
+$$
+h_i = \alpha\theta + \varepsilon_i.
+$$ {#eq-aES}
+
+Therefore, assuming the expectation of the sampling errors ($\varepsilon_i$) is zero, we can compute the expectation of a contaminated effect size estimate as:
+
+```{=tex}
+\begin{align}
+\mathbb{E}[h_i] &= \mathbb{E}[\alpha\theta + \varepsilon_i] \\[.3em]
+&= \mathbb{E}[\alpha\theta] + \mathbb{E}[\varepsilon_i] \\[.3em]
+&= \alpha\theta + 0 \\[.3em]
+&= \alpha\theta. \\
+\end{align}
+```
+If $\alpha=1$ then that would indicate that $h_i$ is an unbiased estimate of $\theta$ (see @fig-3.1), if $\alpha>1$ that would indicate that $h_i$ is on average *inflated* relative to $\theta$ (see @fig-3.2) and if $\alpha<1$ then $h_i$ is *attenuated* relative to $\theta$ (see @fig-3.3). If we divide both sides of @eq-aES by $\alpha$ such that,
+
+$$
+\frac{h_i}{\alpha} = \theta + \frac{\varepsilon_i}{\alpha},
+$$
+
+we see that the expectation of $h_i/\alpha$ is equal to $\theta$,
+
+```{=tex}
+\begin{align}
+\mathbb{E}\left[\frac{h_i}{\alpha}\right] &= \mathbb{E}\left[\theta + \frac{\varepsilon_i}{\alpha}\right] \\[.3em]
+&= \mathbb{E}\left[\theta\right] + \mathbb{E}\left[\frac{\varepsilon_i}{\alpha}\right] \\[.3em]
+&= \theta + \frac{\mathbb{E}\left[\varepsilon_i\right]}{\alpha} \\[.3em]
+&= \theta + \frac{0}{\alpha} \\[.3em]
+&= \theta. \\
+\end{align}
+```
+In principle, if we knew the value of $\alpha$ then we would be able to obtain an unbiased estimate of the target effect size $\theta$. In practice, $\alpha$ is usually not known and must be estimated, we will denote an estimate of $\alpha$ with the English letter $a$. Obtaining $\alpha$ or $a$ is non-trivial and is the primary objective of this book. The procedure depends on the type of effect size, the research goal, the type of artifact, as well as other considerations. It is important to note that $a$ will itself contain sampling error (sampling errors for $a$ will be denoted by $\xi_i$), and therefore the estimate of $a_i$ for a given sample/study $i$ can be defined as,
+
+$$
+a_i = \alpha + \xi_i.
+$$
+
+::: {.callout-tip appearance="default" icon="false"}
+## Cases where $\boldsymbol{\alpha}$ is known
+
+In the chapters on Small Samples, Artificial Dichotomization, and Scale Coarseness we will see that, given some statistical assumptions, $\alpha$ can be a known (fixed) quantity.
+:::
+
+Now we can correct the contaminated effect size estimate with the artifact attenuation/inflation factor, we can define a corrected effect size for a given study $i$ as,
+
+$$
+h_{c_i} = \frac{h_i}{\alpha} \approx \frac{h_i}{a_i}.
+$$
+
+We can also see that the artifact factor can be obtained by taking the ratio of the corrected effect size to the uncorrected effect size:
+
+$$
+\alpha = \frac{h_i}{h_{c_i}}\;\;\;\text{  or  }\;\;\;a_i = \frac{h_i}{h_{c_i}}.
+$$ {#eq-corr-ratio}
+
+A corrected correlation can be modeled as function of the target population value and $\varepsilon_{c_i}$ [@hunter1990a, adapted from equation seen on p. 134],
+
+$$
+h_{c_i} = \theta + \varepsilon_{c_i}.
+$$
+
+The sampling variance of $h_{c_i}$ can be quite complicated to calculate and it will depend on how $a_i$ is obtained, each artifact correction chapter will cover how to estimate the sampling variance and standard error for the corrected effect size. If we know the precise value of $\alpha$ or if $a_i$ is fixed and does not vary, the sampling variance would be a simple transform of the sampling variance of the contaminated effect size $h_i$ such that [@hunter1990a, equation 3.27],
+
+$$
+\text{var}\left(h_{c_i}\right) = \frac{\text{var}\left(h_{i}\right)}{\alpha^2} = \frac{\text{var}\left(h_{i}\right)}{\left(\frac{h_i}{h_{c_i}}\right)^2}.
+$$
+
+The standard error can be expressed as the square root of the estimated sampling variance,
+
+$$
+se(h_{c_i}) = \sqrt{\widehat{\text{var}}(h_{c_i})}
+$$
+
+Standard errors as defined here are sample estimates. The expectation of the standard error is equal to the square root of the true sampling variance such that, $\mathbb{E}\left[se(h_{c_i})\right]=\sqrt{\text{var}(h_{c_i})}$.
+
+```{r,echo=FALSE,fig.height=4, warning=FALSE, message=FALSE}
+#| id: fig-3.2
+#| fig-cap: Illustration of the equation described in @eq-aES. This figure shows the distribution of $h_i$ when $\alpha<1$ (i.e., attenuation). The dotted line denotes the contaminated population effect size, $\alpha\theta$, whereas the dashed blue line denotes the target population effect size, $\theta$. The red lines denote random sampling errors, $\varepsilon$ which represent the difference between the contaminated estimates $h_i$ and the contaminated population value, $\alpha\theta$. The grey arrow indicates direction and magnitude of the bias in the effect size estimator (defined by @eq-bias).
+
+
+set.seed(5)
+# simulate 70 true scores
+k = 20
+scores1 = rnorm(k,-1,1.0)
+# simulate scores at time 1
+
+
+
+library(bbplot)
+
+set.seed(1)
+# simulate 70 true scores
+k = 20
+scores1 = MASS::mvrnorm(k,-1,1.2,empirical = TRUE)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  theme_ggdist() + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 axis.text.y = element_text(size=20)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = c('',0,'',TeX('$\\alpha\\theta$'),'',TeX('$\\theta$'),'','','',''), 
+                     breaks=c(-2.75,-2,-1.25,-1,-.50,0,.25,1,1.75,2.50),
+                     limits = c(-3.9,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(-1,1.1)), 
+            fill = lightermain_color_red,scale=4, color=main_color_red) +
+  geom_line(aes(x = c(22.9,22.9), y=c(0-1,1.1-1)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="last", type = "closed"),
+            linewidth=.9,color = darkmain_color_red) +
+  geom_line(aes(x = c(2.5,2.5), y=c(0-.9,0)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=.9,color = 'grey60') +
+  annotate(geom='text',x=1.5,y=-.4,label=TeX('bias'), 
+           color = 'grey60', size = 4) + 
+  geom_hline(yintercept = 0, alpha=.9, linewidth = .8,
+             color = darkmain_color_blue, linetype = 'dashed') +
+  geom_hline(yintercept = -1, alpha=.9, linewidth = .8,
+             color = lightmain_color_blue, linetype = 'dotted') +
+  geom_hline(yintercept = -2, alpha=.2, linewidth = .8,
+             color = 'black') +
+  geom_hline(yintercept = c(-2.75,-2,-1.25,-.50,0,.25,1,1.75,2.50), 
+             alpha=.05, linewidth = .4,
+             color = 'black') +
+  geom_line(aes(x=c(1:k,1:k),y=c(rep(0,k)-1,scores1),group=c(1:k,1:k)),
+            color=main_color_red, alpha=1, linewidth = .9) + 
+  geom_point(data=NULL, aes(x = 1:k, y = scores1),alpha = 1, stroke = 0, size = 3.5) +
+  annotate(geom='text',x=1.5,y=1.2-.7,label=TeX('$\\epsilon_i$'), 
+           color = text_color_red, size = 6) + 
+  annotate(geom='text',x=21.8,y=.50-1,label=TeX('$se(h_i)$'), 
+           color = text_color_red, size = 4) + 
+  annotate(geom='text',x=6.5,y=2.3-1,label=TeX('$h_i$'), 
+           color = 'black', size = 6) +
+  xlab('Sample (i)')+
+  ylab(TeX('Effect Size ($h_i$)')) +
+  ggtitle(label='Attenuated Estimator',
+          subtitle=TeX('visualizing equation 3.3: $h_i=\\alpha\\theta+\\epsilon_i$'))+
+  geom_curve(aes(x = 6, y = scores1[4]+.5, xend = 4.5, yend = scores1[4]+.05),
+             colour = "black",
+             curvature = -0.2,
+             arrow = arrow(length = unit(0.03, "npc"))) +
+  geom_curve(aes(x = 2, y = scores1[4]-.2, xend = 3.7, yend = scores1[4]-.4),
+             colour = main_color_red,
+             curvature = 0.2,
+             arrow = arrow(length = unit(0.03, "npc")))
+
+```
+
+```{r,echo=FALSE,fig.height=4, warning=FALSE, message=FALSE}
+#| id: fig-3.3
+#| fig-cap: Illustration of the equation described in @eq-aES. This figure shows the distribution of $h_i$ when $\alpha>1$ (i.e., inflation). The dotted line denotes the contaminated population effect size, $\alpha\theta$, whereas the dashed blue line denotes the target population effect size, $\theta$. The red lines denote random sampling errors, $\varepsilon$ which represent the difference between the contaminated estimates $h_i$ and the contaminated population value, $\alpha\theta$. The grey arrow indicates direction and magnitude of the bias in the effect size estimator (defined by @eq-bias).
+
+
+set.seed(5)
+# simulate 70 true scores
+k = 20
+scores1 = rnorm(k,-1,1.0)
+# simulate scores at time 1
+
+
+
+library(bbplot)
+
+set.seed(1)
+# simulate 70 true scores
+k = 20
+scores1 = MASS::mvrnorm(k,1,1.2,empirical = TRUE)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  theme_ggdist() + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 axis.text.y = element_text(size=20)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = c('',0,'','',TeX('$\\theta$'),'','','',''), 
+                     breaks=c(-2.75,-2,-1.25,-.50,0,.25,1,1.75,2.50),
+                     limits = c(-3,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(1,1.1)), 
+            fill = lightermain_color_red,scale=4, color=main_color_red) +
+  geom_line(aes(x = c(22.9,22.9), y=c(0+1,1.1+1)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="last", type = "closed"),
+            linewidth=.9,color = darkmain_color_red) +
+  geom_line(aes(x = c(5.3,5.3), y=c(.9,0)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=.9,color = 'grey60') +
+  annotate(geom='text',x=4.5,y=.4,label=TeX('bias'), 
+           color = 'grey60', size = 4) + 
+  geom_hline(yintercept = 1, alpha=.9, linewidth = .8,
+             color = darkmain_color_blue, linetype = 'dotted') +
+  geom_hline(yintercept = 0, alpha=.9, linewidth = .8,
+             color = darkmain_color_blue, linetype = 'dashed') +
+  geom_hline(yintercept = -2, alpha=.2, linewidth = .8,
+             color = 'black') +
+  geom_hline(yintercept = c(-2.75,-2,-1.25,-.50,0,.25,1,1.75,2.50), 
+             alpha=.05, linewidth = .4,
+             color = 'black') +
+  geom_line(aes(x=c(1:k,1:k),y=c(rep(0,k)+1,scores1),group=c(1:k,1:k)),
+            color=main_color_red, alpha=1, linewidth = .9) + 
+  geom_point(data=NULL, aes(x = 1:k, y = scores1),alpha = 1, stroke = 0, size = 3.5) +
+  annotate(geom='text',x=1.5,y=1.2+1,label=TeX('$\\epsilon_i$'), 
+           color = text_color_red, size = 6) + 
+  annotate(geom='text',x=21.8,y=.50+1,label=TeX('$se(h_i)$'), 
+           color = text_color_red, size = 4) + 
+  annotate(geom='text',x=6.5,y=2.55,label=TeX('$h_i$'), 
+           color = 'black', size = 6) +
+  xlab('Sample (i)')+
+  ylab(TeX('Effect Size ($h_i$)')) +
+  ggtitle(label='Inflated Estimator',
+          subtitle=TeX('visualizing equation 3.3: $h_i=\\alpha\\theta+\\epsilon_i$'))+
+  geom_curve(aes(x = 6, y = scores1[4]-.05, xend = 4.5, yend = scores1[4]+.02),
+             colour = "black",
+             curvature = 0.2,
+             arrow = arrow(length = unit(0.03, "npc"))) +
+  geom_curve(aes(x = 2, y = scores1[4]-.5, xend = 3.7, yend = scores1[4]-.7),
+             colour = main_color_red,
+             curvature = 0.2,
+             arrow = arrow(length = unit(0.03, "npc")))
+
+```
+
+## Correlations
+
+A correlation describes the relationship between two continuous variables. The population correlation ($\rho$) between two variables, $X$ and $Y$, can be defined as the covariance ($\sigma_{XY}$) divided by standard deviations of $X$ ($\sigma_{X}$) and $Y$ ($\sigma_{Y}$) [@thehand2009, equation 11.21],
+
+$$
+\rho = \frac{\sigma_{XY}}{\sigma_{X}\sigma_{Y}}.
+$$
+
+A correlation can range anywhere between -1 to 1. To visualize a positive and negative correlation see @fig-r.
+
+```{r,echo=FALSE,warning=FALSE}
+#| id: fig-r
+#| fig-cap: Diagram illustrating a correlation between two variables ($X$ and $Y$). The left panel shows a negative correlation and the right panel shows a positive correlation. The ellipses show the contour of a bivariate normal distribution which the data points are sampled from.
+
+
+# Set mean and covariance matrix for the bivariate normal distribution
+mu <- c(0, 0)  # Mean vector
+sigma <- matrix(c(1, -0.5, -0.5, 1), 
+                nrow = 2)  # Covariance matrix
+
+# Generate random data from bivariate normal distribution
+set.seed(123)  # Set seed for reproducibility
+data <- mvrnorm(n = 100, mu = mu, 
+                Sigma = sigma,
+                empirical=TRUE)  # Generating random data
+
+# Create a data frame from the generated data
+df <- data.frame(x = data[, 1], y = data[, 2])
+
+# Create a contour plot using ggplot
+h1 <- ggplot(df, aes(x = x, y = y)) +
+  th_red + theme(text = element_text(color = text_color_red),
+                  title = element_text(size=14)) +
+  labs(title = "Negative Correlation",
+       subtitle = TeX('$\\rho=-.50$'),
+       x = "X", y = "Y") +
+  geom_point(color=main_color_red) + 
+  stat_ellipse(level=.90,color=lightermain_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.70,color=lightmain_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.50,color=main_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.30,color=darkmain_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.10,color=text_color_red,linewidth=1,alpha = .3) +
+  xlim(-2.3,2.3) +
+  ylim(-2.3,2.3)
+
+
+
+sigma <- matrix(c(1, 0.5, 0.5, 1), 
+                nrow = 2)  # Covariance matrix
+
+# Generate random data from bivariate normal distribution
+set.seed(1)  # Set seed for reproducibility
+data <- mvrnorm(n = 100, mu = mu, 
+                Sigma = sigma,
+                empirical=TRUE)  # Generating random data
+
+# Create a data frame from the generated data
+df <- data.frame(x = data[, 1], y = data[, 2])
+
+# Create a contour plot using ggplot
+h2 <- ggplot(df, aes(x = x, y = y)) +
+  th_blue + theme(text = element_text(color = text_color_blue),
+                  title = element_text(size=13)) +
+  labs(title = "Positive Correlation",
+       subtitle = TeX('$\\rho=.50$'),
+       x = "X", y = "Y") +
+  geom_point(color=main_color_blue) + 
+  stat_ellipse(level=.90,color=lightermain_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.70,color=lightmain_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.50,color=main_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.30,color=darkmain_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.10,color=text_color_blue,linewidth=1,alpha = .3)+
+  xlim(-2.3,2.3) +
+  ylim(-2.3,2.3)
+
+h1 + h2
+```
+
+A sample estimate of the population correlation can be denoted as $r$ and consists of sample estimates of the covariance and the standard deviations:
+
+$$
+r = \frac{S_{XY}}{S_{X}S_{Y}}.
+$$ {#eq-r}
+
+This is referred to as the Pearson correlation coefficient. The Pearson correlation coefficient was first introduced by Auguste @bravais1844, then later developed further by Karl Pearson, lending itself to the name. The sample estimates of $S_{XY}$, $S_{X}$, and $S_{Y}$ can be computed with the following formulations:
+
+```{=tex}
+\begin{align}
+& S_{XY} = \frac{1}{n-1} \sum_{j=1}^{n}(X_j - \overline{X})(Y_j - \overline{Y})\\[.3em]
+& S_X = \sqrt{\frac{1}{n-1} \sum_{j=1}^{n}(X_j - \overline{X})^2}\\[.3em]
+& S_Y = \sqrt{\frac{1}{n-1} \sum_{j=1}^{n}(Y_j - \overline{Y})^2}.
+\end{align}
+```
+Where $n$ is the number of observations (i.e., the sample size) and $\overline{X}$ and $\overline{Y}$ denote the sample mean of $X$ and $Y$, respectively. The Pearson correlation estimator ($r$) can then be calculated with the formula [@pearson1895],
+
+$$
+r = \frac{S_{XY}}{S_{X}S_{Y}} = \frac{
+\sum_{j=1}^{n}(X_i - \overline{X})(Y_j - \overline{Y})
+}{
+\sqrt{\sum_{j=1}^{n}(X_j - \overline{X})^2}
+\sqrt{\sum_{j=1}^{n}(Y_j - \overline{Y})^2}
+}.
+$$
+
+Note that the $\frac{1}{n-1}$ term from each of the formulas for $S_{XY}$, $S_X$, $S_Y$, cancels out.
+
+Similar to @eq-ES, we can model the relationship between a estimate correlation $r_i$ for sample $i$ and the population correlation [@hunter1990a,equation 2.1],
+
+$$
+r_i = \rho + \varepsilon_i.
+$$ {#eq-ESr}
+
+Where $\varepsilon_i$ is the sampling error term. In the absence of artifacts and assuming finite covariance and variance, the Pearson correlation, $r$, is an asymptotically unbiased (i.e., as $n$ approaches infinity) estimator of the population correlation, $\rho$ (see the *Assumptions* box in this section). The sampling variance for a Pearson correlation is defined as [@pearson1898, p. 174],
+
+$$
+\text{var}(r_i) = \frac{\left(1-\rho^2\right)^2}{n}.
+$$ {#eq-r-se}
+
+The sampling variance for a correlation coefficient assumes bivariate normality. In a study contaminated by artifacts, the contaminated correlation, $r_i$, is biased relative to the target population correlation, $\rho$. Bias can be accounted for by incorporating an artifact inflation/attenuation factor into @eq-ESr,
+
+$$
+r_i = \alpha\rho + \varepsilon_i.
+$$ {#eq-r-mdl-a}
+
+Note that the population value (or the expected value) of $r_i$ is now equal to $\alpha\theta$, therefore the sampling variance for the contaminated correlation would be [@thehand2009, combination of equation 17.5 and equation 17.3],
+
+$$
+\text{var}(r_i) = \frac{\left(1-(\alpha\rho)^2\right)^2}{n}.
+$$
+
+::: {#assumption-r .callout-tip appearance="default" icon="false"}
+## Assumptions
+
+A Pearson correlation is an asymptotically unbiased estimator assuming that the variances and covariance are finite [@Rnormal]. It is often thought that a Pearson correlation strictly assumes bivariate normality, however this is not true. Bivariate normality ensures that the Pearson correlation provides a complete description of the association between two variables. This was described succinctly in a Stack Exchange answer by Rob Hyndman [-@Rnormal]:
+
+> Pearson's correlation is a measure of the linear relationship between two continuous random variables. It does not assume normality although it does assume finite variances and finite covariance. When the variables are bivariate normal, Pearson's correlation provides a complete description of the association.
+
+Although a Pearson correlation is asymptotically unbiased regardless of the distribution, the assumption of bivariate normality *is* required for sampling variance. Specifically, @eq-r-se is only true if the $X$ and $Y$ are bivariate normal. When distributions are not at-least approximately normal, bootstrapping is recommended to obtain variance estimates [see @bishara2017].
+:::
+
+Since the population value is not known in practice, we can estimate the sampling variance by replacing $\alpha\rho$ with the contaminated correlation $r_i$ and divide by the degrees of freedom ($n-1$) rather [@thehand2009, equation 17.5],
+
+$$
+\widehat{\text{var}}(r_i) = \frac{\left(1-r_i^2\right)^2}{n-1}.
+$$ {#eq-var-est-r}
+
+The standard error can be computed as the square root of the estimated sampling variance, $se(r_i)=\sqrt{\widehat{\text{var}}(r_i) }$.
+
+We can obtain a corrected value of a correlation coefficient by dividing by the artifact attenuation/inflation factor:
+
+$$
+r_{c_i} = \frac{r_i}{\alpha} \approx \frac{r_i}{a_i}.
+$$ {#eq-r-correction}
+
+As mentioned earlier, if the artifact factor is fixed and known then we can estimate the sampling variance of $r_{c_i}$ by adjusting the estimated variance of $r_i$ [@hunter1990a, adapted from equation 3.20],
+
+$$
+\widehat{\text{var}}(r_{c_i}) = \frac{\widehat{\text{var}}(r_i)}{\alpha^2}.
+$$
+
+Thus the standard error is $se(r_i) =\sqrt{\widehat{\text{var}}(r_{c_i})}$.
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Let's load in the `iris` data set that contains various physical measurements of three species of plants. We can also subset the data set to only look at the Setosa species:
+
+```{r}
+# load in data
+data("iris")
+
+# subset rows to only include setosa species
+df <- subset(iris, df$species == 'setosa')
+
+# view first 6 plants
+head(iris)
+```
+
+Let's say we want to know the correlation between petal length and sepal length. We can use the `cor()` function in base R to obtain the Pearson correlation coefficient:
+
+```{r,message=FALSE}
+r <- cor(iris$Petal.Length,iris$Sepal.Length)
+r
+```
+
+The result shows a strong positive correlation between petal and sepal length ($r = .87$). To compute the sampling variance and the standard error, we can use the `var_error_r()` function in the `psychmeta` package [@dahlke2019]
+
+```{r,message=FALSE}
+# load in package
+library(psychmeta)
+
+# compute sampling variance
+var_r <- var_error_r(r, n = nrow(iris), correct_bias = FALSE)
+
+# compute standard error from sampling variance
+se_r <- sqrt(var_r)
+
+# print results
+data.frame(r,var_r,se_r) 
+```
+:::
+
+## Standardized Mean Differences
+
+Standardized mean differences are used to quantify the difference between the average value between two groups. In the population, the standardized mean difference ($\delta$), the difference between the mean of group $A$ ($\mu_A$) and group $B$ ($\mu_B$) is standardized by the population within group standard deviation ($\sigma$) [@thehand2009, equation 11.15],
+
+$$
+\delta = \frac{\mu_A - \mu_B}{\sigma}.
+$$
+
+Dividing by the population within-group standard deviation assumes that the standard deviations within both groups are fixed and equal (i.e., $\sigma=\sigma_A=\sigma_B$).
+
+```{r,echo=FALSE,warning=FALSE}
+#| id: fig-d
+#| fig-cap: Diagram illustrating a standardized mean difference in the population between two normal distributions. The mean and standard deviation of group $A$ is $\mu_A=9$ and $\sigma_A=4$, respectively. Whereas mean and standard deviation of group $B$ is $\mu_A=12$ and $\sigma_A=4$, respectively. Therefore the standardized mean difference is $\delta = (9-12)/4=-.75$. Note that $\sigma_A=\sigma_B$.
+
+ggplot(data = NULL) +
+  stat_slab(aes(y=0,xdist=distributional::dist_normal(9,4)),
+            scale = 0.75,
+            fill = main_color_red,
+            alpha=.5,
+            linewidth = 1) +
+  stat_slab(aes(y=0,xdist=distributional::dist_normal(12,4)),
+            scale = 0.75,
+            fill = main_color_blue,
+            alpha=.5,
+            linewidth = 1) +
+  scale_fill_manual(values = c(panel_color_red,main_color_red)) + 
+  theme_ggdist() + 
+  scale_y_continuous(breaks=NULL) +
+  theme(legend.position = "none",
+        aspect.ratio = 1,
+        text=element_text(size=14)) +
+  geom_point(aes(x=c(9),y=c(.78)),
+             shape=25,color=main_color_red,
+             fill=main_color_red, size = 2.5) +
+  geom_point(aes(x=c(12),y=c(.78)),
+             shape=25,color=main_color_blue,
+             fill=main_color_blue, size = 2.5) +
+  geom_line(aes(x = c(5,9), y=c(.46,.46)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=1,color=darkmain_color_red) +
+  geom_line(aes(x = c(8,12), y=c(.42,.42)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=1,color=darkmain_color_blue) +
+  annotate(geom = 'text',x = 9, y = .84, 
+           label = TeX('$\\mu_A$'),size = 6.5, 
+           color=darkmain_color_red) +
+  annotate(geom = 'text',x = 12, y = .84, 
+           label = TeX('$\\mu_B$'),size = 6.5, 
+           color=darkmain_color_blue) +
+  annotate(geom = 'text',x = 7.2, y = .5, 
+           label = TeX('$\\sigma_A$'),size = 6.5, 
+           color=darkmain_color_red) +
+  annotate(geom = 'text',x = 10.5, y = .38, 
+           label = TeX('$\\sigma_B$'),size = 6.5, 
+           color=darkmain_color_blue) +
+  annotate(geom = 'text',x = 1, y = .93, 
+           label = TeX('$\\delta = -0.75$'),size = 6, 
+           color='grey30') +
+  ylab("Frequency")+
+  ggtitle('Standardized Mean Difference') +
+  xlab("Y")
+```
+
+@cohen1988 developed a sample estimator of $\delta$ that is commonly referred to as Cohen's $d$, we will use the term standardized mean difference or $d$ value instead. Within a sample, we can estimate $\delta$ with the sample estimator ($d$) [@thehand2009, equation 11.96],
+
+$$
+d = \frac{\overline{Y}_A-\overline{Y}_B}{S_p}.
+$$ {#eq-d}
+
+Where $S_p$ is the pooled sample standard deviation and the bars indicate the sample mean. The pooled standard deviation computes a weighted average (weighted by the within-group degrees of freedom, e.g., $n_{A}-1$) of the within-group sample variance and then takes the square root [equation 12.12, @thehand2009],
+
+$$
+S_p = \sqrt{\frac{(n_A-1)S^2_A + (n_B-1)S^2_B}{n_A+n_B-2}}.
+$$
+
+Where $n_A$ and $n_B$ represents the sample size within group $A$ and group $B$, respectively. Similar to a Pearson correlation, the sample standardized mean difference ($d$ value) is an asymptotically unbiased estimator (i.e., unbiased as the sample size approaches infinity; see the *Assumptions* box in this section). In the absence of artifacts, we can model a $d$ value from a sample, $i$ [@hunter1990a, first equation on p. 292],
+
+$$
+d_i = \delta + \varepsilon_i.
+$$ {#eq-ESd}
+
+The variance in $d_i$ is [@hedges1985, equation 8],
+
+$$
+\text{var}(d_i) = \frac{n}{n_An_B} + \frac{\delta}{2n},
+$$ {#eq-var-d}
+
+where $n$ is the total sample size ($n=n_A + n_B$).
+
+::: {.callout-tip appearance="default" icon="false"}
+## Assumptions
+
+Cohen's [-@cohen1988] estimator of the standardized mean difference (@eq-d) is an asymptotically unbiased estimator (as $n$ approaches infinity; see *Small Sample* chapter for bias in finite samples) of the population value as long as two assumptions are met: 1) within-group population variances are finite and 2) the within-group population variances are fixed and equal between both groups. It is often thought that the within-group distributions must be strictly normal, however this is only a requirement for the sampling variance. Specifically, @eq-var-d is only true if the distribution within each group is normal. When distributions are not at-least approximately normal, bootstrapping is recommended to obtain variance estimates.
+
+Interpretation of a standardized mean difference may be affected by non-normal distributions, because overlap statistics as well as other common language interpretations are often derived from the assumption that both distributions are normally distributed.
+:::
+
+In a study contaminated by artifacts, we can append @eq-ESd to include an artifact inflation/attenuation factor ($\alpha$). Thus we can define a contaminated $d$ value as,
+
+$$
+d_i = \alpha\delta + \varepsilon_i.
+$$ {#eq-contaminated-d}
+
+The population value of the *contaminated* standardized mean difference is $\alpha\delta$, where the *target* population value is $\delta$. To estimate the sampling error variance of the contaminated $d$ value, we can append @eq-var-d to use the population value of a contaminated correlation, $\alpha\delta$,
+
+$$
+\text{var}(d_i) = \frac{n}{n_An_B} + \frac{\alpha\delta}{2n}.
+$$
+
+Since the contaminated population standardized mean difference, $\alpha\delta$, is unavailable, we can replace $\alpha\delta$ with it's estimate, $d_i$ [equation 7.23, @hunter1990a],
+
+$$
+\widehat{\text{var}}(d_i) = \left(\frac{n-1}{n-3}\right)\left(\frac{n}{n_An_B} + \frac{d_i}{2n}\right).
+$$ {#eq-vard}
+
+Note that the multiplicative term, $(n-1)/(n-3)$, should be included because using the sample $d$ value instead of the population value in @eq-vard produces biased variance estimates in small sample sizes [@goulet-pelletier2018]. The standard error of the contaminated $d$ value can thus be defined as, $se(d_i)=\widehat{\text{var}}(d_i)$. The artifact attenuation/inflation factor, $\alpha$ (or the estimate, $a_i$) can then be used to correct the $d$ value for bias induced by artifact contamination,
+
+$$
+d_{c_i} = \frac{d_i}{\alpha} \approx\frac{d_i}{a_i}.
+$$
+
+Occasionally, corrections can not be applied to the contaminated $d$ value directly. In such cases, we may have to correct $d$ by first converting to a *point-biserial* correlation (i.e., a Pearson correlation between a dichotomous group variable and continuous variable), correcting the correlation, and then converting back to a (corrected) $d$ value [@hunter1990a]. The three-step procudure can be applied as follows:
+
+1.  Convert $d$ to $r$ using the proportion of subjects in group $A$ or group $B$ ($p=n_A/n$ or $p=n_B/n$) [@wiernik2020, equation 9],
+
+$$
+r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i}}.
+$$
+
+2.  Correct the point-biserial correlation, $$
+    r_{c_i} = \frac{r_i}{\alpha} \approx \frac{r_i}{a_i}.
+    $$
+
+3.  Convert $r_c$ back to a $d$ value. If the proportions of group membership are contaminated by artifacts, then we need the true group proportions in the target population ($p_i^*$) to convert back to $d$. If the the true group proportions are unavailable, then we can use the observed proportions as estimates [@wiernik2020, equation 10]
+
+$$
+d_{c_i} =  \frac{r_{c_i}}{\sqrt{p_i^*(1-p_i^*)(1-r^2_{c_i})}} \approx \frac{r_{c_i}}{\sqrt{p_i(1-p_i)(1-r^2_{c_i})}}.
+$$
+
+The sampling variance of the corrected standardized mean difference can be quite complicated when there is sampling error in the artifact factor. However if $a_i$ is fixed, we can use the same three-step procedure to adjust the sampling variance [@wiernik2020, table 3]:
+
+1.  Convert $\widehat{\text{var}}(d_i)$ to $\widehat{\text{var}}(r_i)$,
+
+$$
+\widehat{\text{var}}(r_i) = \frac{\widehat{\text{var}}(d_i)}{\left(1+d^2_i p_i\left[1-p_i\right]\right)^2\left(d_i^2+\frac{1}{p_i(1-p_i)}\right)}.
+$$
+
+2.  Estimate the sampling variance of the corrected point-biserial correlation,
+
+$$
+\widehat{\text{var}}(r_{c_i}) = \frac{\widehat{\text{var}}(r_i)}{\alpha^2} = \frac{\widehat{\text{var}}(r_i)}{\left(\frac{r_i}{r_{c_i}}\right)^2}.
+$$
+
+3.  Then convert the sampling variance of $r_c$ back to the sampling variance of a $d$ value,
+
+$$
+\widehat{\text{var}}(d_{c_i}) = \frac{\widehat{\text{var}}(r_{c_i})}{p^*_i\left(1-p^*_i\right)\left(1-r_{c_i}^2\right)^3}.
+$$
+
+Alternatively, we can squeeze the three-step procedure into a single equation [@wiernik2020, equation 28],
+
+$$
+\widehat{\text{var}}(d_{c_i}) = \frac{\widehat{\text{var}}(d_i)\left(\frac{r_{c_i}}{r_{i}}\right)^2}{\left(1+d^2_i p_i\left[1-p_i\right]\right)^2\left(d_i^2+\frac{1}{p_i(1-p_i)}\right)p^*_i\left(1-p^*_i\right)\left(1-r_{c_i}^2\right)^3}
+$$
+
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Let's load in a dataset for a plant growth experiment:
+
+```{r}
+# load in data
+data("PlantGrowth")
+
+# view first 6 plants
+head(PlantGrowth)
+```
+
+We see that the data set contains two variables, weight of the plant and the experimental group. There are three two experimental groups present: a control group and two treatment groups. If we want to obtain the standardized mean difference between the each treatment group and the control group, we can use the `cohen.d` function `psych` package [@psych]:
+
+```{r,message=FALSE}
+library(psych)
+
+# estimate standardized mean difference for first treatment group
+d1 <- cohen.d(weight ~ group,
+             data = subset(PlantGrowth, group == 'ctrl' | group == 'trt1'))
+d1$cohen.d
+
+# estimate standardized mean difference for first treatment group
+d2 <- cohen.d(weight ~ group,
+             data = subset(PlantGrowth, group == 'ctrl' | group == 'trt2'))
+d2$cohen.d
+```
+
+We see that the first treatment showed a negative effect on plant growth ($d=-0.56$) and the second treatment shows a positive effect ($d=1.01$). For our purposes we want the estimate and the standard error of the estimate, therefore we can extract that information:
+
+```{r}
+data.frame(d = d1$cohen.d[,'effect'], 
+           se.d = d1$se)
+
+data.frame(d = d2$cohen.d[,'effect'], 
+           se.d = d2$se)
+```
+:::
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me by buying me a coffee!" data-message="Thank you for being here! You can support this work." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

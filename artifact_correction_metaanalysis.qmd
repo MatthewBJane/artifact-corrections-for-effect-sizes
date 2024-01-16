@@ -2,73 +2,65 @@
 
 ## Introduction
 
-Artifact correction meta-analysis, also referred to as psychometric meta-analysis, is a form of meta-analysis where effect sizes are systematically corrected for sources of bias. These sources of bias have been discussed in previous chapters 4-10. Methodology for conducting artifact correction style meta-analyses were originally pioneered by Frank Schmidt and John Hunter [@hunter1990a; @schmidt1977] and then reviewed more recently by Brenton Wiernik and Jeffrey Dahlke [@wiernik2020]. There has also been powerful R packages developed to aide in the application of artifact correction meta-analyses that we have used in previous chapters [@dahlke2019]. You will notice that in this section, we do not discuss standardized mean differences. This is due to the fact that the artifact correction model is designed for pearson correlations, in order to use this method for standardized mean differences, convert to pearson correlations using the methods described in chapter 11, and then use the correction methods used below. Once you apply the corrections to the converted correlations they can then be converted back to a standardized mean difference.
+Artifact correction meta-analysis, also referred to as psychometric meta-analysis, is a form of meta-analysis where effect sizes are systematically corrected for sources of bias. These sources of bias have been discussed in previous chapters 4-10. Methodology for conducting artifact correction style meta-analyses were originally pioneered by Frank Schmidt and John Hunter [-@hunter1990a; -@schmidt1977] and then reviewed more recently by Brenton Wiernik and Jeffrey Dahlke [-@wiernik2020]. There has also been powerful R packages developed to aide in the application of artifact correction meta-analyses that we have used in previous chapters [@dahlke2019]. You will notice that in this section, we do not discuss standardized mean differences. This is due to the fact that the artifact correction model is designed for pearson correlations, in order to use this method for standardized mean differences, convert to pearson correlations using the methods described in chapter 11, and then use the correction methods used below. Once you apply the corrections to the converted correlations they can then be converted back to a standardized mean difference.
 
 ## Bare Bones vs Artifact Correction Meta-Analysis
 
-This is because even if the estimates are biased relative to our estimand (i.e., the thing we are trying to estimate), the observed value still has its own population value. Chapter 11 focused on bare-bones meta-analysis, that is, meta-analyses that do not correct for biases in effect size estimates. This section will be dedicated to the artifact correction style of meta-analysis that does aim to correct for such artifactual biases. The choice between these two types of meta-analyses depends on the research question, the available data, and the assumptions researchers are willing to make. If the goal is to investigate the state of the quantitative evidence while avoiding additional assumptions about the data, then a bare-bones meta-analysis might be the way to go. On the other hand, if the goal is to obtain a more accurate estimate of the true effect size by accounting for biases induced by statistical artifacts, an artifact correction meta-analysis is preferable.
+Chapter 11 focused on bare-bones meta-analysis, that is, meta-analyses that do not correct for biases in effect size estimates. This section will be dedicated to the artifact correction approach to meta-analysis that aims to correct for statistical artifacts. The choice between these two types of meta-analyses depends on the research question, the available data, and the assumptions researchers are willing to make. If the goal is to investigate effect sizes as they are reported while avoiding additional assumptions about the data, then a bare-bones meta-analysis might be the way to go. On the other hand, if the goal is to obtain a more accurate estimate of the target effect size by accounting for biases induced by statistical artifacts, an artifact correction meta-analysis is preferable.
 
-1.  Bare-Bones Meta-Analysis: In a bare-bones meta-analysis, the focus is on aggregating effect sizes from various studies without explicitly correcting for potential biases in these effect size estimates.
+1.  Bare-Bones Meta-Analysis: In a bare-bones meta-analysis, the focus is on aggregating effect sizes from various studies without explicitly correcting for potential biases in these effect size estimates (see first panel of @fig-art-corr-mdl).
 
-2.  Artifact Correction Meta-Analysis: In contrast, an artifact correction meta-analysis takes into account and attempts to correct for biases that may be present in the effect size estimates from individual studies. This involves addressing potential sources of bias, such as measurement error or selection effects, through statistical techniques or adjustments. By doing so, the meta-analysis aims to provide a more accurate and unbiased estimate of the true effect size. Although it is important to note that this method will require additional assumptions about the nature of the data.
+2.  Artifact Correction Meta-Analysis: In contrast, an artifact correction meta-analysis takes into account and attempts to correct for biases that may be present in the effect size estimates from individual studies. This involves addressing potential sources of bias, such as measurement error or selection effects, through statistical techniques or adjustments. By doing so, the meta-analysis aims to provide a more accurate and unbiased estimate of the true effect size. Although it is important to note that this method will require additional assumptions about the nature of the data (see second panel of @fig-art-corr-mdl).
 
-Note that the bare-bones model does not assume that there is no bias, rather, the bare-bones model is estimating something else entirely, that is, the observed population effect size.
+Note that the bare-bones model does not assume that there is no bias, rather, the bare-bones model is estimating something else entirely, that is, the population effect size.
 
-![](figure/correction_forest.png)
+![](figure/correction_forest.png){#fig-art-corr-mdl}
 
 ## Individual Artifact Correction Model
 
-The individual artifact correction model corrects each effect size individually prior to conducting the meta-analysis. This method is ideal if we have high-quality artifact estimates for most/all studies in the meta-analysis. If there is a substantial amount of missingness in the artifact values, then the artifact distribution model may be a better choice.
-
-### The General Case
-
-Let us recall the random effects model in chapter 11, where $\theta_i=\vartheta_i+\varepsilon_i$. This model would be considered a bare-bones meta-analytic model; we can re-write it slightly to denote that these are observed values: $\theta_{o_i}=\vartheta_{o_i}+\varepsilon_{o_i}$. Ultimately, observed values tend to be biased relative to true values due to many artifactual factors, some that we can account for and some we can not. If we decide that corrections to observed effect sizes are necessary to answer our research question, then we can construct an artifact correction model. In the artifact correction framework, we can incorporate a compound artifact biasing factor, $A$, to the bare-bones formula such that,
+The individual artifact correction model corrects each effect size individually prior to conducting the meta-analysis. Let us recall the random effects model in chapter 11, that an effect size $h_i$ from study $i$ can be modeled such that, $h_i=\theta_i+e_i$. This model would be considered a *bare-bones* meta-analytic model. In practice, observed (study) effect sizes ($h_i$) tend to be biased relative to our target quantity due to many artifacts, some that we can account for and some we can not. If we decide that corrections to observed effect sizes are necessary to answer our research question, then we can construct an artifact correction model. In the artifact correction model, we can incorporate an artifact attenuation/inflation factor, $a$, to the bare-bones formula such that,
 
 $$
-\theta_{o_i} = A_i\vartheta_i + \varepsilon_{o_i}
+h_{i} = a_i\theta_i + e_i
 $$ {#eq-art-mdl}
 
-So now instead of the model being in terms of the observed population value ($\vartheta_{o_i}$), it is now in terms of the *true* population value ($\vartheta_{i}$). The compound biasing factor, $A_i$ is a product of multiple independent artifact values (e.g., unreliability and range restriction),
+The attenuation/inflation factor, $a_i$, must be estimated for each study, $i$. Using estimates of $a$, @eq-art-mdl can be re-arranged to obtain unbiased estimates of the target population effect size:
 
 $$
-A_i = a_{1i} a_{2i} a_{3i} ...
-$$
-
-This compound artifact formula assumes that the values are independent of one another, which is not always the case, see chapter 11 on independence of artifacts. Therefore adjustments must be made to ensure independence. eq-art-mdl can be re-arranged to obtain unbiased estimates of the true population effect size:
-
-$$
-\frac{\theta_{o_i}}{A_i} = \vartheta_i + \frac{\varepsilon_{o_i}}{A_i}
+\frac{h_i}{\hat{a}_i} = \theta_i + \frac{e_i}{\hat{a}_i}
 $$ {#eq-correction-mdl}
 
-This division of $A_i$ will provide us with our corrected effect size estimates that we can denote with the subscript, $c$,
+This division of $\hat{a}_i$ will provide us with our corrected effect size estimates that we can denote with the subscript, $c$,
 
 $$
-\theta_{c_i} = \frac{\theta_{o_i}}{A_i}
+h_{c_i} = \frac{h_{i}}{\hat{a}_i}
 $$
 
-and the corresponding error term must also be corrected
+and of course we must also correct the sampling error term,
 
 $$
-\varepsilon_{c_i} = \frac{\varepsilon_{o_i}}{A_i}.
+e_{c_i} = \frac{e_{i}}{\hat{a}_i}.
 $$ {#eq-error}
 
-Therefore @eq-correction-mdl can be reformulated as,
+Therefore @eq-correction-mdl can be expressed as,
 
 $$
-\theta_{c_i} = \vartheta_i + \varepsilon_{c_i} 
+h_{c_i} = \theta_i + e_{c_i} 
 $$ {#eq-correction-formula}
 
-These corrections cause changes in the point estimate and the error variance of the study effect sizes. Like we saw in chapter 11, we can breakdown the variance components of the model,
+Like we saw in chapter 11, we can breakdown the variance components of the model,
 
 $$
-\sigma^2_{\theta_c} = \sigma^2_{\vartheta} + \sigma^2_{\varepsilon_c}
+\sigma^2_{h_c} = \sigma^2_{\theta} + \sigma^2_{e_c}
 $$ {#eq-corrected-var}
 
-To obtain these variance components, we can start by correcting the observed sampling variances from each study. We can calculate the corrected sampling variance ($\sigma^2_{\varepsilon_c}$) by first correcting each study-level sampling variance estimate,
+To obtain these variance components, we can start by correcting the standard errors from each study. We can calculate the corrected standard error of the corrected correlations,
 
 $$
-\sigma^2_{\varepsilon_ci} = \frac{\sigma^2_{\varepsilon_oi}}{A^2_i}
-$$ This may also be done by using the corrected effect size and the observed effect size to correct the sampling variance:
+se(h_{c_i}) = \frac{se(h_{i})}{\hat{a}_i}
+$$ 
+
+Note that correcting the standard error by dividing by $\hat{a}$ ignores any error in the estimation of $a$   This may also be done by using the corrected effect size and the observed effect size to correct the sampling variance:
 
 $$
 \sigma^2_{\varepsilon_ci} = \sigma^2_{\varepsilon_oi} \left(\frac{\theta_{c_i}}{\theta_{o_i}}\right)^2
@@ -130,8 +122,7 @@ In order to compute the variance components as well as the mean true population 
 
 $$
 w_i = \frac{1}{\sigma^2_{\varepsilon_ci}+\sigma^2_\rho}.
-$$
-However the variance components, $\sigma^2_{\varepsilon_ci}$ and $\sigma^2_\rho$, require the weights themselves to actually estimate them, so instead we can approximate the variance components using the sample size as the weights such that,
+$$ However the variance components, $\sigma^2_{\varepsilon_ci}$ and $\sigma^2_\rho$, require the weights themselves to actually estimate them, so instead we can approximate the variance components using the sample size as the weights such that,
 
 $$ 
 w_i =\frac{1}{\sigma^2_{\varepsilon_ci}+\sigma_\rho^2}= \frac{1}{\sigma^2_{\varepsilon_ci}+(\sigma^2_{r_c}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_ci}+\left(\frac{\sum^k_{i=1}n_i(r_{c_i} - \bar{r}_c)^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_ci}}{\sum^k_{i=1}n_i}\right)} 
@@ -179,9 +170,13 @@ $$
 
 ### Applied Example in R
 
-Lets conduct an individual correction meta-analysis in r using the data set by @roth2015. This data set consists of correlations between school grades and intelligence test scores. It also contains information on the reliability of the intelligence test scores and the extent of range restriction in test scores. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in test scores. The compound artifact biasing factor for the correlation would be: $$
+Lets conduct an individual correction meta-analysis in r using the data set by @roth2015. This data set consists of correlations between school grades and intelligence test scores. It also contains information on the reliability of the intelligence test scores and the extent of range restriction in test scores. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in test scores. The compound artifact biasing factor for the correlation would be: 
+
+$$
 A_i=\sqrt{r_{o_i}^2 + \frac{u_{x_i}^2 r_{xx'_i}(r_{xx'_i} - r_{o_i}^2) }{1 - u_{x_i}^2 (1-r_{xx'_i})} }
-$$ Sticking with our theme of doing everything in base R first, lets use the equations from the previous section to conduct the meta-analysis.
+$$
+
+Sticking with our theme of doing everything in base R first, lets use the equations from the previous section to conduct the meta-analysis.
 
 ```{r,message=FALSE}
 # Load in packages (we need the development version of psychmeta)
@@ -343,7 +338,9 @@ $$
 
 $$
 \sigma^2_{r_{yU}} = \frac{\sum^k_{i=1}w_i r_{yU_i}}{\sum^k_{i=1}w_i}
-$$ Now that we have the point-estimate of the population observed correlation, the variance of observed population correlations, the sampling variance of observed correlations, and the sampling variance of the square root of the reliability for $x$ and $y$, we can now attempt to correct the point-estimate and the variance of population correlations.
+$$ 
+
+Now that we have the point-estimate of the population observed correlation, the variance of observed population correlations, the sampling variance of observed correlations, and the sampling variance of the square root of the reliability for $x$ and $y$, we can now attempt to correct the point-estimate and the variance of population correlations.
 
 ##### Correcting Using Summary Values {.unnumbered}
 
@@ -452,3 +449,8 @@ credibility(mean = summary_stats$mean_rho[1],
 
 Lets compare these results to the bare-bones model. In `psychmeta` the bare-bones model can be conduced using `ma_r_bb`. However, the `ma_r_ic` function also reports the bare-bones results as well. Therefore we can just extract the necessary statistics from the model.
 
+
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

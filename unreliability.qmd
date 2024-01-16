@@ -56,42 +56,46 @@ In general terms, measurement is the process of quantifying an attribute or char
 
 ## Reliability in True Score Theory {#sec-true-score-theory}
 
-True score theory (or classical test theory) is a mathematical formalization of observed scores obtained from a measurement procedure. Observed scores, $x_{im}$, is defined as a score obtained from individual $i$ upon measurement $m$. The true score model assumes that each individual, has a true score, $T_i$, that stays constant over repeated measurements. Variation in observed scores over repeated measurements is due to measurement-specific error, $e_{im}$,
+True score theory (or classical test theory) is a mathematical formalization of observed scores obtained from a measurement procedure. Observed scores, $X_m$, is defined as a score obtained upon measurement $m$. The true score model assumes that each individual, has a true score, $T$, that stays constant over repeated measurements. Variation in observed scores over repeated measurements is due to measurement-specific error, $E_{m}$,
 
 $$
-x_{im} = T_i+e_{im}.
+X_{m} = T+E_{m}.
 $$
 
 Here, measurements are *strictly parallel*. Strictly parallel measurements have the following four properties [p. 69, @haertel2006]:
 
-1.  Measurements have identical specifications. That is, each measurement is obtained with an identical format and procedure.
-2.  The distribution of observed scores for each measurement are identical: $f(x_1) = f(x_2) = \ldots$.
-3.  Any set of two measurements are assumed to covary the same as any other set of two measurements: $\sigma_{x_1 x_2} = \sigma_{x_2 x_3} = \sigma_{x_1 x_3} = \ldots$.
-4.  Each measurement equally covaries with any other variable: $\sigma_{x_1 y} = \sigma_{x_2 y} = \ldots$.
+1.  Measurements have identical specifications. That is, each measurement uses the same measurement procedure.
+2.  The distribution of observed scores for each measurement are identical: $f(X_1) = f(X_2) = \ldots$.
+3.  Any set of two measurements are assumed to covary the same as any other set of two measurements: $\sigma_{X_1 X_2} = \sigma_{X_2 X_3} = \sigma_{X_1 X_3} = \ldots$.
+4.  Each measurement equally covaries with any other variable: $\sigma_{X_1 Y} = \sigma_{X_2 Y} = \ldots$.
 
-True scores can be defined as the expected value (i.e., the mean) of observed scores over repeated measurements such that, $\mathbb{E}_m[x_{im}]=T_{i}$. Given this assumption, it can be inferred that the average of the resultant errors is zero across repeated measurements, $\mathbb{E}_m[e_{im}]=0$ and therefore the covariance between errors on repeated measurements is zero and the covariance between errors in parallel measurements is zero ($\sigma_{e e'}=0$). It follows that the covariance between errors and true scores is also zero ($\sigma_{eT}=0$). The independence between true scores and errors provide convenient parsing of the variance in observed scores ($\sigma^2_{x}$) into components of variance in true scores ($\sigma_T^2$) and measurement errors ($\sigma_{e}^2$),
+True scores can be defined as the expected value (i.e., the mean) of observed scores over repeated measurements such that, $\mathbb{E}_m[X_{m}]=T$. Given this assumption, it follows that the average of the resultant errors is zero across repeated measurements, $\mathbb{E}_m[E_{m}]=0$. It also follows that the covariance between observed scores from measurement to measurement must only be attributable to the variation in true scores ($\sigma_{XX'}=\sigma^2_{T}$) and therefore true scores and errors are independent ($\sigma_{ET}=0$). The independence between true scores and errors provide convenient parsing of the variance in observed scores,
 
 $$
-\sigma_{x}^2 = \sigma_T^2 + \sigma_{e}^2.
+\sigma_{X}^2 = \sigma_T^2 + \sigma_{E}^2.
 $$ {#eq-variance}
 
-Ultimately we desire to have observed scores that closely resemble true scores, therefore it is important to minimize measurement error variance ($\sigma^2_e$). If $\sigma_{e}^2 = 0$ then the scores can be said to have perfect reliability, that is, observed scores do not vary upon repeated measurements and thus are identical to true scores. In practice, this is virtually never the case. Since we assume that the covariance between errors in parallel measurements is zero, it becomes apparent that the covariance between observed scores in parallel measurements must solely be attributable to variance in true scores, $\sigma_{xx'}=\,$$\sigma_{TT'} + \sigma_{ee'}=\,$$\sigma_{TT'}=\,$$\sigma_T^2\,$. In true score theory, reliability can be defined as the proportion of true variance in the total observed variance ($\frac{\sigma_T^2}{\sigma_x^2}$) or the correlation between observed scores in parallel measurements ($r_{xx'}$).
+In practice, the goal is to obtain observed scores that closely resemble true scores, therefore it is important to minimize measurement error variance ($\sigma^2_E$). If $\sigma^2_E = 0$, then the scores can be said to have perfect reliability, that is, observed scores do not vary upon repeated measurements and are thus identical to true scores. In practice, this is virtually never the case. In true score theory, *reliability* can be defined as the correlation between observed scores in parallel measurements,
 
 $$
-r_{xx'}=\frac{\sigma_{xx'}}{\sigma_x\sigma_{x'}}  = \frac{\sigma_T^2}{\sigma^2_{x}}.
-$$ The reliability is also equivalent to the square of the correlation between observed scores and true scores. To understand why this is the case, note that the covariance between parallel forms of a measure is equivalent to the covariance between observed scores and true scores, $\sigma_{xT}=$$\sigma_{(T+e)T}=$$\sigma^2_T + \sigma_{Te}=$$\sigma^2_T = \sigma_{xx'}$.
+\rho_{XX'}=\frac{\sigma_{XX'}}{\sigma_X\sigma_{X'}}  = \frac{\sigma_T^2}{\sigma^2_X}.
+$$
+
+The reliability can also be expressed by the square of the correlation between observed scores and true scores. To understand why this is the case, note that the covariance between parallel forms of a measure is equivalent to the covariance between observed scores and true scores, $\sigma_{XT}=$$\sigma_{(T+E)T}=$$\sigma^2_T + \sigma_{TE}=$$\sigma^2_T = \sigma_{XX'}$ [@haertel2006],
 
 $$
-r_{xx'} = \frac{\sigma_T^2}{\sigma_{x}^2} = \frac{(\sigma_T^2)^2}{\sigma_x^2 \sigma_T^2}= \frac{\sigma_{xT}^2}{\sigma^2_x\sigma^2_T} = r^2_{xT}.
+\rho_{XX'} = \frac{\sigma_T^2}{\sigma_X^2} = \frac{\left(\sigma_T^2\right)^2}{\sigma_X^2 \sigma_T^2}= \frac{\sigma_{XT}^2}{\sigma^2_X\sigma^2_T} = \rho^2_{XT}.
 $$ {#eq-reliability}
 
-It is important to emphasize that true scores are expected values over repeated observations and they do not necessarily correspond to an actual, tangible quantity of interest [@borsboom2002]. As a result, every measurement has a true score, regardless of whether it gauges a concrete attribute or not. For example, if we construct a test by summing the responses to the items: "how many languages can you confidently hold a conversation in?" and "Estimate the number of photos you've taken in the last year across all devices". Even in such nonsensical cases, the test's composite score retains a true score, but this true score does not mirror a tangible reality.
+To visualize how reliability relates true scores and observed scores see the structural diagram @fig-rel.
 
-![Structural diagram illustrating the relationship between true scores, observed scores, and error scores. The pink circle labeled $t$ indicates the true scores, the blue squares labeled with $x$ and $x'$ represent observed scores on parallel measurements, and the red $e$ denotes error. Correlations between $T$, $x$, and $x'$ are in terms of reliability ($r_{xx'}$). Note that $\sqrt{r_{xx'}}=r_{xT}$.](figure/unreliability_diagram_1.png){width="400"}
+It is important to emphasize that true scores are expected values over repeated observations and they do not necessarily correspond to an actual, tangible attribute of interest [@borsboom2002]. As a result, every measurement has a true score, regardless of whether it gauges a concrete attribute or not. For example, if we construct a test by summing the responses to the items: "how many languages can you confidently hold a conversation in?" and "Estimate the number of photos you've taken in the last year across all devices". Even in such a nonsensical measure, the test's composite score retains a true score, but this true score does not mirror a tangible reality.
+
+![Structural diagram illustrating the relationship between true scores, observed scores, and error scores. The pink circle labeled $t$ indicates the true scores, the blue squares labeled with $X$ and $X'$ represent observed scores on parallel measurements, and the red $E$ denotes error. Correlations between $T$, $X$, and $X'$ are in terms of reliability ($\rho_{XX'}$). Note that $\rho_{XX'}=\rho_{XT}^2$.](figure/unreliability_diagram_1.png){#fig-rel width="400"}
 
 ## Reliability vs Validity
 
-Reliability and validity are distinct properties in measurement theory. Validity pertains to whether the scores produced by a measure reflects the quantities it is intended to measure [p. 14 @kelley1927]. According to @borsboom2004, a measure is *valid* if both of the following statements are true:
+Reliability and validity are distinct properties in measurement. Validity pertains to whether the scores produced by a measure reflects the quantities it is intended to measure [p. 14 @kelley1927]. According to @borsboom2004, a measure is *valid* if both of the following statements are true:
 
 1.  The attribute exists.
 
@@ -105,16 +109,16 @@ In practice, reliability must be estimated through indirect methods, this is due
 
 ### Internal Consistency Estimators
 
-Taking multiple measurements and then averaging tends to provide a more stable estimate of true values. For instance, let's consider the case of Francis @galton1907, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person's estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the true value. This principle can be extended to broader applications, such as measuring psychological constructs. If we were to assess someone's level of extraversion using ratings from their mother, father, friend, and sibling, the average of their combined assessments would yield a more reliable score compared to relying solely on a single evaluator. So to create a more stable composite score ($x$), we can take the score from $\kappa$ items ($\mathbb{x}$) and sum them such that,
+Taking multiple measurements and then averaging tends to provide a more stable estimate of true values. For instance, let's consider the case of Francis @galton1907, who conducted a study involving 787 individuals estimating the weight of an ox. On average, each person's estimate deviated by approximately 37 pounds from the actual weight of the ox, which was recorded as 1198 pounds. However, when all the guesses were averaged together, the combined estimate was 1207 pounds, just a 9 pound difference from the true value. This principle can be extended to broader applications, such as measuring psychological constructs. If we were to assess someone's level of extraversion using ratings from their mother, father, friend, and sibling, the average of their combined assessments would yield a more reliable score compared to relying solely on a single evaluator. So to create a more stable composite score ($X$), we can take the score from $\kappa$ items ($x$) and sum them such that,
 
 $$
-x = \mathbb{x}_1 + \mathbb{x}_2 +...+\mathbb{x}_\kappa
+X = x_1 + x_2 +...+x_\kappa.
 $$
 
-The most commonly reported reliability estimator in the psychological sciences is coefficient alpha, also referred to as Cronbach's alpha. Coefficient alpha, along with other internal consistency estimators, serves the purpose of assessing the reliability of composite scores comprising multiple item scores. Coefficient alpha only requires three parameters to calculate, the number of measurements ($\kappa$), the variances of each item ($\sigma^2_{\text{i}_m}$), and the variance of the composite score ($\sigma^2_{x}$). Coefficient alpha will estimate the reliability of the composite observed score, $x$ ($r_{xx'}$),
+The most commonly reported reliability estimator in the psychological sciences is coefficient alpha, also referred to as Cronbach's alpha. Coefficient alpha, along with other internal consistency estimators, serves the purpose of assessing the reliability of composite scores comprising multiple item scores. Coefficient alpha was first derived by Lee Cronbach [see equation 13, @cronbach1951] only requires three parameters to calculate, the number of measurements ($\kappa$), the sample variances of each item ($S^2_{x_m}$), and the variance of the composite score ($S^2_{X}$). Coefficient alpha will estimate the reliability of the composite observed score ($r_{XX'}$),
 
 $$
-_\alpha r_{xx'} = \frac{\kappa}{\kappa-1}\left( 1 - \frac{\sum_{m=1}^\kappa \sigma^2_{\mathbb{x}_m}}{\sigma^2_{x}} \right).
+_\alpha r_{XX'} = \frac{\kappa}{\kappa-1}\left( 1 - \frac{\sum_{m=1}^\kappa S^2_{x_m}}{S^2_{X}} \right).
 $$ {#eq-alpha}
 
 ```{r echo=FALSE, fig.height=4, message=FALSE, warning=FALSE}
@@ -158,133 +162,64 @@ h2 = ggplot(data=NULL, aes(x = 1:k, y = scores2)) +
 h1 + h2
 ```
 
-With tighter assumptions [see @haertel2006], the formula for coefficient alpha can be simplified to just two parameters: the number of measurements ($\kappa$) and the average correlation between measured scores ($\bar{r}_{\mathbb{x}_i \mathbb{x}_j}$, where $i\neq j$). This formula is known as Spearman-Brown's prophecy,
+With tighter assumptions [see @haertel2006], the formula for coefficient alpha can be simplified to just two parameters: the number of measurements ($\kappa$) and the average correlation between measured scores ($\bar{r}_{x_i x_j}$, where $i\neq j$). This formula is known as Spearman-Brown's prophecy [see equation III of @spearman1910; or the last equation on page 299 of @brown1910],
 
 $$
-_\text{sb} r_{xx'}= \frac{\kappa \bar{r}_{\mathbb{x}_i \mathbb{x}_j}}{1+(\kappa-1)\bar{r}_{\mathbb{x}_i \mathbb{x}_j}}
+_\text{sb} r_{XX'}= \frac{\kappa \bar{r}_{x_i x_j}}{1+(\kappa-1)\bar{r}_{x_i x_j}}
 $$ {#eq-sp-brown}
 
 This can be simplified further if we have two observed item scores. This formulation is a variation of split-half reliability:
 
 $$
-_\text{sh}r_{xx'}= \frac{2r_{\mathbb{x}_1 \mathbb{x}_2}}{1+r_{\mathbb{x}_1 \mathbb{x}_2}}
+_\text{sh}r_{XX'}= \frac{2r_{x_1 x_2}}{1+r_{x_1 x_2}}
 $$ {#eq-split-half}
 
 All of these reliability estimators measure internal consistency, therefore they do not account for error outside of the measurement-specific error. There are other sources of error that internal consistency reliability estimates do not account for, such as transient error or rater-specific error.
 
-![Structural model illustrating internal consistency. The pink circle labeled $T$ indicates the true scores, the blue squares, $\mathbb{x}_{1...\kappa}$, represent the observed scores across multiple measurements, and the red $e$ denotes error. The dark blue hexagon, $x$, indicates a composite score as a sum of the observed scores ($\mathbb{x}_{1...\kappa}$). Note that $\sqrt{r_{xx'}}=r_{xT}$.](figure/unreliability_diagram_2.png){width="400"}
+![Structural model illustrating internal consistency. The pink circle labeled $T$ indicates the true scores, the blue squares, $x_{1...\kappa}$, represent the observed sub-scores across multiple measurements, and the red $e$ denotes error. The dark blue hexagon, $X$, indicates a composite score as a sum of the observed scores ($\mathbb{x}_{1...\kappa}$). Note that $\rho_{XX'}=\rho_{XT}$.](figure/unreliability_diagram_2.png){width="400"}
 
-### Calculating Internal Consistency in R
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example
 
-Let us simulate a data set of 50 individuals that were measured four times resulting in four sets of scores (`x1,x2,x3,x4`) that have the same true score and error variance. Then let us calculate a composite score (`x`) from these sub-scores.
+Using the `anxiety` data set from the `irr` package [@irr], we can estimate the reliability of three raters evaluating the anxiety in a sample of 20 individuals. Let us first load in the data:
 
-```{r, echo = T}
-#set seed
-set.seed(343)
+```{r, echo = T, message=FALSE}
+library(irr)
 
-# set sample size
-n <- 50
+# load in data
+data("anxiety", package = "irr")
 
-# simulate data
-T_score <- rnorm(n, 0, 1) # simulate true scores
-x1 <- T_score + rnorm(n, 0, 1) # simulate observed scores for measurement 1
-x2 <- T_score + rnorm(n, 0, 1) # simulate observed scores for measurement 2
-x3 <- T_score + rnorm(n, 0, 1) # simulate observed scores for measurement 3
-x4 <- T_score + rnorm(n, 0, 1) # simulate observed scores for measurement 4
-
-# calculate composite score
-x <- x1 + x2 + x3 + x4
+# print data
+head(anxiety, 4)
 ```
 
-Now let us calculate coefficient alpha from the formula provided in @eq-alpha.
+We can also use the `alpha()` function from the `psych` package [@psych] to estimate coefficient alpha too. The output of `alpha` provides a lot of useful information, and it reports two types of alphas: standardized and raw. The standardized alpha is based on the correlations between items rather than the covariance between items, which is useful if items are on completely different scales (standardized alpha equivalent to the Spearman-Brown prophecy formula found in @eq-sp-brown). Also you will notice that the standardized alpha and ). If the ratings are on the same scale then the raw_alpha is preferred.
 
-```{r}
-# step 1. calculate variance of observed (measured) scores
-var_xm <- c(var(x1),var(x2),var(x3),var(x4))
-
-# step 2. get number of items (k)
-k <- length(var_xm)
-
-# step 3. calculate variance of composite score
-var_x <- var(x)
-
-# step 4. calculate coefficient alpha reliability
-rxx_alpha <- k / (k-1) * (1 - sum(var_xm)/(var_x))
-
-# display reliability
-print(round(rxx_alpha,3)) 
-
-```
-
-With the simplification of Coefficient alpha's formula, let us calculate the reliability via Spearman-Brown's prophecy formula provided in @eq-sp-brown.
-
-```{r}
-# step 1. get correlation matrix between all observed scores
-corr_mat <- cor(cbind(x1,x2,x3,x4))
-
-# step 2. average off-diagonal elements of matrix
-diag(corr_mat) <- NA
-rxixj <- mean(corr_mat, na.rm = TRUE)
-
-# step 3. get number of items (k)
-k <- dim(corr_mat)[1]
-
-# step 4. calculate Spearman-Brown reliability
-rxx_SB <- k * rxixj / (1 + (k-1) * rxixj)
-
-# display reliability
-print(round(rxx_SB,3)) 
-```
-
-If we simplify even further, we can calculate the Split-Half reliability formula provided in @eq-split-half,
-
-```{r}
-# step 1. make composite scores for each half of the observed scores
-xh1 <- (x1 + x2)/2
-xh2 <- (x3 + x4)/2
-
-# step 2. calculate the correlation between the scores of both halves
-rx1x2 <- cor(xh1,xh2)
-
-# step 3. calculate the split-half reliability
-rxx_SH <- 2*rx1x2 / (1 + rx1x2)
-
-# display reliability
-print(round(rxx_SH,3)) 
-```
-
-Lets see how the results compare to the actual reliability,
-
-```{r}
-# calculate true reliability, true scores must be re-scaled by number of items
-rxx = var(k*T_score) / var_x
-
-# display actual reliability
-print(round(rxx,3)) 
-```
-
-In this case, the reliability estimates do a fairly good job of estimating the true reliability of the observed scores. We can also use the `alpha` function from the `psych` package [@psych:p2017] to estimate coefficient alpha too. It also provides additional item level information that is quite useful:
-
-```{r,message=FALSE}
-# load in package
-# install.packages('psych')
+```{r, message=FALSE}
 library(psych)
 
-# compute summary reliability (only need first table)
-alpha(cbind(x1,x2,x3,x4))[[1]]
+reliability <- alpha(anxiety)
+
+rXX <- reliability$total$raw_alpha
+
+rXX
 ```
+
+The output shows a very low reliability between raters ($r_{XX'}=.45$).
+:::
 
 ### Test-Retest Stability Estimator
 
-Transient errors represent fluctuations in observed scores over time. These fluctuations, even if they are systematic (e.g., fatigue over the course of a single day), add extraneous within-person variance that can mask true scores. Considering transient fluctuations as error depends on the research goal, so it is important for researchers to take care in considering which variance components should be considered error in their study (see @sec-sources). To estimate test-retest reliability, we can compute the correlation between the measurement at time 1 ($x_{t_1}$) and the second measurement at time 2 ($x_{t_2}$),
+Transient errors represent fluctuations in observed scores over time. These fluctuations, even if they are systematic (e.g., fatigue over the course of a single day), add extraneous within-person variance that can mask individual differences. Considering transient fluctuations as error depends on the research goal, so it is important for researchers to take care in considering which variance components should be considered error in their study (see @sec-sources). To estimate test-retest reliability, we can compute the correlation between the measurement at time 1 ($X_{t_1}$) and the second measurement at time 2 ($X_{t_2}$),
 
 $$
-_\text{tr}r_{xx'}= r_{x_{t_1}x_{t_2}}.
+_\text{tr}r_{XX'}= \text{corr}(X_{t_1}X_{t_2}).
 $$
 
-Note that calculating the pearson correlation coefficient between time-points ignores systematic changes (e.g., practice effects).
+Note that calculating the pearson correlation coefficient between time-points ignores systematic changes (e.g., practice effects). We can visualize test-retest reliability in @fig-test-retest where the top panels show the correlations between time points and the bottom panels show the within-person change between time-points for scores with high and low reliability.
 
 ```{r, echo = FALSE, fig.height=7,warning=FALSE,message=FALSE}
+#| id: fig-test-retest
 #| fig-cap: Illustrating test-retest reliability. Top-left and top-right panels show the correlation between observed scores at both time-points for a measure that has low and high reliability, respectively. Bottom-left and bottom-right panels show the within-person change from time-point 1 to time-point 2 for scores with low and high reliability, respectively. 
 
 
@@ -385,42 +320,9 @@ f2 = ggplot(data=NULL, aes(x = time, y = y_scores, group = id)) +
 
 ```
 
-### Calculating Test-Retest Reliability in R
-
-Lets calculate test-retest reliability in R. First, we can simulate observed scores at two time points, `xTime1` and `xTime2`. We can assume that the true scores remain constant between time points. Second, we can calculate the correlation between the observed scores at each time point (`rxx`).
-
-```{r}
-# set seed
-set.seed(1)
-
-# set sample size
-n = 100
-
-# simulate true scores
-T_score = rnorm(n,0,1)
-
-# simulate scores at time 1
-xTime1 = T_score + rnorm(n,0,.5)
-
-# simulate scores at time 2
-xTime2 = T_score + rnorm(n,0,.5)
-
-# calculate test-retest reliability
-rxx = cor(xTime1,xTime2)
-
-# display reliability
-print(round(rxx,3))
-
-# compare with true reliability
-rxx_true = var(T_score) / var(xTime1)
-
-# display actual reliability
-print(round(rxx_true,3))
-```
-
 ### Sources of Measurement Error {#sec-sources}
 
-Measurement error variance can itself be broken down into multiple sources of error (e.g., transient, ). Depending on the study, different sources of error may be more relevant than others. It is important for a researcher to choose the right reliability estimator for their study since they account for different sources of measurement error. A description of four of the most common sources of error is adapted from table 1 of @wiernik2020:
+Measurement error can itself be broken down into multiple sources of error. Depending on the study, different sources of error may be more relevant than others. Different reliability estimators will account for different sources of error therefore it is important for researchers to choose the right reliability estimator for their study. A description of four of the most common sources of error is adapted from table 1 of @wiernik2020:
 
 1.  Random Response Error: Genuine randomness in responses. Examples include: motor errors and variation in response time.
 
@@ -432,60 +334,62 @@ Measurement error variance can itself be broken down into multiple sources of er
 
 Different estimators of reliability account for different sources of measurement error therefore depending on the research design, it is important to carefully choose which reliability is most relevant for your use case. Note that even if two estimators account for the same types of measurement error, they likely hold different assumptions that may be violated in a given research context.
 
-| Estimator    | Description         |  1  |  2  |  3  |  4  |
-|------------|------------|:---:|:---:|:---:|:---:|
-| Coefficient Alpha     | Internal consistency coefficient for composite measures. |X||X||
-| Coefficient Omega     | Internal consistency coefficient for composite measures with specified factor structure.|X||X||
-| Split-Half            | Internal consistency coefficient for measurements that are split into two halves.|X||X||
-| Kuder-Richardson 20   | Internal consistency when observed scores are binary (special case of coefficient alpha).|X||X||
-| Item Response Theory Reliability| Reliability coefficient derived from item response theory (as opposed to classical test theory) |X||X||
-| Inter-Rater/Inter-Observer Reliability | Consistency in scoring between raters/observers. |X|||X|
-| Test-Retest                            | Stability coefficient for repeated measurements across time |X|X|||
-| Delayed Alpha              | Average of all possible split-half reliabilities     |X|X|X||
-| G-Coefficient                          | Reliability coefficient derived from generalizability theory (G-theory). Can incorporate any source of error if enough data is present. |X|X|X|X|
+| Estimator                              | Description                                                                                                                             |  1  |  2  |  3  |  4  |
+|------------|------------|:----------:|:----------:|:----------:|:----------:|
+| Coefficient Alpha                      | Internal consistency coefficient for composite measures.                                                                                |  X  |     |  X  |     |
+| Coefficient Omega                      | Internal consistency coefficient for composite measures with specified factor structure.                                                |  X  |     |  X  |     |
+| Split-Half                             | Internal consistency coefficient for measurements that are split into two halves.                                                       |  X  |     |  X  |     |
+| Kuder-Richardson 20                    | Internal consistency when observed scores are binary (special case of coefficient alpha).                                               |  X  |     |  X  |     |
+| Item Response Theory Reliability       | Reliability coefficient derived from item response theory (as opposed to classical test theory)                                         |  X  |     |  X  |     |
+| Inter-Rater/Inter-Observer Reliability | Consistency in scoring between raters/observers.                                                                                        |  X  |     |     |  X  |
+| Test-Retest                            | Stability coefficient for repeated measurements across time                                                                             |  X  |  X  |     |     |
+| Delayed Alpha                          | Average of all possible split-half reliabilities                                                                                        |  X  |  X  |  X  |     |
+| G-Coefficient                          | Reliability coefficient derived from generalizability theory (G-theory). Can incorporate any source of error if enough data is present. |  X  |  X  |  X  |  X  |
 
 : List of reliability coefficients and the sources of error they account for. The sources of error are denoted by the columns labeled 1-4, corresponding to each of the four sources of error.
 
-## Correction for Bias in Correlations
+## Correction for Bias in Correlations {#sec-correcting-correlations-me}
 
-### Defining the Estimand
+### Defining the Target Quantity
 
-Continuing with our emphasis on clearly defining our quantity of interest (i.e., the estimand) prior to applying any corrections, let us define it. Our estimand here is the population correlation between true scores of our independent and dependent variables. We can define the observed scores of the independent and dependent variables $x$ and $y$ as,
-
-$$
-x=T+e_x
-$$
+Continuing with our emphasis on clearly defining our quantity of interest prior to applying any corrections, let us define it here. Our target is the population correlation between true scores of our independent and dependent variables. We can define the observed scores of the independent and dependent variables $X$ and $Y$ as,
 
 $$
-y=U+e_y.
+X=T+E_X
 $$
 
-Where $T$ and $U$ are the true scores for the independent and dependent variables, respectively. The true score correlation can thus be be denoted by, $\rho_{TU}$, and can be defined as the standardized covariance,
+$$
+Y=U+E_Y.
+$$
+
+Where $T$ and $U$ are the true scores for the independent and dependent variables, respectively. The population true score correlation can thus be be denoted by, $\rho_{TU}$, and can be defined as the standardized covariance,
 
 $$
 \rho_{TU} = \frac{\sigma_{TU}}{\sigma_{T}\sigma_{U}}.
 $$
 
-In a given study, we will only have knowledge of the observed scores of the independent and dependent variables, $x$ and $y$, therefore the observed study correlation is $r_{xy}$. The relationship between the observed correlation and the true population correlation is,
+In a given study, we will only have access to the observed scores of the independent and dependent variables, therefore the study correlation is $r_{XY}$. The relationship between the observed correlation and the true population correlation can be defined as,
 
 $$
-r_{xy} = a\rho_{TU} + \varepsilon.
+r_{XY} = a\rho_{TU} + \varepsilon.
 $$
 
-Where $a$ is the biasing factor. An unbiased estimate of the true score population correlation ($\rho_{TU}$) can then be calculated by dividing the obsereved study correlation by the biasing factor,
+Where $a$ is the artifact attenuation factor (we will see that measurement error attenuates rather than inflates the correlation). An unbiased estimate of the true score population correlation ($\rho_{TU}$) can then be calculated by dividing the observed score correlation by an estimate of the artifact attenuation factor,
 
 $$
-r_c = \frac{r_{xy}}{a}.
+r_{TU} = \frac{r_{XY}}{\hat{a}}.
 $$
 
-![This figure shows the relationship between the true scores, observed scores, and error scores. The true score correlation is denoted by the curved arrow connecting the circles indicating true score variables, *T* and *U*.](figure/diagram-estimand-reliability-r.png)
+The measurement model can be visualized in @fig-corr-model.
 
-### Artifactual Bias and Correction {#sec-r-corr}
+![This figure shows the relationship between the true scores, observed scores, and error scores. The true score correlation is denoted by the curved arrow connecting the circles indicating true score variables, $T$ and $U$.](figure/diagram-estimand-reliability-r.png){#fig-corr-model}
 
-Measurement error induces systematic bias in effect size estimates such as correlation coefficients [@hunter1990a, @viswesvaran2014, @mendoza1987, @spearman1904]. In the population, let us assume there is some factor $a$ that accounts for the systematic bias in observed score correlations ($\rho_{xy}$) relative to true score correlations ($\rho_{TU}$), such that
+### Artifactual Correction for Unreliability {#sec-r-corr}
+
+Measurement error induces systematic bias in effect size estimates such as correlation coefficients [@hunter1990a, @viswesvaran2014, @mendoza1987, @spearman1904]. In the population, let us assume there is some factor $a$ that accounts for the systematic bias in observed score correlations ($\rho_{XY}$) relative to true score correlations ($\rho_{TU}$), such that
 
 $$
-\rho_{xy} = a \rho_{TU}.
+\rho_{XY} = a \rho_{TU}.
 $$
 
 Since the correlation is defined as the covariance standardized by the standard deviations, the population correlation between true scores, $T$ and $U$, is defined as,
@@ -494,60 +398,57 @@ $$
 \rho_{TU}=\frac{\sigma_{TU}}{\sigma_{T} \sigma_{U}}.
 $$
 
-Likewise the correlation between the observed scores, $x$ and $y$, would be the observed covariance divided by the observed standard deviations. $$
-\rho_{xy} =\frac{\sigma_{xy}}{\sigma_{x} \sigma_{y}}.
-$$ However, if we assume that there is no covariance between errors in $x$ and $y$ ($\sigma_{e_x e_y} = 0$), then the covariance between observed scores is only attributable to the covariance between true scores, therefore $\sigma_{xy} = \sigma_{TU}$. This means that the observed score correlation can be expressed as,
+Likewise the correlation between the observed scores, $X$ and $Y$, would be the observed covariance divided by the observed standard deviations,
 
 $$
-\rho_{xy} =\frac{\sigma_{TU}}{\sigma_{x} \sigma_{y}}.
+\rho_{XY} =\frac{\sigma_{XY}}{\sigma_{X} \sigma_{Y}}.
+$$
+
+However, if we assume that there is no covariance between errors in $X$ and $Y$ ($\sigma_{E_X E_Y} = 0$), then the covariance between observed scores is only attributable to the covariance between true scores, therefore $\sigma_{XY} = \sigma_{TU}$. This means that the observed score correlation can be expressed as,
+
+$$
+\rho_{XY} =\frac{\sigma_{TU}}{\sigma_{X} \sigma_{Y}}.
 $$ {#eq-bias}
 
-Now the only difference between the observed score correlation and the true score correlation is the standard deviations in the denominator. In the presence of measurement error, the observed score standard deviations ($\sigma_x$ and $\sigma_y$) will be larger than the true score standard deviations ($\sigma_{T}$ and $\sigma_{U}$). Using the definition of reliability, we can show how the observed variance is inflated compared to the true variance as a function of reliability. Since the reliability is defined as the ratio of true variance to total observed variance (see @eq-reliability), we can see how reliability inflates the observed variance
+Now the only difference between the observed score correlation and the true score correlation is the standard deviations in the denominator. In the presence of measurement error, the observed score standard deviations ($\sigma_X$ and $\sigma_Y$) will be larger than the true score standard deviations ($\sigma_{T}$ and $\sigma_{U}$). Using the definition of reliability, we can show how the observed variance is inflated compared to the true variance as a function of reliability. Since the reliability is defined as the ratio of true variance to total observed variance (see @eq-reliability), we can see how reliability inflates the observed variance,
 
-```{=tex}
-\begin{align}
-\sigma^2_x &=\sigma^2_{T} \left(\frac{\sigma^2_{x}}{\sigma^2_{T}} \right)
-\\ &= \sigma^2_{T}\left(\frac{1}{r_{xx'}} \right)
-\\ &= \frac{\sigma^2_{T}}{r_{xx'}}.
-\end{align}
-```
+$$\begin{aligned}
+\sigma^2_X &=\sigma^2_{T} \left(\frac{\sigma^2_{X}}{\sigma^2_{T}} \right)\\[.3em]
+&= \sigma^2_{T}\left(\frac{1}{\rho_{XX'}} \right)\\[.3em]
+&= \frac{\sigma^2_{T}}{\rho_{XX'}}.
+\end{aligned}$$
+
 Therefore the observed standard deviation is,
 
 $$
-\sigma_x = \frac{\sigma_{T}}{\sqrt{r_{xx'}}}.
+\sigma_X = \frac{\sigma_{T}}{\sqrt{\rho_{XX'}}}.
 $$ {#eq-sd-me}
 
-If we use the definition of an observed score correlation (@eq-bias), then we can replace $\sigma_x$ and $\sigma_y$ with $\frac{\sigma_{T}}{\sqrt{r_{xx'}}}$ and $\frac{\sigma_{U}}{\sqrt{r_{yy'}}}$, respectively. Now we can see how the observed score correlation differs from the true score correlation:
+Since the reliability, and its square root, will be less than 1, then the observed score variance will be larger than the If we use the definition of an observed score correlation (@eq-bias), then we can replace $\sigma_X$ and $\sigma_Y$ with $\frac{\sigma_{T}}{\sqrt{\rho_{XX'}}}$ and $\frac{\sigma_{U}}{\sqrt{\rho_{YY'}}}$, respectively. Now we can see how the observed score correlation differs from the true score correlation:
 
-```{=tex}
-\begin{align}
-\rho_{xy} &= \frac{\sigma_{T U}}{\left[\frac{\sigma_{T}}{\sqrt{r_{xx'}}} \right] \left[ \frac{\sigma_{U}}{\sqrt{r_{yy'}}} \right] } 
-\\ &= \frac{\sigma_{T U}}{\sigma_{T}\sigma_{U}} \cdot \sqrt{r_{yy'}}\sqrt{r_{xx'}}
-\\ &= \rho_{TU} \sqrt{r_{yy'}}\sqrt{r_{xx'}} 
-\end{align}
-```
-This attenuation formula was first derived by @spearman1904. Note that this formulation requires that there is no correlation between $e_x$ and $e_y$ ($r_{e_xe_y}=0$). The study observed correlation will also contain sampling error and thus can be expressed by, $$
-r_{xy} = \rho_{xy} + \varepsilon_o
-$$ We can also express it in terms of our estimand, the population true score correlation ($\rho_{TU}$),
+$$\begin{aligned}
+\rho_{XY} &= \frac{\sigma_{T U}}{\left[\frac{\sigma_{T}}{\sqrt{\rho_{XX'}}} \right] \left[ \frac{\sigma_{U}}{\sqrt{\rho_{YY'}}} \right] } \\[.3em]
+&= \frac{\sigma_{T U}}{\sigma_{T}\sigma_{U}}  \sqrt{\rho_{XX'}}\sqrt{\rho_{YY'}}\\[.3em]
+&= \rho_{TU} \sqrt{\rho_{XX'}}\sqrt{\rho_{YY'}} 
+\end{aligned}$$
 
-$$
-r_{xy} = \rho_{TU}\sqrt{r_{xx'}r_{xx'}} + \varepsilon_o.
-$$
+This attenuation formula was first derived by Charles Spearman [-@spearman1904]. See @fig-attenuation for a visualization of the attenuation. Note that this formulation requires that there is no correlation between $E_X$ and $E_Y$ ($\rho_{E_X E_Y}=0$).
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE,fig.height= 4, fig.width=8}
-#| fig-cap: Visualizing the attenuation of observed correlation ($\rho_{xy}$) due to measurement error. The left panel shows a situation where only one variable ($x$) has measurement error. The observed correlation increases as a function of the true correlation $\rho_{TU}$ (darker lines indicate a higher true score correlation) and the reliability of $x$ (x-axis). The right panel shows the attenuation of the correlation when both $x$ and $y$ variables are affected by measurement error. The darker end of the gradient shows a higher correlation, while the lighter end represents a smaller correlation (the true score correlation sits on the top where no measurement error is present, $r_{xx'}=r_{yy'}=1$).
+```{r, echo = FALSE, message=FALSE, warning=FALSE,fig.height= 8, fig.width=8}
+#| id: fig-attenuation
+#| fig-cap: Visualizing the attenuation of an observed score correlation ($\rho_{XY}$) due to measurement error. Top left panel shows a scatter plot of the correlation between the true scores of the independent ($T$) and dependent variable ($U$). Top right panel shows a scatter plot of the correlation between the observed scores of the independent ($X$) and dependent variable ($Y$). The bottom left panel shows the reliability of a single variable ($X$) and it's relationship with the observed score correlation ($\rho_{XY}$) while varying the true score correlation (true score correlations are represented as the red dots, i.e., when reliability is perfect; $\rho_{TU}=\{0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1.0\}$). The bottom right panel shows attenuation of a a true score correlation of $\rho_{TU}=.5$, when both $X$ and $Y$ are affected by measurement error. The darker red indicates a larger observed correlation, where it peaks at an observed score correlation of .50 (when reliability of $X$ and $Y$ is 1) which is equivalent to the true score correlation
 
-rho = c(rep(.0,100),
-        rep(.1,100),
-        rep(.2,100),
-        rep(.3,100),
-        rep(.4,100),
-        rep(.5,100),
-        rep(.6,100),
-        rep(.7,100),
-        rep(.8,100),
-        rep(.9,100),
-        rep(1,100))
+rho = c(rep(0.0,100),
+        rep(0.1,100),
+        rep(0.2,100),
+        rep(0.3,100),
+        rep(0.4,100),
+        rep(0.5,100),
+        rep(0.6,100),
+        rep(0.7,100),
+        rep(0.8,100),
+        rep(0.9,100),
+        rep(1.0,100))
 
 rel = c(seq(0,1,length.out = 100),
         seq(0,1,length.out = 100),
@@ -589,10 +490,8 @@ h1 = ggplot(data=NULL, aes(x = rel, y = r, group = rho, color = rho)) +
   annotate(geom="text", x = .97, y = 1.065, label = TeX("$\\rho_{TU}$"), color = text_color_red, 
            fontface = 'italic') +
   scale_color_gradient(low = lightmain_color_red,high = darkmain_color_red) +
-  xlab(TeX("Reliability of x ($r_{xx'}$)"))+
-  ylab(TeX("Observed Correlation ($\\rho_{xy}$)")) +
-  ggtitle('Univariate Measurement Error', 
-          subtitle = TeX("Varying True Score Correlations ($\\rho_{TU}$)"))
+  xlab(TeX("Reliability of X ($\\rho_{XX'}$)"))+
+  ylab(TeX("Observed Correlation ($\\rho_{xy}$)"))
 
 yt = rnorm(0,1,70)
 xt = rnorm(0,1,70)
@@ -622,10 +521,8 @@ h2 <- ggplot(data = df, aes(x = x, y = y,z = layer, fill = layer, color = layer)
     scale_y_continuous(limits = c(0,1), expand = c(0, 0),
                        labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
                        breaks = seq(0,1,by=.1)) +
-  xlab(TeX("Reliability of x ($r_{xx'}$)"))+
-  ylab(TeX("Reliability of y ($r_{yy'}$)")) + 
-  ggtitle('Bivariate Measurement Error', 
-          subtitle = TeX("True Score Correlation: $\\rho_{TU} =$ .50")) +
+  xlab(TeX("Reliability of X ($\\rho_{XX'}$)"))+
+  ylab(TeX("Reliability of Y ($\\rho_{YY'}$)")) + 
     theme(aspect.ratio = 1,
           panel.grid.minor = element_blank(),
           panel.grid.major = element_blank(),
@@ -639,445 +536,337 @@ h2 <- ggplot(data = df, aes(x = x, y = y,z = layer, fill = layer, color = layer)
           legend.position = "none") 
 
 
-h1 + h2
+rTU <- .50
+n = 2500
+dat <- mvrnorm(n=n,
+        mu=c(0,0),
+        Sigma = data.frame(x=c(1,rTU),y=c(rTU,1)))
+set.seed(343)
+
+Ytrue <- dat[,1]
+Xtrue <- dat[,2]
+Xobs <- dat[,1] + rnorm(n,0,.50)
+Yobs <- dat[,2] + rnorm(n,0,.50)
+
+h01 = ggplot(data=NULL, aes(x = Xtrue, y = Ytrue)) +
+  th_blue+ theme(aspect.ratio = 1,
+                         axis.title = element_text(size=15),
+                         title = element_text(size=15)) +
+  geom_point(color= main_color_blue,size=.5,alpha=.8) +
+  scale_x_continuous(limits=c(-3.5,3.5),breaks=-3:3) +
+  scale_y_continuous(limits=c(-3.5,3.5),breaks=-3:3) +
+  ggtitle('True Scores')+
+  annotate(geom='text',x=-2.4,y=3.2,label=TeX('$r_{TU}= .50$'),color=text_color_blue,size=4.5) +
+  ylab('True Score (U)') +
+  xlab('True Score (T)')
+
+
+h02 = ggplot(data=NULL, aes(x = Xobs, y = Yobs)) +
+  th_red + theme(aspect.ratio = 1,
+                         axis.title = element_text(size=15),
+                         title = element_text(size=15)) +
+  geom_point(color=main_color_red,size=.5,alpha=.8) +
+  scale_x_continuous(limits=c(-3.5,3.5),breaks=-3:3) +
+  scale_y_continuous(limits=c(-3.5,3.5),breaks=-3:3 ) +
+  ggtitle('Observed Scores')+
+  annotate(geom='text',x=-2.4,y=3.2,label=TeX('$r_{XY}= .40$'),color=text_color_red,size=4.5) +
+  ylab('Observed Score (Y)') +
+  xlab('Observed Score (X)')
+
+
+
+(h01 + h02) / (h1 + h2)
 ```
 
-It becomes apparent that if we have the reliability of $x$ and $y$, we can obtain an unbiased estimate of $\rho_{TU}$ by dividing both sides of the above equation by $\sqrt{r_{xx'}r_{xx'}}$ such that,
+Let us recall that we can express the observed score correlation as a function of the true score population correlation (i.e., the target quantity, $\rho_{TU}$),
 
 $$
-\frac{r_{xy}}{\sqrt{r_{xx'}r_{xx'}}} =\rho_{TU} + \frac{\varepsilon_o}{\sqrt{r_{xx'}r_{xx'}}}.
+r_{XY} = a\rho_{TU} + e.
 $$
 
-Therefore the corrected study correlation, $r_c$, is defined as,
+Where $e$ is the sampling error and $a$ is the artifact attenuation factor. $a$ can now be replaced with the square root of the reliabilities of $X$ and $Y$.
 
 $$
-r_c = \frac{r_{xy}}{\sqrt{r_{xx'}r_{xx'}}}.
+r_{XY} = \left(\sqrt{\rho_{XX'}}\sqrt{\rho_{YY'}}\right) \rho_{TU} + e.
 $$
 
-The sampling error of the corrected study correlation is,
+Therefore we can correct the observed score study correlation by dividing by an estimate the attenuation factor using,
 
 $$
-\varepsilon_c = \frac{\varepsilon_{o}}{\sqrt{r_{xx'}r_{xx'}}}
+r_{TU} = \frac{r_{XY}}{\hat{a}} = \frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}
 $$
 
-and thus the sampling variance would be,
+The corrected correlation coefficient is an unbiased estimator of the target quantity, $\rho_{TU}$. We also need to obtain the standard error of the corrected correlation coefficient. The standard error of the uncorrected correlation, $se$, can be adjusted directly with one of two formulas:
+
+1.  If the reliability coefficients are estimated from the same sample as the correlation, then the standard error formula is,
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_{o}}}{r_{xx'}r_{xx'}}.
+se_c =  \frac{se}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}
+$$ 
+
+2. If the reliability coefficients and the correlation are all estimated from different samples ($n$ will denote the sample size of the standardized mean difference, $n_{r_{XX'}}$ and $n_{r_{YY'}}$ and will denote the sample size of the respective reliability coefficients) then the standard error of the corrected correlation is approximately (for the derivation, see the appendix of this section),
+
 $$
+se(r_{TU}) = \sqrt{\frac{se(r_{XY})^2}{r_{XX'}r_{YY'}} + 
+\frac{r^2_{XY}\left(1-r^2_{XX'}\right)^2}{4(n_{r_{XX'}}-1)r_{XX'}^3r_{YY'}} + 
+\frac{r^2_{XY}\left(1-r^2_{YY'}\right)^2}{4(n_{r_{YY'}}-1)r_{XX'}r_{YY'}^3}}
+$$ {#eq-se-me-r-tsa}
 
-### Correcting Correlations in R
+The two ways of calculating standard error are due to the fact that when the reliability and correlation coefficient are computed from the same sample, their sampling errors will be correlated [@bobko1980]. Note that if you only want to correct for unreliability in one variable, than you can set the reliability of the other variable to 1 in all the equations above.
 
-We can simulate continuous data that contains measurement error by using the `simulate_r_sample` function in the `psychmeta` package. Below we will simulate observed scores (`x_score` and `y_score`) and true scores (`T_score` and `U_score`).
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Let's say we wanted to estimate the correlation between academic motivation and test performance among a sample of $n=100$ students. Motivation scores are obtained using a self-report measure with a reliability of $r_{XX'}=.80$. Test performance is the sum of correctly answered multiple choice questions and the total scores were also fairly reliable ($r_{YY'}=.80$). The correlation between observed motivation and performance scores is $r_{XY}=.40$. To correct the correlation for measurement error, we can use the `correct_r` function in the `psychmeta` package [@dahlke2019].
 
 ```{r,message=FALSE}
-# load packages
-# install.packages('psychmeta')
 library(psychmeta)
 
-# set seed
-set.seed(1)
+rXY <- .40  # correlation between X and Y
+rXX <- .80  # reliability of X
+rYY <- .80  # reliability of Y
+n <- 100    # sample size
 
-# define parameters
-rhoTU <- .5
-rxx <- .8
-ryy <- .7
-n <- 500
-
-# simulate data
-data <- simulate_r_sample(n = n, 
-                          rho_mat = reshape_vec2mat(rhoTU),
-                          rel_vec = c(rxx, ryy), 
-                          sr_vec = c(1, 1), 
-                          var_names = c("x","y"))
-
-# obtain observed scrores
-x_score <- data$data$observed$x
-y_score <- data$data$observed$y
-
-# obtain true scores
-T_score <- data$data$true$x
-U_score <- data$data$true$y
-
-```
-
-Then we can compute observed score (`rxy`).
-
-```{r}
-# compute observed score correlation and standard error
-rxy <- cor(x_score,y_score)
-
-# compute sampling variance of observed score correlation
-var_e_o <- (1-rxy^2) / (n-2)
-
-# print results
-print(paste0('rxy = ',round(rxy,3),'  var_e_o = ',round(var_e_o,4)))
-```
-
-Let us now compare the observed correlation with the true score correlation (`rTU`).
-
-```{r}
-# compute observed score correlation and standard error
-rTU <- cor(T_score,U_score)
-
-# compute sampling variance of observed score correlation
-var_e <- (1-rTU^2) / (n-2)
-
-# print results
-print(paste0('rTU = ',round(rTU,3),'  var_e = ',round(var_e,4)))
-```
-
-The observed correlation is substantially lower than the true score correlation. In order to correct the observed score correlation, we can calculate it by hand or use the `correct_r()` function. Lets first correct by hand using the equations in @sec-r-corr
-
-```{r}
-# correct correlation coefficient
-rc <- rxy / sqrt(rxx*ryy)
-
-# correct sampling variance
-var_e_c <- var_e_o / sqrt(rxx*ryy)
-
-# print results
-rbind(paste0('rc = ',round(rc,3)),
-      paste0('var_e_c = ',round(var_e_c,4)))
-```
-
-Now lets correct the correlation with the `correct_r()` function,
-
-```{r}
 # correct correlation
-correct_r(rxyi = rxy,
-          rxx = rxx,
-          ryy = ryy,
+correct_r(correction = 'meas',
+          rxyi = rXY,
+          rxx = rXX,
+          ryy = rYY,
           n = n)
 ```
 
-As we can see, the corrected correlation ($r_c = .470$) is a more accurate estimate of the true score population correlation $\rho_{TU} = .500$, than the observed score correlation ($r_{xy}=.351$).
+The estimate of the true score correlation is $r_{TU} = .50\;[.28, .69]$.
+:::
 
 ## Correction for Bias in Standardized Mean Differences (*d*)
 
-### Defining the Estimand
+### Defining the Target Quantity
 
-Prior to correcting for measurement error let us define our estimand. Our estimand here is the difference in the means of group $A$ and $B$ with respect to the true scores of our dependent variable. We can define the observed scores of the independent and dependent variables $x$ and $y$ as,
-
-$$
-y_A = U_A + e_A
-$$
+Prior to correcting for measurement error let us define our target. Our target is the difference in the means of group $A$ and $B$ with respect to the true scores, $U$, of our dependent variable, $Y$,
 
 $$
-y_B = U_B + e_B.
+Y_A = U_A + E_A
 $$
 
-Where $U_A$ and $U_B$ are the true scores for group $A$ and group $B$, respectively. The true score standardized mean difference can thus be be denoted by, $\delta_{U}$, and can be defined as,
-
 $$
-\delta_{U} = \frac{\overline{U}_A - \overline{U}_B}{\sigma_{U_P}}.
+Y_B = U_B + E_B.
 $$
 
-Where $\overline{U}$ is the mean of true scores for the respective group. In a given study, we only have access to the observed scores of the dependent variables, $y$, therefore the observed score study standardized mean difference is $d_{y}$. The relationship between the population true score standardized mean difference ($\delta_U$) can be related to the observed study standardized mean difference with the following formulation:
+Where $U_A$ and $U_B$ are the true scores for group $A$ and group $B$, respectively. The true score standardized mean difference can thus be be denoted by, $\delta_{gU}$ ($g$ indicates the grouping variable, and $U$ denotes the continuous true score outcome), and can be defined as the mean difference divided by the within-group standard deviation,
 
 $$
-d_y = a\delta_U+\varepsilon.
+\delta_{gU} = \frac{\mu_{U_A} - \mu_{U_B}}{\sigma_{U}}.
 $$
 
-Where $a$ is the artifactual bias induced by measurement error and $\varepsilon$ denotes sampling error. To obtain an unbiased estimate of $\delta_{U}$, we can correct the observed standardized mean difference by dividing by $a$,
+Where $\mu_U$ indicates the population mean of true scores. The relationship between the population true score standardized mean difference ($\delta_{gU}$) can be related to the observed study standardized mean difference with the following formulation:
 
 $$
-d_c = \frac{d_y}{a}.
+d_{gY} = a\delta_{gU}+e.
+$$
+
+Where $a$ is the attenuation factor induced by measurement error and $e$ denotes sampling error. To obtain an unbiased estimate of true score standardized mean difference, $\delta_{gU}$, we can correct the observed standardized mean difference by dividing by an estimate of $a$,
+
+$$
+d_{gU} = \frac{d_{gY}}{\hat{a}}.
 $$
 
 ### Artifact Correction for Unreliability {#sec-d-SMD}
 
-We can calculate the standardized mean difference of the observed scores by dividing the mean difference in observed scores ($\bar{y}_A-\bar{y}_B$) by the pooled standard deviation ($\sigma_p$). It is important to note that the mean of true scores and the mean of observed scores will be identical due to the fact that measurement error only affects variance in scores rather than the means. Therefore, we can express the observed standardized mean difference as,
+The population mean of true scores and observed scores are identical since measurement error only affects the variance in scores. Therefore the population mean difference is equal between true and observed scores:
 
 $$
-d_y = \frac{\bar{y}_A-\bar{y}_B}{\sigma_{y_P}} = \frac{\overline{U}_A-\overline{U}_B}{\sigma_{y_P}}.
+\mu_{U_A} - \mu_{U_B} = \mu_{Y_A} - \mu_{Y_B}
 $$
 
-The pooled standard deviation is a weighted average of the observed score standard deviations,
+Note that this means that an unstandardized mean difference is *not* biased by measurement error. Since the mean difference in true scores and observed scores are the same, the observed score population standardized mean difference can also be expressed as the mean difference of true scores standardized by the observed score standard deviation,
 
 $$
-\sigma_{y_P}=\sqrt{\frac{(n_A+1)\sigma^2_{y_A}+(n_B+1)\sigma^2_{y_B}}{n_A+n_B-2}}.
+\delta_{gY} = \frac{\mu_{Y_A} - \mu_{Y_B}}{\sigma_Y}  = \frac{\mu_{U_A} - \mu_{U_B}}{\sigma_Y}
 $$
 
-To express $\sigma_{y_P}$ in terms of the true score standard deviations, we can replace the observed score standard deviations with the attenuated true score standard deviation in @eq-sd-me,
+We know from @eq-reliability that the standard deviation of true scores, $\sigma_U$, can be expressed as a function of reliability and the observed score standard deviation,
 
 $$
-\sigma_{y_P} = \sqrt{\frac{(n_A+1)\left(\frac{\sigma^2_{U_A}}{r_{yy'_A}}\right)+(n_B+1)\left(\frac{\sigma^2_{U_B}}{r_{yy'_B}}\right)}{n_A + n_B - 2}}.
-$$
+\sigma_U = \sigma_Y\sqrt{\rho_{YY'}}
+$$ {#eq-sd-correction}
 
-Alternatively, we can pool the reliability and the true score standard deviations separately so that we can obtain a simplified version of the above equation,
-
-$$
-\sigma_{U_P} = \sqrt{\frac{(n_A+1)\sigma_{U_A}^2+(n_B+1)\sigma_{U_B}^2}{n_A + n_B - 2}}
-$$
+Therefore the true score standardized mean difference could be corrected for by dividing the observed score standardized mean difference by the reliability,
 
 $$
-r_{yy'_P} = \sqrt{\frac{(n_A+1) r_{yy'_A}^2+(n_B+1)r_{yy'_B}^2}{n_A + n_B - 2}}.
+\delta_{gU} = \frac{\mu_{U_A} - \mu_{U_B}}{\sigma_Y\sqrt{\rho_{YY'}}} = \frac{\delta_{gY}}{\sqrt{\rho_{YY'}}}
 $$
 
-Then we can express $\sigma_{y_P}$ similarly to @eq-sd-me,
+The reliability in this case is the within-group reliability ($\rho_{YY'}=\rho_{YY'_A}=\rho_{YY'_B}$) which is assumed to be equal between groups. Similarly, a sample estimator of the observed score standardized mean difference can be expressed as,
 
 $$
-\sigma_{y_P} = \frac{\sigma_{U_P}}{\sqrt{r_{yy'_P}}}
+d_{gY} = \frac{\overline{Y}_A - \overline{Y}_B}{S_{Y_P}}  = \frac{\overline{U}_A - \overline{U}_B}{S_{Y_P}}
 $$
 
-Now we can put it all together and see how the observed score standardized mean difference ($\delta_y$) is biased relative to the true score standardized mean difference ($\delta_U$),
-
-```{=tex}
-\begin{align}
-\delta_y &= \frac{\bar{y}_A-\bar{y}_B}{\sigma_{y_P}}
-\\[1em] &= \frac{\overline{U}_A-\overline{U}_B}{\sigma_{y_P}}
-\\[1em] &= \frac{\overline{U}_A-\overline{U}_B}{\frac{\sigma_{U_P}}{\sqrt{r_{yy'_P}}}} 
-\\[1em] &= \frac{\overline{U}_A-\overline{U}_B}{\sigma_{U_P}}\sqrt{r_{yy'_P}}
-\\[1em] &= \delta_U\sqrt{r_{yy'_P}}.
-\end{align}
-```
-This attenuation bias is very similar to the one we saw in the correlation, with the only difference being that the pooled reliability is used here instead of the total sample reliability. Within a study, the observed study standardized mean difference ($d_y$) is a function of the observed population standardized mean ($\delta_y$), artifact bias ($a$), and sampling error ($\varepsilon$),
+Where $\overline{Y}$ and $\overline{U}$ are sample means of observed scores and true scores, respectively. The within-group standard deviation of observed scores can be estimated by pooling the standard deviation from both groups,
 
 $$
-d_y = \delta_y + \varepsilon_o.
+S_{Y_P} = \sqrt{\frac{(n_A+1)S^2_{Y_A}+(n_B+1)S^2_{Y_B}}{n_A + n_B - 2}}.
 $$
 
-replacing the observed population standardized mean difference, $\delta_y$, with $\delta_U\sqrt{r_{yy'_P}}$, gives us,
+Where $n_A$ and $n_B$ are the sample sizes within group $A$ and group $B$, respectively.
+
+#### Pooled Reliability {.unnumbered}
+
+To obtain the pooled standard deviation of true scores, we can correct the observed score standard deviations for measurement error such that, $S^2_{Y}=r_{YY'}S^2_{U}$ (similar to what we see in @eq-sd-correction). Therefore we can compute the pooled true score standard deviation ($S_{U_P}$) with,
 
 $$
-d_y = \delta_U\sqrt{r_{yy'_P}} + \varepsilon.
-$$ Therefore to obtain the corrected study standardized mean difference ($d_c$) we can divide $d_y$ by the attenuation factor,
-
-$$
-d_c = \frac{d_y}{\sqrt{r_{yy'_P}}}.
+S_{U_P} = \sqrt{\frac{(n_A+1)\left(S_{Y_A} \sqrt{r_{YY'_A}}\right)^2+(n_B+1)\left(S_{Y_B} \sqrt{r_{YY'_B}}\right)^2}{n_A + n_B - 2}}.
 $$
 
-Where the sampling variance of the corrected SMD must also be similarly adjusted,
+Alternatively, we can pool the reliability and the true score standard deviations separately,
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{r_{yy'_P}}.
+S_{Y_P} = \sqrt{\frac{(n_A+1)S_{Y_A}^2+(n_B+1)S_{Y_B}^2}{n_A + n_B - 2}}
 $$
 
-Although the attenuation factor is quite simple, in more complex formulations (e.g., bivariate direct range restriction), it will be easier to apply a simplified correction for the sampling variance using the corrected correlation coefficient:
-
 $$
-\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{d_c}{d_y}\right)^2.
-$$ It is important to point out that this correction can only be done if when estimates of the within-group reliability are available. It is common that studies will only report the full sample reliability. If there are differences between groups on the variable, the total sample reliability will over-estimate the within-group reliability. When the total sample reliability is all that is available, to correct $d_y$, we must first convert it to a point-biserial correlation coefficient ($r_o$) using the observed proportion of subjects in either group $A$ or $B$ ($p\,$; it does not matter which one is chosen, as long as it is consistent throughout).
-
-$$
-r_o = \frac{d_y}{\sqrt{\frac{1}{p(1-p)}+d_y^2}}.
+r_{YY'_P} = \sqrt{\frac{(n_A+1) r_{YY'_A}^2+(n_B+1)r_{YY'_B}^2}{n_A + n_B - 2}}.
 $$
 
-Then correct $r_o$ for the total sample reliability,
+Then we can express $S_{U_P}$ as the pooled standard deviation and the pooled reliability,
 
 $$
-r_c = \frac{r_o}{\sqrt{r_{yy'}}}
+S_{U_P} = S_{Y_P}\sqrt{r_{YY'_P}}.
 $$
 
-Then we can convert $r_c$ back into $d_c$,
+Now we can calculate the corrected sample standardized mean difference, so that it estimates the standardized mean difference in true scores rather than observed scores:
 
 $$
-d_c = \frac{r_c}{\sqrt{p(1-p)(1-r_c^2)}}
+d_{gU} = \frac{\overline{U}_A - \overline{U}_B}{S_{U_P}} =  \frac{\overline{U}_A - \overline{U}_B}{S_{Y_P}\sqrt{r_{YY'_P}}} = \frac{d_{gY}}{\sqrt{r_{YY'_P}}}
 $$
 
-The same process can be done for the sampling variance as well, but instead we can put it all into one equation,
+The corrected (true score) standardized mean difference, $d_{gU}$, will also need it's standard error to be adjusted from the observed score estimate. The standard error can be computed one of two ways:
+
+1.  If the reliability coefficient and the standardized mean difference are computed from the same sample then the standard error can be estimated by, $$
+    se(d_{gU}) = \frac{se(d_{gY})}{\sqrt{r_{YY'_P}}}.
+    $$
+2.  If the reliability coefficient and the standardized mean difference are computed from separate samples ($n$ will denote the sample size of the standardized mean difference, $n_{r_{YY'}}$ and will denote the sample size of the reliability coefficient), we can use the following formulation (see appendix for derivation),
 
 $$
-\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_y^2p[1-p]\right)^3\left(1-r_c^2\right)^3}
+se(d_{gU}) = \sqrt{\frac{se(d_{gY})^2}{r_{YY'_P}} +\frac{d^2_{gY}\left(1-r^2_{YY'_P}\right)^2}{4\left(1-n_{r_{YY'_P}}\right)r^3_{YY'_P}}}
+$$ {#eq-se-me-d-tsa}
+
+#### Total Sample Reliability {.unnumbered}
+
+It is common that studies will only report the full sample reliability and not the reliability within each group. If the groups differ substantially on the dependent variable, $Y$, then the total sample reliability will over-estimate the within-group reliability. When the total sample reliability is all that is available, we can correct the standardized mean difference by first converting $d_{gY}$ to a point-biserial correlation, $r_{gY}$. To do this we also need the observed proportion of subjects in group $A$ *or* $B$ ($p_g$ ; it does not matter which group is chosen, as long as it is consistent throughout).
+
+$$
+r_{gY} = \frac{d_{gY}}{\sqrt{\frac{1}{p_g(1-p_g)}+d_{gY}^2}}.
 $$
 
-```{r, echo = FALSE, message=FALSE, warning=FALSE,fig.height= 4, fig.width=8}
-#| fig-cap: Visualizing the attenuation of observed standardized mean differences (SMD) due to measurement error. The left panel shows a situation where only one variable ($x$) has measurement error. The observed correlation increases as a function of the true correlation $\rho$ (darker lines indicate a higher true correlation) and the reliability of $x$ (x-axis). The right panel shows the attenuation of the correlation when both $x$ and $y$ variables are affected by measurement error. The darker end of the gradient shows a higher SMD, while the lighter end represents a smaller SMD (the true SMD sits on the top where no measurement error is present, $r_{xx'}=r_{yy'}=1$.
+Then we can the correlation coefficient as we did in @sec-r-corr. Taking the reliability of $Y$, the $r_{gY}$ for the total sample reliability (see @sec-correcting-correlations-me for details),
 
-delta = c(rep(.0,100),
-        rep(.1,100),
-        rep(.2,100),
-        rep(.3,100),
-        rep(.4,100),
-        rep(.5,100),
-        rep(.6,100),
-        rep(.7,100),
-        rep(.8,100),
-        rep(.9,100),
-        rep(1,100))
+$$
+r_{gU} = \frac{r_{gY}}{\sqrt{r_{YY'}}}
+$$
 
-rel = c(seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100),
-        seq(0,1,length.out = 100))
+Then we can obtain the corrected (true score) standardized mean difference by converting $r_{gU}$ back into $d_{gU}$,
 
-d = delta * sqrt(rel)
+$$
+d_{gU} = \frac{r_{gU}}{\sqrt{p_g(1-p_g)(1-r_{gU}^2)}}
+$$
+
+The standard error of the corrected value will also need to be adjusted. The same process can be done for the sampling variance as well, but instead we can put it all into one equation,
+
+$$
+se_{c} = \frac {se\left(\frac{r_{gU}}{r_{gY}}\right)} {\sqrt{\left(1+d_{gY}^2p_g[1-p_g]\right)^3\left(1-r_{gU}^2\right)^3}}
+$$
+
+Note that this formula is specifically for the case where the standardized mean difference and the reliability coefficient are estimated from the same sample. If they are estimated from separate samples, then we can convert the standard error of the standardized mean difference to a standard error of a point-biserial correlation and then use @eq-se-me-r-tsa. Once the point-biserial standard error is corrected, then it can be converted back to a correlation coefficient.
+
+```{r, echo = FALSE, message=FALSE, warning=FALSE,fig.height= 6}
+#| id: fig-d-attenuation
+#| fig-cap: Visualizing the attenuation of the standardized mean differences in observed scores (bottom panel) from true scores (top panel). The true score standardized mean difference is $\delta_{gU}=0.60$, but in the presense of measurement error ($\rho_{YY'}=.70$) the observed score standardized mean difference is $\delta_{gY}=0.50$. This occurs due to the increased standard deviation in observed scores relative to true scores (the mean difference does not change).
 
 
+h1 <- ggplot(data=NULL) +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(0,1)),
+                    fill=main_color_red, scale=.7,slab_alpha=.6) +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(.6,1)),
+                    fill=main_color_blue, scale=.7,slab_alpha=.6) +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(0,1)),
+                    fill='#ffffff00', scale=.7, color='white') +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(.6,1)),
+                    fill='#ffffff00', scale=.7, color='white') +
+  ggdist::theme_ggdist() + theme(aspect.ratio = .4,text = element_text(size=15)) + 
+  annotate(geom='text',x=-4.5,y=.8,label=TeX('$\\delta_{gU}=.60$'),size=5) + 
+  scale_y_continuous(breaks = NULL) + 
+  scale_x_continuous(breaks = NULL, limits = c(-5,5)) + 
+  xlab('True Scores (U)') +
+  ylab('')
 
-h1 = ggplot(data=NULL, aes(x = rel, y = d, group = delta, color = delta)) +
-  geom_line(alpha = .5, size = 1) + 
-  theme(aspect.ratio = 1,
-        panel.grid.minor = element_blank(),
-        panel.grid.major = element_blank(),
-        title = element_text(color = text_color_red),
-        panel.background = element_rect(fill = panel_color_red),
-        panel.border = element_rect(fill = NA, 
-                                    color = border_color_red,
-                                    linewidth=1.2),
-        axis.title = element_text(size=14, color = text_color_red),
-        axis.text.x = element_text(size=12, color = text_color_red),
-        axis.text.y = element_text(size=12, color = text_color_red),
-        axis.ticks = element_line(color = border_color_red,linewidth=1),
-        legend.position = "none") +
-  scale_y_continuous(limits = c(0,1.065),
-                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
-                     breaks = seq(0,1,by=.1)) +
-  scale_x_continuous(limits = c(0,1),
-                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
-                     breaks = seq(0,1,by=.1)) +
-  geom_point(data=NULL, aes(x = rep(1,11), y = unique(delta),
-                            color = unique(delta), group = unique(delta)),size = 1) +
-  annotate(geom="text", x = 1, y = 1.065, label = TeX("$\\delta_{U}$"), color = text_color_red, 
-           fontface = 'italic') +
-  scale_color_gradient(low = lightmain_color_red,high = darkmain_color_red) +
-  xlab(TeX("Pooled Reliability of y ($r_{yy'P}$)"))+
-  ylab(TeX("Observed Score SMD ($\\delta_{y}$)")) +
-  ggtitle('Univariate Measurement Error', 
-          subtitle = TeX("Varying True SMD ($\\delta_{U}$)"))
+h2 <-  ggplot(data=NULL) +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(0,1.195)),
+                    fill=main_color_red, scale=.7,slab_alpha=.6) +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(.6,1.195)),
+                    fill=main_color_blue, scale=.7,slab_alpha=.6) +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(0,1.195)),
+                    fill='#ffffff00', scale=.7, color='white') +
+  ggdist::stat_slab(aes(y=0,xdist=distributional::dist_normal(.6,1.195)),
+                    fill='#ffffff00', scale=.7, color='white') +
+  ggdist::theme_ggdist() + theme(aspect.ratio = .4,text = element_text(size=15)) +
+  annotate(geom='text',x=-4.5,y=.8,label=TeX('$\\delta_{gY}=.50$'),size=5) + 
+  scale_y_continuous(breaks = NULL) + 
+  scale_x_continuous(breaks = NULL, limits = c(-5,5)) + 
+  xlab('Observed Scores (Y)') +
+  ylab('')
 
-yt = rnorm(0,1,70)
-xt = rnorm(0,1,70)
-
-
-rxx = seq(0,1,length.out=100)
-relMat = rxx %*% t(rxx)
-rB = .5 * sqrt(relMat)
-rB = apply(rB, 2, rev)
-rB = rB
-
-df = as.data.frame(raster::rotate(raster(rB)), xy = TRUE)
-
+h1 / h2
 ```
 
-### Correcting Standardized Mean Differences in R
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
 
-We can simulate data that contains measurement error by using the `simulate_d_sample` function in the `psychmeta` package. Below we will simulate observed scores (`y_score`) and true scores (`U_score`).
+Imagine we want to test the effectiveness of a drug that is meant to alleviate stress. Therefore we conduct a study and randomize a sample of 150 people into a control group ($n=75$) and a treatment group ($n=75$). After the intervention, the subjects report their stress levels on a self-report scale. The scale was shown to have a reliability of $r_{YY'}=.80$. We can correct the standardized mean differences on observed scores with the `correct_d` function in the `psychmeta` package [@dahlke2019].
 
-```{r,message=FALSE}
-# load packages
-# install.packages('psychmeta')
+```{r,message=FALSE,warning=FALSE}
+
 library(psychmeta)
 
-set.seed(123)
+dgY <- .40
+rYY <- .80
+n1 <- n2 <- 75
 
-# define parameters
-Means = c()
-ryyA <- .75
-ryyB <- .70
-nA <- 100
-nB <- 100
-n <- nA + nB
-
-# simulate data
-data<- simulate_d_sample(n_vec = c(nA, nB), 
-                         rho_mat_list = list(reshape_vec2mat(1),reshape_vec2mat(1)),
-                         mu_mat = rbind(c(.5,0),
-                                        c(0,0)), 
-                         sigma_mat = rbind(c(1,1),
-                                           c(1,1)),
-                         rel_mat = rbind(c(ryyA,1),
-                                         c(ryyB,1)), 
-                         sr_vec = c(1,1),
-                         group_names = c("A", "B"))
-
-# obtain observed scores
-y_score <- data$data$observed$y1
-group <- data$data$observed$group
-
-# obtain true scores
-U_score <- data$data$true$y1
+correct_d(correction = 'meas',
+          d = dgY,
+          ryy = rYY,
+          n1 = n1,
+          n2 = n2)
 
 ```
 
-Then we can compute observed score standardized mean difference (`dy`).
-
-```{r}
-# compute observed score means and standard deviations
-Mean_A <- mean(y_score[group=='A'])
-Mean_B <- mean(y_score[group=='B'])
-SD_A <- sd(y_score[group=='A'])
-SD_B <- sd(y_score[group=='B'])
-
-# compute pooled standard deviation
-SD_P <- sqrt( ((nA-1)*SD_A^2 + (nB-1)*SD_B^2) / (nA+nB-2) )
-
-# compute standardized mean difference
-dy <- (Mean_A - Mean_B) / SD_P
-
-# compute sampling variance of observed score correlation
-var_e_o <- n/(nA*nB) + dy^2 / (2*n)
-
-# print results
-print(paste0('dy = ',round(dy,3),'  var_e_o = ',round(var_e_o,4)))
-```
-
-Let us now compare the observed score standardized mean difference with the true score standardized mean difference (`dU`).
-
-```{r}
-# compute true score means and standard deviations
-Mean_A <- mean(U_score[group=='A'])
-Mean_B <- mean(U_score[group=='B'])
-SD_A <- sd(U_score[group=='A'])
-SD_B <- sd(U_score[group=='B'])
-
-# compute pooled standard deviation
-SD_P <- sqrt( ((nA-1)*SD_A^2 + (nB-1)*SD_B^2) / (nA+nB-2) )
-
-# compute standardized mean difference
-dU <- (Mean_A - Mean_B) / SD_P
-
-# compute sampling variance of the true score SMD
-var_e <- n/(nA*nB) + dy^2 / (2*n)
-
-# print results
-print(paste0('dU = ',round(dU,3),'  var_e = ',round(var_e,4)))
-```
-
-The observed score standardized mean difference is substantially lower than the true score SMD (.286 vs .509). In order to correct the observed score correlation for attenuation, we can calculate it by hand. Lets correct the observed standardized mean difference for measurement error variance using the equations in @sec-d-SMD.
-
-```{r}
-# calculate the pooled reliability
-ryy_P <- sqrt(((nA-1)*ryyA^2 + (nB-1)*ryyB^2) / (nA+nB-2))
-
-# correct correlation coefficient
-dc <- dy / sqrt(ryy_P)
-
-# correct sampling variance
-var_e_c <- var_e_o / sqrt(ryyA)
-
-# print results
-print(paste0('rc = ',round(dc,3),'  var_e_c = ',round(var_e_c,4)))
-```
-
-Now lets correct the correlation with the `correct_r()` function. The `correct_d()` function only takes in the total sample reliability, therefore we can extract the total sample reliability from the simulated dataset and then use the resulting reliability coefficient in the `ryy` argument.
-
-```{r}
-# total sample reliability
-ryy = data$overall_results$observed$parallel_ryyi_total[1]
-
-# correct correlation
-correct_d(d = dy,
-          ryy = ryy,
-          n1 = n)
-```
-
-As we can see, the corrected correlation ($d_c = .32$) is a more accurate estimate of the true score population SMD $\delta_U = .500$, than the observed score correlation ($r_{xy}=.273$).
+The output of psychmeta shows a slightly larger ($d_{gU} = 0.45\,[0.08,0.84]$).
+:::
 
 ## Estimating Reliability with Limited Information {#sec-lim-information}
 
 Reliability estimates should preferably be calculated from within the study's sample, however there are a couple of ways to estimate reliability when this information is not provided. A common way to obtain an estimate of the reliability is to look in meta-analyses or a test manuals. If the number of items in a study differs from the test manual, you can approximate the reliability of the study's test, with a re-arrangement of the Spearman-Brown prophecy formula,
 
 $$
-r_{xx'_{study}} \approx \frac{1}{\frac{\kappa_{\text{ref}}}{\kappa_{\text{study}}} \left(\frac{1}{r_{xx'_{study}}} - 1\right) + 1}.
+r_{xx'_{study}} \approx \frac{1}{\frac{\kappa_{\text{ref}}}{\kappa_{\text{study}}} \left(\frac{1}{r_{xx'_{study}}} - 1\right) + 1}. 
 $$
 
 Where $\kappa_{\text{ref}}$ and $\kappa_{\text{study}}$ denote the number of items in the reference test and the test used in the study, respectively.
+
+## Appendix
+
+##### Deriving the standard error of a corrected correlation with independent sampling errors {.unnumbered}
+
+@eq-se-me-r-tsa - This Taylor series approximation derivation can also be found in the Mathematica script, `Derivations.nb`, denoted as (SE.1).
+
+$$\begin{aligned}
+\tiny{se_c} &\tiny{\approx \sqrt{\frac{\partial}{\partial r_{XY}}\left[\frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}\right]^2 \widehat{var}(r_{XY}) + \frac{\partial}{\partial r_{XX'}}\left[\frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}\right]^2  \widehat{var}(r_{YY'}) + \frac{\partial}{\partial r_{XX'}}\left[\frac{r_{XY}}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}\right]^2 \widehat{var}(r_{YY'})}}\\[.3em]
+&\tiny{\approx \sqrt{ \left(\frac{1}{r_{XX'}r_{YY'}}\right) se^2 + \left( -\frac{r_{XY}}{2\sqrt{r_{XX'}^3r_{YY'}}} \right)^2\frac{\left(1-r^2_{XX'}\right)^2}{n_{r_{XX'}}-1}+  \left(  -\frac{r_{XY}}{2\sqrt{r_{XX'}r_{YY'}^3}} \right)^2\frac{\left(1-r^2_{YY'}\right)^2}{n_{r_{YY'}}-1}}}\\[.3em]
+&\tiny{\approx \sqrt{\frac{se^2}{r_{XX'}r_{YY'}} + 
+\frac{r^2_{XY}\left(1-r^2_{XX'}\right)^2}{4(n_{r_{XX'}}-1)r_{XX'}^3r_{YY'}} + 
+\frac{r^2_{XY}\left(1-r^2_{YY'}\right)^2}{4(n_{r_{YY'}}-1)r_{XX'}r_{YY'}^3}}}
+\end{aligned}$$
+
+##### Deriving the standard error of a corrected correlation with independent sampling errors {.unnumbered}
+
+@eq-se-me-d-tsa - Found in `Derivations.nb`, denoted as (SE.2).

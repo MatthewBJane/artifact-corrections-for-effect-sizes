@@ -1,0 +1,2078 @@
+---
+title: "[Artifact Corrections]{style='color:#d74ea2ff;'} <br> [for]{style='font-size:50pt;color:#555555;'} [Effect Sizes]{style='color:#5fa6bcff;'}"
+subtitle: "[Seeing Reality for What it is]{style='color:#5fa6bcff;font-style:italic;'}"
+transition: slide
+author: "[Matthew B. Jané]{style='color:#555555;'}"
+bibliography: references.bib
+format: 
+  revealjs:
+    theme: [default, slide_theme.scss]
+    html-math-method: mathjax
+    logo: figure/webLogo1.png
+    footer: "{{< fa brands twitter >}}   @ MatthewBJane"
+    slide-number: h.v
+resources:
+  - slideshow.pdf
+---
+
+```{r}
+library(raster)
+library(metR)
+library(isoband)
+library(latex2exp)
+library(extrafont)
+library(ggplot2)
+library(patchwork)
+library(MASS)
+library(ggdist)
+library(ggtext)
+
+numform <- function(val) { sub("^(-?)0.", "\\1.", sprintf("%.2f", val)) }
+numformSE <- function(val) { sub("^(-?)0.", "\\1.", sprintf("%.3f", val)) }
+numform0 <- function(val) { sprintf("%.2f", val) }
+numform0SE <- function(val) { sprintf("%.3f", val) }
+
+
+text_color_blue      = '#326982ff'
+panel_color_blue     = '#f6fafbff'
+lightermain_color_blue = '#dbebf0'
+lightmain_color_blue = '#a4cdd9ff'
+main_color_blue      = '#5fa6bcff'
+darkmain_color_blue  = '#397689ff'
+border_color_blue    = '#5fa6bcff'
+
+text_color_red       = '#a62675ff'
+panel_color_red      = '#fdf6faff'
+lightermain_color_red  = '#f6d5e9'
+lightmain_color_red  = '#eeb4d7ff'
+main_color_red       = '#d74ea2ff'
+darkmain_color_red   = '#bf2986ff'
+border_color_red     = '#d74ea2ff'
+
+
+th_blue <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_blue),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_blue),
+        axis.text.x = element_text(size=13, color = text_color_blue),
+        axis.text.y = element_text(size=13, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1)) 
+  
+th_red <- theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        plot.title = element_text(color = text_color_red),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=15, color = text_color_red),
+        axis.text.x = element_text(size=13, color = text_color_red),
+        axis.text.y = element_text(size=13, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1)) 
+```
+
+## Outline {transition="slide-in"}
+
+-   [What are Artifacts?]{style="font-size:20pt"}
+-   [Introduce a New Open-Access Textbook]{style="font-size:20pt"}
+-   [Quantifying Research Findings with Effect Sizes]{style="font-size:20pt"}
+-   [Sample vs. Population Effect Sizes]{style="font-size:20pt"}
+-   [Artifacts]{style="font-size:20pt"}
+-   [Conclusion]{style="font-size:20pt"}
+
+## What are [Artifacts]{style="color:#d74ea2ff;"}? {transition="slide-in"}
+
+Artifacts are sources of contamination in a study that [bias]{style="color:#d74ea2ff;"} research findings. So correcting research findings for bias is crucial to obtaining a accurate view of reality.
+
+![](figure/Target.png)
+
+## Introducing a New [Open-Access Textbook]{style="color:#d74ea2ff;"}
+
+::: columns
+::: {.column width="10%"}
+:::
+
+::: {.column width="30%"}
+![](figure/MJB_cover.jpg){style="color:#d74ea2; border-width:5px; border-radius:10px; box-shadow: #d74ea280 5px 5px, #d74ea260 10px 10px, #d74ea240 15px 15px, #d74ea220 20px 20px, #d74ea210 25px 25px, #d74ea205 30px 30px;"}
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="50%"}
+<br> [{{< fa brands osi >}}]{style="color:#d74ea2ff;"} [Open-Source]{style="color:#397689ff;"} <br> <br> [{{< fa rotate >}}]{style="color:#d74ea2ff;"} [Living]{style="color:#397689ff;"} <br> <br> [{{< fa code >}}]{style="color:#d74ea2ff;"} [R Code]{style="color:#397689ff;"} <br> <br> [{{< fa solid chart-gantt >}}]{style="color:#d74ea2ff;"} [Meta-Analysis]{style="color:#397689ff;"}
+:::
+:::
+
+## Quantifying Research Findings
+
+Research findings often come in the form of some sort of summary statistic that reflects the relationship between variables (e.g., correlations, regression coefficients, odds ratios, mean differences).
+
+::: {.fragment .fade-up style="font-size: 1.5em;"}
+These are referred to as [effect sizes]{style="color:#d74ea2ff;"}
+:::
+
+## [Population]{style="color:#5fa6bcff;"} vs [Sample]{style="color:#d74ea2ff;"} Effect Sizes {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+In social science we want to draw inferences about the population from a random sample.
+
+::: columns
+::: {.column width="1%"}
+:::
+
+::: {.column width="98%"}
+```{r, echo=FALSE, fig.height=4, dpi=250,warning=FALSE,message=FALSE}
+
+set.seed(343)
+library(emojifont)
+library(patchwork)
+load.fontawesome()
+
+X = expand.grid(1:20,1:20)
+
+S <- rep(FALSE,dim(X)[1])
+S[sample(1:length(S),20)] <- TRUE
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X<-cbind(X,S,L)
+
+h1 = ggplot(data=X,aes(x=Var1,y=Var2,color=S,alpha = S)) +
+  theme_void() + theme(aspect.ratio=1, legend.position = 'none',title = element_text(color='#5fa6bcff')) +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=4.5) +
+  scale_color_manual(values = c('#5fa6bcff','#5fa6bcff')) +
+  scale_alpha_manual(values = c(1,1)) +
+  ggtitle('  Population')
+
+r = .5
+set.seed(343)
+X1 <- mvrnorm(n=20*20,
+             mu = c(0,0),
+             Sigma = data.frame(x=c(1,r),y=c(r,1)),
+             empirical=TRUE)
+
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X1<-data.frame(X=X1[,1],Y=X1[,2],S,L)
+
+
+h2 = ggplot(data=X1,aes(x=X,y=Y,color=S,alpha=S)) +
+  theme_ggdist() + theme(aspect.ratio=1, legend.position = 'none') +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=3) +
+  scale_color_manual(values = c('#5fa6bcff','#5fa6bcff')) +
+  scale_alpha_manual(values = c(1,1)) +
+  scale_x_continuous(limits = c(-3,3),breaks = NULL) +
+  scale_y_continuous(limits = c(-3,3),breaks = NULL) +
+  stat_smooth(method = "lm",aes(group=NULL, color = NULL, alpha = NULL), 
+              color = '#326982ff',fill = '#326982ff', fullrange=TRUE,se=FALSE) +
+  annotate(geom='text',x=-2.5,y=2.9, label=TeX('$\\rho$ = .50'),color = '#326982ff',size=5)
+
+h1 + h2
+
+```
+:::
+
+::: {.column width="1%"}
+:::
+:::
+
+## [Population]{style="color:#5fa6bcff;"} vs [Sample]{style="color:#d74ea2ff;"} Effect Sizes {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+In social science we want to draw inferences about the population from a random sample.
+
+::: columns
+::: {.column width="1%"}
+:::
+
+::: {.column width="98%"}
+```{r, echo=FALSE, fig.height=4, dpi=250,warning=FALSE,message=FALSE}
+
+set.seed(1)
+library(emojifont)
+library(patchwork)
+load.fontawesome()
+
+X = expand.grid(1:20,1:20)
+
+S <- rep(FALSE,dim(X)[1])
+S[sample(1:length(S),20)] <- TRUE
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X<-cbind(X,S,L)
+
+h1 = ggplot(data=X,aes(x=Var1,y=Var2,color=S,alpha = S)) +
+  theme_void() + theme(aspect.ratio=1, legend.position = 'none',title = element_text(color='#d74ea2ff')) +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=4.5) +
+  scale_color_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_alpha_manual(values = c(.2,1))+
+  ggtitle('  Sample 1')
+
+r = .5
+set.seed(343)
+X1 <- mvrnorm(n=20*20,
+             mu = c(0,0),
+             Sigma = data.frame(x=c(1,r),y=c(r,1)),
+             empirical=TRUE)
+
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X1<-data.frame(X=X1[,1],Y=X1[,2],S,L)
+
+
+h2 = ggplot(data=X1,aes(x=X,y=Y,color=S,fill=S,alpha=S)) +
+  theme_ggdist() + theme(aspect.ratio=1, legend.position = 'none') +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=3) +
+  scale_color_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_fill_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_alpha_manual(values = c(.1,1)) +
+  scale_x_continuous(limits = c(-3,3),breaks = NULL) +
+  scale_y_continuous(limits = c(-3,3),breaks = NULL) +
+  stat_smooth(method = "lm",aes(group=NULL, alpha = NULL),
+              fullrange=TRUE,se=FALSE) +
+  annotate(geom='text',x=-2.5,y=2.9, label=TeX('$\\rho$ = .50'),color = '#326982ff',size=5)+
+  annotate(geom='text',x=-2.5,y=2.4, 
+           label=paste0('r = ',sub("^0+", "", round(cor(X1$X[X1$S],X1$Y[X1$S]),2))),
+           color = '#bf2986ff',size=5)
+
+h1 + h2
+
+```
+:::
+
+::: {.column width="1%"}
+:::
+:::
+
+## [Population]{style="color:#5fa6bcff;"} vs [Sample]{style="color:#d74ea2ff;"} Effect Sizes {auto-animate="true" auto-animate-easing="ease-in-out"}
+
+In social science we want to draw inferences about the population from a random sample.
+
+::: columns
+::: {.column width="1%"}
+:::
+
+::: {.column width="98%"}
+```{r, echo=FALSE, fig.height=4, dpi=250,warning=FALSE,message=FALSE}
+
+set.seed(2)
+library(emojifont)
+library(patchwork)
+load.fontawesome()
+
+X = expand.grid(1:20,1:20)
+
+S <- rep(FALSE,dim(X)[1])
+S[sample(1:length(S),20)] <- TRUE
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X<-cbind(X,S,L)
+
+h1 = ggplot(data=X,aes(x=Var1,y=Var2,color=S,alpha = S)) +
+  theme_void() + theme(aspect.ratio=1, legend.position = 'none',title = element_text(color='#d74ea2ff')) +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=4.5) +
+  scale_color_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_alpha_manual(values = c(.2,1))+
+  ggtitle('  Sample 2')
+
+r = .5
+set.seed(343)
+X1 <- mvrnorm(n=20*20,
+             mu = c(0,0),
+             Sigma = data.frame(x=c(1,r),y=c(r,1)),
+             empirical=TRUE)
+
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X1<-data.frame(X=X1[,1],Y=X1[,2],S,L)
+
+
+h2 = ggplot(data=X1,aes(x=X,y=Y,color=S,fill=S,alpha=S)) +
+  theme_ggdist() + theme(aspect.ratio=1, legend.position = 'none') +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=3) +
+  scale_color_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_fill_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_alpha_manual(values = c(.1,1)) +
+  scale_x_continuous(limits = c(-3,3),breaks = NULL) +
+  scale_y_continuous(limits = c(-3,3),breaks = NULL) +
+  stat_smooth(method = "lm",aes(group=NULL, alpha = NULL),
+              fullrange=TRUE,se=FALSE) +
+  annotate(geom='text',x=-2.5,y=2.9, label=TeX('$\\rho$ = .50'),color = '#326982ff',size=5)+
+  annotate(geom='text',x=-2.5,y=2.4, 
+           label=paste0('r = ',sub("^0+", "", round(cor(X1$X[X1$S],X1$Y[X1$S]),2))),
+           color = '#bf2986ff',size=5)
+
+h1 + h2
+
+```
+:::
+
+::: {.column width="1%"}
+:::
+:::
+
+## [Population]{style="color:#5fa6bcff;"} vs [Sample]{style="color:#d74ea2ff;"} Effect Sizes {auto-animate="true" transition="fade-in"}
+
+In social science we want to draw inferences about the population from a random sample.
+
+::: columns
+::: {.column width="1%"}
+:::
+
+::: {.column width="98%"}
+```{r, echo=FALSE, fig.height=4, dpi=250,warning=FALSE,message=FALSE}
+
+set.seed(4)
+library(emojifont)
+library(patchwork)
+load.fontawesome()
+
+X = expand.grid(1:20,1:20)
+
+S <- rep(FALSE,dim(X)[1])
+S[sample(1:length(S),20)] <- TRUE
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X<-cbind(X,S,L)
+
+h1 = ggplot(data=X,aes(x=Var1,y=Var2,color=S,alpha = S)) +
+  theme_void() + theme(aspect.ratio=1, legend.position = 'none',title = element_text(color='#d74ea2ff')) +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=4.5) +
+  scale_color_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_alpha_manual(values = c(.2,1))+
+  ggtitle('  Sample 3')
+
+r = .5
+set.seed(343)
+X1 <- mvrnorm(n=20*20,
+             mu = c(0,0),
+             Sigma = data.frame(x=c(1,r),y=c(r,1)),
+             empirical=TRUE)
+
+L <- rep(fontawesome('fa-user'),dim(X)[1])
+X1<-data.frame(X=X1[,1],Y=X1[,2],S,L)
+
+
+h2 = ggplot(data=X1,aes(x=X,y=Y,color=S,fill=S,alpha=S)) +
+  theme_ggdist() + theme(aspect.ratio=1, legend.position = 'none') +
+  geom_text(aes(label=L),family='fontawesome-webfont', size=3) +
+  scale_color_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_fill_manual(values = c('#5fa6bcff','#d74ea2ff')) +
+  scale_alpha_manual(values = c(.1,1)) +
+  scale_x_continuous(limits = c(-3,3),breaks = NULL) +
+  scale_y_continuous(limits = c(-3,3),breaks = NULL) +
+  stat_smooth(method = "lm",aes(group=NULL,alpha=NULL),
+              fullrange=TRUE,se=FALSE) +
+  annotate(geom='text',x=-2.5,y=2.9, label=TeX('$\\rho$ = .50'),color = '#326982ff',size=5)+
+  annotate(geom='text',x=-2.5,y=2.4, 
+           label=paste0('r = ',sub("^0+", "", round(cor(X1$X[X1$S],X1$Y[X1$S]),2))),
+           color = '#bf2986ff',size=5)
+
+h1 + h2
+
+```
+:::
+
+::: {.column width="1%"}
+:::
+:::
+
+## [Sampling Distributions]{style="color:#5fa6bcff;"}
+
+Repeated random sampling from the same [population]{style="color:#5fa6bcff;"}, will generate a distribution of [sample]{style="color:#d74ea2ff;"} effect size estimates.
+
+```{r, echo=FALSE,dpi=250}
+
+set.seed(5)
+# simulate 70 true scores
+k = 20
+scores1 = rnorm(k,0,1.0)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  geom_point(alpha = 1, stroke = 0, size = 4,color = main_color_red) +
+  th_blue + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 text = element_text(color=text_color_blue),
+                 axis.text.y = element_text(size=25),
+                 axis.title.x = element_text(size=25),
+                 axis.title.y = element_text(size=25),
+                 axis.text.x = element_text(size=14)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = TeX('$\\rho$'), breaks=0,limits = c(-3,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(0,1)), 
+            fill = lightermain_color_red,scale=4, color=main_color_red) +
+  geom_line(aes(x = c(22.9,22.9), y=c(0,1)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="last", type = "closed"),
+            linewidth=1,color = darkmain_color_red) +
+  geom_line(aes(x=c(1:k,1:k),y=c(rep(0,k),scores1),group=c(1:k,1:k)),
+            color=main_color_red, alpha=.7, linewidth = 1) + 
+  geom_hline(yintercept = 0, alpha=.7, linewidth = 1,
+             color = darkmain_color_blue) +
+  annotate(geom='text',x=2.55,y=.68,label=TeX('$e_i$'), color = main_color_red, size = 7) + 
+  annotate(geom='text',x=22.0,y=.50,label=TeX('$se_r$'), color = text_color_red, size = 7) + 
+  annotate(geom='text',x=5.1,y=2.1,label=TeX('$r_i$'), color = text_color_red, size = 7) +
+  xlab('Sample (i)')+
+  ylab('Correlation')
+
+
+```
+
+##  {auto-animate="true"}
+
+For a given study, $i$, a correlation $r_i$ is a function of...
+
+::: columns
+::: {.column width="10%"}
+:::
+
+::: {.column width="40%"}
+::: r-vstack
+::: {data-id="box2" auto-animate-delay="0.1" style="background: #5fa6bcff; width: 200px; height: 150px; margin: 20px;text-align:center;"}
+[$$\huge{\rho}$$]{style="color:white;"}
+:::
+
+::: {data-id="box3" auto-animate-delay="0.2" style="background: #d74ea2ff; width: 200px; height: 150px; margin: 20px; text-align:center;"}
+[$$\huge{e_i}$$]{style="color:white;"}
+:::
+:::
+:::
+
+::: {.column width="40%"}
+::: r-vstack
+::: {data-id="sym1" auto-animate-delay="0.1" style="width: 400px; margin: 50px;"}
+[Population Correlation]{style="font-size:30pt; color:#5fa6bcff;"}
+:::
+
+::: {data-id="sym2" auto-animate-delay="0.2" style="width: 400px; margin: 65px;"}
+[Random Error]{style="font-size:30pt; color:#d74ea2ff;"}
+:::
+:::
+:::
+
+::: {.column width="10%"}
+:::
+:::
+
+##  {auto-animate="true"}
+
+::: r-stack
+::: {data-id="box1" style="background: #d74ea230; border-width:4px; border-color:white; width: 350px; height: 350px; border-radius: 200px;"}
+:::
+
+::: {data-id="box3" style="background: #d74ea270; border-width:4px; border-color:white; width: 250px; height: 250px; border-radius: 200px;"}
+:::
+
+::: {data-id="box2" style="background: #5fa6bcff; border-width:4px; border-color:white; width: 150px; height: 150px; border-radius: 200px;text-align:center;"}
+:::
+:::
+
+::: {style="text-align:center;"}
+[${\color{#d74ea2ff}r}_i = {\color{#5fa6bcff} \rho} + {\color{#d74ea2ff} e}_i$]{style="font-size:100pt;"}
+:::
+
+## Expected Value {auto-animate="true" transition="slide-in"}
+
+The expected value of the effect size estimate (e.g., Pearson correlation) is the average across repeated samples.
+
+$$
+\large{\underset{\mathbb{E}_i[{\color{#d74ea2ff}r}_i]}{\underbrace{{\color{#d74ea2ff}r}_1,{\color{#d74ea2ff}r}_2,{\color{#d74ea2ff}r}_3,...}}}
+$$
+
+An [unbiased]{style="font-size:35pt; color:#5fa6bcff;"} effect size estimator would indicate that the expected value is equal to the target population value,
+
+$$
+\mathbb{E}_i[{\color{#d74ea2ff}r}_i] = {\color{#5fa6bcff}\rho}
+$$
+
+## Expected Value {auto-animate="true" transition="slide-in"}
+
+The expected value of the effect size estimate (e.g., Pearson correlation) is the average across repeated samples.
+
+$$
+\large{\underset{\mathbb{E}_i[{\color{#d74ea2ff}r}_i]}{\underbrace{{\color{#d74ea2ff}r}_1,{\color{#d74ea2ff}r}_2,{\color{#d74ea2ff}r}_3,...}}}
+$$
+
+A [biased]{style="font-size:35pt; color:#d74ea2ff;"} effect size estimator would indicate that the expected value is equal to the target population value,
+
+$$
+\mathbb{E}_i[{\color{#d74ea2ff}r}_i] \neq {\color{#5fa6bcff}\rho}
+$$
+
+## [Unbiased]{style="color:#5fa6bcff;"} Effect Sizes {.center}
+
+An [unbiased]{style="font-size:35pt; color:#5fa6bcff;"} correlation would be,
+
+$$
+\mathbb{E}_i[{\color{#d74ea2ff}r}_i] = {\color{#5fa6bcff}\rho}
+$$
+
+```{r, echo=FALSE,dpi=250,fig.height=4}
+
+set.seed(5)
+# simulate 70 true scores
+k = 20
+scores1 = rnorm(k,0,1.0)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  geom_point(alpha = 1, stroke = 0, size = 4,color = main_color_red) +
+  th_blue + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 text = element_text(color=text_color_blue),
+                 axis.text.y = element_text(size=25),
+                 axis.title.x = element_text(size=25),
+                 axis.text.x = element_text(size=14)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = c(0,TeX('$\\rho$')), breaks=c(-2.5,0),limits = c(-3,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(0,1)), 
+            fill = lightermain_color_red,scale=4, color=main_color_red) +
+  geom_line(aes(x = c(22.9,22.9), y=c(0,1)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="last", type = "closed"),
+            linewidth=1,color = darkmain_color_red) +
+  geom_line(aes(x=c(1:k,1:k),y=c(rep(0,k),scores1),group=c(1:k,1:k)),
+            color=main_color_red, alpha=.7, linewidth = 1) + 
+  geom_hline(yintercept = 0, alpha=.7, linewidth = 1,
+             color = darkmain_color_blue) +
+  geom_hline(yintercept = -2.5, alpha=.3, linewidth = .8,
+             color = main_color_red) +
+  annotate(geom='text',x=2.55,y=.68,label=TeX('$e_i$'), color = text_color_red, size = 7) + 
+  annotate(geom='text',x=22.0,y=.50,label=TeX('$se_r$'), color = text_color_red, size = 7) + 
+  annotate(geom='text',x=5.1,y=2.1,label=TeX('$r_i$'), color = text_color_red, size = 7) +
+  xlab('Sample (i)')+
+  ylab('')
+
+
+```
+
+## [Biased]{style="color:#d74ea2ff;"} Effect Sizes {auto-animate="true"}
+
+An [inflated]{style="font-size:35pt; color:#d74ea2ff;"} effect size estimator can be defined as,
+
+$$
+\mathbb{E}_i[{\color{#d74ea2ff}r}_i] > {\color{#d74ea2ff}}{\color{#5fa6bcff}\rho}
+$$
+
+```{r,echo=FALSE,fig.height=4, warning=FALSE, message=FALSE, dpi=300}
+set.seed(5)
+# simulate 70 true scores
+k = 20
+scores1 = rnorm(k,1,1.0)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  geom_point(alpha = 1, stroke = 0, size = 3.5,color = main_color_red) +
+  th_blue + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 text = element_text(color=text_color_red),
+                 axis.text.y = element_text(size=20)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = c(0,TeX('$\\rho$'),TeX('$E[r_i]$')), 
+                     breaks=c(-2.5,0,1),limits = c(-3,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(1,1)), 
+            fill = lightmain_color_red,scale=4, color=main_color_red) +
+  geom_line(aes(x=c(1:k,1:k),
+                y=c(rep(1,k),scores1),
+                group=c(1:k,1:k)),color=main_color_red, alpha=.7, linewidth = .7) + 
+  geom_hline(yintercept = 0, alpha=.7, linewidth = .8,
+             color = darkmain_color_blue) +
+  geom_hline(yintercept = 1, alpha=.7, linewidth = .8,
+             color = main_color_red,linetype='dashed') +
+  geom_hline(yintercept = -2.5, alpha=.3, linewidth = .8,
+             color = main_color_red) +
+  geom_line(aes(x = c(3.5,3.5), y=c(.95,.05)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=1,color = 'grey20') +
+  annotate(geom='text',x=3.7,y=.5,label=TeX('bias'), color = 'grey20', size = 6,hjust='left') +
+  xlab('Sample (i)')+
+  ylab('')
+```
+
+## [Biased]{style="color:#d74ea2ff;"} Effect Sizes {auto-animate="true"}
+
+An [attenuated]{style="font-size:35pt; color:#d74ea2ff;"} effect size estimator can be defined as,
+
+$$
+\mathbb{E}_i[{\color{#d74ea2ff}r}_i] < {\color{#d74ea2ff}}{\color{#5fa6bcff}\rho}
+$$
+
+```{r,echo=FALSE, warning=FALSE, message=FALSE, dpi=300}
+set.seed(5)
+# simulate 70 true scores
+k = 20
+scores1 = rnorm(k,-1,1.0)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  geom_point(alpha = 1, stroke = 0, size = 3.5,color = main_color_red) +
+  th_blue + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 text = element_text(color=text_color_red),
+                 axis.text.y = element_text(size=20)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = c(0,TeX('$E[r_i]$'),TeX('$\\rho$')), 
+                     breaks=c(-2.5,-1,0),limits = c(-3,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(-1,1)), 
+            fill = lightmain_color_red,scale=4, color=main_color_red) +
+  geom_line(aes(x=c(1:k,1:k),
+                y=c(rep(-1,k),scores1),
+                group=c(1:k,1:k)),color=main_color_red, alpha=.7, linewidth = .7) + 
+  geom_hline(yintercept = 0, alpha=.7, linewidth = .8,
+             color = darkmain_color_blue) +
+  geom_hline(yintercept = -1, alpha=.7, linewidth = .8,
+             color = main_color_red,linetype='dashed') +
+  geom_hline(yintercept = -2.5, alpha=.3, linewidth = .8,
+             color = main_color_red) +
+  geom_line(aes(x = c(2.5,2.5), y=c(-.95,-.05)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=1,color = 'grey20') +
+  annotate(geom='text',x=2.7,y=-.5,label=TeX('bias'), color = 'grey20', size = 6,hjust='left') +
+  xlab('Sample (i)')+
+  ylab('')
+```
+
+## [Effect Sizes]{style="color:#5fa6bcff;"} of Interest
+
+We will focus on two types of effect sizes:
+
+1.  Correlations
+    -   Population value: ${\color{#5fa6bcff}\rho}$
+    -   Estimate: ${\color{#d74ea2ff}r}$
+2.  Standardized Mean Differences
+    -   Population value: ${\color{#5fa6bcff}\delta}$
+    -   Estimate: ${\color{#d74ea2ff}d}$
+
+# [Artifact:]{style="color:#d74ea2ff;"}<br> [M]{style="color:#111;"}[e]{style="color:#333;"}[a]{style="color:#777;"}[s]{style="color:#444;"}[u]{style="color:#666;"}[r]{style="color:#000;"}[e]{style="color:#333;"}[m]{style="color:#888;"}[e]{style="color:#222;"}[n]{style="color:#777;"}[t]{style="color:#111;"} [E]{style="color:#888;"}[r]{style="color:#333;"}[r]{style="color:#666;"}[o]{style="color:#111;"}[r]{style="color:#333;"}
+
+## Measurement
+
+Measurement is the process of quantifying attributes of something.
+
+::: {.fragment .fade-up fragment-index="1"}
+In social psychology, this may come in the form of surveys and questionnaires that are intended to measure some construct related to a set of behaviors, beliefs, personality, etc.
+:::
+
+::: {.fragment .fade-up fragment-index="1"}
+Imprecision in measurement can introduce **severe bias** on effect size estimates
+:::
+
+## Classical Test Theory
+
+Observed (measured) scores ${\color{#666}X}$ can be broken down into true scores ${\color{#5fa6bcff}T}$ and errors ${\color{#d74ea2ff}E}$:
+
+$$
+{\color{#666}X} = {\color{#5fa6bcff}T} + {\color{#d74ea2ff}E}
+$$ **Reliability** describes the repeatability and consistency of observed scores. It is defined either as the correlation between parallel observed scores *or* the squared correlation between observed scores and true scores [^slideshow-1]
+
+[^slideshow-1]: @haertel2006
+
+$$
+\rho_{\color{#666}XX'} =\rho^2_{\color{#666}X{\color{#5fa6bcff}T}}
+$$
+
+## Reliability Estimators
+
+::: {.fragment .fade-in-then-semi-out fragment-index="1" style="color:#bf2986ff;font-size:21pt;"}
+Internal Consistency
+
+-   Coefficient (Cronbach's) Alpha
+-   Coefficient Omega
+-   Split-Half
+-   Kuder-Richardson 20
+-   Item Response Theory
+:::
+
+::: {.fragment .fade-in-then-semi-out fragment-index="2" style="color:#5fa6bcff;font-size:21pt;"}
+Delayed
+
+-   Test-Retest
+-   Delayed Alpha
+:::
+
+::: {.fragment .fade-in-then-semi-out fragment-index="3" style="color:#666;font-size:21pt;"}
+Inter-Rater
+
+-   Inter-Rater Reliability
+:::
+
+## Sources of Measurement Error
+
+Measurement error variance can come from multiple different sources[^slideshow-2].
+
+[^slideshow-2]: @hunter1990a, @wiernik2020
+
+::: {.fragment .fade-in-then-semi-out fragment-index="1" style="font-size:21pt;"}
+1.  [Random Response Error]{style="color:#bf2986ff;"}: Genuine randomness in responses. For example, natural fluctuations in response time. [*Estimators: all*]{style="color:#666;"}
+:::
+
+::: {.fragment .fade-in-then-semi-out fragment-index="2" style="font-size:21pt;"}
+2.  [Transient Error]{style="color:#bf2986ff;"}: Fluctuations that occur across time and environment. For example, fluctuations in scores attributable to illness or fatigue. [*Estimators: delayed estimators*]{style="color:#666;"}
+:::
+
+::: {.fragment .fade-in-then-semi-out fragment-index="3" style="font-size:21pt;"}
+3.  [Item/Test-Specific Error]{style="color:#bf2986ff;"}: Error due to the content in the measure. For example, inconsistent interpretations of test items. [*Estimators: internal consistency estimators*]{style="color:#666;"}
+:::
+
+::: {.fragment .fade-in-then-semi-out fragment-index="4" style="font-size:21pt;"}
+4.  [Rater-Specific Error]{style="color:#bf2986ff;"}: Variation in scores due to differences between raters. For example, Two movie critics rating the quality of a film. [*Estimators: inter-rater reliability*]{style="color:#666;"}
+:::
+
+## Correlation between Scores
+
+::: {.content style="font-size:21pt;"}
+Consider two sets of scores, ${\color{#666}X} = {\color{#5fa6bcff}T} + {\color{#d74ea2ff}E}_{\color{#666}X}$ and ${\color{#666}Y} = {\color{#5fa6bcff}U} + {\color{#d74ea2ff}E}_{\color{#666}Y}$. The reliability of both $X$ and $Y$ is $.80$ and the true score correlation is $.50$.
+:::
+
+```{r,echo=FALSE, warning=FALSE, message=FALSE, dpi=300}
+rTU <- .50
+n = 2500
+dat <- mvrnorm(n=n,
+        mu=c(0,0),
+        Sigma = data.frame(x=c(1,rTU),y=c(rTU,1)))
+set.seed(343)
+
+Ytrue <- dat[,1]
+Xtrue <- dat[,2]
+Xobs <- dat[,1] + rnorm(n,0,.50)
+Yobs <- dat[,2] + rnorm(n,0,.50)
+
+h1 = ggplot(data=NULL, aes(x = Xtrue, y = Ytrue)) +
+  th_blue+ theme(aspect.ratio = 1,
+                         axis.title = element_text(size=15),
+                         title = element_text(size=15)) +
+  geom_point(color= main_color_blue,size=.5,alpha=.8) +
+  scale_x_continuous(limits=c(-3.5,3.5),breaks=NULL) +
+  scale_y_continuous(limits=c(-3.5,3.5),breaks=NULL) +
+  ggtitle('True Score Correlation')+
+  annotate(geom='text',x=-2.4,y=3.2,label='Correlation = .50',color=text_color_blue,size=4.5) +
+  ylab('True Score (U)') +
+  xlab('True Score (T)')
+
+
+h2 = ggplot(data=NULL, aes(x = Xobs, y = Yobs)) +
+  th_red + theme(aspect.ratio = 1,
+                         axis.title = element_text(size=15),
+                         title = element_text(size=15)) +
+  geom_point(color=main_color_red,size=.5,alpha=.8) +
+  scale_x_continuous(limits=c(-3.5,3.5),breaks=NULL) +
+  scale_y_continuous(limits=c(-3.5,3.5),breaks=NULL) +
+  ggtitle('Observed Score Correlation')+
+  annotate(geom='text',x=-2.4,y=3.2,label='Correlation = .40',color=text_color_red,size=4.5) +
+  ylab('Observed Score (Y)') +
+  xlab('Observed Score (X)')
+
+h1 + h2
+  
+```
+
+## Observed Score Correlations as a Function of Reliability
+
+```{r, echo=FALSE, dpi=300}
+rho = c(rep(.0,100),
+        rep(.1,100),
+        rep(.2,100),
+        rep(.3,100),
+        rep(.4,100),
+        rep(.5,100),
+        rep(.6,100),
+        rep(.7,100),
+        rep(.8,100),
+        rep(.9,100),
+        rep(1,100))
+
+rel = c(seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100),
+        seq(0,1,length.out = 100))
+
+r = rho * sqrt(rel)
+
+
+yt = rnorm(0,1,70)
+xt = rnorm(0,1,70)
+
+
+rxx = seq(0,1,length.out=100)
+relMat = rxx %*% t(rxx)
+rB = .5 * sqrt(relMat)
+rB = apply(rB, 2, rev)
+rB = rB
+
+df = as.data.frame(raster::rotate(raster(rB)), xy = TRUE)
+
+h2 <- ggplot(data = df, aes(x = x, y = y,z = layer, fill = layer, color = layer)) +
+    geom_raster() +
+    geom_contour2(aes(label = stat(level)),breaks = seq(.1,.4,by=.1),
+                  color='white',label.placer = label_placer_fraction(frac = 0.5),
+                  skip = 0) + 
+    annotate(geom="text",x = .945, y = .945, label = "0.5", color = 'white',angle = -45) +
+    geom_point(data=NULL, aes(x = .985, y = .985), 
+               color = 'white', fill = 'white',size = .6) +
+    scale_fill_gradient(low = lightmain_color_red, high = darkmain_color_red) +
+    scale_color_gradient(low = lightmain_color_red, high = main_color_red) +
+    scale_x_continuous(limits = c(0,1), expand = c(0, 0),
+                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
+                       breaks = seq(0,1,by=.1)) +
+    scale_y_continuous(limits = c(0,1), expand = c(0, 0),
+                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
+                       breaks = seq(0,1,by=.1)) +
+  xlab(TeX("Reliability of x ($\\rho_{XX'}$)"))+
+  ylab(TeX("Reliability of y ($\\rho_{YY'}$)")) + 
+  ggtitle(label = TeX("True Score Correlation: $\\rho_{TU} =$ .50")) +
+  labs(color=TeX("Observed Score Correlation ($\\rho_{XY}$)"),
+       fill=TeX("Observed Score Correlation ($\\rho_{XY}$)")) +
+    theme(aspect.ratio = 1,
+          panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank(),
+          title = element_text(color = text_color_red),
+          panel.background = element_rect(fill = panel_color_red),
+          panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+          axis.title = element_text(size=14, color = text_color_red),
+          axis.text.x = element_text(size=12, color = text_color_red),
+          axis.text.y = element_text(size=12, color = text_color_red),
+          axis.ticks = element_line(color = border_color_red,linewidth=1)) 
+
+
+h2
+```
+
+## Correcting for Bias in Correlations {auto-animate="true"}
+
+$$
+\rho_{\color{#5fa6bcff}TU} = \frac{\rho_{\color{#666}XY}}{\sqrt{\rho_{\color{#666}XX'}}\sqrt{\rho_{\color{#666}YY'}}}
+$$
+
+```{r,echo=TRUE,message=FALSE}
+library(psychmeta)
+
+correct_r(correction = "meas",
+          rxyi = .40,
+          rxx = .80,
+          ryy = .80,
+          n = 100)
+
+```
+
+::: aside
+@dahlke2019
+:::
+
+## Correcting for Bias in *d* values {auto-animate="true"}
+
+$$
+\delta_{{\color{#666}g}{\color{#5fa6bcff}U}} = \frac{\delta_{\color{#666}gY}}{\sqrt{\rho_{\color{#666}YY'}}}
+$$
+
+```{r,echo=TRUE,message=FALSE}
+library(psychmeta)
+
+correct_d(correction = "meas",
+          d = .45,
+          ryy = .80,
+          n1 = 50,
+          n2 = 50)
+
+```
+
+::: aside
+@dahlke2019
+:::
+
+# [Artifact:]{style="color:#d74ea2ff;"}<br> [Gr]{style="color:#d74ea2ff;"}[o]{style="color:#5fa6bcff;font-size:50pt;"}[up]{style="color:#d74ea2ff;"} [Misclassificati]{style="color:#5fa6bcff;font-size:50pt;"}[o]{style="color:#d74ea2ff;"}[n]{style="color:#5fa6bcff;font-size:50pt;"} {auto-animate="true"}
+
+## [Gr]{style="color:#d74ea2ff;"}[o]{style="color:#5fa6bcff;font-size:50pt;"}[up]{style="color:#d74ea2ff;"} [Misclassificati]{style="color:#5fa6bcff;font-size:50pt;"}[o]{style="color:#d74ea2ff;"}[n]{style="color:#5fa6bcff;font-size:50pt;"} {auto-animate="true"}
+
+Group misclassification is a type of measurement error where *assigned* group membership does not reflect *actual* group membership.
+
+An example of this is Major Depressive Disorder (MDD) misdiagnoses.
+
+## Classification Reliability {auto-animate="true"}
+
+The reliability of group classification can be computed from the $\phi$ coefficient from a contingency table between two parallel group assignments.
+
+::: columns
+::: {.column width="25%"}
+:::
+
+::: {.column width="50%"}
+|                                    |                                   |                                   |
+|:----------------------------------:|:---------------------------------:|:---------------------------------:|
+|                                    | ${\color{#666}g}={\color{#666}0}$ | ${\color{#666}g}={\color{#666}1}$ |
+| ${\color{#666}g'}={\color{#666}0}$ |       $n_{\color{#666}00}$        |       $n_{\color{#666}10}$        |
+| ${\color{#666}g'}={\color{#666}1}$ |       $n_{\color{#666}01}$        |       $n_{\color{#666}11}$        |
+
+: {.hover}
+:::
+
+::: {.column width="25%"}
+:::
+:::
+
+<br> The $\phi$ coefficient will be denoted as $\rho_{\color{#666}gg'}$. Note that $\rho_{\color{#666}gg'}=\rho^2_{{\color{#666}g}{\color{#5fa6bcff}G}}$.
+
+## No Misclassification {auto-animate="true"}
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,dpi=300}
+
+set.seed(343)
+n = 50
+P_mis = 5
+
+dat <- mvrnorm(n = n, mu = c(30,38),Sigma=cbind(c(8*8,0),c(0,8*8)),empirical = TRUE)
+
+`True Score (U)` = c(dat[,1] ,dat[,2])
+
+`Assigned Group (g)` =  c(rep('1',n) , rep('2',n))
+ord = c(rep(4,P_mis),rep(1,n-P_mis),
+        rep(3,P_mis),rep(2,n-P_mis))
+`Actual Group` =  c(rep('2',n) , rep('1',n))
+
+DIFF = (mean(`True Score (U)`[`Assigned Group (g)`=='2'])-mean(`True Score (U)`[`Assigned Group (g)`=='1']))
+SD = (sd(`True Score (U)`[`Assigned Group (g)` == '1']) + sd(`True Score (U)`[`Assigned Group (g)` == '2']))/2
+d = round(DIFF / SD,2)
+
+h1 <- ggplot(data = NULL, aes(y = `Assigned Group (g)`,
+                        x = `True Score (U)`,
+                        shape = `Actual Group`,
+                        fill = `Actual Group`,
+                        color = `Actual Group`,
+                        order = ord,
+                        group = NA)) +
+  geom_dots(side = "top", scale = 0.75,stackratio = 1.1,dotsize=.9, 
+            position = "dodge",linewidth = 1) + 
+  theme_ggdist() + 
+  theme(aspect.ratio = 1,
+        axis.text.y = element_text(size=14),
+        axis.text.x = element_text(size=13),
+        axis.title.y = element_text(size=14),
+        axis.title.x = element_text(size=14),
+        title = element_text(size=13),
+        legend.position = "none") +  
+  scale_fill_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_color_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_shape_manual(values = c(21,22))+
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='2')[`Assigned Group (g)`=='2']+.95,
+                        x = `True Score (U)`[`Assigned Group (g)`=='2'],
+                        shape = `Actual Group`[`Assigned Group (g)`=='2'],
+                        fill = `Actual Group`[`Assigned Group (g)`=='2'],
+                        color = `Actual Group`[`Assigned Group (g)`=='2'],
+                        order = ord[`Assigned Group (g)`=='2'],
+                        group = NA),
+                     shape = 16,point_size = 3.2,
+                     point_color = main_color_blue,
+                     interval_color = main_color_blue) +
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='2')[`Assigned Group (g)`=='1']+.95,
+                        x = `True Score (U)`[`Assigned Group (g)`=='1'],
+                        shape = `Actual Group`[`Assigned Group (g)`=='1'],
+                        fill = `Actual Group`[`Assigned Group (g)`=='1'],
+                        color = `Actual Group`[`Assigned Group (g)`=='1'],
+                        order = ord[`Assigned Group (g)`=='1'],
+                        group = NA),
+                     shape = 15,point_size = 3.2,
+                     point_color = main_color_red,
+                     interval_color =main_color_red) + 
+  annotate('text',x = median(`True Score (U)`[`Assigned Group (g)` == '2']),
+           y = 1.85,
+           label = round(median(`True Score (U)`[`Assigned Group (g)` == '2']),1),
+           color=text_color_blue) +
+  annotate('text',x = median(`True Score (U)`[`Assigned Group (g)` == '1']),
+           y = 0.85,
+           label = round(median(`True Score (U)`[`Assigned Group (g)` == '1']),1),
+           color=text_color_red) +
+  annotate('text',x = 8,y = 2.85,label = TeX("$\\delta_{gU}$ = 1.00"),color="black", hjust='left')
+
+
+h1
+
+```
+
+## With Misclassification {auto-animate="true"}
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,dpi=300}
+set.seed(25)
+n = 50
+P_mis = 5
+
+`True Score (U)` = c(dat[,1] ,dat[,2])
+
+`Assigned Group (g)` = c(rep('2',P_mis) , rep('1',n-P_mis),
+                    rep('1',P_mis), rep('2',n-P_mis))
+ord = c(rep(4,P_mis),rep(1,n-P_mis),
+        rep(3,P_mis),rep(2,n-P_mis))
+`Actual Group` =   c(rep('2',n) , rep('1',n))
+DIFF = (mean(`True Score (U)`[`Assigned Group (g)`=='2'])-mean(`True Score (U)`[`Assigned Group (g)`=='1']))
+SD = (sd(`True Score (U)`[`Assigned Group (g)` == '1']) + sd(`True Score (U)`[`Assigned Group (g)` == '2']))/2
+d = round(DIFF / SD,2)
+h2 <- ggplot(data = NULL, aes(y = `Assigned Group (g)`,
+                        x = `True Score (U)`,
+                        shape = `Actual Group`,
+                        fill = `Actual Group`,
+                        color = `Actual Group`,
+                        order = ord,
+                        group = NA)) +
+  geom_dots(side = "top", scale = 0.75,stackratio = 1.1,dotsize=.9, 
+            position = "dodge",linewidth = 1) + 
+  theme_ggdist() + 
+  theme(aspect.ratio = 1,
+        axis.text.y = element_text(size=14),
+        axis.text.x = element_text(size=13),
+        axis.title.y = element_text(size=14),
+        axis.title.x = element_text(size=14),
+        title = element_text(size=13),
+        legend.position = "none") +  
+  scale_fill_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_color_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_shape_manual(values = c(21,22))+
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='2')[`Assigned Group (g)`=='2']+.95,
+                        x = `True Score (U)`[`Assigned Group (g)`=='2'],
+                        shape = `Actual Group`[`Assigned Group (g)`=='2'],
+                        fill = `Actual Group`[`Assigned Group (g)`=='2'],
+                        color = `Actual Group`[`Assigned Group (g)`=='2'],
+                        order = ord[`Assigned Group (g)`=='2'],
+                        group = NA),
+                     shape = 16,point_size = 3.2,
+                     point_color = main_color_blue,
+                     interval_color = main_color_blue) +
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='2')[`Assigned Group (g)`=='1']+.95,
+                        x = `True Score (U)`[`Assigned Group (g)`=='1'],
+                        shape = `Actual Group`[`Assigned Group (g)`=='1'],
+                        fill = `Actual Group`[`Assigned Group (g)`=='1'],
+                        color = `Actual Group`[`Assigned Group (g)`=='1'],
+                        order = ord[`Assigned Group (g)`=='1'],
+                        group = NA),
+                     shape = 15,point_size = 3.2,
+                     point_color = main_color_red,
+                     interval_color =main_color_red) + 
+  annotate('text',x = median(`True Score (U)`[`Assigned Group (g)` == '2']),
+           y = 1.85,
+           label = round(median(`True Score (U)`[`Assigned Group (g)` == '2']),1),
+           color=text_color_blue) +
+  annotate('text',x = median(`True Score (U)`[`Assigned Group (g)` == '1']),
+           y = 0.85,
+           label = round(median(`True Score (U)`[`Assigned Group (g)` == '1']),1),
+           color=text_color_red) +
+  annotate('text',x = 8,y = 2.85,label = TeX("$\\delta_{gU}$ = 0.70"),color="black", hjust='left')
+
+h2
+```
+
+## Correcting for bias in $d$ values
+
+## Correcting for bias in $d$ values
+
+$$
+\delta_{{\color{#5fa6bcff}GU}}=\frac{\delta_{\color{#666}gY}}{\sqrt{\rho_{\color{#666}gg'}}\sqrt{\rho_{\color{#666}YY'}}}
+$$
+
+```{r,echo=TRUE}
+
+correct_d(correction = "meas",
+          d = .40,
+          rGg = .80,
+          ryy = .80,
+          n1 = 50,
+          n2 = 50)
+
+```
+
+# [Artifact:]{style="color:#d74ea2ff;"}<br>Artificial [Dichot]{style="color:#d74ea2ff;font-size:60pt;"}[omization]{style="color:#5fa6bcff;font-size:50pt;"}
+
+## Artificial [Dichot]{style="color:#d74ea2ff;font-size:50pt;"}[omization]{style="color:#5fa6bcff;font-size:40pt;"}
+
+Artificial dichotomization refers to the procedure of creating a binary variable from a naturally continuous variable.
+
+```{r,echo=FALSE,dpi=300}
+h1 = ggplot(data = NULL, aes(y = 0, 
+                        xdist = distributional::dist_normal(0,1),
+                        fill=after_stat(x<qnorm(.50)))) +
+  stat_dist_slab(size = 0) +  
+  labs(title = "Median Split", y = "Density", x = "Score") + 
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.text.y = element_blank(),
+        axis.title = element_text(size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  scale_fill_manual(values = c(main_color_blue,main_color_red)) +
+  annotate(geom='text',x=-2 , y=.9, label='Low',color=main_color_red,size=6) +
+  annotate(geom='text',x=2 , y=.9, label='High',color=main_color_blue,size=6) +
+  geom_vline(xintercept = 0,color='white')
+h1
+
+```
+
+## Whats the problem? {auto-animate="true"}
+
+The dichotomized scores do not perfectly correlate with their the continuous scores.
+
+```{r, echo=FALSE, dpi=300}
+score <- rnorm(500,0,1)
+di_score <- score
+di_score[score<=0] <- 'Low'
+di_score[score>0] <- 'High'
+di_score = relevel(factor(di_score),ref='Low')
+
+h2 = ggplot(data=NULL, aes(x=di_score,y=score, color = di_score)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7) +
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.title = element_text(color = 'grey30',size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  labs(x = "Dichotomized X", y = 'Continuous X') +
+  scale_color_manual(values = c(main_color_red,main_color_blue)) + 
+  annotate(geom='text',x=1 , y=2, label=paste0('r = ',round(cor(as.numeric(di_score=='High'),score),2)),size=5)
+
+h2
+```
+
+## Whats the problem? {auto-animate="true"}
+
+Consider two continuous scores, ${\color{#666}X}$ and ${\color{#666}Y}$, then we dichotomized ${\color{#666}X}$.
+
+```{r, echo=FALSE, dpi=300}
+
+set.seed(343)
+dat <- MASS::mvrnorm(1000, mu = c(0,0),Sigma = cbind(c(1,.50),c(.50,1)),empirical = TRUE)
+score <- dat[,1]
+di_score <- score
+di_score[score<=0] <- 'Low'
+di_score[score>0] <- 'High'
+di_score = relevel(factor(di_score),ref='Low')
+
+scoreY <- dat[,2]
+di_scoreY <- scoreY
+di_scoreY[scoreY<=0] <- 'Low'
+di_scoreY[scoreY>0] <- 'High'
+di_scoreY = relevel(factor(di_scoreY),ref='Low')
+
+h1 <- ggplot(data=NULL, aes(x=dat[,1],y=dat[,2], color = di_score,shape=di_scoreY)) + 
+  geom_jitter(width = .05,height = 0,alpha=.8,size=.85) +
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.title = element_text(color = 'grey30',size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  labs(x = "Continuous X", y = 'Continuous Y') +
+  scale_color_manual(values = c(main_color_red,main_color_blue)) + 
+  annotate(geom='text',x=-2.5 , y=2.8, 
+           label=format_num(paste0('r = ',round(cor(dat[,1],dat[,2]),2)),digits = 2L),size=5)
+
+h2 <- ggplot(data=NULL, aes(x=di_score,y=dat[,2], color = di_score,shape=di_scoreY)) + 
+  geom_jitter(width = .06,height = 0,alpha=.8,size=.85) +
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.title = element_text(color = 'grey30',size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  labs(x = "Dichotomized X", y = 'Continuous Y') +
+  scale_color_manual(values = c(main_color_red,main_color_blue)) + 
+  annotate(geom='text',x=.8 , y=2.8, 
+           label=format_num(paste0('r = ',round(cor(as.numeric(di_score=='High'),dat[,2]),2)),digits = 2L),size=5)
+
+
+
+
+h3 <- ggplot(data=NULL, aes(x=di_score,di_scoreY, color = di_score,shape=di_scoreY)) + 
+  geom_jitter(width = .15,height = .15,alpha=.5,size=.85) +
+  theme_ggdist()+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(color = 'grey30',size = 17),
+        axis.text.x = element_text(color = 'grey30',size = 14),
+        axis.title = element_text(color = 'grey30',size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  labs(x = "Dichotomized X", y = 'Dichotomized Y') +
+  scale_color_manual(values = c(main_color_red,main_color_blue)) + 
+  annotate(geom='text',x=.8 , y=2.4, 
+           label=paste0('r = ',round(cor(as.numeric(di_score=='High'),as.numeric(di_scoreY=='High')),2)),size=5)
+
+h1 + h2 + h3
+```
+
+<!-- ## Correcting for Dichotomization in R -->
+
+<!-- $$ -->
+
+<!-- \rho_{\color{#666}XY} = \frac{\rho_{{\color{#666}X}{\color{#666}Y}}}{\left[\frac{\varphi(C_{\color{#666}X})}{\sqrt{p_{\color{#666}X} (1-p_{\color{#666}X})}}\right]\left[\frac{\varphi(C_{\color{#666}Y})}{\sqrt{p_{\color{#666}Y} (1-p_{\color{#666}Y})}}\right]} -->
+
+<!-- $$ -->
+
+<!-- ```{r,echo=TRUE} -->
+
+<!-- library(psychmeta) -->
+
+<!-- correct_r_dich(r = .30, px = .50) -->
+
+<!-- correct_r_dich(r = .30, px = .50, py = .50) -->
+
+<!-- ``` -->
+
+# [Artifact:]{style="color:#d74ea2ff;"}<br>Scale [Coa]{style="color:#5fa6bcff;"}[rse]{style="color:#d74ea2ff;"}[ness]{style="color:#397689ff"}
+
+## [Coa]{style="color:#5fa6bcff;"}[rse]{style="color:#d74ea2ff;"}[ness]{style="color:#397689ff"}
+
+Scale coarseness refers to a continuous variable that has been discretized or put into bins. For example, a one-item Likert scale measuring a continuous variable like stress may look like:
+
+<hr>
+
+Statement: [I often feel stressed]{style="color:#444;font-size:25pt"}
+
+1)  [Strongly Agree]{style="color:#444;font-size:25pt"}
+2)  [Slightly Agree]{style="color:#444;font-size:25pt"}
+3)  [Neither Agree or Disagree]{style="color:#444;font-size:25pt"}
+4)  [Slightly Disagree]{style="color:#444;font-size:25pt"}
+5)  [Strongly Disagree]{style="color:#444;font-size:25pt"}
+
+## Coarse Score does not Perfectly Reflect Continuous Score
+
+```{r,echo=FALSE}
+
+library(metR)
+
+set.seed(343)
+score <- rnorm(500,0,1)
+coarse_score <- as.numeric(cut(score,breaks=5))
+
+ggplot(data=NULL, aes(x=coarse_score,y=score)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Coarse Score (5-point Likert)", y = 'True Stress') +
+  annotate(geom='text',x=1.5 , y=2, 
+           label=paste0('r = ',round(cor(score,coarse_score),2)),size=5,
+           color=text_color_red)
+
+
+```
+
+## Attenuation of Correlations
+
+```{r,echo=FALSE}
+
+library(metR)
+
+set.seed(343)
+dat = MASS::mvrnorm(1000,mu=c(0,0),Sigma=cbind(c(1,.50),c(.50,1)),empirical=TRUE)
+
+scoreX <- dat[,1]
+coarse_scoreX <- as.numeric(cut(scoreX,breaks=5))
+
+scoreY <- dat[,2]
+coarse_scoreY <- as.numeric(cut(scoreY,breaks=5))
+
+h1 <- ggplot(data=NULL, aes(x=scoreX,y=scoreY)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Continuous X", y = 'Continuous Y') +
+  ggtitle(label=paste0('r = ',round(cor(scoreX,scoreY),2)))
+
+
+h2 <- ggplot(data=NULL, aes(x=coarse_scoreX,y=scoreY)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Coarse X", y = 'Continuous Y') +
+  ggtitle(label=paste0('r = ',round(cor(coarse_scoreX,scoreY),2)))
+
+h3 <- ggplot(data=NULL, aes(x=coarse_scoreX,y=coarse_scoreY)) + 
+  geom_jitter(width = .05,height = .05,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Coarse X", y = 'Coarse Y') +
+  ggtitle(label=paste0('r = ',round(cor(coarse_scoreX,coarse_scoreY),2)))
+
+h1 + h2 + h3
+
+
+```
+
+<!-- ## Correction for Coarseness in R -->
+
+<!-- Correction for coarseness can be done by applying a correction factor using the table provided in @peters1940 or @aguinis2009. -->
+
+<!-- ```{r,echo=TRUE} -->
+
+<!-- library(psychmeta) -->
+
+<!-- correct_r_coarseness(r = .40, kx = 5) -->
+
+<!-- correct_r_coarseness(r = .40, kx = 5, ky = 5) -->
+
+<!-- correct_r_coarseness(r = .40, kx = 3, ky = 3) -->
+
+<!-- ``` -->
+
+# [Artifact:]{style="color:#d74ea2ff;"}<br> Selection Eff[ects]{style="color:#00000020"}
+
+## Types of Selection Effects
+
+<hr>
+
+-   **Range Restriction**: Selection of individuals into a sample creates a sample with *less* variation than in the population
+
+-   **Range Enhancement**: Selection of individuals into a sample creates a sample with *more* variation than in the population
+
+    <hr>
+
+-   **Direct Selection**: Selection is based one of the variables of interest
+
+-   **Indirect Selection**: Selection is based on a variable that is correlated with the variables of interest
+
+    <hr>
+
+## An Index of Range Restriction/Enhancement
+
+A $u$-ratio quantifies the ratio of the standard deviation in the sample to the full population. For example, let's say we conducted a study regarding SAT scores in college students. The ratio between SAT scores in the applicants (SD=150) and admitted students (SD=200)
+
+::: {.fragment fragment-index="1"}
+$$
+u = \frac{SD_{\text{admitted}}}{SD_{\text{applicants}}} = \frac{150}{200} = 0.75
+$$
+:::
+
+::: {.fragment fragment-index="1"}
+Since the $u$-ratio is below 1, this indicates range restriction in the admitted students.
+:::
+
+## Direct Range Restriction
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+h1 <- ggplot(data = NULL, aes(y = 0, 
+                        xdist = distributional::dist_normal(0,1),
+                        fill=after_stat(x<qnorm(.20)),
+                        alpha=after_stat(x<qnorm(.20)))
+       ) +
+  stat_dist_slab(linewidth = 0) +  
+  labs(title = "Restricted Scores", y = "", x = "X") + 
+  th_red+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(size = 17),
+        axis.text.x = element_text(size = 14),
+        axis.ticks.y = element_line(colour = 'transparent'),
+        axis.text.y = element_blank(),
+        axis.title = element_text(color = text_color_red,size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  scale_fill_manual(values = c(main_color_red,main_color_red)) +
+  scale_alpha_manual(values = c(1,.3)) +
+  annotate(geom='text',x=-2 , y=.6,
+           label='Rejected',color=main_color_red,size=5,alpha=.7) +
+  annotate(geom='text',x=2 , y=.6,
+           label='Selected',color=main_color_red,size=5) +
+  geom_vline(xintercept = qnorm(.20),color='white')
+
+
+h2 <- ggplot(data = NULL, aes(y = 0, 
+                        xdist = distributional::dist_normal(0,1),
+                        fill=after_stat(x<qnorm(.20)),
+                        alpha=after_stat(x<qnorm(.20)))
+       ) +
+  stat_dist_slab(linewidth = 0) +  
+  labs(title = "Unrestricted Scores", y = "Number of Subjects", x = "X") + 
+  th_red+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(size = 17),
+        axis.text.x = element_text(size = 14),
+        axis.ticks.y = element_line(colour = 'transparent'),
+        axis.text.y = element_blank(),
+        axis.title = element_text(color = text_color_red,size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  scale_fill_manual(values = c(main_color_red,main_color_red)) +
+  scale_alpha_manual(values = c(1,1))
+
+h2 + h1
+```
+
+## Direct Range Restriction {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+set.seed(343)
+# simulate 70 true scores
+
+n = 2000
+data = mvrnorm(n,mu=c(0,0),Sigma=reshape_vec2mat(.5),empirical = TRUE)
+x = data[,1]
+y = data[,2]
+Selected <- x > -.5
+
+h1 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Univariate Range Restriction') 
+
+
+h1
+
+```
+
+## Direct Range Restriction {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+
+
+Selected <- x > -.5 & y > -.5
+
+h2 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=1.7,
+           label=TeX(paste0('$\\u_{y}$ = ',numform(sd(y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Bivariate Range Restriction') 
+
+h2
+
+```
+
+## Direct Range Enhancement {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+set.seed(343)
+# simulate 70 true scores
+
+n = 2000
+data = mvrnorm(n,mu=c(0,0),Sigma=reshape_vec2mat(.5),empirical = TRUE)
+x = data[,1]
+y = data[,2]
+Selected <- x < -.5 | x > .5
+
+h1 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Univariate Range Enhancement') 
+
+
+h1
+
+```
+
+## Direct Range Enhancement {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+
+
+Selected <- (x < -.5 | x > .5) & (y < -.5 | y > .5)
+
+h2 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=1.7,
+           label=TeX(paste0('$\\u_{y}$ = ',numform(sd(y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Bivariate Range Enhancement') 
+
+h2
+
+```
+
+## Indirect Range Restriction {auto-animate="true"}
+
+```{r,dpi=300}
+z = x + rnorm(1000,0,.74)
+Selected <- z > -1
+Selected = ifelse(Selected, "selected", "rejected")
+
+h1 <- ggplot(data = NULL, aes(y = 0, 
+                        xdist = distributional::dist_normal(0,1),
+                        fill=after_stat(x<qnorm(.20)),
+                        alpha=after_stat(x<qnorm(.20)))
+       ) +
+  stat_dist_slab(linewidth = 0) +  
+  labs(title = "Restricted Scores", y = "", x = "Z") + 
+  th_red+
+  theme(plot.background = element_rect(color = 'transparent'),
+        panel.background = element_rect(fill = 'transparent'),
+        text = element_text(size = 17),
+        axis.text.x = element_text(size = 14),
+        axis.ticks.y = element_line(colour = 'transparent'),
+        axis.text.y = element_blank(),
+        axis.title = element_text(color = text_color_red,size = 17),
+        legend.position = 'none',
+        aspect.ratio = 1) +
+  scale_fill_manual(values = c(main_color_red,main_color_red)) +
+  scale_alpha_manual(values = c(1,.3)) +
+  annotate(geom='text',x=-2 , y=.6,
+           label='Rejected',color=main_color_red,size=5,alpha=.7) +
+  annotate(geom='text',x=2 , y=.6,
+           label='Selected',color=main_color_red,size=5) +
+  geom_vline(xintercept = qnorm(.20),color='white')
+
+
+
+
+h2 <- ggplot(data=NULL,aes(x = x))  +
+  stat_slab(aes(y = as.numeric(Selected=='selected'), 
+                side = ifelse(Selected == "selected", "bottom", "top"),
+                alpha = Selected,color='transparent'),
+    na.rm = TRUE, scale = 1/3,fill=main_color_blue,color=main_color_blue) +
+  stat_slab(aes(xdist = distributional::dist_normal(0,1), 
+                y=1,
+                side = "bottom"),
+            scale = 1/3.2,fill="#00000000",color="grey50") +
+  stat_smooth(aes(y = as.numeric(Selected=='selected')),
+              method = 'glm', 
+              method.args = list(family='binomial'),
+              se = FALSE,
+              color = text_color_blue,linewidth=2) +
+  coord_cartesian(expand = FALSE) +
+  theme(legend.position = 'none',
+        title = element_text(color = text_color_blue,size=17)) +
+  scale_fill_brewer() +
+  annotate(geom='text',x=-1.8,y=.83,label='Selected',color=text_color_blue) +
+  annotate(geom='text',x=2,y=.25,label='Rejected',color=text_color_blue, alpha = .4) +
+  scale_alpha_manual(values = c(.25,.7)) +
+  th_blue +
+  labs(
+    title = "Indirect Selection on Z",
+    x = "X",
+    y = "Probability of Selection"
+  )
+
+
+h1 + h2
+```
+
+## Indirect Range Restriction {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+set.seed(343)
+# simulate 70 true scores
+data <- mvrnorm(n=2000,mu=c(0,0),
+                Sigma = reshape_vec2mat(c(.5)),
+                empirical=TRUE)
+
+x = data[,1]
+y = data[,2]
+z = x + rnorm(2000,0,.5)
+Selected <- z > 0
+
+
+
+h1 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Univariate Range Restriction') 
+
+
+h1
+
+```
+
+## Indirect Range Restriction {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+set.seed(343)
+# simulate 70 true scores
+data <- mvrnorm(n=2000,
+                mu=c(0,0,0),
+                Sigma = reshape_vec2mat(c(.5,.8,.8)),
+                empirical=TRUE)
+
+x = data[,1]
+y = data[,2]
+z = data[,3]
+
+Selected <- z > -.5
+
+h1 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Bivariate Range Restriction') 
+
+
+h1
+
+```
+
+## Indirect Range Enhancement {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+
+
+Selected <- z < -.9 | z > .9
+
+
+
+h1 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Univariate Range Enhancement') 
+
+
+h1
+
+```
+
+## Indirect Range Enhancement {auto-animate="true"}
+
+```{r, echo=FALSE,warning=FALSE, dpi = 300}
+
+
+Selected <- (z < -.8 | z > .8) & (z < -.8 | z > .8)
+
+h2 <- ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_blue) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_blue,size=17),
+        panel.background = element_rect(fill = panel_color_blue),
+        panel.border = element_rect(fill = NA, color = border_color_blue,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_blue),
+        axis.text = element_text(size=14, color = text_color_blue),
+        axis.ticks = element_line(color = border_color_blue,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_blue,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=1.7,
+           label=TeX(paste0('$\\u_{y}$ = ',numform(sd(y[Selected])))),
+           color = text_color_blue, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Bivariate Range Enhancement') 
+
+h2
+
+```
+
+## Correcting For Selection Effects {auto-animate="true"}
+
+```{r, echo=TRUE}
+
+correct_r(correction = "uvdrr_x",
+          rxyi = .30,
+          ux = .70,
+          n = 100)
+
+correct_r(correction = "uvirr_x",
+          rxyi = .30,
+          ux = .70,
+          n = 100)
+
+```
+
+## Interactive Shiny App
+
+[matthewbjane.shinyapps.io/effect_size_artifact_bias/](https://matthewbjane.shinyapps.io/effect_size_artifact_bias/)
+
+## Conclusion
+
+In sum, artifacts are introduced into virtually every single study we conduct. Applying corrections can provide unbiased estimates of the target estimates.
+
+The book ***Artifact Corrections for Effect Sizes*** will be an open-access guide to the theory and application of artifacts and their corrections. I will post about the release on Twitter ({{< fa brands twitter >}}MatthewBJane).
+
+## Thank You
+
+Thanks to my unbelievable team of advisors that have been a tremendous help on this project.
+
+-   Dr. Blair T. [Johnson]{style="color:#d74ea2ff;"}
+-   Dr. Christopher [Rhoads]{style="color:#d74ea2ff;"}
+-   Dr. Elizabeth [Schifano]{style="color:#d74ea2ff;"}
+
+## References
+
+::: {#references}
+:::
+
+<!-- # Appendix -->
+
+<!-- ## Small Sample Bias -->
+
+<!-- In some cases, effect size estimators like Cohen's $d$ and Pearson's $r$ are only *asymptotically* unbiased estimators.  -->
+
+<!-- An asymptotically unbiased estimator can be represented as: -->
+
+<!-- $$ -->
+
+<!-- \mathbb{E}_i[{\color{#d74ea2ff}d}_i] \overset{_{n}}{\asymp} {\color{#5fa6bcff}\delta} -->
+
+<!-- $$ -->
+
+<!-- ## Small Sample Size in Cohen's $d$ -->
+
+<!-- Cohen's $d$ is [inflated]{style="font-size:35pt; color:#5fa6bcff;"} in small samples. $\mathbb{E}_i[{\color{#d74ea2ff}d}_i] > {\color{#5fa6bcff}\delta}$ -->
+
+<!-- ```{r,echo=FALSE, dpi=300} -->
+
+<!-- n <- 5:40 -->
+
+<!-- d <- seq(0,1.0,length.out=100) -->
+
+<!-- sims <- expand.grid(n,d) -->
+
+<!-- a <- (sqrt((sims$Var1-2)/2) * gamma((sims$Var1-3)/2)/gamma((sims$Var1-2)/2)) -->
+
+<!-- ggplot(data = NULL, aes(x = sims$Var1,  -->
+
+<!--                         y = sims$Var2, -->
+
+<!--                         fill=sims$Var2-sims$Var2/a, -->
+
+<!--                         color=sims$Var2-sims$Var2/a)) + -->
+
+<!--     geom_point(shape = 15,size=2.3) + -->
+
+<!--     scale_fill_gradient2(high = main_color_blue,  -->
+
+<!--                          low = 'white', -->
+
+<!--                          midpoint = .15, -->
+
+<!--                          mid = main_color_blue, -->
+
+<!--                          limits=c(0,.3), -->
+
+<!--                          breaks = c(0,.3)) + -->
+
+<!--     scale_color_gradient2(high = main_color_blue,  -->
+
+<!--                          low = 'white', -->
+
+<!--                          midpoint = .15, -->
+
+<!--                         mid = main_color_blue, -->
+
+<!--                          limits=c(0,.3), -->
+
+<!--                          breaks = c(0,.3)) + -->
+
+<!--     scale_x_continuous(limits = c(4,40), expand = c(0, 0), -->
+
+<!--                        labels = seq(0,40,by=5), -->
+
+<!--                        breaks = seq(0,40,by=5)) + -->
+
+<!--     scale_y_continuous(limits = c(0,1), expand = c(0, 0), -->
+
+<!--                        labels = c('0','','.20','','.40','','.60','','.80','','1.00'), -->
+
+<!--                        breaks = seq(0,1,by=.1)) + -->
+
+<!--   xlab(TeX("Sample Size (n)"))+ -->
+
+<!--   ylab(TeX("Estimated SMD (d)")) +  -->
+
+<!--   th_blue + theme(aspect.ratio = 1,panel.background = element_rect(fill='white')) + -->
+
+<!--   labs(fill = "bias",col = "bias") -->
+
+<!-- ``` -->
+
+<!-- # [Artifact:]{style="color:#d74ea2ff;"}<br> [S]{style="font-size:74pt"}[m]{style="font-size:70pt"}[a]{style="font-size:66pt"}[l]{style="font-size:62pt"}[l]{style="font-size:58pt"} [ S]{style="font-size:54pt"}[a]{style="font-size:50pt"}[m]{style="font-size:46pt"}[p]{style="font-size:42pt"}[l]{style="font-size:38pt"}[e]{style="font-size:34pt"} [B]{style="font-size:30pt"}[i]{style="font-size:26pt"}[a]{style="font-size:22pt"}[s]{style="font-size:18pt"} -->
+
+<!-- ## Small Sample Bias in Pearson's $r$ -->
+
+<!-- Pearson's $r$ is [attenuated]{style="font-size:35pt; color:#d74ea2ff;"} in small samples. $\mathbb{E}_i[{\color{#d74ea2ff}r}_i] < {\color{#5fa6bcff}\rho}$ -->
+
+<!-- ```{r,echo=FALSE, dpi=300} -->
+
+<!-- n <- 5:40 -->
+
+<!-- r <- seq(0,1,length.out=100) -->
+
+<!-- sims <- expand.grid(n,r) -->
+
+<!-- a <- 2*(sims$Var1-3)/(2*sims$Var1-sims$Var2^2-5) -->
+
+<!-- ggplot(data = NULL, aes(x = sims$Var1,  -->
+
+<!--                         y = sims$Var2, -->
+
+<!--                         fill=sims$Var2-sims$Var2/a, -->
+
+<!--                         color=sims$Var2-sims$Var2/a)) + -->
+
+<!--     geom_point(shape = 15,size=2.3) + -->
+
+<!--     scale_fill_gradient(low = main_color_red,  -->
+
+<!--                         high = 'white', -->
+
+<!--                          limits=c(-.1,0), -->
+
+<!--                          breaks = c(-.1,0)) + -->
+
+<!--     scale_color_gradient(low = main_color_red,  -->
+
+<!--                          high = 'white', -->
+
+<!--                         limits=c(-.1,0), -->
+
+<!--                          breaks = c(-.1,0)) + -->
+
+<!--     scale_x_continuous(limits = c(4,40), expand = c(0, 0), -->
+
+<!--                        labels = seq(0,40,by=5), -->
+
+<!--                        breaks = seq(0,40,by=5)) + -->
+
+<!--     scale_y_continuous(limits = c(0,1), expand = c(0, 0), -->
+
+<!--                        labels = c('0','','.20','','.40','','.60','','.80','','1.00'), -->
+
+<!--                        breaks = seq(0,1,by=.1)) + -->
+
+<!--   xlab(TeX("Sample Size (n)"))+ -->
+
+<!--   ylab(TeX("Estimated Correlation (r)")) +  -->
+
+<!--   th_red + theme(aspect.ratio = 1,panel.background = element_rect(fill='white')) + -->
+
+<!--   labs(fill = "bias",col = "bias") -->
+
+<!-- ``` -->
+
+<!-- ## Correcting for Small Sample Bias in $d$ -->
+
+<!-- ```{r, echo = TRUE} -->
+
+<!-- # install.packages('gsl') -->
+
+<!-- library(metafor) -->
+
+<!-- metafor::escalc(measure = 'SMD', -->
+
+<!--                 m1i = 35,  m2i = 30,   # means of groups 1 and 2 -->
+
+<!--                 sd1i = 10, sd2i = 10,  # standard deviations of groups 1 and 2 -->
+
+<!--                 n1i = 15,  n2i = 15)   # sample sizes of groups 1 and 2 -->
+
+<!-- ``` -->
+
+<!-- ## Correcting for Small Sample Bias in $r$ -->
+
+<!-- ```{r, echo = TRUE} -->
+
+<!-- # install.packages('gsl') -->
+
+<!-- library(metafor) -->
+
+<!-- metafor::escalc(measure = 'UCOR', -->
+
+<!--                 ri = .40, -->
+
+<!--                 ni = 10) -->
+
+<!-- ``` -->

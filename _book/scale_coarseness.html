@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artifact Corrections for Effect Sizes - 8&nbsp; Scale Coarseness</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./direct_range_restriction.html" rel="next">
+<link href="./artificial_dichotomization.html" rel="prev">
+<link href="./figure/favicon_book.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 8&nbsp; Scale Coarseness">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/figure/MJB_twitter.jpg">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./small_samples.html">Artifact Corrections</a></li><li class="breadcrumb-item"><a href="./scale_coarseness.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Artifact-Corrections-for-Effect-Sizes.pdf" rel="" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Artifact Corrections</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./small_samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Small Samples</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./unreliability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Unreliability</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./misclassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./artificial_dichotomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scale_coarseness.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./direct_range_restriction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./indirect_range_restriction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Application to Meta-Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metaanalysis_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Introduction to Meta-Analysis Methods</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./artifact_correction_metaanalysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Artifact Correction Meta-Analysis</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">References</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">8.1</span> Introduction</a></li>
+  <li><a href="#correcting-for-coarseness-in-correlations" id="toc-correcting-for-coarseness-in-correlations" class="nav-link" data-scroll-target="#correcting-for-coarseness-in-correlations"><span class="header-section-number">8.2</span> Correcting for Coarseness in Correlations</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-target-quantity" id="toc-defining-our-target-quantity" class="nav-link" data-scroll-target="#defining-our-target-quantity"><span class="header-section-number">8.2.1</span> Defining our Target Quantity</a></li>
+  <li><a href="#sec-coarse-cor" id="toc-sec-coarse-cor" class="nav-link" data-scroll-target="#sec-coarse-cor"><span class="header-section-number">8.2.2</span> Artifact Correction for Coarseness</a></li>
+  <li><a href="#correcting-correlations-in-r" id="toc-correcting-correlations-in-r" class="nav-link" data-scroll-target="#correcting-correlations-in-r"><span class="header-section-number">8.2.3</span> Correcting Correlations in R</a></li>
+  </ul></li>
+  <li><a href="#correcting-for-coarseness-in-d-values" id="toc-correcting-for-coarseness-in-d-values" class="nav-link" data-scroll-target="#correcting-for-coarseness-in-d-values"><span class="header-section-number">8.3</span> Correcting for Coarseness in <em>d</em> values</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-target-quantity-1" id="toc-defining-our-target-quantity-1" class="nav-link" data-scroll-target="#defining-our-target-quantity-1"><span class="header-section-number">8.3.1</span> Defining our Target Quantity</a></li>
+  <li><a href="#artifact-correction-for-coarseness" id="toc-artifact-correction-for-coarseness" class="nav-link" data-scroll-target="#artifact-correction-for-coarseness"><span class="header-section-number">8.3.2</span> Artifact Correction for Coarseness</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">8.1</span> Introduction</h2>
+<p>Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase <span class="citation" data-cites="aguinis2009">(<a href="references_page.html#ref-aguinis2009" role="doc-biblioref">Aguinis, Pierce, and Culpepper 2009</a>)</span>. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement procedure itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. This can be visualized by correlating coarse scores with their underlying continuous scores (see <a href="#fig-coarse-self">Figure&nbsp;<span>8.1</span></a>). You will notice that the correlation between coarse and continuous scores is not perfect, indicating that the coarse scores do not perfectly capture the underlying continuous scores.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-coarse-self" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="scale_coarseness_files/figure-html/fig-coarse-self-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;8.1: Scatterplot showing the correlation between coarse scores (on a 5-point scale) and the underlying continuous scores.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="correcting-for-coarseness-in-correlations" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="correcting-for-coarseness-in-correlations"><span class="header-section-number">8.2</span> Correcting for Coarseness in Correlations</h2>
+<section id="defining-our-target-quantity" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="defining-our-target-quantity"><span class="header-section-number">8.2.1</span> Defining our Target Quantity</h3>
+<p>Our quantity of interest is the population correlation, <span class="math inline">\(\rho\)</span>, between continuous independent variable, <span class="math inline">\(X\)</span>, and continuous dependent variable, <span class="math inline">\(Y\)</span>. However, in a given study the measurement procedure may produce coarse scores for <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. We will denote coarse scores with the subscript <span class="math inline">\(C\)</span> We can model the relationship between the observed sample correlation on coarse scores and the true population correlation,</p>
+<p><span class="math display">\[
+r_{X_CY_C} = a\rho_{XY}+e.
+\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is our artifact attenuation factor and <span class="math inline">\(e\)</span> is our sampling error term. We can obtain an unbiased estimate of the continuous population correlation, <span class="math inline">\(\rho_{XY}\)</span>, by dividing the observed correlation by an estimate of the attenuation factor,</p>
+<p><span class="math display">\[
+r_{XY} = \frac{r_{X_CY_C}}{\hat{a}}.
+\]</span></p>
+</section>
+<section id="sec-coarse-cor" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="sec-coarse-cor"><span class="header-section-number">8.2.2</span> Artifact Correction for Coarseness</h3>
+<p>Correlating a coarse score with another variable will cause attenuation of the correlation <span class="citation" data-cites="maccallum2002">(<a href="references_page.html#ref-maccallum2002" role="doc-biblioref">MacCallum et al. 2002</a>)</span>. Furthermore if we correlate a coarse score with another coarse score than we will observe even more attenuation (see <a href="#fig-coarse-other">Figure&nbsp;<span>8.2</span></a>). There are two cases that we can run into: 1) the univariate case where only one variable is coarse and 2) the bivariate case where both variables are coarse.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-coarse-other" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="scale_coarseness_files/figure-html/fig-coarse-other-1.png" class="img-fluid figure-img" width="2100"></p>
+<figcaption class="figure-caption">Figure&nbsp;8.2: First plot (left to right) shows both variables as continuous and normal. The second plot shows coarseness (5-point scale) only on X, leaving Y continuous (<span class="math inline">\(r_{X_CY}=.47\)</span>). Last plot shows coarseness on both variables (<span class="math inline">\(r_{X_CY_C}=.47\)</span>).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>To correct the correlation between coarse scores for <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, we need to know the correlation between coarse scores and their underlying continuous scores (<span class="math inline">\(r_{XX_C}\)</span> or <span class="math inline">\(r_{YY_C}\)</span>). The calculation of the correlation will require us two important assumptions:</p>
+<ol type="1">
+<li>The shape of the underlying distribution (i.e., normal or uniform).</li>
+<li>The intervals between scale-points are equal.</li>
+</ol>
+<p>Based on these assumptions, <span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="references_page.html#ref-peters1940" role="doc-biblioref">1940</a>)</span> constructed a table of correlations between coarse and continuous scores that is also reported more recently by <span class="citation" data-cites="aguinis2009">Aguinis, Pierce, and Culpepper (<a href="references_page.html#ref-aguinis2009" role="doc-biblioref">2009</a>)</span>. <a href="#tbl-coarse">Table&nbsp;<span>8.1</span></a> is adapted from <span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="references_page.html#ref-peters1940" role="doc-biblioref">1940</a>)</span> and displays the correlation values for uniform and normal distributions for a given number of scale points. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well <span class="citation" data-cites="wylie1976">(<a href="references_page.html#ref-wylie1976" role="doc-biblioref">Wylie 1976</a>)</span>.</p>
+<div id="tbl-coarse" class="anchored">
+<table class="table">
+<caption>Table&nbsp;8.1: Correlations between continuous and coarse scores (<span class="math inline">\(r_{XX_C}\)</span>) from <span class="citation" data-cites="peters1940">Peters and Voorhis (<a href="references_page.html#ref-peters1940" role="doc-biblioref">1940</a>)</span></caption>
+<colgroup>
+<col style="width: 24%">
+<col style="width: 36%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Scale Points</th>
+<th style="text-align: center;">Continuous-Coarse score Correlation (normal)</th>
+<th style="text-align: center;">Continuous-Coarse score Correlation (uniform)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">.816</td>
+<td style="text-align: center;">.866</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">.859</td>
+<td style="text-align: center;">.943</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">.916</td>
+<td style="text-align: center;">.968</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">.943</td>
+<td style="text-align: center;">.980</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">.960</td>
+<td style="text-align: center;">.986</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">7</td>
+<td style="text-align: center;">.970</td>
+<td style="text-align: center;">.990</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">.977</td>
+<td style="text-align: center;">.992</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">.982</td>
+<td style="text-align: center;">.994</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">.985</td>
+<td style="text-align: center;">.995</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">11</td>
+<td style="text-align: center;">.988</td>
+<td style="text-align: center;">.996</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">.990</td>
+<td style="text-align: center;">.997</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">.991</td>
+<td style="text-align: center;">.997</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">14</td>
+<td style="text-align: center;">.992</td>
+<td style="text-align: center;">.997</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">.994</td>
+<td style="text-align: center;">.998</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The correlations between coarse and continuous scores (<span class="math inline">\(r_{XX_C}\)</span> and <span class="math inline">\(r_{YY_C}\)</span>) can be used to correct the correlation coefficient</p>
+<p><span class="math display">\[
+r_{XY} = \frac{r_{X_CY_C}}{r_{XX_C}r_{YY_C}}.
+\]</span></p>
+<p>Where <span class="math inline">\(r_{XX'}\)</span> and <span class="math inline">\(r_{YY'}\)</span> are the appropriate correction factors from the table for <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. We must also adjust the sampling variance as well,</p>
+<p><span class="math display">\[
+\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2_x a^2_y}.
+\]</span></p>
+</section>
+<section id="correcting-correlations-in-r" class="level3" data-number="8.2.3">
+<h3 data-number="8.2.3" class="anchored" data-anchor-id="correcting-correlations-in-r"><span class="header-section-number">8.2.3</span> Correcting Correlations in R</h3>
+<p>To correct scale coarseness in R, we can use the table in <a href="#sec-coarse-cor"><span>Section&nbsp;8.2.2</span></a>. Lets start by simulating a coarse data (5 scale-points for x and 7 scale-points for y) set of 500 individuals with a true population correlation of <span class="math inline">\(\rho = .50\)</span>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Applied Example in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Imagine that a researcher wants to relate depression and age. They collect a sample of 1,000 people from the general population and administer a very quick survey. Depression is measured based on a single item from the patient health questionnaire <span class="citation" data-cites="kroenke2003">(PHQ, <a href="references_page.html#ref-kroenke2003" role="doc-biblioref">Kroenke, Spitzer, and Williams 2003</a>)</span> and age is measured in 5 age ranges:</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><strong>Over the last 2 weeks, how often have you been bothered by the following problems?</strong></p>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<p><strong>What is your age?</strong></p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:45%;">
+<ol type="1">
+<li>Not at all</li>
+<li>Several days</li>
+<li>More than half the days</li>
+<li>Nearly every day</li>
+</ol>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<ol type="1">
+<li>1-20 years</li>
+<li>21-40 years</li>
+<li>41-60 years</li>
+<li>61-80 years</li>
+<li>81+ years</li>
+</ol>
+</div>
+</div>
+<p>Let’s say we obtain a correlation of <span class="math inline">\(r_{X_C Y_C}=-.20\)</span>. Since the correlation is computed on coarse scores, it is likely attenuated relative to the correlation on each variables continuous underlying scores. Therefore we can use the <code>correct_r_coarseness()</code> function in the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span> to correct the correlation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">correct_r_coarseness</span>(<span class="at">r =</span> <span class="sc">-</span>.<span class="dv">20</span>, <span class="co"># observed correlation</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">kx =</span> <span class="dv">5</span>, <span class="co"># 5 age range bins</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">ky =</span> <span class="dv">4</span>,  <span class="co"># 4 PHQ item options</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">n =</span> <span class="dv">1000</span>, <span class="co"># sample size</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dist_x =</span> <span class="st">"unif"</span>, <span class="co"># assumed X distribution</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">dist_y =</span> <span class="st">"norm"</span>) <span class="co"># assumed Y distribution</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  r_corrected var_e_corrected    n_adj
+1  -0.2230339     0.001147251 788.0867</code></pre>
+</div>
+</div>
+<p>We see a slight increase in the magnitude of the correlation with the estimated correlation on continuous scores being <span class="math inline">\(r_{XY}=-.22\)</span> and a standard error of <span class="math inline">\(se(r_{XY})=\sqrt{.0011}=0.034\)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="correcting-for-coarseness-in-d-values" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="correcting-for-coarseness-in-d-values"><span class="header-section-number">8.3</span> Correcting for Coarseness in <em>d</em> values</h2>
+<section id="defining-our-target-quantity-1" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="defining-our-target-quantity-1"><span class="header-section-number">8.3.1</span> Defining our Target Quantity</h3>
+<p>Our quantity of interest is the population standardized mean difference, <span class="math inline">\(\delta_{gY}\)</span>, between groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> on continuous variable, <span class="math inline">\(Y\)</span>. We can define the standardized mean difference on coarse scores (<span class="math inline">\(d_{gY_C}\)</span>) as,</p>
+<p><span class="math display">\[
+d_{gY_C} = a\delta_{gY}+\varepsilon.
+\]</span></p>
+<p>Where <span class="math inline">\(a\)</span> is our coarseness biasing factor and <span class="math inline">\(\varepsilon\)</span> is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population standardized mean difference on continuous scores by correcting the observed standardized mean difference as follows,</p>
+<p><span class="math display">\[
+d_{gY} = \frac{d_{gY_C}}{\hat{a}}.
+\]</span></p>
+</section>
+<section id="artifact-correction-for-coarseness" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="artifact-correction-for-coarseness"><span class="header-section-number">8.3.2</span> Artifact Correction for Coarseness</h3>
+<p>To correct a standardized mean difference for coarseness in dependent variable, we can use the correlation between coarse scores and continuous scores from <a href="#tbl-coarse">Table&nbsp;<span>8.1</span></a>,</p>
+<p><span class="math display">\[
+d_{gY} = \frac{d_{gY_C}}{r_{YY_C}}.
+\]</span></p>
+<p>Where <span class="math inline">\(r_{YY_C}\)</span> is the appropriate correction factor from the table. We must also adjust the standard error,</p>
+<p><span class="math display">\[
+se(d_{gY}) = \frac{se(d_{gY_C})}{r_{YY_C}}.
+\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Applied Example in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s say that a researcher wants to investigate gender differences in depression. The researcher administers a survey to a sample of men and women from the general population. Depression is measured based on a single item from the patient health questionnaire <span class="citation" data-cites="kroenke2003">(PHQ, <a href="references_page.html#ref-kroenke2003" role="doc-biblioref">Kroenke, Spitzer, and Williams 2003</a>)</span>:</p>
+<p><strong>Over the last 2 weeks, how often have you been bothered by the following problems?</strong></p>
+<ol type="1">
+<li>Not at all</li>
+<li>Several days</li>
+<li>More than half the days</li>
+<li>Nearly every day</li>
+</ol>
+<p>Let’s say we obtain a standardized mean difference of <span class="math inline">\(d_{g Y_C}=.25\)</span>, slightly favoring women. Since there is currently no <code>correct_d_coarseness()</code> function in <code>psychmeta</code>, we can simply correct the correlation with base R. again however we will need t in the <code>psychmeta</code> package <span class="citation" data-cites="dahlke2019">(<a href="references_page.html#ref-dahlke2019" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span> to correct the correlation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dgYc <span class="ot">&lt;-</span> .<span class="dv">25</span> <span class="co"># standardized mean difference on coarse scores</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>se.dgYc <span class="ot">&lt;-</span> .<span class="dv">10</span> <span class="co"># standardized mean difference on coarse scores</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>rYYc <span class="ot">&lt;-</span> .<span class="dv">916</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>dgY <span class="ot">&lt;-</span> dgYc <span class="sc">/</span> rYYc <span class="co"># correct d</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>se.dgY <span class="ot">&lt;-</span> se.dgYc <span class="sc">/</span> rYYc <span class="co"># correct se</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># print results</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(dgY, se.dgY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           dgY    se.dgY
+[1,] 0.2729258 0.1091703</code></pre>
+</div>
+</div>
+<p>We see a slight increase in the magnitude of the correlation with the estimated correlation on continuous scores being <span class="math inline">\(d_{gY}=.27\)</span> and a standard error of <span class="math inline">\(se(d_{gY})=.109\)</span>.</p>
+</div>
+</div>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-aguinis2009" class="csl-entry" role="listitem">
+Aguinis, Herman, Charles A Pierce, and Steven A Culpepper. 2009. <span>“Scale Coarseness as a Methodological Artifact,”</span> September.
+</div>
+<div id="ref-dahlke2019" class="csl-entry" role="listitem">
+Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
+</div>
+<div id="ref-kroenke2003" class="csl-entry" role="listitem">
+Kroenke, Kurt, Robert L. Spitzer, and Janet B. W. Williams. 2003. <span>“The Patient Health Questionnaire-2: Validity of a Two-Item Depression Screener.”</span> <em>Medical Care</em> 41 (11): 1284–92. <a href="https://www.jstor.org/stable/3768417">https://www.jstor.org/stable/3768417</a>.
+</div>
+<div id="ref-maccallum2002" class="csl-entry" role="listitem">
+MacCallum, Robert C., Shaobo Zhang, Kristopher J. Preacher, and Derek D. Rucker. 2002. <span>“On the Practice of Dichotomization of Quantitative Variables.”</span> <em>Psychological Methods</em> 7: 19–40. <a href="https://doi.org/10.1037/1082-989X.7.1.19">https://doi.org/10.1037/1082-989X.7.1.19</a>.
+</div>
+<div id="ref-peters1940" class="csl-entry" role="listitem">
+Peters, Charles C., and Walter R. Van Voorhis. 1940. <span>“Further Methods of Correlation.”</span> In, 362–403. New York, NY, US: McGraw-Hill Book Company. <a href="https://doi.org/10.1037/13596-013">https://doi.org/10.1037/13596-013</a>.
+</div>
+<div id="ref-wylie1976" class="csl-entry" role="listitem">
+Wylie, Peter B. 1976. <span>“Effects of Coarse Grouping and Skewed Marginal Distributions on the Pearson Product Moment Correlation Coefficient.”</span> <em>Educational and Psychological Measurement</em> 36 (1): 1–7. <a href="https://doi.org/10.1177/001316447603600101">https://doi.org/10.1177/001316447603600101</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./artificial_dichotomization.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./direct_range_restriction.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Direct Selection</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

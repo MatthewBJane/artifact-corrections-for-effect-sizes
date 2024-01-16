@@ -55,80 +55,138 @@ th_red <- theme(aspect.ratio = 1,
 
 ## Introduction
 
-Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase [@aguinis2009]. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement instrument itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. Lets visualize how this occurs by sampling 500 data points from a normal distribution and binning the scores into 5 equal-interval scale points. Now the figure below shows the relationship between the coarse scores and the true underlying continuous scores.
+Scale coarseness describes a situation where a variable that is naturally continuous (e.g., happiness) is binned into discrete values (e.g., happiness measured on a scale of 1-10). This situation is quite common in the social and psychological sciences where Likert items or dichotomous yes/no responses are aggregated to form a coarse total score for a naturally continuous construct. When coarseness is present, measurement error is introduced into the observed scores and those scores lose information. Unlike dichotomization, coarseness is an artifact that occurs due to the design of the study rather than during the analysis phase [@aguinis2009]. Particularly, dichotomization occurs after scores are obtained (e.g., splitting a group into high scorers and low scorers), whereas coarseness occurs as an artifact of the measurement procedure itself. The primary issue with coarseness is that it limits the set of possible values a score can be which introduces error when the variable is naturally continuous. This can be visualized by correlating coarse scores with their underlying continuous scores (see @fig-coarse-self). You will notice that the correlation between coarse and continuous scores is not perfect, indicating that the coarse scores do not perfectly capture the underlying continuous scores.
 
 ```{r,echo=FALSE}
+#| id: fig-coarse-self
+#| fig-cap: Scatterplot showing the correlation between coarse scores (on a 5-point scale) and the underlying continuous scores.
 
 library(metR)
 
 set.seed(343)
-score <- rnorm(500,0,1)
+score <- MASS::mvrnorm(500,0,1,empirical = TRUE)
 coarse_score <- as.numeric(cut(score,breaks=5))
 
 ggplot(data=NULL, aes(x=coarse_score,y=score)) + 
-  geom_jitter(width = .05,height = 0,alpha=.7,color=main_color_red) +
+  geom_jitter(width = .07,height = 0,alpha=.7,color=main_color_red) +
   theme_ggdist()+
   th_red +
   theme(aspect.ratio = 1) +
   labs(x = "Coarse Score (5-points)", y = 'Continuous Scores') +
-  annotate(geom='text',x=1.5 , y=2, 
-           label=paste0('r = ',round(cor(score,coarse_score),2)),size=5,
+  annotate(geom='text',x=1.8 , y=2, 
+           label=paste0('Correlation = ',round(cor(score,coarse_score),2)),size=5,
            color=text_color_red)
 
 
 ```
 
-Notice that the correlation between coarse and continuous scores is not perfect, indicating that the coarse scores do not perfectly capture the underlying continuous scores.
-
 ## Correcting for Coarseness in Correlations
 
-### Defining our Estimand
+### Defining our Target Quantity
 
-Our quantity of interest is the population correlation, $\rho$, between continuous independent variable, $x$, and continuous dependent variable, $y$. We can model the relationship between the observed sample correlation on coarse scores and the true population correlation,
-
-$$
-r_o = a\rho+\varepsilon.
-$$
-
-Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population correlation by correcting the observed correlation as follows,
+Our quantity of interest is the population correlation, $\rho$, between continuous independent variable, $X$, and continuous dependent variable, $Y$. However, in a given study the measurement procedure may produce coarse scores for $X$ and $Y$. We will denote coarse scores with the subscript $C$ We can model the relationship between the observed sample correlation on coarse scores and the true population correlation,
 
 $$
-r_c = \frac{r_o}{a}.
+r_{X_CY_C} = a\rho_{XY}+e.
+$$
+
+Where $a$ is our artifact attenuation factor and $e$ is our sampling error term. We can obtain an unbiased estimate of the continuous population correlation, $\rho_{XY}$, by dividing the observed correlation by an estimate of the attenuation factor,
+
+$$
+r_{XY} = \frac{r_{X_CY_C}}{\hat{a}}.
 $$
 
 ### Artifact Correction for Coarseness {#sec-coarse-cor}
 
-To correct the correlation between coarse scores for $x$ and $y$, we need to know the correlation between coarse scores and their underlying continuous scores. These correlations between coarse scores and their underlying continuous scores do not have a specific closed form equation as of now [@aguinis2009]. To find this we need to make a couple of assumptions:
+Correlating a coarse score with another variable will cause attenuation of the correlation [@maccallum2002]. Furthermore if we correlate a coarse score with another coarse score than we will observe even more attenuation (see @fig-coarse-other). There are two cases that we can run into: 1) the univariate case where only one variable is coarse and 2) the bivariate case where both variables are coarse.
+
+```{r, dpi = 300, echo=FALSE,fig.height=3}
+#| id: fig-coarse-other
+#| fig-cap: First plot (left to right) shows both variables as continuous and normal. The second plot shows coarseness (5-point scale) only on X, leaving Y continuous ($r_{X_CY}=.47$). Last plot shows coarseness on both variables ($r_{X_CY_C}=.47$).
+
+
+
+library(metR)
+
+set.seed(343)
+dat = MASS::mvrnorm(1000,mu=c(0,0),
+                    Sigma=cbind(c(1,.50),c(.50,1)),
+                    empirical=TRUE)
+
+scoreX <- dat[,1]
+coarse_scoreX <- as.numeric(cut(scoreX,breaks=5))
+
+scoreY <- dat[,2]
+coarse_scoreY <- as.numeric(cut(scoreY,breaks=5))
+
+h1 <- ggplot(data=NULL, aes(x=scoreX,y=scoreY)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  theme(title = element_text(color = text_color_red,size=10)) +
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Continuous X", y = 'Continuous Y') +
+  ggtitle(label='No Coarseness',
+          subtitle=paste0('Correlation = ',round(cor(scoreX,scoreY),2)))
+
+
+h2 <- ggplot(data=NULL, aes(x=coarse_scoreX,y=scoreY)) + 
+  geom_jitter(width = .05,height = 0,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  theme(title = element_text(color = text_color_red,size=10)) +
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Coarse X", y = 'Continuous Y') +
+  ggtitle(label='Univariate Coarseness', 
+          subtitle=paste0('Correlation = ',round(cor(coarse_scoreX,scoreY),2)))
+
+h3 <- ggplot(data=NULL, aes(x=coarse_scoreX,y=coarse_scoreY)) + 
+  geom_jitter(width = .05,height = .05,alpha=.7,color=main_color_red) +
+  theme_ggdist()+
+  theme(title = element_text(color = text_color_red,size=10)) +
+  th_red +
+  theme(aspect.ratio = 1) +
+  labs(x = "Coarse X", y = 'Coarse Y') +
+  ggtitle(label='Bivariate Coarseness', 
+          subtitle=paste0('Correlation = ',round(cor(coarse_scoreX,coarse_scoreY),2)))
+
+h1 + h2 + h3
+
+```
+
+To correct the correlation between coarse scores for $X$ and $Y$, we need to know the correlation between coarse scores and their underlying continuous scores ($r_{XX_C}$ or $r_{YY_C}$). The calculation of the correlation will require us two important assumptions:
 
 1)  The shape of the underlying distribution (i.e., normal or uniform).
 2)  The intervals between scale-points are equal.
 
-@peters1940 constructed a table based on these assumptions that is also reported more recently by @aguinis2009. The table below shows the correction factor for a given number of scale points and underlying distribution shape (either normal or uniform). The correction factor is equal to the correlation between coarse scores and the underlying continuous normal (or uniform) distribution. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well @wylie1976.
+Based on these assumptions, @peters1940 constructed a table of correlations between coarse and continuous scores that is also reported more recently by @aguinis2009. @tbl-coarse is adapted from @peters1940 and displays the correlation values for uniform and normal distributions for a given number of scale points. For the normal distribution correction, its been shown that even in cases of extreme skew, these correction factors perform well [@wylie1976].
 
-| Scale Points | Correction Factor (normal) | Correction Factor (uniform) |
-|:------------:|:--------------------------:|:---------------------------:|
-|      2       |            .816            |            .866             |
-|      3       |            .859            |            .943             |
-|      4       |            .916            |            .968             |
-|      5       |            .943            |            .980             |
-|      6       |            .960            |            .986             |
-|      7       |            .970            |            .990             |
-|      8       |            .977            |            .992             |
-|      9       |            .982            |            .994             |
-|      10      |            .985            |            .995             |
-|      11      |            .988            |            .996             |
-|      12      |            .990            |            .997             |
-|      13      |            .991            |            .997             |
-|      14      |            .992            |            .997             |
-|      15      |            .994            |            .998             |
+| Scale Points | Continuous-Coarse score Correlation (normal) | Continuous-Coarse score Correlation (uniform) |
+|:----------------:|:-------------------------:|:--------------------------:|
+|      2       |                     .816                     |                     .866                      |
+|      3       |                     .859                     |                     .943                      |
+|      4       |                     .916                     |                     .968                      |
+|      5       |                     .943                     |                     .980                      |
+|      6       |                     .960                     |                     .986                      |
+|      7       |                     .970                     |                     .990                      |
+|      8       |                     .977                     |                     .992                      |
+|      9       |                     .982                     |                     .994                      |
+|      10      |                     .985                     |                     .995                      |
+|      11      |                     .988                     |                     .996                      |
+|      12      |                     .990                     |                     .997                      |
+|      13      |                     .991                     |                     .997                      |
+|      14      |                     .992                     |                     .997                      |
+|      15      |                     .994                     |                     .998                      |
 
-These correction factors can be applied similarly to the correction formula for reliability (see chapter 5),
+: Correlations between continuous and coarse scores ($r_{XX_C}$) from @peters1940 {#tbl-coarse}
+
+The correlations between coarse and continuous scores ($r_{XX_C}$ and $r_{YY_C}$) can be used to correct the correlation coefficient
 
 $$
-r_c = \frac{r_o}{a_x a_y}.
-$$ 
+r_{XY} = \frac{r_{X_CY_C}}{r_{XX_C}r_{YY_C}}.
+$$
 
-Where $a_x$ and $a_y$ are the appropriate correction factors from the table for $x$ and $y$. We must also adjust the sampling variance as well,
+Where $r_{XX'}$ and $r_{YY'}$ are the appropriate correction factors from the table for $x$ and $y$. We must also adjust the sampling variance as well,
 
 $$
 \sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2_x a^2_y}.
@@ -138,113 +196,124 @@ $$
 
 To correct scale coarseness in R, we can use the table in @sec-coarse-cor. Lets start by simulating a coarse data (5 scale-points for x and 7 scale-points for y) set of 500 individuals with a true population correlation of $\rho = .50$.
 
-```{r}
-# set seed
-set.seed(343)
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
 
-# load packages
-# install.packages('MASS')
-library(MASS)
+Imagine that a researcher wants to relate depression and age. They collect a sample of 1,000 people from the general population and administer a very quick survey. Depression is measured based on a single item from the patient health questionnaire [PHQ, @kroenke2003] and age is measured in 5 age ranges:
 
-# simulate data
-n <- 500
-rho <- .50
-data <- mvrnorm(n = n,
-                mu = c(0,0),
-                Sigma = data.frame(x=c(1,rho),y=c(rho,1)),
-                empirical = TRUE)
+::: columns
+::: {.column width="45%"}
+**Over the last 2 weeks, how often have you been bothered by the following problems?**
+:::
 
-# obtain simulated continuous data
-x <- data[,1]
-y <- data[,2]
+::: {.column width="10%"}
+:::
 
-# get coarse data
-x_coarse <- as.numeric(cut(x,breaks=5)) 
-y_coarse <- as.numeric(cut(y,breaks=7)) 
+::: {.column width="45%"}
+**What is your age?**
+:::
+:::
+
+::: columns
+::: {.column width="45%"}
+1.  Not at all
+2.  Several days
+3.  More than half the days
+4.  Nearly every day
+:::
+
+::: {.column width="10%"}
+:::
+
+::: {.column width="45%"}
+1.  1-20 years
+2.  21-40 years
+3.  41-60 years
+4.  61-80 years
+5.  81+ years
+:::
+:::
+
+Let's say we obtain a correlation of $r_{X_C Y_C}=-.20$. Since the correlation is computed on coarse scores, it is likely attenuated relative to the correlation on each variables continuous underlying scores. Therefore we can use the `correct_r_coarseness()` function in the `psychmeta` package [@dahlke2019] to correct the correlation.
+
+```{r,message=FALSE}
+library(psychmeta)
+
+correct_r_coarseness(r = -.20, # observed correlation
+                     kx = 5, # 5 age range bins
+                     ky = 4,  # 4 PHQ item options
+                     n = 1000, # sample size
+                     dist_x = "unif", # assumed X distribution
+                     dist_y = "norm") # assumed Y distribution
+
 ```
 
-Now we can calculate the observed standardized mean difference and apply the correction factor.
-
-```{r}
-# calculate observed d value
-ro <- cor(x_coarse,y_coarse)
-
-# correct observed do using table
-ax <- .943
-ay <- .970
-
-# correct observed d value
-rc <- ro/(ax*ay)
-
-# print results
-rbind(paste0('Observed: ro = ', round(ro,3)),
-      paste0('Corrected: rc = ', round(rc,3)))
-```
+We see a slight increase in the magnitude of the correlation with the estimated correlation on continuous scores being $r_{XY}=-.22$ and a standard error of $se(r_{XY})=\sqrt{.0011}=0.034$.
+:::
 
 ## Correcting for Coarseness in *d* values
 
-### Defining our Estimand
+### Defining our Target Quantity
 
-Our quantity of interest is the population standardized mean difference, $\delta$, between groups $A$ and $B$ on variable, $y$. We can model the relationship between the observed sample standardized mean difference on coarse scores and the true population standardized mean difference,
-
-$$
-d_o = a\delta+\varepsilon.
-$$
-
-Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the true (continuous) population standardized mean difference by correcting the observed standardized mean difference as follows,
+Our quantity of interest is the population standardized mean difference, $\delta_{gY}$, between groups $A$ and $B$ on continuous variable, $Y$. We can define the standardized mean difference on coarse scores ($d_{gY_C}$) as,
 
 $$
-d_c = \frac{d_o}{a}.
+d_{gY_C} = a\delta_{gY}+\varepsilon.
+$$
+
+Where $a$ is our coarseness biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population standardized mean difference on continuous scores by correcting the observed standardized mean difference as follows,
+
+$$
+d_{gY} = \frac{d_{gY_C}}{\hat{a}}.
 $$
 
 ### Artifact Correction for Coarseness
 
-To correct a standardized mean difference for coarseness in the outcome variable, $y$, we can use the correction factors from the table in @sec-coarse-cor,
+To correct a standardized mean difference for coarseness in dependent variable, we can use the correlation between coarse scores and continuous scores from @tbl-coarse,
 
 $$
-d_c = \frac{d_o}{a}.
-$$ 
-
-Where $a$ is the appropriate correction factor from the table. We must also adjust the sampling variance as well,
-
-$$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
+d_{gY} = \frac{d_{gY_C}}{r_{YY_C}}.
 $$
 
-### Correcting Standardized Mean Differences in R
+Where $r_{YY_C}$ is the appropriate correction factor from the table. We must also adjust the standard error,
 
-To correct scale coarseness in R, we can use the table in @sec-coarse-cor. Lets start by simulating a coarse data (5 scale-points) set of 1000 individuals with a true population standardized mean difference of $\delta = .50$.
+$$
+se(d_{gY}) = \frac{se(d_{gY_C})}{r_{YY_C}}.
+$$
 
-```{r}
-# set seed
-set.seed(343)
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
 
-# simulate data
-nA <- nB <- 1000
-yA <- rnorm(nA,.5,1)
-yB <- rnorm(nB,0,1)
+Let's say that a researcher wants to investigate gender differences in depression. The researcher administers a survey to a sample of men and women from the general population. Depression is measured based on a single item from the patient health questionnaire [PHQ, @kroenke2003]:
 
-# concatenate data
-group <- c(rep('A',nA),rep('B',nB))
-y <- c(yA,yB)
+**Over the last 2 weeks, how often have you been bothered by the following problems?**
 
-# get coarse data
-y_coarse <- as.numeric(cut(y,breaks=5)) 
-```
+1.  Not at all
+2.  Several days
+3.  More than half the days
+4.  Nearly every day
 
-Now we can calculate the observed standardized mean difference and apply the correction factor.
+Let's say we obtain a standardized mean difference of $d_{g Y_C}=.25$, slightly favoring women. Since there is currently no `correct_d_coarseness()` function in `psychmeta`, we can simply correct the correlation with base R. again however we will need t in the `psychmeta` package [@dahlke2019] to correct the correlation.
 
-```{r}
-# calculate observed d value
-do <- ( mean(y_coarse[group=='A']) - mean(y_coarse[group=='B']) ) / sqrt((var(y_coarse) + var(y_coarse))/2)
+```{r,message=FALSE}
+library(psychmeta)
 
-# correct observed do using table
-ay <- .943
+dgYc <- .25 # standardized mean difference on coarse scores
+se.dgYc <- .10 # standardized mean difference on coarse scores
+rYYc <- .916
 
-# correct observed d value
-dc <- do/ay
+dgY <- dgYc / rYYc # correct d
+se.dgY <- se.dgYc / rYYc # correct se
 
 # print results
-rbind(paste0('Observed: do = ', round(do,3)),
-      paste0('Corrected: dc = ', round(dc,3)))
+cbind(dgY, se.dgY)
 ```
+
+We see a slight increase in the magnitude of the correlation with the estimated correlation on continuous scores being $d_{gY}=.27$ and a standard error of $se(d_{gY})=.109$.
+:::
+
+
+
+
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>

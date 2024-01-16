@@ -1,10 +1,3 @@
----
-title-block-banner: true
-title-block-style: default
-description: " <br> Primary Authors: Matthew B. Jané <br> Reviewers: <br> Contributors:"
-crossref:
-  chapters: true
----
 
 # Introduction to Meta-Analysis Methods {#sec-metaanalysis_intro}
 
@@ -14,493 +7,201 @@ Meta-analysis is an analytic tool to synthesize quantitative evidence from multi
 
 ## Common-Effect Model
 
-A common effect model is the simplest form of meta-analysis. It assumes that all the variation in observed effect sizes is attributable to sampling error. In other words, all the observed effect sizes are estimates of the same population effect size. Note that there is a distinction between *fixed-effects* models and a *common effect* model [@viechtbauer; @laird1990]. The common effect model assumes that the true effect size is identical for each study while the fixed effects model does not assume this. Instead, the fixed effects model can be interpreted as the weighted average of true effects. Computationally, they are the same and provide the same parameter estimates, yet the interpretation differs.
+A common effect model is the simplest form of meta-analysis. It assumes that all the variation in observed effect sizes is attributable to sampling error (see @fig-common-effect). In other words, all the observed effect sizes are estimates of the same population effect size. Note that there is a distinction between *fixed-effects* models and a *common effect* model [@viechtbauer; @laird1990]. The common effect model assumes that the true effect size is identical for each study while the fixed effects model does not assume this. Instead, the fixed effects model can be interpreted as the weighted average of true effects. Computationally, they are the same and provide the same parameter estimates, yet the interpretation differs [@viechtbauer].
 
-![The diagram above depicts a common effect meta-analysis of five studies. The study effect sizes are homogenous and all estimate a single true population effect size.](figure/fixed_effects_diagram.png)
+![The diagram above depicts a common effect meta-analysis of five studies. The study effect sizes are homogenous and all estimate a single true population effect size.](figure/fixed_effects_diagram.png){#fig-common-effect}
 
-### The General Case
 
-The common effect model can be modeled such that population effect size $\vartheta$ is held constant each sample (study) effect sizes ($\theta_i$), such that,
+The common effect model can be modeled such that population effect size $\theta$ is held constant each study effect size estimate ($h_i$), such that,
 
 $$
-\theta_i  = \vartheta + \varepsilon_i
+h_i  = \theta + e_i
 $$ {#eq-fixed-mdl}
 
-Where $\varepsilon_i$ indicates sampling error and the subscript $i$ denotes each study. Similar to the true score theory model that we discussed in chapter 4, the variance components of each term can similarly be written out as,
+Where $e_i$ indicates sampling error and the subscript $i$ denotes each study. Similar to the true score theory model that we discussed in chapter 4, the variance components of each term can similarly be written out as,
 
 $$
-\sigma^2_\theta = \sigma^2_\vartheta + \sigma^2_\varepsilon
+\sigma^2_h = \sigma^2_\theta + \sigma^2_e
 $$
 
-However in our fixed effects model, the population effect size is constant across studies and will not vary, simplifying the formula to,
+However in our common effect model, the population effect size is fixed across studies and will not vary, simplifying the formula to,
 
 $$
-\sigma^2_\theta = \sigma^2_\varepsilon
+\sigma^2_h = \sigma^2_e
 $$ {#eq-var-fixed}
 
-Therefore the only source of variation in the observed effect sizes, is sampling error. Since sampling error varies from study to study, we can take the average sampling variance across studies to estimate $\sigma^2_\varepsilon$:
+Therefore the only source of variation in the observed effect sizes, is sampling error.
+
+Ultimately, our goal is to obtain a precise estimate of the population effect size. To obtain an estimate of the population effect size, $\theta$, we can calculate the average observed effect size, $\bar{h}_i$ from $k$ studies. However, in practice, effect sizes from different studies have varying levels of precision (i.e., different standard errors). A simple arithmetic average will not account for the differences between studies in their precision. Instead, we can calculate a weighted average where the weights each study can be calculated by the inverse variance (i.e., squared standard error) of each study such that,
 
 $$
-\sigma^2_\varepsilon=\frac{1}{k}\sum^k_{i=1}\sigma^2_{\varepsilon_i}
-$$
-
-Ultimately, our goal is to obtain a precise estimate of the population effect size. To obtain an estimate of the population effect size, $\vartheta$, we can calculate the average observed effect size, $\bar{\theta}_i$ from $k$ studies. However, in practice, effect sizes from different studies have varying levels of precision (i.e., varying sample size). A simple average will not account for the differences between studies in their precision. Instead, we can calculate a weighted average where the weights each study can be calculated by the inverse variance (i.e., precision) of each study such that,
-
-$$
-w_i = \frac{1}{\sigma^2_{\varepsilon_i}}
+w_i = \frac{1}{se(h_i)^2}.
 $$
 
 Then we can calculate a weighted average,
 
 $$
-\hat{\vartheta} =\frac{\sum^k_{i=1}w_i\theta_i}{\sum^k_{i=1}w_i}
+\hat{\theta} =\frac{\sum^k_{i=1}w_ih_i}{\sum^k_{i=1}w_i}.
 $$
 
-This weighted average will be an unbiased estimate of the population effect size. However, even though this mean effect size is more precise compared to single-study estimates, it is not exempt from error itself. In the fixed-effects model, we can obtain the standard error of our estimate of the population effect size using,
+Where $\sum^k_{i=1}$ is the sum across all $k$ studies. This weighted average will be an unbiased estimate of the population effect size. However, even though this mean effect size is more precise compared to single-study estimates, it is not exempt from error itself. We we can compute the standard error for $\hat{\theta}$ as,
 
 $$
-SE_{\hat{\vartheta}} = \sqrt{\frac{\sigma^2_\varepsilon}{k}}
+se(\hat{\theta}) = \frac{1}{\sqrt{\sum^k_{i=1} w_i}}
 $$ 
-The standard error can be used to comput the 95% confidence intervals of the meta-analytic point estimate:
+
+The standard error can be used to compute the 95% confidence intervals (if the sampling distribution is approximately normal) of the meta-analytic point estimate:
 
 $$
-\vartheta_{\text{Lower}} = \hat{\vartheta}- 1.96 \cdot SE_{\hat{\vartheta}}
-$$ 
-$$
-\vartheta_{\text{Upper}} = \hat{\vartheta}+ 1.96\cdot SE_{\hat{\vartheta}}
+CI_{95} = \hat{\theta}\pm 1.96 \cdot se(\hat{\theta})
 $$
 
-### Fixed Effects Meta-Analysis of Correlations {#sec-fixed-corr}
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
 
-To apply the general case in the previous section to correlation coefficients, lets define our model similarly to @eq-fixed-mdl,
-
-$$
-r_i=\rho+\varepsilon_i.
-$$
-
-Where $r_i$ is our sample (study) correlation and $\rho$ is the population correlation. We can breakdown the variance components the same way as we did in the general case,
-
-$$
-\sigma^2_r = \sigma^2_\rho + \sigma^2_\varepsilon
-$$
-
-For each sample correlation, the large sample formulation for sampling variance is,
-
-$$
-\sigma^2_{\varepsilon_i} = \frac{\left(1-\rho^2\right)^2}{n_i}
-$$ {#eq-fixed-cor-se}
-
-Note that formulation includes the population correlation, which is unknown. Also notice that, since the population correlation is fixed, the inverse sampling variance would be proportional to the sample size ($1/\sigma^2_{\varepsilon_i} \propto n_i$). For this reason, we can use the sample size as our weights. We can estimate the population correlation, $\rho$, by taking the $n$-weighted average,
-
-$$
-\hat{\rho} = \frac{\sum^k_{i=1} n_i r_i}{\sum^k_{i=1}n_i}
-$$
-
-We can use this estimate of the population correlation in the equation in @eq-fixed-cor-se to estimate the sampling variance for each study.
-
-$$
-\sigma^2_{\varepsilon_i} = \frac{\left(1-\hat{\rho}^2\right)^2}{n_i}
-$$ We also can acquire the standard error of our population correlation estimate ($\hat{\rho}$). To do so, we must first calculate the weighted average of the sampling variance from each study,
-
-$$
-\sigma_\varepsilon^2 = \frac{\sum^k_{i=1} n_i \sigma^2_{\varepsilon_i}}{\sum^k_{i=1}n_i}
-$$
-
-then we can calculate the standard error of the population correlation from this by dividing by the number of studies, $k$,
-
-$$
-SE_{\hat{\rho}} = \sqrt{\frac{\sigma^2_{\varepsilon}}{k}}
-$$
-
-The standard error can be used to comput the 95% confidence intervals of the meta-analytic point estimate:
-
-$$
-\rho_{\text{Lower}} = \hat{\rho}- 1.96 \cdot SE_{\hat{\rho}}
-$$ $$
-\rho_{\text{Upper}} = \hat{\rho}+ 1.96\cdot SE_{\hat{\rho}}
-$$
-
-### Fixed Effects Meta-Analysis of Standardized Mean Differences
-
-Similar to @eq-fixed-mdl, we can model sample standardized mean differences similarly,
-
-$$
-d_i = \delta + \varepsilon_i
-$$
-
-The most staightforward method for meta-analyzing standardized mean differences (i.e., $d$ values) is to first convert all the sample $d$ values to point-biserial correlations by using,
-
-$$
-r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i^2}}
-$$
-
-Where $p_i$ is the observed proportion of group membership in either group $A$ or group $B$. The sampling variance of the study standardized mean difference is defined as
-
-$$
-\sigma^2_{\varepsilon_di} = \frac{n_A+n_B}{n_A n_B} + \frac{d_i^2}{2(n_A+n_B)}
-$$
-
-Which can then be converted to the standard error of the point-biserial correlation,
-
-$$
-\sigma^2_{\varepsilon_ri} =\frac{\sigma_{\varepsilon_di}^2}{\left(d_i^2p_i[1-p_i]+1\right)\left(\frac{1}{p_i(1-p_i)}+d_i^2\right)}
-$$
-
-Note that the subscripts, $r$ and $d$ denote the sampling variances for correlations and $d$ values respectively. Once the $d$ values and sampling variances are converted to point-biserial correlations, the meta-analysis can then be conducted by using the methods from @sec-fixed-corr. Once the meta-analysis is completed, the estimate of the population correlation and it's standard error can be converted back to a $d$ value using the weighted average proportion of individuals in group $A$ or $B$ ($\bar{p}$),
-
-$$
-\hat{\delta} = \frac{\hat{\rho}}{\sqrt{\bar{p}(1-\bar{p})(1-\hat{\rho}^2)}}
-$$
-
-$$
-SE_{\hat{\delta}} = \sqrt{\frac{\sigma_\varepsilon^2}{k\,\bar{p}(1-\bar{p})(1-\hat{\rho}^2)^3}}
-$$
-
-Where $k$ is the number of studies. The standard error can be used to comput the 95% confidence intervals of the meta-analytic point estimate:
-
-$$
-\delta_{\text{Lower}} = \hat{\delta}- 1.96 \cdot SE_{\hat{\delta}}
-$$ $$
-\delta_{\text{Upper}} = \hat{\delta}+ 1.96\cdot SE_{\hat{\delta}}
-$$
-
-### Example from Roth et al. (2015)
-
-Lets use a meta-analytic data set investigating the correlation of school grades and intelligence test scores from @roth2015. This data set has correlation coefficients from $k=240$ studies (total sample size: $n=105,151$) and is available within the developmental version of the `psychmeta` package [@dahlke2019]. Note that there is substantial heterogeneity in effect sizes here, far more than what could be accounted for by sampling error alone, but for the sake of this example we will assume that there is no heterogeneity. Lets conduct a common effect meta-analysis using the equations from the previous section:
+Lets use a meta-analytic data set investigating the the effectiveness of a writing-to-learn intervention on academic achievement from @bangert-drowns2004. This data set has standardized mean differences between the treatment group and a control group from $k=48$ studies (total sample size: $n=5,576$) and is available within the developmental version of the `metadat` package [@metadat]. Lets conduct a common effect meta-analysis using the equations from the previous section. We can use the `rma` function in the `metafor` package [@viechtbauer2010] to conduct a common effect (`method = 'EE'`) meta-analysis without having to write each equation by hand.
 
 ```{r,message=FALSE}
-# Load in packages (we need the development version of psychmeta)
-# install.packages("devtools")
-# devtools::install_github("psychmeta/psychmeta")
-library(psychmeta)
 
-# obtain data for correlations (r) amd sample size (n)
-r <- data_r_roth_2015$rxyi
-n <- data_r_roth_2015$n
-k <- length(r)
-
-# calculate the sample size weighted average of r
-r_bar = sum(r*n) / sum(n)
-
-# calculate the sampling variance for each study
-var_ei <- (1-r_bar^2)^2 / n
-
-# estimate the mean population correlation
-rho_hat <- sum(r*n) / sum(n)
-
-# calculate the variance in study correlations (r)
-var_r <- sum(n*(r-rho_hat)^2) / sum(n)
-
-# calculate average sampling variance
-var_e <- sum(n*var_ei) / sum(n)
-
-# calculate the variance in true population correlations
-var_rho <- var_r - var_e
-
-# calculate standard error of rho estimate
-SE_rho = sqrt(var_r/k)
-
-# compute confidence interval
-CI_lower = rho_hat - qnorm(.975)*SE_rho
-CI_upper = rho_hat + qnorm(.975)*SE_rho
-
-# print results
-data.frame(rho_hat,
-           SE = SE_rho,
-           CI_lower,
-           CI_upper)
-```
-
-Due to the massive sample size and the assumption that there is no variation in population correlations (i.e., fixed effects), the standard error is quite small. We can also use the `metafor` package [@viechtbauer2010] to conduct a fixed effects meta-analysis without having to write each equation by hand.
-
-```{r,message=FALSE}
-# install.packages("metafor")
+library(metadat)
 library(metafor)
 
+# display first 6 studies
+head(dat.bangertdrowns2004[,c('author','year','ni','yi','vi')])
+
+
 # fixed effects model
-mdl <- rma(data = data_r_roth_2015,
-           yi = rxyi,
-           vi = var_ei,
-           method = 'EE')
+mdl <- rma(data = dat.bangertdrowns2004,
+           yi = yi,
+           vi = vi,
+           method = 'EE') # Equal-effects = Common Effect
 
 # print results
-data.frame(rho_hat = mdl$b[1],
-           SE = mdl$se[1],
-           CI_lower = mdl$ci.lb[1],
-           CI_upper = mdl$ci.ub[1])
+data.frame(theta_hat = mdl$b[1],
+           se = mdl$se[1],
+           CI_ll = mdl$ci.lb[1],
+           CI_ul = mdl$ci.ub[1])
 ```
+ 
+The results show an estimated population effect of $\hat{\theta}=0.17\, [0.11,\, 0.22]$.
+:::
 
 ## Random Effects Model
 
-The random-effects model refers to a model that allows for the population effect size to vary from study to study. Random-effects differs from the fixed effects model in an important way: it does not assume that all observed effect sizes come from a single (fixed) population effect size [@borenstein2010]. This variation in population effect sizes is called heterogeneity. In the traditional @hunter1990a the weights utilized in the random effects meta-analysis are identical to the common effect version (sample size weights). In other conventional meta-analysis methods [@hedges1998], random-effect weights include a random effect component containing the variation in population effect sizes (this has the effect of making study weights more similar to each other with more variation in population effects). A modern approach introduced by @morris2014 and later tested by @brannick2019, combined these two approaches. The simulation study by @brannick2019, concluded that weights incorporating random effect components improved the @hunter1990a estimates. This section will thus use Morris's method.
+The random-effects model refers to a model that allows for the population effect size to vary from study to study (see @fig-random-effects). Random-effects differs from the fixed effects model in an important way: it does not assume that all observed effect sizes come from a single (fixed) population effect size [@borenstein2010]. This variation in population effect sizes is called heterogeneity. In the traditional @hunter1990a the weights utilized in the random effects meta-analysis are identical to the common effect model. In other conventional meta-analysis methods [@hedges1998], random-effect weights usually include a random effect component containing the variation in population effect sizes (this has the effect of making study weights more similar to each other with more variation in population effects). A modern approach introduced by @morris2014 and later tested by @brannick2019, added this random effect component to the Hunter-Schmidt method. The simulation study by @brannick2019, concluded that weights incorporating random effect components improved the Hunter-Schmidt estimates. Here we will discuss Hedges-Vevea's method with some elements taken from Hunter-Schmidt.
 
-![The diagram above depicts a random-effects meta-analysis of five studies. The study effect sizes are heterogeneous as population effect sizes vary.](figure/random_effects_diagram.png)
-
-### The General Case
+![The diagram above depicts a random-effects meta-analysis of five studies. Effect sizes are more variable than the common effect meta-analysis since effect sizes vary due to sampling error *and* population effect sizes.](figure/random_effects_diagram.png){#fig-random-effects}
 
 The model from @eq-fixed-mdl can be changed slightly to encompass variation of the population effect size from study to study:
 
 $$
-\theta_i = \vartheta_i + \varepsilon_i.
+h_i = \theta_i + e_i.
 $$
 
-In the common effect model, we assumed that all the variation in study effect sizes is accounted for by variation in sampling error ($\sigma^2_\theta = \sigma^2_\varepsilon$; see @eq-var-fixed). However in the random-effects model the variance in population effect sizes ($\sigma^2_\vartheta$) is allowed to be greater than zero. The variance components can be written out as
+In the common effect model, we assumed that all the variation in study effect sizes is accounted for by variation in sampling error (see @eq-var-fixed). However in the random-effects model the variance in population effect sizes ($\sigma^2_\theta$) is allowed to be greater than zero. The variance components can be written out as,
 
 $$
-\sigma^2_\theta=\sigma^2_\vartheta + \sigma^2_\varepsilon.
+\sigma^2_h=\sigma^2_\theta + \sigma^2_e.
 $$ {#eq-var-random}
 
-The variance of population effects, $\sigma^2_\vartheta$, can be calculated by first calculating $\sigma^2_\theta$ and $\sigma^2_\varepsilon$. Since the variation in study effect sizes is no longer solely accounted for by sampling error, this would suggest that $\sigma^2_\theta \neq \sigma^2_\varepsilon$, therefore we must calculate them separately. First we need to calculate study weights using the inverse of the sampling variance and a the variance in population effect sizes (i.e., the random effect component) from each study,
+
+Estimating variance components can be done computationally through an iterative estimation procedure called REstricted Maximum Likelihood (REML) estimation. The estimated variance of population effect sizes, $\hat{\sigma}_\theta$, can now be incorporated into the inverse variance weights alongside
 
 $$
-w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2}
+w_i = \frac{1}{se(h_i)^2 + \hat{\sigma}^2_\theta}
 $$
 
-In order to estimate random effects component, $\sigma_\vartheta^2$ (i.e., the variance in population effect sizes), we can calculate it by subtracting the average sampling variance ($\sigma^2_\varepsilon$) from the the observed variance in effect sizes ($\sigma^2_\theta$). The problem however is that in order to calculate the variance components, we need estimates of the population effect size and the weights, and in order to calculate the population effect size and the weights, we need the variance components. So instead, we will use sample size weights and the sample size weighted mean effect size ($\bar{\theta}$) as an estimate of the population correlation to estimate the weights:
+
+::: {.callout-tip appearance="default" icon="false"}
+## Calculating Standard Errors
+
+The standard error for a given study often uses the sample estimate in the sampling variance equation. For example, a study correlation, $r_i$, will have a sampling variance of 
 
 $$
-w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2} = \frac{1}{\sigma^2_{\varepsilon_i}+(\sigma^2_{\theta}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_i}+\left(\frac{\sum^k_{i=1}n_i(\theta_i - \bar{\theta})^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}n_i}\right)}
+se(r_i)^2 = \frac{(1-\rho_i^2)^2}{n}
 $$
 
-Now with these weights, we can calculate a more precise estimate of the mean population effect size,
+Where $\rho_i$ is the population effect size for that study. Since the population effect size is not known, $\rho_i$ is often replaced with the study estimate, $r_i$ (also the denominator will be adjusted to be $n-1$ for the decreased degrees of freedom). However this makes the sampling variances and estimates dependent on one another which can cause problems for other types analyses (e.g., funnel plot asymmetry). Instead, we will use the sample size weighted mean correlation for each study to replace $\rho_i$ [@hunter1990a],
 
 $$
-\hat{\bar{\vartheta}} = \frac{\sum^k_{i=1}w_i\theta_i}{\sum^k_{i=1}w_i}
+se(r_i)^2 = \frac{\left(1-\bar{r}^2\right)^2}{n-1}
 $$
 
-With these weights and the estimate of the population effect size, we can now estimate each of the three variance components from @eq-var-random:
-
-1)  variance in study effect sizes $$
-    \sigma^2_{\theta}=\frac{\sum^k_{i=1}w_i(\theta_i - \hat{\bar{\vartheta}})}{\sum^k_{i=1}w_i}
-    $$
-2)  sampling error variance (mean) $$
-    \sigma^2_{\varepsilon} = \frac{\sum^k_{i=1}w_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}w_i}
-    $$
-3)  variance in true effect sizes $$
-    \sigma^2_{\vartheta} = \sigma^2_{\theta} - \sigma^2_{\varepsilon}
-    $$
-
-In other conventions, $\sigma^2_\vartheta$ is denoted as $\tau^2$ [@borenstein2010; @dersimonian2007; @hedges1998], but conceptually these are identical. Taking the root of $\sigma^2_\vartheta$, $\sigma_\vartheta$ is the standard deviation of population effect sizes which can be a useful measure of heterogeneity. Furthermore, we can use $\sigma_\vartheta$ to calculate credibility (prediction) intervals which allows us to draw inferences about the range of plausible population effect sizes. For example, the 90% credibility interval can be calculated with the following equations:
+Where,
 
 $$
-\vartheta_\text{Upper} = \hat{\bar{\vartheta}} + 1.645\sigma_\vartheta
+\bar{r} = \frac{\sum^k_{i=1}n_ir_i}{\sum^k_{i=1}n_i}
 $$
 
-$$
-\vartheta_\text{Lower} = \hat{\bar{\vartheta}} - 1.645\sigma_\vartheta
-$$
+In studies with no heterogeneity ($\sigma_\theta=0$) this is nearly optimal, but it still works well in cases of substantial heterogeneity.
 
-We can also calculate the standard error of the mean of population effect sizes ($SE_{\hat{\bar{\vartheta}}}$) by dividing the sampling error variance component by the number of studies, $k$,
+:::
 
-$$
-SE_{\hat{\bar{\vartheta}}} = \sqrt{\frac{\sigma^2_\theta}{k}}
-$$
 
-Which can then be used to calculate 95% confidence intervals:
+
+Now we can estimate the mean of population effects by taking the weighted average effect size [equation 16.5, @thehand2009],
 
 $$
-\bar{\vartheta}_\text{Upper} = \hat{\bar{\vartheta}} + 1.96\cdot SE_{\hat{\bar{\vartheta}}}
+\hat{\bar{\theta}} = \frac{\sum^k_{i=1}w_i h_i}{\sum^k_{i=1}w_i}.
 $$
 
-$$
-\bar{\vartheta}_\text{Lower} = \hat{\bar{\vartheta}} - 1.96\cdot SE_{\hat{\bar{\vartheta}}}
-$$
-
-The confidence interval and credibility interval have fundamentally different interpretations that are often misinterpreted in published work [@whitener1990]. When we are interpreting a single realized interval (i.e., our estimate-in-hand), the 90% credibility interval can be interpreted as the region in which 90% of population effect sizes exist, however, a 95% confidence interval describes the interval in which there is a 95% probability of containing the true mean of population effect sizes. It is important to note that the confidence interval interpretation here is only valid in the case of a single realized interval [@vos2022], if there is more than one computed intervals the same population of studies, then the interpretation does not hold (this would be an exceedingly rare scenario in a meta-analysis).
-
-### Random Effects Meta-Analysis of Correlations {#sec-random-corr}
-
-Lets now specifically apply the random effects model to pearson correlation coefficients. Let us again start by defining the meta-analytic model allowing the population correlation to vary for each study,
+Where $i=1...k$ studies. The standard error of the mean of population effects can calculated from the summation of inverse weights [equation 16.6, @thehand2009],
 
 $$
-r_i = \rho_i + \varepsilon_i
+se(\hat{\bar{\theta}}) = \frac{1}{\sqrt{\sum^k_{i=1}w_i}}.
 $$
-
-Where it's corresponding variance components are defined similarly as,
-
-$$
-\sigma^2_r = \sigma^2_\rho + \sigma^2_\varepsilon
-$$
-
-Like in the general case, we must calculate the study weights using the method by @morris2014 and further described in @brannick2019. The weights are a function of the study-level sampling variance ($\sigma^2_{\varepsilon_i}$) and the variance in population correlations ($\sigma^2_{\rho}$).
+The 95% confidence interval can then be calculated as,
 
 $$
-w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma^2_{\rho}}
-$$ However as described in the last section, to estimate the variance in population effect sizes ($\sigma^2_{\rho}$), we need estimates of the mean of true population effect sizes and the weights, but to get both those parameters, we need the weights. In order to get around this dilemma we can instead replace the weights with $n_i$ and the mean of population correlations with the $n$-weighted average correlation ($\bar{r}$). Lets first define the sampling variance for a pearson correlation:
-
-$$
-\sigma^2_{\varepsilon_i} = \frac{\left(1-\rho^2\right)^2}{n_i}
-$$ Therefore we can approximate the weights with,
-
-$$
-w_i = \frac{1}{\sigma^2_{\varepsilon_i}+\sigma_\vartheta^2} = \frac{1}{\sigma^2_{\varepsilon_i}+(\sigma^2_{\theta}-\sigma^2_{\varepsilon})} \approx \frac{1}{\sigma^2_{\varepsilon_i}+\left(\frac{\sum^k_{i=1}n_i(r_i - \bar{r})^2}{\sum^k_{i=1}n_i}-\frac{\sum^k_{i=1}n_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}n_i}\right)}
+CI = \hat{\bar{\theta}} \pm 1.96\cdot se(\hat{\bar{\theta}})
 $$
 
-With the weights we can estimate a precise estimate of the mean of population correlations ($\bar{\rho}$)
+
+
+In other conventions, the variance in population effects ($\sigma^2_\theta$) is denoted as $\tau^2$ [@borenstein2010; @dersimonian2007; @hedges1998], but conceptually $\sigma^2_\theta$ and $\tau^2$ these are identical. Taking the root of $\sigma^2_\theta$ is the standard deviation of population effect sizes which can be a useful measure of heterogeneity. Furthermore, we can use $\hat{\sigma}_\theta$ to calculate credibility (prediction) intervals which allows us to draw inferences about the range of plausible population effect sizes. For example, the 90% credibility interval can be calculated with the following equations:
 
 $$
-\hat{\bar{\rho}} = \frac{\sum^k_{i=1}w_ir_i}{\sum^k_{i=1}w_i}
+CR = \hat{\bar{\theta}} \pm 1.645\hat{\sigma}_\theta
 $$
 
-Where the variance components can be calculated as:
 
-1)  Variance in study correlations: $$
-    \sigma^2_{r}=\frac{\sum^k_{i=1}w_i(r_i - \hat{\bar{\rho}})}{\sum^k_{i=1}w_i}.
-    $$
-2)  Sampling error variance (mean): $$
-    \sigma^2_{\varepsilon} = \frac{\sum^k_{i=1}w_i\sigma^2_{\varepsilon_i}}{\sum^k_{i=1}w_i}.
-    $$
-3)  Variance in population correlations: $$
-    \sigma^2_\rho = \sigma^2_r - \sigma^2_{\varepsilon}.
-    $$
+The confidence interval and credibility interval have fundamentally different interpretations that are often misinterpreted in published work [@whitener1990]. When we are interpreting a single realized interval (i.e., our estimate-in-hand), the 90% *credibility* interval can be interpreted as the region in which 90% of population effect sizes exist, however, a 95% *confidence* interval describes the interval in which there is a 95% probability of containing the true *mean* of population effect sizes. It is important to note that the confidence interval interpretation here is only valid in the case of a single realized interval [@vos2022], if there is more than one interval obtained from the same population of studies, then the interpretation does not hold (this would be a rare in a meta-analysis).
 
-Now lets use these variance components to calculate the 90% credibility (prediction) interval and the 95% confidence interval. The 90% credibility interval can be calculated with the following equations:
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
 
-$$
-\rho_\text{Upper} = \hat{\bar{\rho}} + 1.645\sigma_\rho
-$$
-
-$$
-\rho_\text{Lower} = \hat{\bar{\rho}} - 1.645\sigma_\rho
-$$
-
-We can also calculate the standard error of the mean of population effect sizes ($SE_{\hat{\bar{\rho}}}$) by dividing the sampling error variance component by the number of studies, $k$,
-
-$$
-SE_{\hat{\bar{\rho}}} = \sqrt{\frac{\sigma^2_r}{k}}
-$$
-
-Which can then be used to calculate 95% confidence intervals:
-
-$$
-\bar{\rho}_\text{Upper} = \hat{\bar{\rho}} + 1.96\cdot SE_{\hat{\bar{\rho}}}
-$$
-
-$$
-\bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_{\hat{\bar{\rho}}}
-$$
-
-### Random Effects Meta-Analysis of Standardized Mean Differences {#sec-random-d}
-
-We can model sample standardized mean differences similarly to that of correlations,
-
-$$
-d_i = \delta_i + \varepsilon_i
-$$
-
-Like we did in the common effect model, instead of meta-analyzing the $d$ values, we can instead convert all the sample $d$ values to point-biserial correlations by using,
-
-$$
-r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i^2}}
-$$
-
-Where $p_i$ is the observed proportion of group membership in either group $A$ or group $B$. The sampling variance of the study standardized mean difference can be defined as
-
-$$
-\sigma^2_{\varepsilon_id} = \frac{n_A+n_B}{n_A n_B} + \frac{\delta_i^2}{2(n_A+n_B)}
-$$ Where the population standardized mean difference, $\delta_i$ can be approximated with the sample size weighted mean $d$ value ($\bar{d}$).
-
-$$
-\sigma^2_{\varepsilon_id} = \frac{n_A+n_B}{n_A n_B} + \frac{\bar{d}^2}{2(n_A+n_B)}
-$$
-
-Which can then be converted to the standard error of the point-biserial correlation,
-
-$$
-\sigma^2_{\varepsilon_ir} =\frac{\sigma_{\varepsilon_id}^2}{\left(d_i^2p_i[1-p_i]+1\right)\left(\frac{1}{p_i(1-p_i)}+d_i^2\right)}
-$$
-
-The subscripts, $r$ and $d$ denote the sampling variances for correlations and $d$ values respectively. Once the $d$ values and sampling variances are converted to point-biserial correlations, the meta-analysis can then be conducted by using the methods from @sec-fixed-corr. Once the meta-analysis is completed, the estimate of the population correlation and it's standard error can be converted back to a $d$ value,
-
-$$
-\hat{\bar{\delta}} = \frac{\hat{\bar{\rho}}}{\sqrt{\bar{p}(1-\bar{p})(1-\hat{\bar{\rho}}^2)}}
-$$
-
-$$
-SE_{\hat{\bar{\delta}}}= \sqrt{\frac{\sigma_r^2}{k\, \bar{p}\left(1-\bar{p}\right)\left(1-\hat{\bar{\rho}}^2\right)^3}}
-$$
-
-Where $k$ is the number of studies. Likewise we can also convert the variance of the population correlations to the standard deviation of population standardized mean differences.
-
-$$
-\sigma_\delta = \sqrt{\frac{\sigma_\rho^2}{\bar{p}(1-\bar{p})(1-\hat{\rho}^2)^3}}
-$$
-
-### Random Effects Meta-Analysis in R
-
-Lets conduct a random effects meta-analysis using the equations from the previous section and the data set we used earlier [@roth2015]. For this dataset, it is more appropriate to use a random-effects model due to the large amount of heterogeneity we observe in the correlations.
+Let's continue looking at the meta-analysis from @bangert-drowns2004. This data set has standardized mean differences between the treatment group and a control group from $k=48$ studies (total sample size: $n=5,576$) and is available within the developmental version of the `metadat` package [@metadat]. Lets conduct a common effect meta-analysis using the equations from the previous section. We can use the `rma` function in the `metafor` package [@viechtbauer2010] to conduct a random effect meta-analysis with REML estimation we can use the `method = 'REML'` argument.
 
 ```{r,message=FALSE}
-# Load in packages (we need the development version of psychmeta)
-# install.packages("devtools")
-# devtools::install_github("psychmeta/psychmeta")
-library(psychmeta)
 
-# obtain data for correlations (r) amd sample size (n)
-r <- data_r_roth_2015$rxyi
-n <- data_r_roth_2015$n
-k <- length(r)
-
-# calculate the sample size weighted average of r
-r_bar = sum(r*n) / sum(n)
-
-# calculate the sampling variance for each study
-var_ei <- (1-r_bar^2)^2 / n
-
-# calculate weights
-w <- 1 / (var_ei + ( (sum(n*(r-r_bar)^2)/sum(n)) - (sum(n*var_ei)/sum(n)) ) )
-
-# estimate the mean population correlation
-mean_rho_hat <- sum(r*w) / sum(w)
-
-# calculate the variance in study correlations (r)
-var_r <- sum(w*(r-mean_rho_hat)^2) / sum(w)
-
-# calculate average sampling variance
-var_e <- sum(w*var_ei) / sum(w)
-
-# calculate the variance in population correlations
-var_rho <- var_r - var_e
-
-# calculate standard error of rho estimate
-SE_rho = sqrt(var_r/k)
-
-# compute 95% confidence interval
-CI_lower = mean_rho_hat - qnorm(.975)*SE_rho
-CI_upper = mean_rho_hat + qnorm(.975)*SE_rho
-
-# compute 90% credibility interval
-CR_lower = mdl$b[1] - qnorm(.95)*sqrt(var_rho)
-CR_upper = mdl$b[1] + qnorm(.95)*sqrt(var_rho)
-
-# print results
-data.frame(mean_rho_hat,
-           SE = SE_rho,
-           CI_lower,
-           CI_upper,
-           SD_rho = sqrt(var_rho),
-           CR_lower,
-           CR_upper)
-```
-
-Notice that the standard error of the mean correlation is larger than the common effects model. The reason for this disparity, is that the random effects model has two sources of variance, sampling error and variance in true correlations. We can also use the `metafor` package [@viechtbauer2010] to conduct a random effects meta-analysis. The method used in the previous sections is not available in metafor so slight deviations with the resulting statistics may occur.
-
-```{r,message=FALSE}
-# install.packages("metafor")
+library(metadat)
 library(metafor)
 
+# display first 6 studies
+head(dat.bangertdrowns2004[,c('author','year','ni','yi','vi')])
+
+
 # fixed effects model
-mdl <- rma(data = data_r_roth_2015,
-           yi = rxyi,
-           vi = var_ei,
-           method = 'HS')
+mdl <- rma(data = dat.bangertdrowns2004,
+           yi = yi,
+           vi = vi,
+           method = 'REML') # Equal-effects = Common Effect
 
 # print results
-data.frame(mean_rho_hat = mdl$b[1],
-           SE = mdl$se[1],
-           CI_LO = mdl$ci.lb[1],
-           CI_HI = mdl$ci.ub[1],
-           SD_rho = sqrt(mdl$tau2),
-           CR_LO = mdl$b[1] - qnorm(.95)*sqrt(mdl$tau2),
-           CR_HI = mdl$b[1] + qnorm(.95)*sqrt(mdl$tau2))
+data.frame(theta_hat = mdl$b[1],
+           se = mdl$se[1],
+           CI_ll = mdl$ci.lb[1],
+           CI_ul = mdl$ci.ub[1])
+```
+ 
+The results show an estimated population effect of $\hat{\theta}=0.22\, [0.13,\, 0.31]$.
+
+:::
+
+
+
+
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 ```

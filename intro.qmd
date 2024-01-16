@@ -9,10 +9,12 @@ library(ggplot2)
 library(patchwork)
 library(MASS)
 library(ggdist)
+library(ggtext)
 
 
 text_color_blue      = '#326982ff'
 panel_color_blue     = '#f6fafbff'
+lightermain_color_blue = '#dbebf0'
 lightmain_color_blue = '#a4cdd9ff'
 main_color_blue      = '#5fa6bcff'
 darkmain_color_blue  = '#397689ff'
@@ -20,11 +22,14 @@ border_color_blue    = '#5fa6bcff'
 
 text_color_red       = '#a62675ff'
 panel_color_red      = '#fdf6faff'
+lightermain_color_red  = '#f6d5e9'
 lightmain_color_red  = '#eeb4d7ff'
 main_color_red       = '#d74ea2ff'
 darkmain_color_red   = '#bf2986ff'
 border_color_red     = '#d74ea2ff'
 
+library(knitr)
+opts_chunk$set(fig.height = 4)
 
 th_blue <- theme(aspect.ratio = 1,
         panel.grid.minor = element_blank(),
@@ -49,259 +54,548 @@ th_red <- theme(aspect.ratio = 1,
         axis.ticks = element_line(color = border_color_red,linewidth=1)) 
 ```
 
-# Effect Sizes and Notation
+# Effect Sizes and Artifacts
 
 ## What are Effect Sizes?
 
-Effect sizes are statistics that measure the magnitude of a relationship between two variables. It's important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights from data, rather than being the ultimate objective themselves. Effect sizes aide in researcher's ability to draw meaningful inferences from data and therefore it is crucial that they are accurate. Biased effect sizes can be likened to a foggy windshield. Just as condensation on glass obstructs a clear view of the road, biased effect sizes can obscure the true association between variables. Similar to how one must clean the windshield to drive safely, researchers must correct for biases in effect sizes to attain a clear and accurate perspective on their data. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book. To see how an effect size may look in practice, the example below will illustrate how calculating one may look in a clinical setting.
+Effect sizes are statistics that measure the magnitude of a relationship between variables. It's important to remember that effect sizes are a valuable tool, enabling researchers to extract meaningful insights from data, rather than being the ultimate objective themselves. Effect sizes aide in researcher's ability to draw meaningful inferences from data and therefore it is crucial that they are accurate. Correlation coefficients and standardized mean differences are two of the most common effect sizes and so they will be the primary focus of this book.
 
-### Applied Example
+## Defining the Scientific Estimand
 
-Lets say we want to test whether a new drug can alleviate anxiety, therefore we decide to conduct an experiment to see how well this drug performs. We first randomly assign each participant in the study to either a treatment group ($T$) or a control group ($C$). In our experiment we want test how well the experimental drug reduces anxiety, therefore we measure the subjects' self reported anxiety after under-going the treatment. To see if the drug actually worked in alleviating anxiety, we want to compare the scores from the treatment group and the control group. To do this we can estimate the average treatment effect ($ATE$), which is the difference in the mean value of self-reported anxiety scores between the treatment group and the control group such that, $ATE = \text{Mean}(X_T) - \text{Mean}(X_C)$. However, anxiety scores have no meaningful units, so if we obtain an $ATE$ value of $-3$ there is no way to tell if this value is large or small, since it is entirely dependent on how the anxiety scores are scaled. Standardization can allow us to draw meaningful inferences about the size of the effect that can be comparable across scales. We can standardize the $ATE$ by dividing by the standard deviation of scores in the control group, ($\text{SD}$): $\text{Effect Size} = \frac{ATE}{\text{SD}_C}$. The effect size is now on an interpretable scale (standard deviations). If we achieve an standardized effect size value of $-0.50$, we can interpret this as the treatment group exhibiting a reduction in anxiety equivalent to half a standard deviation compared to the control group.
+It is important to clearly define the quantity that we aim to estimate (i.e., the estimand). A clearly defined estimand not only shapes our statistical analyses but also establishes a meaningful connection between empirical observations and a theoretical quantity [@lundberg2021]. A study can produce effect size estimates that do not accurately reflect the target value. Inaccuracies in effect size estimates can be due to deviations between the current study's design and the design of a technically perfect study [@rubin1992]. Obtaining a quality estimate of the target effect size requires that the study sample and the measured variables accurately reflect the population and variables of interest. We can illustrate this with the following example:
 
-```{r, echo = FALSE}
-#| fig-cap: "Simulated experimental data"
+Let's say we want to know the correlation between student motivation and stress among high-school students. Suppose we conduct a study to estimate the correlation by administering a survey to a sample of senior students at a private high school. The survey consists of two questions asking student's to rate their level of motivation and stress on a scale of 1-10. Let's now compare how the target population and variables differ from the study population and variables (see @tbl-target):
 
-set.seed(5)
-n = 100
+|      |    Target  |    Study   | Potential sources of contamination|
+|:----------:|:----------:|:----------:|:------------------|
+| POPULATION | High-School Students  | Seniors High-School students | **Range Restriction.** Senior student's at private universities may have a more narrow range of characteristics such as stress and motivation than other classes (e.g., freshmen) and schools (e.g., public). |
+| VARIABLES  | Motivation and Stress |  Self-report questionnaire   | **Measurement Error.** The measurement of the target variables of motivation and stress likely will produce errors that do not reflect the true motivation and stress of each individual.                     |
 
-`Anxiety Score` = c(rnorm(n,38,8) , rnorm(n,30,8))
+: Comparison of the target and the study. {#tbl-target}
 
-`Treatment` =  c(rep('Control',n) , rep('Treatment',n))
 
-ggplot(data = NULL, aes(y = `Treatment`,
-                        x = `Anxiety Score`,
-                        shape = `Treatment`,
-                        fill = `Treatment`,
-                        order = `Treatment`,
-                        group = NA)) +
-  geom_dots(side = "top", scale = 0.75,stackratio = 1.1,dotsize=.9,pch = 22, 
-            position = "dodge",
-            color = main_color_red,linewidth = 1) +
-  stat_pointinterval(aes(y = as.numeric(`Treatment`=='Treatment')+.95), 
-                     shape = 16,point_size = 3.2,point_color = text_color_red,
-                     interval_color =text_color_red, point_interval = "mean_qi") + 
-  scale_fill_manual(values = c(panel_color_red,main_color_red)) + 
-  th_red +
-  theme(legend.position = "none") +
-  ylab("") + 
-  annotate('text',x = mean(`Anxiety Score`[`Treatment` == 'Treatment']),
-           y = 1.85,
-           label = round(mean(`Anxiety Score`[`Treatment` == 'Treatment']),1),
-           color=main_color_red) +
-  annotate('text',x = mean(`Anxiety Score`[`Treatment` == 'Control']),
-           y = 0.85,
-           label = round(mean(`Anxiety Score`[`Treatment` == 'Control']),1),
-           color=main_color_red) +
-  annotate('text',
-           x = 10,
-           y = 2.85,
-           label = paste0('ATE = ',round(mean(`Anxiety Score`[`Treatment` == 'Treatment']) - mean(`Anxiety Score`[`Treatment` == 'Control']),2)) ,
-           color=text_color_red, hjust='left') +
-  annotate('text',
-           x = 10,
-           y = 2.65,
-           label = paste0('d = ',round((mean(`Anxiety Score`[`Treatment` == 'Treatment']) -mean(`Anxiety Score`[`Treatment` == 'Control']))/8,2)) ,
-           color=text_color_red, hjust='left') 
+## Effect Size Errors
+
+### Random (Sampling) Errors
+
+Let's start by differentiating between a population effect size and a sample estimate. The **population** effect size, characterizes the effect size among all possible observations of interest. In contrast, a **sample** effect size is an estimate of this population value, estimated by a random sample of observations. Throughout the book, population effect sizes will be denoted with Greek letters whereas sample estimates will be denoted with an English letters.
+
+The population effect size is a constant, unchanging value that remains fixed across samples. However, if we were to take a random sample from the population and estimate an effect size we would find that the sample estimate varies from sample to sample and does not exactly reflect the population value. This is due to the fact that randomly taking a subset of the population will contain inherent variability in the composition of the sample. **Sampling errors** describe the random deviations that we observe in effect size estimates from sample to sample [@barraza2019]. Sampling errors are random, however we will see in the next section that not all errors are systematic. We can quantify sampling errors by the variance of the effect size estimator. The variance of an effect size estimator tends to be some function of sample size, where large samples will show less variance compared to small samples. For an illustration of sampling error, see @fig-3.1.
+
+```{r,echo=FALSE,fig.height=4, warning=FALSE, message=FALSE}
+#| id: fig-3.1
+#| fig-cap: This figure shows the distribution of sample estimates. The blue diamonds denotes the population effect size, which stays constant across samples. The black dots denote the sample effect size estimate. The grey lines denote random sampling errors, which represent the difference between the estimates and the population value. The sampling distribution on the right shows the probability distribution of estimates across repeated samples, the width of this distribution is described by the variance of the estimator. Note the illustration shows a normally distributed estimator, but this is not a requirement.
+
+
+library(bbplot)
+
+set.seed(1)
+# simulate 70 true scores
+k = 20
+scores1 = MASS::mvrnorm(k,0,1.2,empirical = TRUE)
+# simulate scores at time 1
+
+ggplot(data=NULL, aes(x = 1:k, y = scores1)) +
+  theme_ggdist() + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 axis.text.y = element_text(size=16)) + 
+  scale_x_continuous(labels = 1:k, breaks=1:k,limits = c(1,k+4)) +
+  scale_y_continuous(labels = c('',0,'','','','','',''), 
+                     breaks=c(-2.75,-2,-1.25,-.50,.25,1,1.75,2.50),
+                     limits = c(-3,3)) +
+  stat_slab(aes(x=21,ydist=distributional::dist_normal(0,1.1)), 
+            fill = 'grey92',scale=4, color='grey10') +
+  geom_line(aes(x = c(22.9,22.9), y=c(-1,1)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="both", type = "closed"),
+            linewidth=.9,color = 'grey10') +
+  geom_hline(yintercept = -2, alpha=.2, linewidth = .8,
+             color = 'black') +
+  geom_hline(yintercept = c(-2.75,-2,-1.25,-.50,.25,1,1.75,2.50), 
+             alpha=.03, linewidth = .4,
+             color = 'black') +
+  geom_line(aes(x=c(1:k,1:k),y=c(rep(0,k),scores1),group=c(1:k,1:k)),
+            color='grey60', alpha=1, linewidth = .9) + 
+  geom_point(data=NULL, aes(x = 1:k, y = 0),alpha = 1,
+            color=main_color_blue, stroke = 0, size = 4.5,shape=18) +
+  geom_point(data=NULL, aes(x = 1:k, y = scores1),alpha = 1, stroke = 0, size = 3.5) +
+  annotate(geom='text',x=1.2,y=1.25,label='error', 
+           color = 'grey50', size = 4) + 
+  annotate(geom='text',x=18.2,y=1.52,label='variance', 
+           color = 'grey10', size = 4,hjust = 'left') + 
+  annotate(geom='text',x=7.3,y=2.33,label='estimate', 
+           color = 'black', size = 4) +
+  annotate(geom='text',x=8.1,y=-1.5,label='population value', 
+           color = darkmain_color_blue, size = 4,hjust='left') +
+  xlab('Sample')+
+  ylab(TeX('Effect Size')) +
+  geom_curve(aes(x = 20.6, y = 1.35, xend = 22.75, yend = .5),
+             colour = 'grey10',
+             curvature = 0.3) +
+  geom_curve(aes(x = 6, y = scores1[4]+.5, xend = 4.4, yend = scores1[4]+.05),
+             colour = "black",
+             curvature = -0.2) +
+  geom_curve(aes(x = 2, y = scores1[4]-.5, xend = 3.8, yend = scores1[4]-.7),
+             colour = 'grey50',
+             curvature = 0.2)+
+  geom_curve(aes(x = 6.2, y = -0.1, xend = 8, yend = -1.5),
+             colour = main_color_blue,
+             curvature = 0.2)
+```
+
+### Systematic Errors
+
+Sampling errors produce random errors in effect sizes, however, we can also observe systematic errors. **Systematic errors** are deviations from the target population value that are consistent across samples and produce bias in effect size estimates. In other words, effect size estimates will be *on average* larger or smaller than the target population value [@barraza2019]. Random sampling errors, on the other hand, will be larger or smaller than the target population value only by chance. **Attenuation** describes a type of systematic error where the effect size estimates are *smaller* than the target population value on average. **Inflation** on the other hand, is a type of bias that produce effect size estimates that are *larger* on average. An **unbiased** effect size would be one where there is no systematic errors and therefore, on average, it is equal to the population effect size. As we will see in future chapters, study artifacts such as selection effects and measurement error can produce effect sizes that contain systematic errors.
+
+We can see in @fig-systematic-errors that the sampling distribution does not become wider or smaller with systematic errors (this may occur indirectly if the sampling variance depends on the effect size itself), instead the whole sampling distribution shifts downward or upward depending on whether the effect size estimates are attenuated or inflated, respectively.
+
+```{r,echo=FALSE,warning=FALSE}
+#| id: fig-systematic-errors
+#| fig-cap: Three sampling distributions representing estimators that are unbiased, attenuated, and inflated. The blue line indicates the the location of the target population effect size, whereas the black dots show the effect size estimates.
+
+library(ggdist)
+library(MASS)
+
+set.seed(34)
+x1 <- mvrnorm(15,1,1,empirical = TRUE)
+x2 <- mvrnorm(15,-.2,1,empirical = TRUE)
+x3 <- mvrnorm(15,2.2,1,empirical = TRUE)
+
+h1 <- ggplot(data=NULL) + 
+  stat_dist_eye(aes(x=0,ydist=distributional::dist_normal(1,1)), 
+            fill = 'grey92',scale=.4, slab_color='grey10',slab_linewidth=1,dot_size=4) +
+  geom_jitter(aes(y = x1,x=0),size=3.5,alpha=.6,height=0,width=.1)+
+  stat_dist_eye(aes(x=1,ydist=distributional::dist_normal(-.2,1)), 
+            fill = 'grey92',scale=.4, slab_color='grey10',slab_linewidth=1) +
+  geom_jitter(aes(y = x2,x=1),size=3.5,alpha=.6,height=0,width=.1)+
+  stat_dist_eye(aes(x=2,ydist=distributional::dist_normal(2.2,1)), 
+            fill = 'grey92',scale=.4, slab_color='grey10',slab_linewidth=1) +
+  geom_jitter(aes(y = x3,x=2),size=3.5,alpha=.6,height=0,width=.1)+
+  geom_hline(yintercept =1, color=main_color_blue,linewidth=1.5) +
+  # geom_hline(yintercept = 0, color=main_color_blue,linewidth=2) +
+  scale_x_continuous(breaks = c(0,1,2), labels=c('Unbiased','Attenuated','Inflated')) +
+  scale_y_continuous(breaks = c(-3:6),
+                     labels = c(rep('',2),'0',rep('',7))) +
+  xlab('') +
+  theme_ggdist() + theme(aspect.ratio=.5,
+                 title = element_text(size=15),
+                 axis.text = element_text(size=14)) + 
+  ylab('Effect Size') +
+  annotate(geom='text',x=.68,y=-2.5,label='estimate',hjust='right')+
+  geom_curve(aes(x = 0.96, y = -1.4, xend = 0.7, yend = -2.5),
+             colour = 'black',
+             curvature = -0.2) +
+  annotate(geom='text',x=.92,y=4.27+.5,
+           label='target population value',hjust='right',color=main_color_blue)+
+  geom_curve(aes(x = 0.6, y = 1.1, xend = .7, yend = 4.5),
+             colour = main_color_blue,
+             curvature = 0.1) 
+
+h1
+  
+```
+
+## Modeling Observed Effect Sizes
+
+We can think of an observed effect size estimate as having three components:
+
+```{mermaid}
+
+flowchart TD
+   E("observed effect <br>size estimate"):::estimates --- X("systematic <br>error (bias)"):::artifacts
+   E:::estimates --- Z("target population<br>effect size (estimand)"):::target
+   E:::estimates --- Y("random (sampling)<br>error"):::sampling
+   classDef artifacts fill:#d74ea250,stroke-width:0px
+   classDef sampling fill:#00000020,stroke-width:0px
+   classDef target fill:#5fa6bc55,stroke-width:0px
+   classDef estimates fill:#ffffff00,stroke-width:0px
+   linkStyle default stroke-width:2px,fill:none,stroke:black;
 
 ```
 
-### Defining effect sizes
-
-Lets say we have an effect size of interest that quantifies the relationship between an independent and dependent variable. The population effect size can be denoted as $\vartheta$, however this population value is unknown. We can obtain an estimate the population effect size by conducting a study on a sample of individuals drawn from the population and then calculating a study effect size, $\theta$. The study effect size is a function of the population effect size and sampling error ($\varepsilon$) such that,
+Let's construct a statistical model for an observed effect size estimate $h_i$ for a given sample, $i$, that accounts for each of these three components. The [**target population effect size**]{style="color: #347e9f"} will be denoted by the Greek letter [$\theta$]{style="color: #347e9f"} which does not vary from sample to sample. The [**artifact attenuation/inflation factor**]{style="color: #cb427b"} is denoted with the Greek letter [$\alpha$]{style="color: #cb427b"} and accounts for the systematic error that is consistent across samples. Finally the [**sample error**]{style="color:#777777"} is denoted by the Greek letter [$\varepsilon$]{style="color:#777777"} which accounts for the random sampling error across samples [@raju1991, based on eq. 1],
 
 $$
-\theta = \vartheta + \varepsilon
-$$ {#eq-B}
+h_i = {\color{#cb427b}\alpha} {\color{#347e9f}\theta} + 
+{\color{#797979ff}\varepsilon}_i.
+$$ {#eq-model}
 
-Effect sizes will differ from study to study, this can be due to two reasons: variance in population effect sizes ($\sigma^2_\vartheta$) or variance in sampling error ($\sigma^2_\varepsilon$). Accordingly, we can express the variance in study effect sizes ($\sigma^2_\theta$) as,
+Note that ${\color{#cb427b}\alpha}$ and ${\color{#347e9f}\theta}$ are fixed and does not vary across samples (no subscript $i$), wheras ${\color{#797979ff}\varepsilon}_i$ does vary from sample to sample. For the above equation to be true we need to assume that the expectation (i.e., the mean over repeated samples) of ${\color{#797979ff}\varepsilon}_i$ is zero such that, $\mathbb{E}[{\color{#797979ff}\varepsilon}_i] = 0$. A consequence of this assumption is that the expectation of the observed effect size estimate is $\mathbb{E}[h_i]={\color{#cb427b}\alpha} {\color{#347e9f}\theta}$. We will label the term ${\color{#cb427b}\alpha} {\color{#347e9f}\theta}$ as the **contaminated population effect size** as it is a fixed value that encompasses the target effect size and systematic error.
 
-$$
-\sigma^2_\theta = \sigma^2_\vartheta + \sigma^2_\varepsilon
-$$
+The artifact attenuation/inflation factor, ${\color{#cb427b}\alpha}$, completely describes the net systematic error in the observed effect size estimates. The value of $\alpha$ can indicate whether $h_i$ is an unbiased (${\color{#cb427b}\alpha} = 0$), attenuated (${\color{#cb427b}\alpha} < 1$), or inflated estimator (${\color{#cb427b}\alpha} > 1$).
 
-If studies were drawing samples from the same population, the variance in the population effect size would be zero ($\sigma^2_\vartheta = 0$) and the variation in study effect sizes would be solely attributable to sampling error variance ($\sigma^2_\theta=\sigma^2_\varepsilon$).
+Because of random sampling error, the observed effect size estimate will differ from sample to sample ($h_1\neq$ $h_2\neq$ $h_3\neq...$). The extent to which estimates fluctuate across samples can be quantified by the variance of the effect size estimator, denoted as $\text{var}(h_i)$. Remember that the contaminated population effect size (${\color{#cb427b}\alpha} {\color{#347e9f}\theta}$) fixed across samples, this would result in variation in random sampling errors to be solely responsible for the variation in observed effect sizes such that, $\text{var}(h_i)=\text{var}({\color{#797979ff}\varepsilon}_i)$.
 
-## Effect Sizes and Artifacts
+## Correcting Effect Sizes
 
-In practice, *observed* effect size estimates are often biased relative to the *true* effect size of interest, that is, the observed population effect size ($\vartheta_o$) is a product of the true population effect size ($\vartheta$) and artifactual bias ($a$):
-
-$$
-\vartheta_o = a\vartheta
-$$ {#eq-A}
-
-Note that if $a=1$ this would indicate that there is no artifactual bias ($\vartheta_o=\vartheta$), if $a>1$ then it would indicate effect size inflation (i.e., biased away from zero), and if $a<1$ that would indicate effect size attenuation (i.e., biased toward zero). It can be seen in @eq-A that we can re-arrange the formula to obtain the true population effect size by dividing the observed population effect size by $a$,
+In principle, if we know the value of the artifact attenuation/inflation factor ${\color{#cb427b}\alpha}$ then we could correct the observed effect size for systematic errors. However, ${\color{#cb427b}\alpha}$ is unknown and must be estimated. An estimate of ${\color{#cb427b}\alpha}$ will be denoted by the English letter ${\color{#cb427b}a}$. According to the model described in @eq-model, ${\color{#cb427b}\alpha}$ is a fixed value that does not vary from sample to sample, however it's sample estimate will:
 
 $$
-\vartheta = \frac{\vartheta_o}{a}.
-$$
+{\color{#cb427b}a}_i = {\color{#cb427b}\alpha} + {\color{#797979ff}\xi}_i,
+$$ {#eq-a}
 
-For a single study that computes an effect size from a sample drawn from the population, the observed study effect size ($\theta_o$) would be expressed by
-
-$$
-\theta_o = \vartheta_o + \varepsilon_o
-$$ Using @eq-A we can express the observed effect size in terms of the true population effect size rather than the observed population effect size,
+where ${\color{#797979ff}\xi}_i$ denotes the sampling error in ${\color{#cb427b}a}_i$. The corrected effect size can thus be calculated by dividing the observed effect size by the estimated artifact factor,
 
 $$
-\theta_o = a\vartheta + \varepsilon_o
-$$ Then we can correct the observed effect size by dividing by the biasing factor, $a$, to obtain an unbiased estimate of the true effect size:
+{\color{#347e9f}h_c}_{_i} = \frac{h_i}{{\color{#cb427b}a}_i},
+$$ {#eq-correction}
+
+
+
+The corrected effect size will only be an asymptotically (as the sample size approaches infinity) unbiased estimator of the target population value. As we will see in future chapters, corrections will also impose additional distributional assumptions on the data. 
+
+Sampling variance of the corrected effect size will depend greatly on the estimation procedure of the effect size and the artifact factor. Sampling variance for corrected effect sizes will be discussed in more detail for each artifact correction chapter.
+
+## Effect Size Types
+
+Although there are many types of effect sizes we can use to quantify research findings, we will primarily focus on two: correlations and standardized mean differences (SMD).
+
+### Correlations
+
+A correlation describes the relationship between two continuous variables. The population correlation ($\rho$) between variables, $X$ and $Y$, can be defined as the covariance ($\sigma_{XY}$) divided by the product of the standard deviations of $X$ ($\sigma_{X}$) and $Y$ ($\sigma_{Y}$) [@thehand2009, equation 11.21; @jacobs2017, eq. 1],
 
 $$
-\theta_c = \frac{\theta_o}{a}
-$$ The sampling error and it's variance must also be corrected,
+\rho = \frac{\sigma_{XY}}{\sigma_{X}\sigma_{Y}}.
+$$ {#eq-pop-r}
+
+A sample estimate of the population correlation can be defined as the *sample* covariance ($S_{XY}$) divided by the product of the *sample* standard deviations [@jacobs2017, eq. 2],
 
 $$
-\varepsilon_c = \frac{\varepsilon_o}{a}
-$$ $$
-\sigma_{\varepsilon_c}^2 = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
-$$ The corrected effect size should be an unbiased estimate of the true population effect size as long as the systematic bias multiplier is accurately measured (which is not a trivial task). It is important to note that the corrected effect size will not yield additional statistical power, that is, test-statistics and p-values will remain unchanged. We can demonstrate this mathematically that the z-statistic of the observed effect size ($z_{\theta_o}$) is identical to the z-statistic of the corrected effecct size ($z_{\theta_c}$),
+r = \frac{S_{XY}}{S_XS_Y}
+$$ {#eq-sam-r}
+
+This is commonly referred to as the Pearson correlation coefficient. The Pearson correlation coefficient was first introduced by Auguste @bravais1844, then later developed further by Karl Pearson, lending itself to the name. See @fig-r for a visualization of correlated variables.
+
+```{r,echo=FALSE,warning=FALSE}
+#| id: fig-r
+#| fig-cap: Diagram illustrating a correlation between two variables ($X$ and $Y$). The left panel shows a negative correlation and the right panel shows a positive correlation. The ellipses show the contour of a bivariate normal distribution which the data points are sampled from.
+
+
+# Set mean and covariance matrix for the bivariate normal distribution
+mu <- c(0, 0)  # Mean vector
+sigma <- matrix(c(1, -0.5, -0.5, 1), 
+                nrow = 2)  # Covariance matrix
+
+# Generate random data from bivariate normal distribution
+set.seed(123)  # Set seed for reproducibility
+data <- mvrnorm(n = 100, mu = mu, 
+                Sigma = sigma,
+                empirical=TRUE)  # Generating random data
+
+# Create a data frame from the generated data
+df <- data.frame(x = data[, 1], y = data[, 2])
+
+# Create a contour plot using ggplot
+h1 <- ggplot(df, aes(x = x, y = y)) +
+  th_red + theme(text = element_text(color = text_color_red),
+                  title = element_text(size=14)) +
+  labs(title = "Negative Correlation",
+       subtitle = TeX('$\\rho=-.50$'),
+       x = "X", y = "Y") +
+  geom_point(color=main_color_red) + 
+  stat_ellipse(level=.90,color=lightermain_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.70,color=lightmain_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.50,color=main_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.30,color=darkmain_color_red,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.10,color=text_color_red,linewidth=1,alpha = .3) +
+  xlim(-2.3,2.3) +
+  ylim(-2.3,2.3)
+
+
+
+sigma <- matrix(c(1, 0.5, 0.5, 1), 
+                nrow = 2)  # Covariance matrix
+
+# Generate random data from bivariate normal distribution
+set.seed(1)  # Set seed for reproducibility
+data <- mvrnorm(n = 100, mu = mu, 
+                Sigma = sigma,
+                empirical=TRUE)  # Generating random data
+
+# Create a data frame from the generated data
+df <- data.frame(x = data[, 1], y = data[, 2])
+
+# Create a contour plot using ggplot
+h2 <- ggplot(df, aes(x = x, y = y)) +
+  th_blue + theme(text = element_text(color = text_color_blue),
+                  title = element_text(size=13)) +
+  labs(title = "Positive Correlation",
+       subtitle = TeX('$\\rho=.50$'),
+       x = "X", y = "Y") +
+  geom_point(color=main_color_blue) + 
+  stat_ellipse(level=.90,color=lightermain_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.70,color=lightmain_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.50,color=main_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.30,color=darkmain_color_blue,linewidth=1,alpha = .3)+
+  stat_ellipse(level=.10,color=text_color_blue,linewidth=1,alpha = .3)+
+  xlim(-2.3,2.3) +
+  ylim(-2.3,2.3)
+
+h1 + h2
+```
+
+Assuming that the variables follow a bivariate normal distribution, the asymptotic variance in an observed correlation with $n$ observations is [@pearson1898, p. 174; @jacobs2017, eq. 9],
 
 $$
-z_{\theta_o} = \frac{\theta_o}{\sigma_{\varepsilon_o}} = \frac{\frac{\theta_o}{a}}{\frac{\sigma_{\theta_o}}{a}} = \frac{\theta_c}{\sigma_{\varepsilon_c}} = z_{\theta_c}
-$$
+\text{var}(r_i) \overset{_\infty}{=} \frac{\left(1 - \rho^2\right)^2}{n},
+$$ {#eq-asymp-var-r}
 
-## Defining an Effect Size Estimand
-
-An effect size *estimand* is the theoretical quantity that we are trying to estimate. Before delving into the application of correction factors, it is important to clearly define the effect size estimand you aim to capture, including the summary statistic, relevant variables, and the target population. This preliminary step might appear trivial, but it is crucial, as it determines the accuracy and relevance of any subsequent artifact corrections. For instance, consider a scenario where we conduct a study involving a sample of college students with the aim of generalizing our findings to the broader general population. In this context, it is important to correct for range restriction, given the evident selection effects that exist in the college student populations. However, if our sole objective is to draw conclusions pertaining exclusively to the college student demographic, correcting for range restriction would be inappropriate. Furthermore, let's examine the variable of interest, such as grade-point average (GPA), within this population. Do we intend to focus solely on the raw GPA score, or is our goal to capture what GPA represents, namely, academic achievement? If our aim is to investigate the raw GPA score, then correcting for measurement error would be inappropriate. However, if our primary focus lies in assessing the student's academic achievement, then it may be relevant to correct GPA scores for measurement error. Defining our estimand guides our approach to artifact correction and ensures that these correction procedures align with the underlying research goals.
-
-## Effect Size Notation
-
-Because of the nature of the topic, this book will cover a large amount of equations and computer code. Therefore to make it as straight-forward as possible the notation will follow a systematic framework to distinguish between types of effect sizes. This book will only be covering two main types of effect sizes: correlations ($r$) and standardized mean differences ($d$). Throughout the book variations of $r$ and $d$ will show up frequently, these variations will be differentiated with subscripts that are consistent with that section. Also, to distinguish between population-level values (i.e., the effect size across all potential observations) and effect sizes specific to a study or sample (i.e., the effect size observed within a single sample drawn from the population), we will use the following notation:
-
--   Arbitrary Effect Size
-    -   Population value: $\vartheta$
-    -   Study/sample value: $\theta$
--   Correlations
-    -   Population value: $\rho$
-    -   Study/sample value: $r$
--   Standardized Mean Differences
-    -   Population value: $\delta$
-    -   Study/sample value: $d$
-
-In most cases, continuous independent variables will be denoted with $x$ and dependent variables with $y$ (note that this notation may differ when referring to observed and true scores). Categorical (i.e., groupings) variables will be denoted with $g$ (this notation will be used primarily for standardized mean differences).
-
-## Correlations
-
-A correlation describes the relationship between two continuous variables. The Pearson correlation coefficient was first introduced by Auguste @bravais1844. Later developed by Karl Pearson, lending itself to the name.
-
-### Technical Overview Correlations (*r*)
-
-If we draw a sample of $n$ observations from a population, we can calculate the study correlation ($r$) between variables $x$ and $y$ using the following Pearson's product-moment estimator,
+Since the population correlation is unavailable in practice, an accurate estimate of the variance for a given sample $i$ uses the sample correlation instead of population correlation and uses the degrees of freedom, $n-1$, in the denominator instead of the sample size [@thehand2009, eq. 12.27; @jacobs2017, eq. 10],
 
 $$
-r = \frac{
-\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})
-}{
-\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
-\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}
-}.
-$$ {#eq-pearson-raw}
+\widehat{\text{var}}(r_i) = \frac{\left(1 - r_i^2\right)^2}{n-1}
+$$ {#eq-est-var-r}
 
-For digestibility, we can break down the formula into parts. The correlation coefficient can be defined as the covariance between $x$ and $y$ standardized by the product of their standard deviations (i.e., square root variance),
+Within the context of a research study that is contaminated with artifacts, we can model an observed correlation for a sample $i$ as similarly to an @eq-model,
 
 $$
-r = \frac{\sigma_{xy}}
-{\sigma_x\sigma_y}.
-$$ {#eq-pearson}
+r_i = {\color{#cb427b}\alpha} {\color{#347e9f}\rho} + 
+{\color{#797979ff}\varepsilon}_i.
+$$ {#eq-model-r}
 
-we can first define the covariance ($\sigma_{xy}$) as the average product of errors for $x$ and $y$,
-
-$$
-\sigma_{xy} =\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y}).
-$$ {#eq-cov}
-
-Then we can find the variance for $x$ and $y$ by taking the average squared error from the mean for $x$ and $y$,
+Where ${\color{#347e9f}\rho}$ is the [target population correlation (the estimand)]{style='color:#347e9f'}, ${\color{#cb427b}\alpha}$ is the [artifact attenuation/inflation factor]{style='color:#cb427b'}, and ${\color{#797979ff}\varepsilon}_i$ denotes the [sampling errors]{style='color:#797979ff'}. The observed correlation is biased relative to the target population correlation as a function of ${\color{#cb427b}\alpha}$, and therefore a corrected correlation can calculated by,
 
 $$
-\sigma^2_x = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2
-$$ {#eq-varx}
+{\color{#347e9f}r_c}_{_i} = \frac{r_i}{{\color{#cb427b}a}_i}.
+$$ {#eq-corr-r}
+
+For example, we will see in @sec-dichotomization that if $X$ and $Y$ are bivariate normal and $X$ undergoes dichotomization through a median split (i.e., dividing observations into two groups based on the median of $X$) the observed correlation will be attenuated. In this scenario, the artifact attenuation/inflation factor is ${\color{#cb427b}a} = 2/\sqrt{2\pi} \approx .80$, and therefore if the observed correlation is $r = .40$ then the corrected correlation would be estimated as $r_c=r/{\color{#cb427b}a}=.40/.80=.50$.
+
+::: {.callout-note appearance="default" icon="false"}
+## Computing Correlations in R
+
+Let's load in the `iris` data set that contains various physical measurements of three species of plants. We can also subset the data set to only look at the Setosa species:
+
+```{r}
+# load in data
+data("iris")
+
+# subset rows to only include setosa species
+df <- subset(iris, iris$species == 'setosa')
+
+# view first 6 plants
+head(iris)
+```
+
+Let's say we want to know the correlation between petal length and sepal length. We can use the `cor()` function in base R to obtain the Pearson correlation coefficient:
+
+```{r,message=FALSE}
+r <- cor(iris$Petal.Length,iris$Sepal.Length)
+r
+```
+
+The result shows a strong positive correlation between petal and sepal length ($r = .87$). To compute the sampling variance and the standard error, we can use the `var_error_r()` function in the `psychmeta` package [@dahlke2019]
+
+```{r,message=FALSE}
+# load in package
+library(psychmeta)
+
+# compute sampling variance
+var_r <- var_error_r(r, n = nrow(iris), correct_bias = FALSE)
+
+# print results
+data.frame(r,var_r) 
+```
+:::
+
+### Standardized Mean Difference
+
+The standardized mean differences (SMD) is used to quantify the difference between the average value between two groups. In the population, the SMD ($\delta$), the difference between the mean of group $A$ ($\mu_A$) and group $B$ ($\mu_B$) is standardized by the population within group standard deviation ($\sigma$) [@cohen1988, eq. 2.2.1],
 
 $$
-\sigma^2_y = \frac{1}{n-1}\sum_{i=1}^n (y_i - \bar{y})^2.
-$$ {#eq-vary}
+\delta = \frac{\mu_A - \mu_B}{\sigma}.
+$$ {#eq-delta}
 
-Plugging in @eq-cov, @eq-varx, and @eq-vary into @eq-pearson we can see that the term, $\frac{1}{n-1}$, will cancel out and we will be left with the original pearson correlation coefficient formula from @eq-pearson-raw,
+Dividing by the population within-group standard deviation assumes that the standard deviations within both groups are fixed and equal (i.e., $\sigma=\sigma_A=\sigma_B$). For a visualization of an SMD see @fig-d.
 
-$$
-r = \frac{\sigma_{xy}}{\sigma_x\sigma_y} = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}\sqrt{\sum_{i=1}^{n}(x_i - \bar{x})^2}}.
-$$ {#eq-1}
+```{r,echo=FALSE,warning=FALSE}
+#| id: fig-d
+#| fig-cap: Diagram illustrating a standardized mean difference in the population between two normal distributions. The mean and standard deviation of group $A$ is $\mu_A=9$ and $\sigma_A=4$, respectively. Whereas mean and standard deviation of group $B$ is $\mu_A=12$ and $\sigma_A=4$, respectively. Therefore the standardized mean difference is $\delta = (9-12)/4=-.75$. Note that $\sigma_A=\sigma_B$.
 
-In the absence of artifacts, the Pearson correlation $r$ is an asymptotically (i.e., as $n$ approaches infinity) unbiased estimator (in small sample sizes, it is biased see chapter 4). We can express $r$ similarly to @eq-B,
+ggplot(data = NULL) +
+  stat_slab(aes(y=0,xdist=distributional::dist_normal(9,4)),
+            scale = 0.75,
+            fill = main_color_red,
+            alpha=.5,
+            linewidth = 1) +
+  stat_slab(aes(y=0,xdist=distributional::dist_normal(12,4)),
+            scale = 0.75,
+            fill = main_color_blue,
+            alpha=.5,
+            linewidth = 1) +
+  scale_fill_manual(values = c(panel_color_red,main_color_red)) + 
+  theme_ggdist() + 
+  scale_y_continuous(breaks=NULL) +
+  theme(legend.position = "none",
+        aspect.ratio = 1,
+        text=element_text(size=14)) +
+  geom_point(aes(x=c(9),y=c(.78)),
+             shape=25,color=main_color_red,
+             fill=main_color_red, size = 2.5) +
+  geom_point(aes(x=c(12),y=c(.78)),
+             shape=25,color=main_color_blue,
+             fill=main_color_blue, size = 2.5) +
+  geom_line(aes(x = c(5,9), y=c(.46,.46)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=1,color=darkmain_color_red) +
+  geom_line(aes(x = c(8,12), y=c(.42,.42)),
+            arrow = arrow(length=unit(0.20,"cm"), 
+                          ends="first", type = "closed"),
+            linewidth=1,color=darkmain_color_blue) +
+  annotate(geom = 'text',x = 9, y = .84, 
+           label = TeX('$\\mu_A$'),size = 6.5, 
+           color=darkmain_color_red) +
+  annotate(geom = 'text',x = 12, y = .84, 
+           label = TeX('$\\mu_B$'),size = 6.5, 
+           color=darkmain_color_blue) +
+  annotate(geom = 'text',x = 7.2, y = .5, 
+           label = TeX('$\\sigma_A$'),size = 6.5, 
+           color=darkmain_color_red) +
+  annotate(geom = 'text',x = 10.5, y = .38, 
+           label = TeX('$\\sigma_B$'),size = 6.5, 
+           color=darkmain_color_blue) +
+  annotate(geom = 'text',x = 1, y = .93, 
+           label = TeX('$\\delta = -0.75$'),size = 6, 
+           color='grey30') +
+  ylab("Frequency")+
+  ggtitle('Standardized Mean Difference') +
+  xlab("Y")
+```
 
-$$
-r = \rho + \varepsilon,\;\; \sigma_\varepsilon^2 = \text{Var}(\varepsilon).
-$$ {#eq-2}
-
-Where $\sigma^2_\varepsilon$ is the sampling variance of the observed correlation. The sampling variance can be calculated from the sample size ($n$) and the population correlation,
-
-$$
-\sigma_\varepsilon^2 =\frac{(1 - \rho^2)^2}{n}.
-$$ {#eq-3}
-
-In practice, the population correlation is unknown so the study correlation can be used instead ($r$) in the above formula as an estimate of the population correlation. Note that the sampling variance is the square of the standard error.
-
-In the context of artifacts, if the observed correlation is biased relative to the true correlation, we can see model the observed population ($\rho_o$) correlation as a function of the true population correlation ($\rho$) and a artifact biasing factor, $a$,
-
-$$
-\rho_o = a\rho.
-$$
-
-The observed study (sample) correlation would then be defined as,
-
-$$
-r_o = \rho_o + \varepsilon_o = a\rho + \varepsilon_o.
-$$
-
-To obtain an unbiased estimate of the true population correlation, we can correct the correlation coefficient ($r_c$) by dividing by the biasing factor, $a$,
-
-$$
-r_{c} = \frac{r_o}{a}.
-$$
-
-Note that the sampling error would also need to be adjusted and therefore it's sampling variance ($\sigma_{\varepsilon_c}$) would be corrected to be,
-
-$$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o} }{a^2}.
-$$
-
-## Standardized Mean Differences
-
-Standardized mean differences are used to quantify the average difference in some variable between groups. The most commonly used formulation is Cohen's $d$ [@cohen1988] which quantifies the average difference between groups (e.g., men vs. women) and standardizes by the pooled standard deviation. Note that the other most commonly used estimator is Hedges' $g$, but the difference between the two is a small sample correction factor that can be found in the chapter on small samples.
-
-### Technical Overview of Standardized Mean Difference (*d*)
-
-If we draw a sample of $n_A$ subjects from group $A$ and $n_B$ subjects from group $B$, the mean difference between groups ($d$) on variable $y$ can be defined as,
-
-$$
-d=\frac{\bar{y}_A - \bar{y}_B}{\sigma_p}.
-$$
-
-Where the standardizer, $\sigma_p$ is the pooled standard deviation between the two groups. The pooled standard deviation is calculated by taking the square root of the average variance between the two groups weighted by the degrees of freedom (e.g., $\text{df}_A=n_A-1$),
-
-$$
-\sigma_p=\sqrt{\frac{(n_A-1)\sigma^2_{A} + (n_B-1)\sigma^2_{B}}{n_A + n_B - 2}}.
-$$
-
-Where $\sigma_{A}$ and $\sigma_{B}$ are the standard deviations of $y$ within groups $A$ and $B$ respectively. This SMD estimator is commonly referred to as Cohen's $d$. We can define the study/sample $d$ value as a function of the population $d$ value ($\delta$): $$
-d = \delta + \varepsilon.
-$$ Similar to the previous section on correlation coefficients, the observed $d$ value is a function of the true population value and an artifactual biasing factor ($a$),
+@cohen1988 developed a sample estimator of $\delta$ that is commonly referred to as Cohen's $d$. Within a sample, we can estimate $\delta$ with the sample estimator [@thehand2009, eq. 11.96],
 
 $$
-\delta_o = a\delta.
-$$
+d = \frac{\overline{Y}_A-\overline{Y}_B}{S_p},
+$$ {#eq-d}
 
-Therefore the observed study/sample $d$ value can be defined as a function of the observed population value *or* the true population value and bias:
-
-$$
-d = \delta_o + \varepsilon_o = a\delta + \varepsilon_o.
-$$
-
-Thus the corrected standardized mean difference ($d_c$) and it's corresponding sampling variance ($\sigma^2_{\varepsilon_c}$) can both be defined as:
+where $S_p$ is the pooled sample standard deviation and the bars indicate the sample mean. The pooled standard deviation computes a weighted average (weighted by the within-group degrees of freedom, e.g., $n_{A}-1$) of the within-group sample variance and then takes the square root [@thehand2009, eq. 12.12],
 
 $$
-d_c = \frac{d_o}{a}
-$$
+S_p = \sqrt{\frac{(n_A-1)S_A^2 + (n_B-1)S_B^2}{n-2}}
+$$ {#eq-pooled-sd}
+
+Where $n_A$, $n_B$, and $n$ represent the sample size within group $A$, group $B$, and the total sample size ($n = n_A+n_B$), respectively. Assuming that $Y$ is normally distributed within each group and the within-group variances are equal, the asymptotic sampling variance of an SMD is [@hedges1985, eq. 14],
 
 $$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2}.
+\text{var}(d_i) \overset{_\infty}{=} \frac{n}{n_An_B} + \frac{\delta^2}{2n}.
+$$ {#eq-var-d}
+
+Since the population SMD is unknown, we can estimate it with the sample $d$ value. Therefore the estimated variance can be computed as [@hunter1990a, eq. 7.23],
+
 $$
+\widehat{\text{var}}(d_i) = \left(\frac{n - 1}{n - 3}\right)\left(\frac{n}{n_An_B} + \frac{\delta^2}{2n}\right).
+$$ {#eq-var-d-est}
+
+Note that the multiplier, $(n_A+n_B - 1)/(n_A+n_B - 3)$, is to account for slight underestimation of the sampling variance in small sample sizes [@goulet-pelletier2018].
+
+In a study contaminated by artifacts, we can model an observed SMD for a sample $i$ as similarly to an @eq-model,
+
+$$
+d_i = {\color{#cb427b}\alpha} {\color{#347e9f}\delta} + 
+{\color{#797979ff}\varepsilon}_i.
+$$ {#eq-model-d}
+
+Where ${\color{#347e9f}\delta}$ is the [target population SMD (the estimand)]{style="color:#347e9f"}, ${\color{#cb427b}\alpha}$ is the [artifact attenuation/inflation factor]{style="color:#cb427b"}, and ${\color{#797979ff}\varepsilon}_i$ denotes the [sampling errors]{style="color:#797979ff"}. The observed SMD is biased relative to the target population SMD as a function of ${\color{#cb427b}\alpha}$. However, ${\color{#cb427b}\alpha}$ is not available in practice and so therefore the observed SMD can be corrected by dividing by an estimate of ${\color{#cb427b}\alpha}$,
+
+$$
+{\color{#347e9f}d_c}_{_i} = \frac{d_i}{{\color{#cb427b}a}_i}.
+$$ {#eq-corr-d}
+
+Occasionally, corrections can not be applied to the contaminated $d$ value directly. In such cases, we may have to correct $d$ by first converting to a *point-biserial* correlation (i.e., a Pearson correlation between a dichotomous group variable and continuous variable), correcting the correlation, and then converting back to a (corrected) $d$ value [@hunter1990a]. The three-step procedure can be applied as follows:
+
+1.  Convert $d$ to $r$ using the proportion of subjects in group $A$ or group $B$ ($p=n_A/n$ or $p=n_B/n$) [@wiernik2020, equation 9],
+
+$$
+r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i}}.
+$$ {#eq-three-step-1}
+
+2.  Correct the point-biserial correlation,
+
+$$
+{\color{#347e9f}r_c}_{_i} = \frac{r_i}{{\color{#cb427b}a}_i}.
+$$
+
+3.  Convert $r_c$ back to a $d$ value. If the proportions of group membership are contaminated by artifacts, then we need the true group proportions in the target population ($p_i^*$) to convert back to $d$. If the the true group proportions are unavailable, then we can use the observed proportions as estimates [@wiernik2020, equation 10]
+
+$$
+{\color{#347e9f}d_c}_{_i} =  \frac{{\color{#347e9f}r}_{{\color{#347e9f}c}_i}}{\sqrt{p_i^*(1-p_i^*)(1-{\color{#347e9f}r}_{{\color{#347e9f}c}_i}^2)}} \approx \frac{{\color{#347e9f}r}_{{\color{#347e9f}c}_i}}{\sqrt{p_i(1-p_i)(1-{\color{#347e9f}r}_{{\color{#347e9f}c}_i}^2)}}.
+$$ {#eq-three-step-3}
+
+The sampling variance of the corrected SMD can be quite complicated when there is sampling error in the artifact factor.
+
+::: {.callout-note appearance="default" icon="false"}
+## Computing SMDs in R
+
+Let's load in a data set for a plant growth experiment:
+
+```{r}
+# load in data
+data("PlantGrowth")
+
+# view first 6 plants
+head(PlantGrowth)
+```
+
+We see that the data set contains two variables, weight of the plant and the experimental group. There are three two experimental groups present: a control group and two treatment groups. If we want to obtain the SMD between the each treatment group and the control group, we can use the `cohen.d` function `psych` package [@psych]:
+
+```{r,message=FALSE}
+library(psych)
+
+# estimate SMD for first treatment group
+d1 <- cohen.d(weight ~ group,
+             data = subset(PlantGrowth, group == 'ctrl' | group == 'trt1'))
+d1$cohen.d
+
+# estimate SMD for first treatment group
+d2 <- cohen.d(weight ~ group,
+             data = subset(PlantGrowth, group == 'ctrl' | group == 'trt2'))
+d2$cohen.d
+```
+
+We see that the first treatment showed a negative effect on plant growth ($d=-0.56$) and the second treatment shows a positive effect ($d=1.01$). For our purposes we want the estimate and the sampling variance of the estimator, therefore we can extract that information from the output of `cohen.d()`:
+
+```{r}
+data.frame(d = d1$cohen.d[,'effect'], 
+           var.d = d1$se^2)
+
+data.frame(d = d2$cohen.d[,'effect'], 
+           var.d = d2$se^2)
+```
+:::
+
+<!-- 1.  Convert $\widehat{\text{var}}(d_i)$ to $\widehat{\text{var}}(r_i)$, -->
+
+<!-- $$ -->
+
+<!-- \widehat{\text{var}}(r_i) = \frac{\widehat{\text{var}}(d_i)}{\left(1+d^2_i p_i\left[1-p_i\right]\right)^2\left(d_i^2+\frac{1}{p_i(1-p_i)}\right)}. -->
+
+<!-- $$ -->
+
+<!-- 2.  Estimate the sampling variance of the corrected point-biserial correlation, -->
+
+<!-- $$ -->
+
+<!-- \widehat{\text{var}}(r_{c_i}) = \frac{\widehat{\text{var}}(r_i)}{\alpha^2} = \frac{\widehat{\text{var}}(r_i)}{\left(\frac{r_i}{r_{c_i}}\right)^2}. -->
+
+<!-- $$ -->
+
+<!-- 3.  Then convert the sampling variance of $r_c$ back to the sampling variance of a $d$ value, -->
+
+<!-- $$ -->
+
+<!-- \widehat{\text{var}}(d_{c_i}) = \frac{\widehat{\text{var}}(r_{c_i})}{p^*_i\left(1-p^*_i\right)\left(1-r_{c_i}^2\right)^3}. -->
+
+<!-- $$ -->
+
+<!-- Alternatively, we can squeeze the three-step procedure into a single equation [@wiernik2020, equation 28], -->
+
+<!-- $$ -->
+
+<!-- \widehat{\text{var}}(d_{c_i}) = \frac{\widehat{\text{var}}(d_i)\left(\frac{r_{c_i}}{r_{i}}\right)^2}{\left(1+d^2_i p_i\left[1-p_i\right]\right)^2\left(d_i^2+\frac{1}{p_i(1-p_i)}\right)p^*_i\left(1-p^*_i\right)\left(1-r_{c_i}^2\right)^3} -->
+
+<!-- $$ -->
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me by buying me a coffee!" data-message="Thank you for being here! You can support this work." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

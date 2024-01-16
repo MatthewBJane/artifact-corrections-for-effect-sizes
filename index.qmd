@@ -6,23 +6,21 @@ Welcome to the living open source textbook ***Artifact Corrections for Effect Si
 
 In this book statistical artifacts will be defined broadly as **any source of contamination that induces bias in research findings**. Artifacts are present in virtually every research study, so it is crucial that we address them.
 
-#### Living Textbook {.unnumbered}
+#### Open and Living Textbook {.unnumbered}
 
 A living textbook is one that constantly updates with new features and is open to changes from others. This book will contain modern methods and cutting-edge techniques for artifact corrections, so in order to keep this book up-to-date it needs to grow as the research grows. New features, such as interactive figures will be added soon
-
-#### Open Science Practices {.unnumbered}
 
 It is important that this book is both open-source and open-access. All the figures, code, and documents are available in a [github repository](https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/). The current maintainer of the book is [Matthew B. Jané](https://matthewbjane.com). This work is under a [CC-BY license](LICENSE), therefore if you use any part of this work in your own work, it is important that you acknowledge it and cite it as follows:
 
 ##### APA {.unnumbered}
 
-Jané, M. B. (2023). Correcting Effect Sizes for Statistical Artifacts: Implementation in R and Application to Meta-Analysis. (n.p.). https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
+Jané, M. B. (2023). Artifact Corrections for Effect Sizes: Implementation in R and Application to Meta-Analysis. (n.p.). https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
 
 ##### BibTeX {.unnumbered}
 
 ``` default
 @book{MatthewBJane2023,
-  title     = "Correcting Effect Sizes for Statistical Artifacts: Implementation in R and Application to Meta-Analysis",
+  title     = "Artifact Corrections for Effect Sizes: Implementation in R and Application to Meta-Analysis",
   author    = "Jané, Matthew B.",
   year      = 2023,
   publisher = "(n.p.)",
@@ -34,6 +32,12 @@ Jané, M. B. (2023). Correcting Effect Sizes for Statistical Artifacts: Implemen
 
 Please feel free to contribute to this textbook, if your contribution makes it to the published version of this book, your name will be included in the contributor list below with a description of your work.
 
-| Name  |Affiliation| Role  |
-|--|--|---|
-| [Velu Immonen, BS](https://www.instagram.com/veluimmonen/?hl=en) |Solent University| Designed cover and twitter preview. |
+| Name                                                             | Affiliation       | Role                                |
+|---------------------|---------------------|------------------------------|
+| [Velu Immonen, BS](https://www.instagram.com/veluimmonen/?hl=en) | Solent University | Designed cover and twitter preview. |
+
+
+
+
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>

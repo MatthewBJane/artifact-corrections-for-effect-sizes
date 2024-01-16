@@ -59,7 +59,7 @@ Group misclassification describes a situation where true group membership (e.g.,
 
 ## Defining Group Misclassification
 
-Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two arbitrary groups, group $A$ and group $B$. In order to identify members of group $A$ and group $B$, we have to use some measurement instrument. We can also assume this measurement instrument produces imperfect group classifications, that is, people who are actually in group $A$ are sometimes assigned group $B$ and vice versa. We can visualize the performance of the classification procedure with a contingency table between actual group membership ($G$) and observed group membership ($g$):
+Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two groups, group $A$ and group $B$. In order to identify members of group $A$ and group $B$, we have to use some measurement procedure. We can also suppose that this measurement instrument produces imperfect group assignments, that is, people who are actually in group $A$ are sometimes assigned group $B$ and vice versa. We can visualize the performance of the classification procedure with a contingency table (see @tbl-class) between actual group membership ($G$) and observed group membership ($g$):
 
 ::: columns
 ::: {.column width="25%"}
@@ -69,17 +69,17 @@ Misclassification can be defined as any deviations between true group membership
 |                    |                    |                    |
 |:------------------:|:------------------:|:------------------:|
 |                    | $\boldsymbol{G=A}$ | $\boldsymbol{G=B}$ |
-| $\boldsymbol{g=A}$ |        $AA$        |        $BA$        |
-| $\boldsymbol{g=B}$ |        $AB$        |        $BB$        |
+| $\boldsymbol{g=A}$ |      $n_{AA}$      |      $n{BA}$       |
+| $\boldsymbol{g=B}$ |      $n_{AB}$      |      $n_{BB}$      |
 
-: {.hover}
+: Contingency table between assigned group membership and actual group membership. {#tbl-class .hover}
 :::
 
 ::: {.column width="25%"}
 :::
 :::
 
-We can see from the contingency table that subjects who were correctly classified, would be labeled in the cell block $AA$ or $BB$ and those who were misclassified would belong to cells $BA$ and $AB$. Therefore we can define the proportion of individuals that are accurately classified as $p_{\text{acc}} = P(AA) + P(BB)$ whereas the proportion of people misclassified can be defined as $p_{\text{mis}} = P(AB)+ P(BA)$. A high-quality classifier would would minimize $p_{\text{mis}}$ and maximize $p_{\text{acc}}$. Note that the proportion of people misclassified is inversely proportional to the proportion of people accurately classified such that, $p_{\text{mis}} = 1-p_{\text{acc}}$.
+We can see from the contingency table that individual's who were correctly classified, would be labeled in the cell block $AA$ or $BB$ and those who were misclassified would belong to cells $BA$ and $AB$. Therefore we can define the proportion of individuals that are accurately classified as $p_{\text{acc}} = \frac{n_{AA} + n_{BB}}{n_{AA} + n_{BB} + n_{AB} + n_{BA}}$ whereas the proportion of people misclassified can be defined as $p_{\text{mis}} = \frac{n_{AB} + n_{BA}}{n_{AA} + n_{BB} + n_{AB} + n_{BA}}$. A high-quality classifier would would minimize $p_{\text{mis}}$ and maximize $p_{\text{acc}}$. Note that the proportion of people misclassified is inversely proportional to the proportion of people accurately classified such that, $p_{\text{mis}} = 1-p_{\text{acc}}$.
 
 ## Classification Reliability
 
@@ -93,8 +93,8 @@ Similar to quantifying reliability in continuous variables by calculating the co
 |                     |                    |                    |
 |:-------------------:|:------------------:|:------------------:|
 |                     | $\boldsymbol{g=A}$ | $\boldsymbol{g=B}$ |
-| $\boldsymbol{g'=A}$ |        $AA$        |        $BA$        |
-| $\boldsymbol{g'=B}$ |        $AB$        |        $BB$        |
+| $\boldsymbol{g'=A}$ |      $n_{AA}$      |      $n_{BA}$      |
+| $\boldsymbol{g'=B}$ |      $n_{AB}$      |      $n_{BB}$      |
 
 : {.hover}
 :::
@@ -103,21 +103,25 @@ Similar to quantifying reliability in continuous variables by calculating the co
 :::
 :::
 
-To obtain the reliability of the group assignments, we can calculate the correlation coefficient between $g$ and $g'$. Since both variables are categorical, a Pearson correlation coefficient would be equivalent to a phi coefficient. The phi coefficient is often referred to as Matthew's correlation coefficient and is most frequently used as an index of performance of a binary classifier in machine learning. For the sake of consistency, the phi coefficient will be denoted with the letter $r$, and thus the reliability (i.e., the correlation between $g$ and $g'$) is denoted with $r_{gg'}$.
+To obtain the reliability of the group assignments, we can calculate the correlation coefficient between $g$ and $g'$. Since both variables are categorical, a Pearson correlation coefficient would be equivalent to a phi coefficient. The phi coefficient is often referred to as Matthew's correlation coefficient and is most frequently used as an index of performance of a binary classifier in machine learning. Let's denote the reliability (i.e., the correlation between $g$ and $g'$) as $\rho_{gg'}$. Remember that reliability from the chapter on unreliability can be defined as the square of the correlation between true scores and observed scores. As is the case here, we can define classification reliability as the square of the correlation between assigned group membership and actual group membership,
 
-There are a few ways we can calculate the phi coefficient. The first way is to calculate phi directly from the contingency table,
+$$
+\rho_{gg'} = \rho^2_{gG}
+$$
+
+There are a few ways to obtain a sample estimate of $\rho_{gg'}$ ($r_{gg'}$). The first way is to calculate the sample estimate directly from a contingency table,
 
 $$
 r_{gg'} = \frac{n_{AA}n_{BB}-n_{AB}n_{BA}}{\sqrt{(n_{AA}+n_{BA})(n_{AB}+n_{BB})(n_{AA}+n_{AB})(n_{BA}+n_{BB})}}.
 $$
 
-Where $n_{AA}$, $n_{BB}$, $n_{AB}$, and $n_{BA}$ are the number of subjects within their respective cells of the contingency table. If the values of the contingency table are not available, we can calculate the phi coefficient from the $\chi^2$-statistic,
+Where $n_{AA}$, $n_{BB}$, $n_{AB}$, and $n_{BA}$ are the number of subjects within their respective cells of the contingency table. If the values of the contingency table are not available, we can calculate the reliability from the $\chi^2$-statistic,
 
 $$
 r_{gg'} = \sqrt{\frac{\chi^2}{n}}.
 $$
 
-Where $n$ is the total sample size. If the $\chi^2$-statistic is unavailable, we can approximate the phi coefficient from the accuracy ($p_{\text{acc}}$) or the proportion of people misclassified ($p_{\text{mis}}$),
+Where $n$ is the total sample size (sum of all cells). If the $\chi^2$-statistic is unavailable, we can approximate the reliability from the accuracy ($p_{\text{acc}}$) or the proportion of people misclassified ($p_{\text{mis}}$),
 
 $$
 r_{gg'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2.
@@ -125,136 +129,76 @@ $$
 
 This approximation assumes that the group sizes are approximately equal *and* the misclassification rates are approximately equal between groups. Otherwise, $r_{gg'}$ will be overestimated [@wiernik2020].
 
-In the chapter 5, we discussed the relationship between reliability and the correlation between observed and true scores. The classification reliability will also be related similarly to the correlation between observed group membership and true group membership ($r_{gG}$) such that,
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
 
-$$
-r_{gG}=\sqrt{r_{gg'}}.
-$$
+Let's say that a researcher wants to calculate the reliability of a clinician's diagnoses of major depressive disorder. They hire two clinicians to assign a sample of 100 patients to a control group or a major depressive disorder group. The researcher runs a $\chi^2$-test to test the association between the clinicians group assignments and it returns $\chi^2=54.5$. We can then calculate the reliability of classification using base R.
 
-## Calculating Group Classification Reliability in R
+```{r,message=FALSE}
+chi2 <- 54.5
+n <- 100
 
-To calculate classification reliability we will first need data. We can simulate 100 subjects with a group value for three variables: a true group membership and two sets of assigned (observed) group membership. We will set the misclassification rate to 10%.
-
-```{r}
-# set seed
-set.seed(17)
-
-# 10% misclassification rate
-p_mis <- .10
-
-# sample size of 100
-nA <- 50
-nB <- 50
-n = nA + nB
-
-# create a vector of true group values
-true_A <- rep('A',nA)
-true_B <- rep('B',nB)
-true_group <- c(true_A,true_B)
-
-# initialize vectors of observed group membership from true group membership
-obs_1_A <- true_A
-obs_1_B <- true_B
-obs_2_A <- true_A
-obs_2_B <- true_B
-
-# add misclassified values to observed group membership
-obs_1_A[sample(1:nA,nA*p_mis)] <- 'B'
-obs_1_B[sample(1:nB,nB*p_mis)] <- 'A'
-obs_2_A[sample(1:nA,nA*p_mis)] <- 'B'
-obs_2_B[sample(1:nB,nB*p_mis)] <- 'A'
-obs_1_group <- c(obs_1_A,obs_1_B)
-obs_2_group <- c(obs_2_A,obs_2_B)
-
-
-```
-
-Then we can generate a contingency table of the two sets of observed group assignments.
-
-```{r}
-# create contingency table of the two observed group memberships
-con_table <- table(data.frame(obs_1=obs_1_group,
-                              obs_2=obs_2_group))
-print(con_table)
-```
-
-Now we can calculate the reliability of the group assignments by extracting the phi coefficient from the contingency table. We can compute it by hand or by using the `psych` package by William Revelle [-@psych:p2017].
-
-```{r, message=FALSE}
-
-## Strategy 1: Using the {psych} package
-# load in psych package (make sure it is installed first: install.packages('psych'))
-library(psych)
-rgg = phi(con_table,digits = 3)
-
-## Strategy 2: calculate from contingency table values
-numerator <- con_table['A','A']*con_table['B','B'] - con_table['A','B']*con_table['B','A']
-denominator <- sqrt(con_table['A','A']+con_table['A','B']) *
-               sqrt(con_table['B','A']+con_table['B','B']) * 
-               sqrt(con_table['A','A']+con_table['B','A']) * 
-               sqrt(con_table['A','B']+con_table['B','B'])
-
-rgg <- numerator / denominator
-
-## Strategy 3: calculate from chi-square test
-chi2 <- as.numeric(chisq.test(con_table)$statistic)
+# calculate reliability from chi squared statistic
 rgg <- sqrt(chi2/n)
 
-## Strategy 4: calculate from proportion of people misclassified
-rgg <- (1-2*p_mis)^2
-print(rgg)
+# print reliability
+rgg
 ```
+
+The clinicians show a fair level of agreement with a classification reliability of $r_{gg'}=.74$.
+:::
 
 ## Correcting for Group Misclassification in Standardized Mean Difference
 
-### Defining our Estimand
+### Defining our Target Quantity
 
-Our quantity of interest is the true population standardized mean difference, $\delta$, between members of group $A$ and group $B$ on the scores of the dependent variable, $y$. However, the observed sample standardized mean difference ($d_o$) is estimating the difference between individuals who are assigned group to $A$ and group $B$. Error in the assignment of groups (i.e., group misclassification) will bias the observed correlation by a factor we will label as $a$. The relationship between the observed study standardized mean difference and the true population standardized mean difference
-
-$$
-d_o = a\delta + \varepsilon.
-$$
-
-Where $\varepsilon$ denotes the sampling error. Therefore an unbiased (corrected) estimate of the true population correlation would be:
+Our quantity of interest is the true score population standardized mean difference, $\delta_{GU}$, between actual members of group $A$ and group $B$ on the true scores of the dependent variable, $U$. However, the observed sample standardized mean difference ($d_{gY}$) is estimating the difference in observed scores between individuals who are assigned group to $A$ and group $B$. Non-differential error in the assignment of groups (i.e., group misclassification) will bias the observed correlation. We can model the observed standardized mean difference as a function of the target quantity, $\delta_{GU}$,
 
 $$
-r_c = \frac{r_o}{a}.
+d_{gY} = a\delta_{GU} + e.
+$$
+
+Where $a$ is the artifact attenuation factor and $e$ denotes the sampling error. Therefore an unbiased estimate of the target standardized mean difference can be obtained by dividing the observed standardized mean difference by an estimate of the artifact attenuation factor,
+
+$$
+d_{GU} = \frac{d_{gY}}{\hat{a}}.
 $$
 
 ### Artifact Correction for Standardized Mean Difference
 
-The standardized mean differences will become biased when subject's assigned groups differ from their actual group. This is largely due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group $A$ and group $B$ score differently on some outcome, $y$. The true mean of $y$ for groups $A$ and $B$ can be denoted as $\bar{y}^\text{true}_{A}$ and $\bar{y}^\text{true}_{B}$, respectively. Nonetheless, when some subjects are erroneously assigned to the wrong group, the *observed* mean within each group will reflect a weighted average of the respective means. This is due to the fact that the misclassified individuals are being drawn from a population with a different mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects,
+The standardized mean differences will become biased when subject's assigned groups differ from their actual group. This is partially due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group $A$ and group $B$ score differently on some outcome, $Y$. When some subjects are erroneously assigned to the incorrect group, the observed mean within each group will reflect a weighted average true means of both groups. This is due to the fact that the misclassified individuals are being drawn from a population with a different mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects,
 
 $$
-\bar{y}^\text{obs}_A = \left(\frac{n_{AA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_A + \left(\frac{n_{BA}}{n_{AA}+n_{BA}}\right)\bar{y}^\text{true}_B
+\overline{Y}^\text{obs}_A = \left(\frac{n_{AA}}{n_{AA}+n_{BA}}\right)\overline{Y}^\text{true}_A + \left(\frac{n_{BA}}{n_{AA}+n_{BA}}\right)\overline{Y}^\text{true}_B
 $$
 
 $$
-\bar{y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_B + \left(\frac{n_{AB}}{n_{BB}+n_{AB}}\right)\bar{y}^\text{true}_A.
+\overline{Y}^\text{obs}_A = \left(\frac{n_{BB}}{n_{BB}+n_{AB}}\right)\overline{Y}^\text{true}_B + \left(\frac{n_{AB}}{n_{BB}+n_{AB}}\right)\overline{Y}^\text{true}_A.
 $$
 
-From the above equations, it becomes evident that as the number of misclassified individuals increases ($n_{AB}$ and $n_{BA}$), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, the figure below shows the distributions for groups $A$ and $B$ without any misclassification. In this case, there is no attenuation of the standardized mean difference.
+From the above equations, it becomes evident that as the number of misclassified individuals increases ($n_{AB}$ and $n_{BA}$), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, @fig-no-mis shows the distributions for groups $A$ and $B$ without any misclassification. In this case, there is no attenuation of the standardized mean difference.
 
-```{r, echo = FALSE,warning=FALSE,fig.height=4}
-#| fig-cap: Distributions of scores without misclassification. True mean difference and observed mean differ only due to sampling error.
+```{r, echo = FALSE,warning=FALSE,fig.height=5}
+#| id: fig-no-mis
+#| fig-cap: Distributions of scores without misclassification. True mean difference and observed mean differ only due to sampling error. Red squares denote actual group $A$ members, blue circles denote actual group $B$ members.
 
 set.seed(25)
 n = 50
 P_mis = 5
 
-`Observed Score (y)` = c(rnorm(n,30,8) , rnorm(n,38,8))
+`Observed Score (Y)` = c(rnorm(n,30,8) , rnorm(n,38,8))
 
 `Assigned Group (g)` =  c(rep('A',n) , rep('B',n))
 ord = c(rep(4,P_mis),rep(1,n-P_mis),
         rep(3,P_mis),rep(2,n-P_mis))
 `Actual Group` =  c(rep('B',n) , rep('A',n))
 
-DIFF = (mean(`Observed Score (y)`[`Assigned Group (g)`=='B'])-mean(`Observed Score (y)`[`Assigned Group (g)`=='A']))
-SD = (sd(`Observed Score (y)`[`Assigned Group (g)` == 'A']) + sd(`Observed Score (y)`[`Assigned Group (g)` == 'B']))/2
+DIFF = (mean(`Observed Score (Y)`[`Assigned Group (g)`=='B'])-mean(`Observed Score (Y)`[`Assigned Group (g)`=='A']))
+SD = (sd(`Observed Score (Y)`[`Assigned Group (g)` == 'A']) + sd(`Observed Score (Y)`[`Assigned Group (g)` == 'B']))/2
 d = round(DIFF / SD,2)
 
 ggplot(data = NULL, aes(y = `Assigned Group (g)`,
-                        x = `Observed Score (y)`,
+                        x = `Observed Score (Y)`,
                         shape = `Actual Group`,
                         fill = `Actual Group`,
                         color = `Actual Group`,
@@ -274,7 +218,7 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
   scale_color_manual(values = c(main_color_blue,main_color_red)) + 
   scale_shape_manual(values = c(21,22))+
   stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='B')[`Assigned Group (g)`=='B']+.95,
-                        x = `Observed Score (y)`[`Assigned Group (g)`=='B'],
+                        x = `Observed Score (Y)`[`Assigned Group (g)`=='B'],
                         shape = `Actual Group`[`Assigned Group (g)`=='B'],
                         fill = `Actual Group`[`Assigned Group (g)`=='B'],
                         color = `Actual Group`[`Assigned Group (g)`=='B'],
@@ -284,7 +228,7 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
                      point_color = main_color_blue,
                      interval_color = main_color_blue) +
   stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='B')[`Assigned Group (g)`=='A']+.95,
-                        x = `Observed Score (y)`[`Assigned Group (g)`=='A'],
+                        x = `Observed Score (Y)`[`Assigned Group (g)`=='A'],
                         shape = `Actual Group`[`Assigned Group (g)`=='A'],
                         fill = `Actual Group`[`Assigned Group (g)`=='A'],
                         color = `Actual Group`[`Assigned Group (g)`=='A'],
@@ -293,49 +237,50 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
                      shape = 15,point_size = 3.2,
                      point_color = main_color_red,
                      interval_color =main_color_red) + 
-  annotate('text',x = median(`Observed Score (y)`[`Assigned Group (g)` == 'B']),
+  annotate('text',x = median(`Observed Score (Y)`[`Assigned Group (g)` == 'B']),
            y = 1.85,
-           label = round(median(`Observed Score (y)`[`Assigned Group (g)` == 'B']),1),
+           label = round(median(`Observed Score (Y)`[`Assigned Group (g)` == 'B']),1),
            color=text_color_blue) +
-  annotate('text',x = median(`Observed Score (y)`[`Assigned Group (g)` == 'A']),
+  annotate('text',x = median(`Observed Score (Y)`[`Assigned Group (g)` == 'A']),
            y = 0.85,
-           label = round(median(`Observed Score (y)`[`Assigned Group (g)` == 'A']),1),
+           label = round(median(`Observed Score (Y)`[`Assigned Group (g)` == 'A']),1),
            color=text_color_red) +
   annotate('text',
            x = 8,
            y = 2.65,
-           label = paste0('d = ',d) ,
+           label = TeX(paste0('$d_{gY}$ = ',d)) ,
            color="black", hjust='left') +
   annotate('text',
            x = 8,
            y = 2.85,
-           label = TeX("$\\delta$ = 1.00"),
+           label = TeX("$\\delta_{GY}$ = 1.00"),
            color="black", hjust='left') +
   ggtitle("Group Difference", subtitle = "No Misclassification")
 
 ```
 
-If some individual's are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. Now lets display a figure showing what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of $r_{gg'}=.60$.
+If some individuals are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. @fig-mis is showing what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of $r_{gg'}=.64$.
 
-```{r, echo = FALSE,warning=FALSE,fig.height=4}
-#| fig-cap: Distributions of scores with a 10% misclassification rate. Observed standardized mean differences are biased toward the null (i.e., SMD = 0). Note that a few members of group $A$ (red squares) are within observed group $B$ and vice versa (indicative of misclassification).
+```{r, echo = FALSE,warning=FALSE,fig.height=5}
+#| id: fig-mis
+#| fig-cap: Distributions of scores with a 10% misclassification rate. Observed standardized mean differences are biased toward the null (i.e., $\delta$ = 0). Red squares denote actual group $A$ members, blue circles denote actual group $B$ members. Note that a few members of group $A$ (red squares) are within assigned group $B$ and vice versa (indicative of misclassification). 
 
 set.seed(25)
 n = 50
 P_mis = 5
 
-`Observed Score (y)` = c(rnorm(n,30,8) , rnorm(n,38,8))
+`Observed Score (Y)` = c(rnorm(n,30,8) , rnorm(n,38,8))
 
 `Assigned Group (g)` = c(rep('B',P_mis) , rep('A',n-P_mis),
                     rep('A',P_mis), rep('B',n-P_mis))
 ord = c(rep(4,P_mis),rep(1,n-P_mis),
         rep(3,P_mis),rep(2,n-P_mis))
 `Actual Group` =   c(rep('B',n) , rep('A',n))
-DIFF = (mean(`Observed Score (y)`[`Assigned Group (g)`=='B'])-mean(`Observed Score (y)`[`Assigned Group (g)`=='A']))
-SD = (sd(`Observed Score (y)`[`Assigned Group (g)` == 'A']) + sd(`Observed Score (y)`[`Assigned Group (g)` == 'B']))/2
+DIFF = (mean(`Observed Score (Y)`[`Assigned Group (g)`=='B'])-mean(`Observed Score (Y)`[`Assigned Group (g)`=='A']))
+SD = (sd(`Observed Score (Y)`[`Assigned Group (g)` == 'A']) + sd(`Observed Score (Y)`[`Assigned Group (g)` == 'B']))/2
 d = round(DIFF / SD,2)
 ggplot(data = NULL, aes(y = `Assigned Group (g)`,
-                        x = `Observed Score (y)`,
+                        x = `Observed Score (Y)`,
                         shape = `Actual Group`,
                         fill = `Actual Group`,
                         color = `Actual Group`,
@@ -355,7 +300,7 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
   scale_color_manual(values = c(main_color_blue,main_color_red)) + 
   scale_shape_manual(values = c(21,22))+
   stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='B')[`Assigned Group (g)`=='B']+.95,
-                        x = `Observed Score (y)`[`Assigned Group (g)`=='B'],
+                        x = `Observed Score (Y)`[`Assigned Group (g)`=='B'],
                         shape = `Actual Group`[`Assigned Group (g)`=='B'],
                         fill = `Actual Group`[`Assigned Group (g)`=='B'],
                         color = `Actual Group`[`Assigned Group (g)`=='B'],
@@ -365,7 +310,7 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
                      point_color = main_color_blue,
                      interval_color = main_color_blue) +
   stat_pointinterval(aes(y = as.numeric(`Assigned Group (g)`=='B')[`Assigned Group (g)`=='A']+.95,
-                        x = `Observed Score (y)`[`Assigned Group (g)`=='A'],
+                        x = `Observed Score (Y)`[`Assigned Group (g)`=='A'],
                         shape = `Actual Group`[`Assigned Group (g)`=='A'],
                         fill = `Actual Group`[`Assigned Group (g)`=='A'],
                         color = `Actual Group`[`Assigned Group (g)`=='A'],
@@ -374,134 +319,72 @@ ggplot(data = NULL, aes(y = `Assigned Group (g)`,
                      shape = 15,point_size = 3.2,
                      point_color = main_color_red,
                      interval_color =main_color_red) + 
-  annotate('text',x = median(`Observed Score (y)`[`Assigned Group (g)` == 'B']),
+  annotate('text',x = median(`Observed Score (Y)`[`Assigned Group (g)` == 'B']),
            y = 1.85,
-           label = round(median(`Observed Score (y)`[`Assigned Group (g)` == 'B']),1),
+           label = round(median(`Observed Score (Y)`[`Assigned Group (g)` == 'B']),1),
            color=text_color_blue) +
-  annotate('text',x = median(`Observed Score (y)`[`Assigned Group (g)` == 'A']),
+  annotate('text',x = median(`Observed Score (Y)`[`Assigned Group (g)` == 'A']),
            y = 0.85,
-           label = round(median(`Observed Score (y)`[`Assigned Group (g)` == 'A']),1),
+           label = round(median(`Observed Score (Y)`[`Assigned Group (g)` == 'A']),1),
            color=text_color_red) +
   annotate('text',
            x = 8,
            y = 2.65,
-           label = paste0('d = ',d) ,
+           label = TeX(paste0('$d_{gY}$ = ',d)) ,
            color="black", hjust='left') +
   annotate('text',
            x = 8,
            y = 2.85,
-           label = TeX("$\\delta$ = 1.00"),
+           label = TeX("$\\delta_{GY}$ = 1.00"),
            color="black", hjust='left') +
   ggtitle("Group Difference", subtitle = "10% misclassification rate")
 
 ```
 
-The bias in the standardized mean difference can be expressed as a function of the classification reliability ($r_{gg'}$). To illuminate this bias, we must first convert the true SMD to a point-biserial correlation coefficient ($\rho$) using the proportion of individuals in group $A$ ($p_A$) and group $B$ ($1-p$),
+It is important to note that for many of the corrections converting the standardized mean difference to a point-biserial correlation is often a necessary step. However, once the corrected point-biserial correlation is obtained, the correlation can then be converted back into a standardized mean difference. To correct for bias induced by misclassification we first need to convert the observed standardized mean difference to a point-biserial correlation coefficient by using the observed proportion of the sample that has been assigned to either group $A$ or group $B$ ($p_g$). The group proportion $p_g$ in the following equations will only show up in the term $p_g(1-p_g)$ so it will not matter which group is used to calculate the proportion. Converting $d_{gY}$ to $r_{gY}$:
 
 $$
-\rho = \frac{\delta}{\sqrt{\frac{1}{p(1-p)}-\delta^2}}.
+r_{gY} = \frac{d_{gY}}{\sqrt{\frac{1}{p_g(1-p_g)}-d_{gY}^2}}.
 $$
 
-Then attenuation of the correlation is similar to the attenuation of correlation coefficients in the section on unreliability ($r = \rho\sqrt{r_{xx'}}$). However in this case, we also need to convert the point-biserial correlation to the observed standardized mean difference:
+We can then correct the point-biserial correlation for group misclassification by dividing by the square root of the classification reliability. Since we also want to correct for measurement error in the continuous dependent variable, $Y$, we can simultaneously apply the correction for unreliability:
 
 $$
-\delta_o =\frac{ \rho \sqrt{r_{gg'}} }{\sqrt{p (p-1)\left(1- r_{gg'} \rho^2\right) }}.
+r_{GU} = \frac{r_{gY}}{\sqrt{r_{gg'}}\sqrt{r_{YY'}}}.
 $$
 
-It is important to note that for many of the biasing effects and corrections, converting the standardized mean difference to a point-biserial correlation is often a necessary step. However once the corrected point-biserial correlation is obtained, the correlation can then be converted back into a standardized mean difference like we see in the last equation. To correct for bias induced by misclassification we first need to convert the observed standardized mean difference to a point-biserial correlation coefficient by using the observed proportion of the sample that has been assigned to either group $A$ or group $B$ ($p$). The group proportion $p$ in the following equations will only show up in the term $p(1-p)$ so it will not matter which group is used. Converting $d$ to $r$:
+Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference ($d_{GU}$). When converting back to a standardized mean difference, we need to use the true group proportions, $p_G$. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used $p_g$:
 
 $$
-r_o = \frac{d_o}{\sqrt{\frac{1}{p(1-p)}-d_o^2}}.
+d_{GU} = \frac{r_{GU}}{\sqrt{p_G\left(1-p_G\right)\left(1-r_{GU}^2\right)}}.
 $$
 
-We can then correct the point-biserial correlation for group misclassification with the square root of the classification reliability:
+This process of converting, correcting, and then back-converting must also be done for the standard error. To avoid redundancy, we can incorporate each step into a single equation:
 
 $$
-r_c = \frac{r_o}{\sqrt{r_{gg'}}}.
+\small{se(d_{GU}) = \frac {se(d_{gY})\times r_{GU}} {r_{gY}\sqrt{\left(1+d_{gY}^2p[1-p]\right)^2\left(d_{gY}^2+\frac{1}{p_g(1-p_g)}\right)p_G(1-p_G)(1-r_{GU}^2)^3}}.}
 $$
 
-If we also wanted to correct for measurement error in the dependent variable $y$, we can use the correction formula used in the chapter 4
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
 
-$$
-r_c = \frac{r_o}{\sqrt{r_{gg'}}\sqrt{r_{yy'}}}.
-$$
+A researcher wants to compare the academic performance (measured by a standardized test) of people with and without Major Depressive Disorder (MDD). The researcher reports a classification reliability of $r_{gg'}=.80$ and a reliability of the standardized test as $r_{YY'}=.85$. The researcher than finds a standardized mean difference of $d_{gY}=.30$ favoring controls (i.e., controls had a higher average on the test). Using the `correct_d` function in the `psychmeta` package, we can obtain an unbiased estimate of the target standardized mean difference.
 
-Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference ($d_c$). When converting back to a standardized mean difference, we need to use the true group proportions, $p^*$. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used $p$:
-
-$$
-d_c = \frac{r_c}{\sqrt{p^*\left(1-p^*\right)\left(1-r_c^2\right)}}.
-$$
-
-Instead of doing the converting, correcting, and back-converting for the sampling variance, we can correct the sampling variance in a single step,
-
-$$
-\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^2\left(d_o^2+\frac{1}{p(1-p)}\right)p^*(1-p^*)(1-r_c^2)^3}.
-$$
-
-This can be simplified if we assume that misclassification rates are equal between groups,
-
-$$
-\sigma^2_{\varepsilon_c} = \frac {\sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_o}\right)^2} {\left(1+d_o^2p[1-p]\right)^3(1-r_c^2)^3}.
-$$
-
-## Correcting for Misclassification in R
-
-We can correct for group misclassification in R by hand or by using the `psychmeta` package [@dahlke2019]. For our correction, say we have an observed standardized mean difference of $d_o = 0.40$ and we calculated the classification reliability to be $r_{gg'} = .80$. Let us also say that the observed *and* the true proportion of individuals in one of the groups is $p=p^*=.40$, therefore the other group would be $1-p=1-p^*=.60$.
-
-```{r}
-do = .40
-rgg = .70
-nA = 40
-nB = 60
-```
-
-The `psychmeta` package [@dahlke2019] has a function, `correct_d`, that is dedicated to correcting standardized mean differences multiple types of artifacts including group misclassification.
-
-```{r, message=FALSE}
-# step 1: install and load in psychmeta
-# install.packages{'psychmeta'}
+```{r,message=FALSE}
 library(psychmeta)
 
-# step 2: calculate proportion of group membership
-p <- nA / (nA + nB)
-# p = nB / (nA + nB) # alternative calculation
-
-# step 3: correct d for group misclassification
-correct_d(d = do,
-          rGg = sqrt(rgg), # square root of rgg = rGg
-          correction = "meas",
-          pi = p,
-          pa = p,
-          n1 = nA+nB,
-          correct_bias = FALSE)
-
+correct_d(correction = "meas",
+          d = .30,   # observed standardized mean difference
+          ryy = .85, # reliability of dependent variable
+          rGg = sqrt(.80), # sqrt of classification reliability
+          n1 = 100, # sample size in controls
+          n2 = 100) # sample size in people with MDD
 ```
 
-The output provides the corrected standardized mean difference (`value`), the upper and lower 95% confidence intervals (`CI_LL_95` and `CI_UL_95`), the sample size (`n`), and the effective sample size (`n_effective`).
+The corrected standardized mean difference is $d_{GU}=0.37\, [0.02,\, .73]$.
+:::
 
-To calculate the corrected standardized mean difference, we can also use the equations in the previous section.
 
-```{r}
-## correct using three step procedure
-# step 1: convert d to r
-ro <- do / sqrt( 1/(p*(1-p)) + do^2)
-
-# step 2: correct r
-rc <- ro / sqrt(rgg)
-
-# step 3: convert r to d
-dc <- rc / sqrt( p*(1-p)*(1-rc^2) )
-
-## correct sampling variance
-# step 1: compute sampling variance for do
-var_e_o <- (nA+nB)/(nA*nB) + do^2 / (2*(nA+nB))
-
-# step 2: adjust sampling variance for correction
-var_e_c <- (var_e_o * (rc/ro)^2) / ((1 + do^2)^3 * p*(1-p) * (1-rc^2)^3)
-
-# print corrected values
-rbind(paste0('corrected: do = ',round(do,3)),
-      paste0('corrected: var = ', round(var_e_o,3)),
-      paste0('corrected: dc = ',round(dc,3)),
-      paste0('corrected: var = ', round(var_e_c,3)))
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 ```

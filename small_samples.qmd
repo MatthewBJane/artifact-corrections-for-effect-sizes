@@ -39,6 +39,7 @@ th_blue <- theme(aspect.ratio = 1,
         axis.title = element_text(size=15, color = text_color_blue),
         axis.text.x = element_text(size=13, color = text_color_blue),
         axis.text.y = element_text(size=13, color = text_color_blue),
+        text = element_text(size=13, color = text_color_blue),
         axis.ticks = element_line(color = border_color_blue,linewidth=1)) 
   
 th_red <- theme(aspect.ratio = 1,
@@ -50,226 +51,298 @@ th_red <- theme(aspect.ratio = 1,
         axis.title = element_text(size=15, color = text_color_red),
         axis.text.x = element_text(size=13, color = text_color_red),
         axis.text.y = element_text(size=13, color = text_color_red),
+        text = element_text(size=13, color = text_color_red),
         axis.ticks = element_line(color = border_color_red,linewidth=1)) 
 ```
 
 ## Introduction
 
-The purpose of sample statistics such as correlations and standardized mean differences is to draw meaningful inferences about the population. However, effect size estimators such as Pearson's correlation coefficient and standardized mean difference are biased in small sample sizes. This small sample bias will impair our ability to draw accurate inferences about the population.
+The purpose of sample statistics is to draw meaningful inferences about the population. However, effect size estimators such as Pearson's correlation coefficient and Cohen's $d$ are biased in small sample sizes. This small sample bias is an artifact and can be adjusted with the appropriate correction factor.
 
 ## When Correcting alongside other Artifacts
 
-The small sample bias should always be corrected for prior to applying any other artifact correction. It is independent of all other artifact corrections and therefore the corrected effect sizes in this section can be treated as the observed effect sizes (and observed sampling variance) in other sections.
+The small sample bias should always be corrected for prior to applying any other artifact correction. It is independent of all other artifact corrections and therefore the corrected effect sizes in this section can be treated as the uncorrected effect sizes in other sections.
 
-## Correcting for Small Sample Bias in Standardized Mean Differences
+## Correcting Standardized Mean Differences for Small Sample Bias
 
-### Defining our Estimand
+### Defining the Target Quantity
 
-Our quantity of interest is the population standardized mean difference, $\delta$, between groups $A$ and $B$ on variable, $y$. We can model the relationship between the population standardized mean difference and our observed standardized mean difference ($d_o$) with,
-
-$$
-d_o = a\delta+\varepsilon.
-$$
-
-Where $a$ is our small sample biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population standardized mean difference by correcting the observed standardized mean difference as follows,
+Our quantity of interest is the population standardized mean difference, $\delta$, between groups $A$ and $B$. We can model the relationship between the population standardized mean difference and the estimate ($d$),
 
 $$
-d_c = \frac{d_o}{a}.
+d = a\delta+e.
 $$
 
-### Artifact Correction for Small Sample Bias
-
-As the sample size approaches infinity, Cohen's standardized mean difference estimator is an unbiased estimator of the population standardized mean difference [@hedges1981; @cohen1977]. However, in small sample sizes Cohen's estimator is biased upward, that is, on average, it overestimates the population standardized mean difference. To see why this is the case, we can first define the standardized mean difference between group $A$ and group $B$ such that,
+Where $a$ is an attenuation/inflation factor and $e$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population standardized mean difference by correcting the sample standardized mean difference as follows,
 
 $$
-d = \frac{\bar{y}_A-\bar{y}_B}{\sigma_p}.
+d_c = \frac{d}{\hat{a}}.
 $$
 
-Where $\bar{y}_A$ and $\bar{y}_B$ are the observed arithmetic means of group $A$ and group $B$, respectively. The raw difference between these two means will be unbiased, since the arithmetic means themselves are unbiased estimators at all sample sizes. However, the pooled standard deviation, $\sigma_p$, is biased when sample sizes are small. Statisticians ultimately had to choose whether the estimator of the standard deviation or the variance (the square of the standard deviation) would be unbiased. Since the variance has more utility in much of statistics, it was more important for the estimator of variance to be unbiased. Therefore the resulting bias in the standard deviation will bleed over into the equation for standardized mean differences. This bias can be visualized in the figure below. Notice that the sample standard deviation is under-estimated in small sample sizes (left plot), and the standardized mean difference is over-estimated in small sample sizes (right plot).
+### Artifact Correction for *d*
 
-```{r, echo = FALSE, fig.height=4}
-#| fig-cap: _Note_. dotted lines in both plots indicate the population value and the dots indicate the sample value at each sample size integer (n=1,2,3,...)
+As the sample size approaches infinity, Cohen's estimator of the standardized mean difference is unbiased [@hedges1981; @cohen1977]. However, in small sample sizes Cohen's estimator is inflated, that is, on average, it overestimates the population standardized mean difference. To see why this is the case, we can first define the population standardized mean difference between group $A$ and group $B$ such that,
 
+$$
+\delta = \frac{\mu_A-\mu_B}{\sigma}.
+$$
 
-# Load the ggplot2 library
-library(ggplot2)
-library(ggdist)
-library(patchwork)
+Where $\bar{y}_A$ and $\bar{y}_B$ are the observed arithmetic means of group $A$ and group $B$, respectively. A sample estimate of the standardized mean difference is,
 
-# Create a range of sample sizes
-sample_sizes <- seq(2, 50, by = 1)  # Start from 2 to avoid division by zero
+$$
+d = \frac{\overline{Y}_A-\overline{Y}_B}{S_p}
+$$ {#eq-d}
 
-# Calculate the sample standard deviations analytically with bias correction
-population_stddev <- 1  # Assuming a population standard deviation of 1
-bias = sqrt(2/(sample_sizes-1)) * gamma(sample_sizes/2)/gamma((sample_sizes-1)/2)
-sample_stddevs <-   population_stddev * bias
+Where $S_p$ is the pooled standard deviation (i.e., weighted average within-group standard deviation). The estimator, $d$, is an asymptotically unbiased estimate of $\delta$. We can denote this asymptotic relationship as,
 
-# Create a data frame for plotting
-data_df <- data.frame(Sample_Size = sample_sizes, Sample_StdDev = sample_stddevs)
+$$
+\mathbb{E}_i[d_i] \overset{_n}{\asymp} \delta.
+$$
 
-# Create the ggplot
-h1 = ggplot(data_df, aes(x = Sample_Size, y = Sample_StdDev)) +
-  geom_point(size = 1.2,color = main_color_red) +  # Line plot
-  geom_line(linewidth = .8,alpha = .3) +  # Line plot
-  geom_hline(yintercept = 1,linetype = "dashed",
-             color = main_color_red,linewidth = .8) +
-  labs(x = "Sample Size", y = "Standard Deviation") +  
-  th_red +   # Use a minimal theme for the plot
-  annotate(geom = 'text',x=7,y=.9,label = "sample SD",
-           hjust='left',fontface = 'italic',color = text_color_red) +
-  annotate(geom = 'text',x=3,y=1.015,label = "population SD",
-           hjust='left',fontface = 'italic',color = text_color_red) +
-  theme(aspect.ratio = 1)
+However, $d$ is a biased estimator of $\delta$ when the sample size is finite. Particularly, the smaller the sample size, the larger the bias. We can see that in @fig-d-bias, $d$ tends to over-estimate $\delta$. Therefore, we can apply an artifact inflation factor, $a$, to capture this over-estimation,
 
-mean_diff = .5
-pop_SMD = mean_diff / population_stddev
-sam_SMD = mean_diff / sample_stddevs
+$$
+\mathbb{E}_i[d_i] = a\delta.
+$$
 
-h2 = ggplot(data_df, aes(x = Sample_Size, y = sam_SMD)) +
-  geom_point(size = 1.2,color = main_color_blue) +  # Line plot
-  geom_line(linewidth = .8,alpha = .3) +  # Line plot
-  geom_hline(yintercept = pop_SMD,linetype = "dashed",
-             color = main_color_blue,linewidth = .8) +
-  labs(x = "Sample Size", y = "Standardized Mean Diff.") +  
-  th_blue +   # Use a minimal theme for the plot
-  annotate(geom = 'text',x=6.5,y=.60,label = "sample SMD",
-           hjust='left',fontface = 'italic',color = text_color_blue) +
-  annotate(geom = 'text',x=2,y=.49,label = "population SMD",
-           hjust='left',fontface = 'italic',color = text_color_blue) +
-  ylim(.45,.65) +
-  theme(aspect.ratio = 1)
+The reason for this bias in $d$ values is two-fold:
 
-h1 + h2
-```
+-   Standard deviations tend to be attenuated in small sample sizes. This is due to the fact that although variance (squared standard deviation) is an unbiased estimator of the population variance, the square root of the variance (i.e., the standard deviation, $S_p$) is a biased estimate of the population standard deviation [$\mathbb{E}_i[\sqrt{S_{p_i}}] \neq \sqrt{\sigma}$, @holtzman1950].
+-   A ratio is biased in small sample sizes [@vankempen2000], therefore the ratio between the mean difference and the standard deviation (see @eq-d) will likewise be biased.
 
-To obtain an unbiased estimate of the population standardized mean difference, we need to estimate a correction factor that can account for this bias. The small sample correction factor has been derived previously by @hedges1989. When applied to a $d$ value, it is common convention to refer to resulting corrected value as "Hedges' $g$", giving credit to the originator and to keep it similar in style to the conventionally termed "Cohen's $d$". However this convention will not be used here, instead we will denote it in this section as the small sample corrected $d$ value ($d_c$). We can compute the artifact biasing factor, $a$, with the total sample size ($n=n_A+n_B$) and Gamma functions ($\Gamma(\cdot)$),
+To obtain an unbiased estimate of the population standardized mean difference, we need to first estimate the artifact inflation factor, $a$. In this case, the artifact inflation factor has been mathematically derived previously by @hedges1989. For other types of artifacts, $a$ is unknown in practice and must be estimated, however, for small sample bias the exact value of $a$ is known. The precise value of $a$ is a function of sample size [equation 6e, @hedges1989],
 
 $$
 a = \frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}.
-$$
-
-Then to correct the observed standardized mean difference for small sample bias we can divide by $a$,
+$$ Where $\Gamma(\cdot)$ denotes the gamma function. The gamma function is factorial function generalized to non-integers [note that a factorial function on integers would look something like: $3! = 3 \cdot 2 \cdot 1$, @marco2021]. There is also an approximation of $a$ that is more computationally trivial [re-arrangement of the first formula on pp. 114, @hedges1989]:
 
 $$
-d_c = \frac{d_o}{a} = \frac{d_o}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}.
+a \approx \frac{4n-9}{4n-12}
 $$
 
-It is important to point out that there is not a sample size threshold in which this correction does not apply, therefore common suggestions such as "small sample correction should be applied when n\<30" is misguided since this correction can (and should) be applied at any sample size. Since the formula is quite complicated, there is also a simpler approximation of the this formula also given by @hedges1989, $a\approx 1/\left(1-\frac{3}{4n-3}\right)$. When this correction is made, we must also adjust the sampling variance ($\sigma_{\varepsilon_o}$),
+However, with the advent of computers, this approximation formula is unnecessary. We can see in @fig-r-bias that there is notable bias when sample size is below 20. Furthermore, the bias is most pronounced when the sample $d$ value is larger (there is no bias at $d=0$).
 
-$$
-\sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2} =\frac{\sigma^2_{\varepsilon_o}}{\left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]^2}.
-$$
+```{r,echo=FALSE}
+#| id: fig-d-bias
+#| fig-cap: Plot showing the bias in the standardized mean difference computed in small samples. The X-axis is the sample size ($n$, the vertical bars are indicative of each integer). The Y-axis is the the estimated standardized mean difference ($d$). The dark pink coloring indicates more bias. 
+n <- 5:40
+d <- seq(0,1.0,length.out=100)
 
-### Correcting Standardized Mean Differences in R
+sims <- expand.grid(n,d)
+a <- (sqrt((sims$Var1-2)/2) * gamma((sims$Var1-3)/2)/gamma((sims$Var1-2)/2))
 
-To compute the correction in R, we can first simulate 20 data points, 10 in group $A$ and 10 in group $B$. Then we can calculate the observed $d$ value.
 
-```{r}
-# set seed
-set.seed(120)
+ggplot(data = NULL, aes(x = sims$Var1, 
+                        y = sims$Var2,
+                        fill=sims$Var2-sims$Var2/a,
+                        color=sims$Var2-sims$Var2/a)) +
+    geom_point(shape = 15,size=2.3) +
+    scale_fill_gradient2(high = main_color_red, 
+                         low = 'white',
+                         midpoint = .15,
+                         mid = main_color_red,
+                         limits=c(0,.3),
+                         breaks = c(0,.3)) +
+    scale_color_gradient2(high = main_color_red, 
+                         low = 'white',
+                         midpoint = .15,
+                        mid = main_color_red,
+                         limits=c(0,.3),
+                         breaks = c(0,.3)) +
+    scale_x_continuous(limits = c(4,40), expand = c(0, 0),
+                       labels = seq(0,40,by=5),
+                       breaks = seq(0,40,by=5)) +
+    scale_y_continuous(limits = c(0,1), expand = c(0, 0),
+                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
+                       breaks = seq(0,1,by=.1)) +
+  xlab(TeX("Sample Size (n)"))+
+  ylab(TeX("Estimated SMD (d)")) + 
+  th_red + theme(aspect.ratio = 1,panel.background = element_rect(fill='white')) +
+  ggtitle('Small Sample Bias in d values', 
+          subtitle = TeX("$bias = \\it{E}[d_i]-\\delta$")) +
+  labs(fill = "bias",col = "bias")
 
-# define parameters
-nA <- 10
-nB <- 10
-n <- nA + nB
-delta <- .5
 
-# simulate data
-yA <- rnorm(nA,delta,1)
-yB <- rnorm(nB,0,1)
-
-# calculate observed d value
-SD_pooled = ((nA-1)*var(yA) + (nB-1)*var(yB)) / (nA+nB-2)
-do = (mean(yA) - mean(yB)) / SD_pooled
 ```
 
-Once we have obtained $d_o$, we can then correct it with the equations in the previous section.
+Using $a$, we can correct the $d$ value such that,
 
-```{r}
-# calculate bias factor
-a <- (gamma((n-3)/2)*sqrt((n-2)/2)) / gamma((n-2)/2) 
+$$
+d_c = \frac{d}{a} = \frac{d}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}.
+$$ {#eq-d-corr}
 
-# correct d value
-dc = do / a
+To obtain the standard error of $d_c$ we can apply the same correction as above to the standard error of $d$ ($se$),
+
+$$
+se(d_c) = \frac{se(d)}{a} = \frac{se(d)}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}.
+$$ {#eq-se-corr-d}
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Let's say we want to compute the mean difference of test scores between two classes. Class 1 has 11 students and class 2 has 10 students. We then obtain a standardized mean difference between the two classes of $d=.43$. In R, we can use the `correct_d_bias()` function to correct the point estimate (using @eq-d-corr) and then `var_error_g` function to correct the error variance and thus the standard error (using @eq-se-corr-d). Both of these functions are found in the `psychmeta` package [@dahlke2019].
+
+```{r,message=FALSE}
+library(psychmeta)
+
+d <- .43
+n1 <- 11
+n2 <- 10
+
+# correct
+dc <- correct_d_bias(d = d,
+                     n = n1+n2)
+
+var_corrected <- var_error_g(g = dc, 
+                             n1 = n1, 
+                             n2 = n2)
 
 # print results
-rbind(paste0('Observed: do = ',round(do,3)),
-      paste0('Corrected: dc = ',round(dc,3)))
+cbind(dc=dc, se = sqrt(var_corrected))
 ```
 
-You will notice that the small sample correction reduced the observed $d$ value however it is still far away from the true value. This is simply due to the fact that there is a large amount of sampling error on top of the bias.
+The output shows a corrected standardized mean difference of $d_c = 0.41$ ($se(d_c) = 0.42$)
+:::
 
 ## Correcting for Small Sample Bias in Correlations
 
-### Defining our Estimand
+### Defining the Estimand
 
-Our quantity of interest is the population correlation, $\rho$, between independent variable, $x$ and dependent variable, $y$. We can model the relationship between the population correlation and our observed correlation ($r_o$) with,
-
-$$
-r_o = a\rho+\varepsilon
-$$
-
-Where $a$ is our small sample biasing factor and $\varepsilon$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population correlation by correcting the observed correlation as follows,
+Our quantity of interest is the population correlation, $\rho$. We can model the relationship between the population correlation and our sample estimate ($r$) with,
 
 $$
-r_c = \frac{r_o}{a}
+r = a\rho+e
 $$
 
-### Artifact Corrections
-
-Correlation coefficients also are biased in small sample sizes [@olkin1958]. As opposed to standardized mean differences, correlations are under-estimated, rather than over-estimated, in small samples. The bias is quite small, however we can apply a correction factor to obtain unbiased estimates of the population correlation. Because the bias is so small and the exact formula is a hypergometric function using infinite power series, we will instead focus on the extremely close approximation provided in @olkin1958. Therefore, the biasing factor can be calculated such that,
+Where $a$ is our small sample biasing factor and $e$ is our sampling error term. Ultimately, we can obtain an unbiased estimate of the population correlation by correcting the observed correlation as follows,
 
 $$
-a \approx \frac{1}{1+\frac{1-r_o^2}{2(n-3)}}.
+r_c = \frac{r}{a}
 $$
 
-Then we can correct the point-estimate the sampling variance for small sample bias
+### Artifact Correction for *r*
+
+Let's first define the correlation in the population as the covariance between $X$ and $Y$ ($\sigma_{XY}$) standardized by the product of the standard deviation of $X$ ($\sigma_X$) and $Y$ ($\sigma_Y$):
 
 $$
-r_c = r_o \times\left[1+\frac{1-r_o^2}{2(n-3)}\right]
+\rho = \frac{\sigma_{XY}}{\sigma_{X}\sigma_Y}
 $$
 
+The sample estimate can be defined as ($S$ denoting the sample estimates of $\sigma$),
+
 $$
-\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o} \times \left[1+\frac{1-r_o^2}{2(n-3)}\right]^2.
+r = \frac{S_{XY}}{S_{X}S_Y}
 $$
 
-### Correcting Correlations in R
+Asymptotically, the expectation of a sample correlation is equal to the population correlation,
 
-To compute the correction in R, we can first simulate 10 correlated data points. Then we can calculate the observed correlation.
+$$
+\mathbb{E}_i[r_i] \overset{_n}{\asymp} \rho.
+$$
 
-```{r}
-# load packages
-# install.packages('MASS')
-library(MASS)
+However, similar to standardized mean differences, correlations are also biased in small sample sizes [@olkin1958]. Unlike standardized mean differences, Pearson correlations are *under*-estimated, rather than over-estimated. Therefore, an artifact *attenuation* factor, $a$, can account for this bias,
 
-# set seed
-set.seed(1)
+$$
+\mathbb{E}_i[r_i] = a\rho.
+$$
 
-# define parameters
-n <- 10
-rho <- .5
+Because the attenuation factor, $a$, has been mathematically derived directly Olkin and Pratt [equation 2.3, -@olkin1958], there is no need to obtain a noisy estimate of $a$. Therefore $a$ can be defined exactly as,
 
-# simulate data
-data = mvrnorm(n = 10,
-               mu=c(0,0),
-               Sigma = data.frame(x=c(1,rho),x=c(rho,1)))
+$$
+a = \frac{1}{F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right)}
+$$ {#eq-a-r}
 
-# calculate observed d value
-ro = cor(data[,1],data[,2])
+Where $F(\cdot)$ is the hypergeometric function (for background see the Wikipedia page: ). The hypergeometric function is a complicated and iterative function which which can be defined in terms of $\Gamma(\cdot)$ functions [plugging in values into equation 2.2, @olkin1958]
+
+$$
+F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right) = \sum^{\infty}_{z=0} \frac{\Gamma\left(\frac{1}{2} + z\right)\Gamma\left(\frac{n-1}{2}\right)\left(1-r^2\right)^z}{\Gamma\left(\frac{1}{2}\right)\Gamma\left(\frac{n-1}{2}+z\right)z!}
+$$
+
+Although this formula is complex, it can be easily done in R so do not worry! There is also an approximation of $a$ that is much simpler than [@eq-a-r; simplified from the reciprocal of equation 2.7, @olkin1958],
+
+$$
+a \approx \frac{2(n-3)}{2n-r^2-5}
+$$
+
+Then we can correct the point-estimate the sampling variance for small sample bias. I will emphasize that approximations are not necessary if a computer is available. We can see in @fig-r-bias that there is notable bias when sample size is below 15. Furthermore, the bias is most pronounced when the sample correlation around .60 (there is no bias at $r=0$ and $r=\pm 1$).
+
+```{r,echo=FALSE}
+#| id: fig-r-bias
+#| fig-cap: Plot showing the bias in the correlations computed in small samples. The X-axis is the sample size ($n$, the vertical bars are indicative of each integer). The Y-axis is the the estimated Pearson correlation ($r$). The dark pink coloring indicates more bias. 
+
+n <- 5:40
+r <- seq(0,1,length.out=100)
+
+sims <- expand.grid(n,r)
+a <- 2*(sims$Var1-3)/(2*sims$Var1-sims$Var2^2-5)
+
+
+ggplot(data = NULL, aes(x = sims$Var1, 
+                        y = sims$Var2,
+                        fill=sims$Var2-sims$Var2/a,
+                        color=sims$Var2-sims$Var2/a)) +
+    geom_point(shape = 15,size=2.3) +
+    scale_fill_gradient(low = main_color_red, 
+                        high = 'white',
+                         limits=c(-.1,0),
+                         breaks = c(-.1,0)) +
+    scale_color_gradient(low = main_color_red, 
+                         high = 'white',
+                        limits=c(-.1,0),
+                         breaks = c(-.1,0)) +
+    scale_x_continuous(limits = c(4,40), expand = c(0, 0),
+                       labels = seq(0,40,by=5),
+                       breaks = seq(0,40,by=5)) +
+    scale_y_continuous(limits = c(0,1), expand = c(0, 0),
+                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
+                       breaks = seq(0,1,by=.1)) +
+  xlab(TeX("Sample Size (n)"))+
+  ylab(TeX("Estimated Correlation (r)")) + 
+  th_red + theme(aspect.ratio = 1,panel.background = element_rect(fill='white')) +
+  ggtitle('Small Sample Bias in Correlations', 
+          subtitle = TeX("$bias = \\it{E}[r_i]-\\rho$")) +
+  labs(fill = "bias",col = "bias")
+
+
 ```
 
-Once we have obtained $r_o$, we can then correct it with the equations in the previous section.
+To correct for small sample bias, we can divide the sample correlation $r$ by the attenuation factor $a$,
 
-```{r}
-# calculate bias factor
-a <- 1/(1 + (1-ro^2)/(2*(n-3)))
+$$
+r_c = \frac{r}{a} = \frac{r}{\left[\frac{1}{F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right)}\right]}
+$$ {#eq-r-corr}
 
-# correct d value
-rc = ro / a
+Where the standard error of $r_c$ can be obtained by correcting the observed standard error ($se$),
 
-# print results
-rbind(paste0('Observed: ro = ',round(ro,3)),
-      paste0('Corrected: rc = ',round(rc,3)))
+$$
+se(r_c) = \frac{se(r)}{a} = \frac{se(r)}{\left[\frac{1}{F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right)}\right]}
+$$ {#eq-se-corr}
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Let's say we compute a correlation of $r=.43$ between test scores and self-reported motivation in a small sample of students. In R, we can use the `escalc` function in the `metafor` package [@viechtbauer2010]. Setting `measure = "UCOR"` will apply the small sample correction for the point estimate (@eq-r-corr) and the error variance (i.e., square of the standard error, @eq-se-corr). Note in order to run this function you must have the `gsl` package already installed.
+
+```{r,message=FALSE}
+# install.packages('gsl')
+library(metafor)
+
+r <- .43
+n <- 11
+
+# correct the correlation
+escalc(measure = 'UCOR',
+       ri = r,
+       ni = n,
+       var.names = c("rc", "se.2"),
+       digits = 3)
 ```
 
-You will notice that the small sample correction increases the observed correlation however it is still far away from the true value. This is simply due to the fact that there is a large amount of sampling error on top of the bias.
+The output shows a corrected correlation between test scores and motivation of $r_c=.454$ ($se(r)^2=.063$).
+:::
+
+
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

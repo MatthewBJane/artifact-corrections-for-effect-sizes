@@ -63,80 +63,83 @@ th_red <- theme(aspect.ratio = 1,
 
 ## Introduction
 
-Indirect range restriction/enhancement occurs when selection of sample participants is based on a variable that is correlated with the variables of interest. If the selector Whereas range enhancement indicates that there is *more* variation in a sample then there is in the population. Direct range restriction/enhancement (as opposed to indirect range restriction) is when selection into the sample is based on the variable(s) of interest (i.e., the independent and/or dependent variable). This selection into the sample will either restrict or enhance the variation in the variable, thus causing
+Indirect selection occurs when the selection process is not directly on the variable of interest, but rather on another related variable. Similar to direct range restriction, this will cause restriction (or enhancement) in the variable of interest.
 
-## An Applied Example of Indirect Range Restriction
+## An Example of Indirect Range Restriction
 
 Imagine a research team is conducting a study on academic motivation among college students using a survey that includes various questions related to academic engagement, goal orientation, and effort investment. The researchers administer the survey to a large sample of students across different universities. However, during the data cleaning process, the researchers identify a subset of respondents who exhibited signs of inattentiveness and carelessness in their responses. These signs include straight-lining questions (e.g., consistently selecting the same response option without reading the questions) or responding randomly without considering the content of the questions. Recognizing that inattentive or careless responding can distort the measurement of academic motivation, the researchers decide to exclude these individuals from the analysis. The rationale is to ensure that the data collected represents genuine responses and validly measures academic motivation. The unintended consequence of this decision is indirect range restriction. By removing inattentive and careless responders, who likely also have lower academic motivation and engagement, from the dataset, the observed range of academic motivation scores is reduced. The excluded individuals, who may have had lower academic motivation scores, are not accounted for in the analysis, resulting in an underestimation of the variability of academic motivation relative to the population.
 
-## Indexing Range Restriction with the *u*-ratio
+## Selection Functions
 
-The distribution of scores in the unrestricted pool of individuals will exhibit a greater (or lesser) degree of variability compared to the sample that has been selected into the study. Therefore the standard deviation of scores in the unrestricted population ($\sigma_x$) will differ from that of the selected (restricted/enhanced) sample ($\sigma_{x_{S}}$). To index the difference between the two standard deviations, we can calculate the $u$-ratio [@hunter1990a, @wiernik2020]. The $u$-ratio is the ratio between the standard deviations of the selected sample to the unrestricted sample such that,
+In the previous chapter we introduced the concept of a selection function for direct range restriction. Here we will expand on that section for the case of indirect range restriction, where we must introduce a new variable, $Z$. Indirect selection by definition means that the variable of interest is not used in the selection process, rather, the selection directly on another variable such that, $\mathcal{S}(Z)$ (@fig-indirect-select-diag illustrates the selection process).
 
-$$
-u_x = \frac{\sigma_{x_S}}{\sigma_x}
-$$
+![Diagram illustrating the selection process. The variable, $X$, is selected based on a function of itself. Therefore the variable under selection is conditional on the selection procedure $X|\mathcal{S}(X)$.](figure/indirect_select_diagram.png){#fig-indirect-select-diag}
 
-The $u$-ratio in cases of range restriction will exist in the interval (0--1). Conversely, when the $u$-ratio is greater than 1 it is indicative of range enhancement. The unrestricted standard deviation is often quite difficult to acquire since we do not usually have access to the unrestricted group. However, the unrestricted standard deviation can be estimated from some reference study that has been conducted on the unrestricted group. This often comes in the form of standardization samples or norm samples (obtained from test manuals) if the unrestricted group is the general population. For example, the distribution full-scale IQ scores derived from the Wechsler Adult Intelligence Test has a standard deviation of 15 in the US population [@wechsler2008]. We can use this estimate as the standard deviation for the unrestricted population. Lets say we select a sample from members of Harvard students, who tend to have higher IQs than the general population (this is due to the fact that selection criterion, such as GPA and SAT scores are positively correlated with IQ). If the standard deviation of IQ in Harvard students is 10, then the $u$-ratio would be,
+However, selecting on $Z$ may affect the distribution of $X$ depending on the relationship between $X$ and $Z$. Particularly, if we assume normally distributed variables the correlation between $X$ and $Z$ can entirely describe the affect that $\mathcal{S}(Z)$ has on the distribution of $X$. If $X$ and $Z$ are independent ($\rho_{XZ}=0$), then selection on $Z$ would not affect the distribution of $X$ such that,
 
 $$
-u =  \frac{\sigma_{x_S}}{\sigma_x} = \frac{10}{15}= .67
+f(X|\mathcal{S}(Z)) = f(X),\;\;\;\; \rho_{XZ}= 0
 $$
 
-However it is not always the case that an estimate of the unrestricted standard deviation is readily available. Therefore if the reliability coefficient from the unrestricted and selected sample can be used to estimate the $u$-ratio,
+For example, consider that we select individual's in the top half of $Z$ (i.e., above the mean, $\mu_{Z}$), such that our selection function can be defined as,
+
+$$\mathcal{S}(Z) = \begin{cases}1 & \text{if }Z\geq\mu_{Z}\\ 0 & \text{if }Z<\mu_{Z} \end{cases}$$ If the correlation, $\rho_{XZ}$ is positive, then the distribution of $X|\mathcal{S}(Z)$ (i.e., $X$ given selection on $Z$) will have a higher mean and less variability (see @fig-indirect-select-diag)
+
+![Diagram illustrating the impact of selecting on $Z$ has on $X$ given a positive correlation. The selection function on the top of the plot denotes what values of $Z$ are selected (i.e., $\mathcal{S}(Z)$). The distributions on the right indicate the distribution of $X$ (in black) and the distribution $X$ after](figure/selection_function_indirect.png)
+
+If there is no correlation between $X$ and $Z$, then the distribution of $X|\mathcal{Z}$ would be left unchanged (see @fig-indirect-select-diag-no-corr).
+
+![Diagram illustrating the direct selection function. The variable, $X$, in the population is selected based on a function of itself. Therefore the variable under selection is conditional on the selection procedure $X|\mathcal{S}(X)$.](figure/selection_function_indirect_no_corr.png){#fig-indirect-select-diag-no-corr}
+
+## Quantifying Selection-Induced Restriction/enhancement
+
+The distribution of scores in the target population may exhibit a greater (or lesser) degree of variability compared to the sample that has been selected into the study. Therefore the standard deviation of scores in the target population ($\sigma_{X}$) may differ from the population under selection. ($\sigma_{X|mathcal{S}(Z)}$). To index the difference between the two standard deviations, we can calculate the $u$-ratio [@hunter1990a, @wiernik2020]. The $u$-ratio is the ratio between the standard deviations of the population under selection and the target population such that ($\upsilon$ denotes the population $u$-ratio),
 
 $$
-u_x = \sqrt{\frac{1-r_{xx'}}{1-r_{xx'_S}}}
+\upsilon_X = \frac{\sigma_{X|\mathcal{S}(Z)}}{\sigma_{X}}
 $$
 
-Where $r_{xx'_S}$ and $r_{xx'}$ are the reliability estimates within the selected and unrestricted groups respectively. In the context of indirect range restriction, the selection does not occur directly on $x$ (or $y$), instead it occurs on a selector variable, $z$. Therefore we can see how the $u$-ratio of the selector variable ($u_z$) relates to the $u$-ratio of $x$,
+The $u$-ratio in cases of range *restriction* will exist in the interval (0--1). Conversely, when the $u$-ratio is greater than 1 it is indicative of range *enhancement*. The target population standard deviation is often quite difficult to acquire since we do not usually have access to a random sample from that population. However, the target population standard deviation can be estimated from a reference sample that is representative of the target population. This often comes in the form of standardization samples or norm samples (obtained from test manuals) if the unrestricted group is the general population. For example, the distribution full-scale IQ scores derived from the Wechsler Adult Intelligence Test has a standard deviation of 15 in the US population [@wechsler2008]. We can use this estimate as the standard deviation for the unrestricted population. Lets say we select a sample from members of Harvard students, who tend to have higher IQs than the general population (this is due to the fact that selection criterion, such as GPA and SAT scores are positively correlated with IQ). If the standard deviation of IQ in Harvard students is 10, then the $u$-ratio would be,
 
 $$
-u_x = \sqrt{\rho_{xz}^2u_z^2 -\rho_{xz}^2 + 1 }
+u_X =  \frac{S_{X|\mathcal{S}(Z)}}{S_X} = \frac{10}{15}= .67
 $$
 
-The formulation above is also dependent on the correlation between the selector, $z$, and $x$. If the correlation between $z$ and $x$ is $\rho_{xz}=0$, then you will notice that $u_x=u_z$. Notice that a correlation of $\rho_{xz}=1$ would also simplify to a direct range restriction problem. A correlation of $\rho_{xz}=0$, would effectively have no selection effect (i.e., restriction nor enhancement) since the equation would simplify to $u_x=1$.
-
-## Correcting Correlations for Direct Range Restriction
-
-### Defining our Estimand
-
-For our study we want to estimate the population correlation of the unrestricted scores of the independent ($x$) and dependent variable ($y$). We can denote this correlation as $\rho_{xy}$. The population correlation within the selected sample can be denoted as $\rho_{xy_S}$. Within a study sample that suffers from indirect selection (and sampling error), the study correlation ($r_{xy_S}$) will be biased relative to our estimand, $\rho_{xy}$. This bias can be denoted by $a$ such that,
+However it is not always the case that an estimate of the unrestricted standard deviation is readily available. Therefore if the reliability coefficient from the reference sample and the sample under selection can be used to estimate the $u$-ratio,
 
 $$
-r_{xy} = a \rho_{xy_S} + \varepsilon  
+u_X = \sqrt{\frac{1-r_{XX'}}{1-r_{XX'|\mathcal{S}(Z)}}}
 $$
 
-Therefore an unbiased estimate of the unrestricted population correlation would be
+Where $r_{XX'|\mathcal{S}(Z)}$ and $r_{XX'}$ are the reliability estimates from the sample under selection and the reference (target population) sample, respectively. In the context of indirect range restriction, the selection does not occur directly on $X$ (or $Y$), instead it occurs on a third variable, $Z$. The affect that selection on $Z$ has on $X$ is dependent on the correlation between them, $\rho_{XZ}$. Therefore we can see how the $u$-ratio of $Z$ ($u_Z$) related to the $u$-ratio of $X$,
 
 $$
-r_c = \frac{ r_{xy_S} }{ a}.
-$$ Note that we may also want to correct for measurement on top of range restriction. In this case, using the true score model for x ($x=T+e_x$) and y ($y = U+e_y$), we may want to estimate the unrestricted correlation between true scores ($\rho_{TU}$). The figure below shows the relationship between three variables: the selector ($z$), the independent variable ($x$), and the dependent variable ($y$). The correlation between $x$ and $y$ ($\rho_{xy}$) is our estimand (i.e., the quantity we want to estimate), however as we will show, under selection on $z$, the correlations between the selector and the independent/dependent variable can severely bias the observed correlation.
+u_X = \sqrt{\rho_{XZ}^2u_Z^2 -\rho_{XZ}^2 + 1 }
+$$
 
-![](figure/ind_selection.png)
+If $\rho_{XZ}=0$, then you will notice that $u_X=1$, effectively having no selection effect on $X$. Also, notice that a correlation of $\rho_{XZ}=1$ will return $u_X=u_Z$, indicating that selecting on $Z$ would affect the variation of $Z$ similarly to the variation in $X$. This relationship between $u_X$, $u_Z$, and $\rho_{XZ}$ can be visualized in @fig-ux-uz
 
-### Artifact Correction for Correlations
+```{r, echo =FALSE,message=FALSE,warning=FALSE, fig.height=8}
+#| id: fig-ux-uz
+#| fig-cap: The impact of the association between $X$ and $Z$. The data consists of $N=1,000$ simulated observations, where the red plots show a low correlation case ($\rho_{XZ}=.20$) and the blue plots show a high correlation case ($\rho_{XZ}=.80$). The top plots show the relationship between $X$ and $Z$ with the darker points indicating individuals that have been selected into the sample. The bottom plots shows the probability of selection into the sample as a function of X. The dark distribution on the top of the plot show the distribution of individuals in the selected sample. Notice that the distribution of the selected individual's in the high correlation case is a narrower distribution than the low correlation case.
 
-#### The Univariate Case {.unnumbered}
-
-Range restriction (or enhancement) in either the independent or dependent variable will induce bias into the correlation coefficient. Let us consider a case where we select individuals based on meeting some criterion of some third variable, $z$. The extent to which selection on $z$ induces restriction (or enhancement) on $x$ (or $y$) depends on the correlation between $z$ and $x$. We can simulate an example where individuals are selected into the sample if they are above the mean of $z$. Lets see how the selection process affects the distribution of $x$ when we vary the correlation between $x$ and $z$ ($\rho_{xz}$).
-
-```{r, echo =FALSE,message=FALSE,warning=FALSE, fig.height=4}
-set.seed(3)
+set.seed(34444)
 data <- mvrnorm(n=1000,mu=c(0,0),
-                Sigma = reshape_vec2mat(c(.5)),
+                Sigma = reshape_vec2mat(c(.8)),
                 empirical=TRUE)
 x = data[,1]
-y = data[,2]
-z = x + rnorm(1000,0,.74)
+z = data[,2]
 Selected <- z > 0
 Selected = ifelse(Selected, "selected", "rejected")
+
+uz = sd(z[Selected=="selected"])
+ux = sd(x[Selected=="selected"])
 
 h1 = ggplot(data=NULL,aes(x = x))  +
   stat_dots(aes(y = as.numeric(Selected=='selected'), 
                 side = ifelse(Selected == "selected", "bottom", "top"),
                 alpha = Selected),
-    na.rm = TRUE, scale = 1/3,fill=main_color_blue,color=main_color_blue) +
+    na.rm = TRUE, scale=1/3,fill=main_color_blue,color=main_color_blue) +
   stat_smooth(aes(y = as.numeric(Selected=='selected')),
               method = 'glm', 
               method.args = list(family='binomial'),
@@ -146,21 +149,50 @@ h1 = ggplot(data=NULL,aes(x = x))  +
   theme(legend.position = 'none',
         title = element_text(color = text_color_blue)) +
   scale_fill_brewer() +
-  annotate(geom='text',x=-1.85,y=.80,label=TeX('$\\sigma_{x_S}=.79$'),color=text_color_blue) +
-  scale_alpha_manual(values = c(.25,.7)) +
+  scale_alpha_manual(values = c(.1,.9)) +
+  annotate(geom='text',x=-1.85,y=.76,
+           label=TeX(paste0('$u_X=$',numform(ux))),color=text_color_blue) +
+  annotate(geom='text',x=-1.85,y=.7,
+           label=TeX(paste0('$u_Z=$',numform(uz))),color=text_color_blue) +
   th_blue +
   labs(
-    title = "Indirect Selection",
-    subtitle = TeX('High correlation: $\\rho_{xz}=$.80'),
-    x = "x score",
+    x = "X",
     y = ""
   )
 
-z1 <- x + rnorm(1000,0,2.77)
+h1u = ggplot(data=NULL,aes(x = x,y=z))  +
+  geom_point(aes(alpha = Selected),
+    na.rm = TRUE, size=.8,fill=main_color_blue,color=main_color_blue) +
+  coord_cartesian(expand = FALSE) +
+  theme(legend.position = 'none',
+        title = element_text(color = text_color_blue)) +
+  scale_fill_brewer() +
+  scale_x_continuous(limits = c(-3,3)) +
+  scale_y_continuous(limits = c(-3,3)) +
+  scale_alpha_manual(values = c(.15,.8)) +
+  th_blue +
+  labs(
+    title = TeX('High correlation: $\\rho_{XZ}=$.80'),
+    x = "X",
+    y = "Z"
+  )
+
+
+
+
+set.seed(4)
+data <- mvrnorm(n=1000,mu=c(0,0),
+                Sigma = reshape_vec2mat(c(.20)),
+                empirical=TRUE)
+x1 = data[,1]
+z1 = data[,2]
 Selected1 <- z1 > 0
 Selected1 = ifelse(Selected1, "selected", "rejected")
 
-h2 = ggplot(data=NULL,aes(x = x))  +
+uz1 = sd(z1[Selected1=="selected"])
+ux1 = sd(x1[Selected1=="selected"])
+
+h2 = ggplot(data=NULL,aes(x = x1))  +
   stat_dots(aes(y = as.numeric(Selected1=='selected'), 
                 side = ifelse(Selected1 == "selected", "bottom", "top"),
                 alpha = Selected1),
@@ -174,97 +206,86 @@ h2 = ggplot(data=NULL,aes(x = x))  +
   theme(legend.position = 'none',
         title = element_text(color = text_color_red)) +
   scale_fill_brewer() +
-  scale_alpha_manual(values = c(.25,.7)) +
-  annotate(geom='text',x=2,y=.25,label='Rejected',color=text_color_red, alpha = .4) +
-  annotate(geom='text',x=-1.85,y=.83,label='Selected',color=text_color_red) +
-  annotate(geom='text',x=-1.85,y=.76,label=TeX('$\\sigma_{x_S}=.97$'),color=text_color_red) +
+  scale_alpha_manual(values = c(.1,.7)) +
+  annotate(geom='text',x=-1.85,y=.76,
+           label=TeX(paste0('$u_X=$',numform(ux1))),
+           color=text_color_red) +
+  annotate(geom='text',x=-1.85,y=.7,
+           label=TeX(paste0('$u_Z=$',numform(uz1))),
+           color=text_color_red) +
   th_red +
   labs(
-    title = "Indirect Selection",
-    subtitle = TeX('Low correlation: $\\rho_{xz}=$.35'),
-    x = "x score",
+    x = "X",
     y = "Probability of selection"
   )
 
-h2 + h1
-
-```
-
-Notice that the distribution of rejected and accepted participants are more similar within the plot on the left where there is a relatively low correlation between the selector variable and the independent variable. More importantly, when the correlation is lower we see wider distributions (larger standard deviation, $\sigma_{x_S}$) than in the selected sample (and rejected), however, when the correlation is higher the standard deviation shrinks accordingly. Not only is the correlation between $x$ and $z$ important in the resulting variance of $x$, but so is where the cut-point, that is the threshold where individuals are selected above (or below). For example, the standard deviation of $x$ will be smaller when individuals are selected above the 90th percentile of $z$ than when individuals are selected above the median of $z$ (i.e., the 50th percentile). We can visualize this phenomenon as well by setting a low cut-point for selection ($z>-1.0$) and a high cut-point for selection ($z>0.5$). Notice in the figure below that the standard deviation is lower when the cut-point is higher on $z$.
-
-```{r, echo =FALSE,message=FALSE,warning=FALSE, fig.height=4}
-
-z = x + rnorm(1000,0,.74)
-Selected <- z > -1
-Selected = ifelse(Selected, "selected", "rejected")
-
-h1 = ggplot(data=NULL,aes(x = x))  +
-  stat_dots(aes(y = as.numeric(Selected=='selected'), 
-                side = ifelse(Selected == "selected", "bottom", "top"),
-                alpha = Selected,color='transparent'),
-    na.rm = TRUE, scale = 1/3,fill=main_color_blue,color=main_color_blue) +
-  stat_smooth(aes(y = as.numeric(Selected=='selected')),
-              method = 'glm', 
-              method.args = list(family='binomial'),
-              se = FALSE,
-              color = text_color_blue) +
+h2u = ggplot(data=NULL,aes(x = x1,y=z1))  +
+  geom_point(aes(alpha = Selected1),
+    na.rm = TRUE, size = .8,fill=main_color_red,color=main_color_red) +
   coord_cartesian(expand = FALSE) +
   theme(legend.position = 'none',
         title = element_text(color = text_color_blue)) +
   scale_fill_brewer() +
-  scale_alpha_manual(values = c(.25,.7)) +
-  th_blue +
-  annotate(geom='text',x=-1.8,y=.76,label=TeX('$\\sigma_{x_S}=.87$'),color=text_color_blue) +
-  labs(
-    title = "Indirect Selection",
-    subtitle = TeX('High cut-point on z'),
-    x = "x score",
-    y = ""
-  )
-
-Selected1 <- z > .50
-Selected1 = ifelse(Selected1, "selected", "rejected")
-
-h2 = ggplot(data=NULL,aes(x = x))  +
-  stat_dots(aes(y = as.numeric(Selected1=='selected'), 
-                side = ifelse(Selected1 == "selected", "bottom", "top"),
-                alpha = Selected1),
-    na.rm = TRUE, scale = 1/3,fill=main_color_red,color=main_color_red) +
-  stat_smooth(aes(y = as.numeric(Selected1=='selected')),
-              method = 'glm', 
-              method.args = list(family='binomial'),
-              se = FALSE,
-              color = text_color_red) +
-  coord_cartesian(expand = FALSE) +
-  theme(legend.position = 'none',
-        title = element_text(color = text_color_red)) +
-  scale_fill_brewer() +
-  scale_alpha_manual(values = c(.25,.7)) +
-  annotate(geom='text',x=-1.8,y=.83,label='Selected',color=text_color_red) +
-  annotate(geom='text',x=-1.8,y=.76,label=TeX('$\\sigma_{x_S}=.75$'),color=text_color_red) +
-  annotate(geom='text',x=2,y=.25,label='Rejected',color=text_color_red, alpha = .4) +
+  scale_alpha_manual(values = c(.15,.8)) +
+  scale_x_continuous(limits = c(-3,3)) +
+  scale_y_continuous(limits = c(-3,3)) +
   th_red +
   labs(
-    title = "Indirect Selection",
-    subtitle = TeX('Low cut-point on z'),
-    x = "x score",
-    y = "Probability of selection"
+    title = TeX('Low correlation: $\\rho_{XZ}=$.20'),
+    x = "X",
+    y = "Z"
   )
 
-h2 + h1
+(h2u + h1u) / (h2 + h1)
 
 ```
 
-Now lets consider a study where we want to calculate the unrestricted correlation between an independent variable, $x$, and a dependent variable, $y$. However, the sample is selected based on meeting some criterion on a selector, $z$. Lets look at a diagram looking at the relationship between variables. We can visualize the correlation between independent ($x$) and dependent ($y$) variables under range restriction by only selecting individuals above some cut off of our selector variable, $z$. The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a $u$-ratio of about 0.69 in the independent variable. We see in the figure that the correlation in the restricted scores ($\rho_{xy_S}$) is attenuated relative to the unrestricted (true) correlation ($\rho_{xy}$).
+## Correcting Correlations for Indirect Range Restriction
+
+### Defining our Target Quantity
+
+We want to estimate the population correlation of the true scores of the independent variable ($T$) and dependent variable ($U$). We can denote this correlation as $\rho_{TU}$. Within a study sample that suffers from indirect selection (and sampling error), the study correlation is under selection ($r_{xy_S}$) will be biased relative to our target quantity, $\rho_{xy}$. This bias is captured by an artifact attenuation/inflation factor, $a$, such that,
+
+$$
+r_{XY} = a \rho_{XY|\mathcal{S}(Z)} + e 
+$$
+
+Therefore an unbiased estimate of the true score target population correlation can be estimated by dividing the observed score correlation under selection by an estimate of $a$,
+
+$$
+r_{TU} = \frac{ r_{XY|\mathcal{S}(Z)} }{ \hat{a}}.
+$$
+
+### Artifact Correction for Correlations
+
+#### The Univariate Case {.unnumbered}
+
+Range restriction (or enhancement) in either the independent or dependent variable will induce bias into the correlation coefficient. Let us consider a case where we select individuals based on meeting some criterion of some third variable, $Z$, such that $\mathcal{S}(Z)$. In the univariate case, we assume that selection on $Z$ only directly affects restriction/enhancement in $X$ while any restriction/enhancement in $Y$ is mediated by the effect on $X$ (see @fig-corr-model-uni).
+
+Now consider a study where we want to calculate correlation in the target population between an independent variable, $X$, and a dependent variable, $Y$. However, the individual's are selected whether they are above the mean of $Z$ (Mean = 0). We can thus define the selection function such that,
+
+$$
+\mathcal{S}(Z) = \begin{cases} 1 & \text{if } Z \geq 0 \\ 0 & \text{if } Z < 0 \end{cases}
+$$
+
+In the following examples, we will simulate a correlation of $\rho_{XZ}=.80$.
+
+![The assumed correlation structure of univariate indirect selection. The correlation between $Z$ and $Y$ is completely mediated by $X$ (i.e., the partial correlation between $Y$ and $Z$, controlling for $X$ is zero such that, $\rho_{YZ.X}=0$).](figure/indirect_select_corr_model_uni.png){#fig-corr-model-uni}
+
+@fig-uvirr shows a $u$-ratio of about $u_X=0.75$ in the independent variable. We see that the sample correlation in the restricted scores ($r_{XY|\mathcal{S}(Z)}=.42$) is attenuated relative to the unrestricted correlation ($r_{XY}=.50$).
 
 ```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-uvirr
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under univariate indirect range restriction. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+set.seed(343)
 data <- mvrnorm(n=2000,mu=c(0,0),
                 Sigma = reshape_vec2mat(c(.5)),
                 empirical=TRUE)
 
 x = data[,1]
 y = data[,2]
-z = x + rnorm(2000,0,.5)
+z = x + rnorm(2000,0,.75)
 Selected <- z > 0
 
 ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
@@ -278,16 +299,17 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
         title = element_text(color = text_color_red,size=17),
         panel.background = element_rect(fill = panel_color_red),
         panel.border = element_rect(fill = NA, 
-                                    color = border_color_red,linewidth=1.2),
+                                    color = border_color_red,
+                                    linewidth=1.2),
         axis.title = element_text(size=16, color = text_color_red),
         axis.text = element_text(size=14, color = text_color_red),
         axis.ticks = element_line(color = border_color_red,linewidth=1),
         legend.key = element_rect(fill='transparent'),
         legend.text = element_text(color=text_color_red,size=12)) +
-  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{XY}$ = .50'),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.5,
-           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           label=TeX(paste0('$r_{XY|S(Z)}$ = ',numform(cor(x[Selected],y[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.1,
            label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
@@ -295,15 +317,25 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
   scale_alpha_manual(values = c(.15,.8)) +
   ylim(-3,3) +
   xlim(-3,3) +
-  xlab("x scores") +
-  ylab("y scores") +
+  xlab("X") +
+  ylab("Y") +
   ggtitle('Univariate Range Restriction') 
 
 ```
 
-We can also visualize what happens to the correlation when the range is enhanced. Enhancement can be accomplished by selecting individuals at the ends of the distribution [@taylor1976]. In the visualization below, we see an opposite effect on the correlation, that is, an over-estimate of the unrestricted correlation rather than an attenuation like we see under range restriction. The scenario below has a $u$-ratio of about 1.44 in the independent variable.
+We can also visualize what happens to the correlation when the range is enhanced. Enhancement can be accomplished by selecting individuals at the ends of the distribution [@taylor1976]. For indirect selection, individuals are selected at the ends of the distribution of $Z$ such that the selection function can be defined as,
+
+$$
+\mathcal{S}(Z) = \begin{cases} 1 & \text{if } Z \leq -1 \text{ or } Z \geq 1 \\ 0 & \text{if } Z < -1 \text{ or } Z >1 \end{cases}
+$$
+
+In @fig-uvire, we see an opposite effect on the correlation, that is, an inflation of the correlation rather than an attenuation like we see under range restriction. The scenario below has a $u$-ratio of about $u_X=1.32$ in the independent variable.
 
 ```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-uvire
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under univariate indirect range enhancement. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+
 Selected <- z < -1 | z > 1 
 
 ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
@@ -322,10 +354,10 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
         axis.ticks = element_line(color = border_color_red,linewidth=1),
         legend.key = element_rect(fill='transparent'),
         legend.text = element_text(color=text_color_red,size=12)) +
-  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$r_{XY}$ = .50'),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.5,
-           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           label=TeX(paste0('$r_{XY|S(Z)}$ = ',numform(cor(x[Selected],y[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.1,
            label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
@@ -340,33 +372,90 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
 
 ```
 
-It starts to become apparent that if $u_x>1$ (i.e., $\sigma_x>\sigma_{x_S}$) the observed correlation over-estimates the true, unrestricted correlation and under-estimates the unrestricted correlation when $u_x<1$ [i.e., $\sigma_x<\sigma_{x_S}$, @sackett2000]. A bias correction formula for univariate direct range restriction was first developed by @pearson1903 and provided more recently by @hunter1990a. To correct for the systematic bias in correlations, we can use the $u$-ratio of the independent variable such that,
+In summary, if $u_X>1$ (i.e., $S_{X|\mathcal{S}(Z)}>S_{X}$) the observed correlation is inflated relative to the correlation in the target population. Whereas the correlation is attenuated when $u_X<1$ [i.e., $S_{X|\mathcal{S}(Z)}<S_{X}$, @sackett2000]. An estimate of the attenuation/inflation factor, $\hat{a}$, can account for the bias in the observed correlation induced by range restriction/enhancement [equation 5, @le2006].
 
 $$
-r_c = \frac{r_{xy_S}}{\sqrt{r_{xy_S}^2 + u_{x}^2 (1- r_{xy_S}^2)  }}
+\hat{a} = \sqrt{r_{XY|\mathcal{S}(Z)}^2 + u_{X}^2 (1- r_{XY|\mathcal{S}(Z)}^2)  }
+$$ Using the estimated attenuation/inflation factor, we can correct the observed correlation for bias induced by indirect selection
+
+$$
+r_{XY} = \frac{r_{XY|\mathcal{S}(Z)}}{\hat{a}} = \frac{r_{XY|\mathcal{S}(Z)}}{\sqrt{r_{XY|\mathcal{S}(Z)}^2 + u_{X}^2 (1- r_{XY|\mathcal{S}(Z)}^2)  }}
 $$ {#eq-univariate}
 
-This correction formula is only meant for observed scores only. If one wants to correct for range restriction and measurement error, we need to adjust the $u$-ratio for measurement error, as well as adjust the reliability coefficients for range restriction/enhancement. We can incorporate these adjustments into a single correction formula using the equation in table 3 of @wiernik2020, $$
-r_c=\frac{r_{xy_S}}{\sqrt{r_{xy_S}^2 + \frac{u_{x}^2 r_{xx'_S}\left(r_{xx'_S}r_{yy'_S} - r_{xy_S}^2\right) }{1 - u_{x}^2 \left(1-r_{xx'_S}\right)} }}
-$$ Where $r_{xx'_S}$ and $r_{yy'_S}$ are the reliabilities within the selected sample. If the reliability coefficients come from the unrestricted population (e.g., from a norm/standardization sample), we can estimate the restricted reliability using the following formulas:
+If we wants to correct for range restriction/enhancement *and* measurement error, we can incorporate the reliability coefficients (under selection) of $X$ ($r_{XX'|\mathcal{S}(Z)}$) and $Y$ ($r_{YY'|\mathcal{S}(Z)}$) into the formula for $\hat{a}$,
 
 $$
-r_{xx'_S} = 1-\frac{1-r_{xx'}}{u_x^2}
-$$ {#eq-rel-x} $$
-r_{yy'_S} = 1-\frac{1-r_{yy'}}{u_y^2}
+\hat{a} = \sqrt{r_{XY|\mathcal{S}(Z)}^2 + \frac{u_{X}^2 r_{XX'|\mathcal{S}(Z)}\left(r_{XX'|\mathcal{S}(Z)}r_{YY'|\mathcal{S}(Z)} - r_{XY|\mathcal{S}(Z)}^2\right) }{1 - u_{X}^2 \left(1-r_{XX'|\mathcal{S}(Z)}\right)} }
+$$
+
+Now correcting the observed correlation with this modified estimate of $a$ to correct the observed correlation will yield the true score correlation in the target population,
+
+$$
+r_{TU}=\frac{r_{XY|\mathcal{S}(Z)}}{\hat{a}} = \frac{r_{XY|\mathcal{S}(Z)}}{\sqrt{r_{XY|\mathcal{S}(Z)}^2 + \frac{u_{X}^2 r_{XX'|\mathcal{S}(Z)}\left(r_{XX'|\mathcal{S}(Z)}r_{YY'|\mathcal{S}(Z)} - r_{XY|\mathcal{S}(Z)}^2\right) }{1 - u_{X}^2 \left(1-r_{XX'|\mathcal{S}(Z)}\right)} }}
+$$
+
+If the reliability coefficients come from the target population and do not suffer selection effects, we can estimate the reliability under selection using the following formulas [equation 11 and 12 @le2006]:
+
+$$
+r_{XX'|\mathcal{S}(Z)} = 1-\frac{1-r_{XX'}}{u_X^2}
+$$ {#eq-rel-x}
+
+$$
+r_{YY'|\mathcal{S}(Z)} = 1-\frac{1-r_{YY'}}{u_Y^2}
 $$ {#eq-rel-y}
 
-Now once the the correlation is corrected the observed sampling variance ($\sigma_{\varepsilon_o}$) must also be adjusted as well. To do this, we can simply use the corrected correlation and the observed correlation to adjust the sampling variance:
+We now need to adjust the standard error for the corrected correlation coefficient. To do this, we can either divide the observed standard error by the attenuation/inflation factor (or equivalently, the observed correlation divided by the corrected correlation),
 
 $$
-\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
-$$ {#eq-univariate-se}
+se(r_{TU}) = \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\hat{a}}= \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\left[\frac{r_{XY|\mathcal{S}(Z)}}{r_{TU}}\right]}.
+$$
+
+
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Let's say a university admits students based on some criterion upon a composite of multiple measures of performance ($Z$). One of those measures is a standardized test ($X$). A researcher then wants to see how test performance predicts stress ($Y$) in college. Since test performance is correlated with the composite used in the college admissions process, it is likely that we will observe substantial range restriction in the college sample. To index this restriction in range, we calculate the $u$-ratio of test scores as $u_{X}=0.70$ (relative to the total pool of applicants). We also want to correct for measurement error in test performance and the self-report questionnaire we use to measure stress, therefore we obtain reliability estimates within our sample of $r_{XX'|\mathcal{S}(Z)}=.90$ and $r_{XX'|\mathcal{S}(Z)}=.80$, respectively. The researcher then conducts the study and finds a sample correlation of $r_{XY|\mathcal{S}(Z)}=.25$, but he wants to know that true score correlation. 
+
+In R, we can correct the correlation by using the `correct_r` function in the `psychmeta` package [@dahlke2019]. The `correction = 'uvirr_x'`
+
+```{r,message=FALSE}
+library(psychmeta)
+
+correct_r(correction = 'uvirr_x',
+          rxyi = .25,  # restricted correlation
+          rxx = .90,  # reliability of test scores
+          ryy = .80,  # reliability of stress
+          ux = .70,   # u ratio of SAT scores
+          n = 100)    # sample size
+```
+
+The true score correlation in the target population is estimated to be $r_{TU} = .41\, [.10,\, .65]$.
+:::
+
+
 
 #### The Bivariate Case {.unnumbered}
 
-Bivariate direct range restriction/enhancement occurs when the selection variable has independent relationships with both the independent and dependent variable. Like we did for the univariate case, let's visualize the correlation between independent ($x$) and dependent ($y$) variables under range restriction by only selecting individuals above some cut off point in our selector variable, $z$. We will fix the correlations between the selector and independent variable ($\rho_{xz}$), as well as the selector and dependent variable ($\rho_{yz}$) to be .80. The $x$ and $y$ scores of individuals that have been selected above some threshold of $z$ will show less variance than the entire pool of individuals. Specifically, the scenario below shows a $u$-ratio of about \~0.82 in the independent variable and dependent variables. We see in the figure below that the correlation in the restricted sample ($\rho_{xy_S}=.24$) is attenuated relative to the unrestricted (true) correlation ($\rho_{xy}=.50$).
+Bivariate indirect range restriction/enhancement occurs when the selection variable has independent relationships with both the independent and dependent variable. Like we did for the univariate case, let's visualize the correlation between independent ($X$) and dependent ($Y$) variables under range restriction by only selecting individuals above a score of -0.50 in our selector variable, $Z$. Therefore the selection function can be defined as,
+
+$$
+\mathcal{S}(Z)=\begin{cases} 1 &\text{ if } Z \geq-.50 \\  0 &\text{ if } Z <-.50  \end{cases}
+$$
+
+We will also fix the correlations between the selector and independent variable ($\rho_{XZ}$), as well as the selector and dependent variable ($\rho_{YZ}$) to be .80. Unlike the univariate case, in the bivariate case $X$ *and* $Y$ have direct relationships with $Z$ (see @fig-corr-model-biv).
+
+![The assumed correlation structure of univariate indirect selection. The correlation between $Z$ and $Y$ is completely mediated by $X$ (i.e., the partial correlation between $Y$ and $Z$, controlling for $X$ is zero such that, $\rho_{YZ.X}=0$).](figure/indirect_select_corr_model_biv.png){#fig-corr-model-biv}
+
+
+The scenario displayed in @fig-bvirr, shows a $u$-ratio of about $u_X=u_Y=0.81$ in the independent variable and dependent variables. We see in the figure below that the correlation in the restricted sample ($\rho_{XY|\mathcal{S}(Z)}=.25$) is attenuated relative to the target population correlation ($\rho_{XY}=.50$).
 
 ```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-bvirr
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under bivariate indirect range restriction. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+set.seed(1)
+
 data <- mvrnorm(n=2000,
                 mu=c(0,0,0),
                 Sigma = reshape_vec2mat(c(.5,.8,.8)),
@@ -394,28 +483,39 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
         axis.ticks = element_line(color = border_color_red,linewidth=1),
         legend.key = element_rect(fill='transparent'),
         legend.text = element_text(color=text_color_red,size=12)) +
-  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$r_{XY}$ = .50'),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.5,
-           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           label=TeX(paste0('$r_{XY|S(Z)}$ = ',numform(cor(x[Selected],y[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.1,
-           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           label=TeX(paste0('$\\u_{X}$ = ',numform(sd(x[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=1.7,
-           label=TeX(paste0('$\\u_{y}$ = ',numform(sd(y[Selected])))),
+           label=TeX(paste0('$\\u_{Y}$ = ',numform(sd(y[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   scale_alpha_manual(values = c(.15,.8)) +
   ylim(-3,3) +
   xlim(-3,3) +
-  xlab("x scores") +
-  ylab("y scores") +
+  xlab("X") +
+  ylab("Y") +
   ggtitle('Bivariate Range Restriction') 
 ```
 
-Likewise let's visualize what happens to the correlation when the range is enhanced. Enhancement in both variables can be accomplished by selecting individuals at the ends of the distribution of $z$. In the visualization below, we observe an over-estimation of observed correlation ($\rho_{xy_S}=.75$) relative to the unrestricted correlation ($\rho_{xy}=.50$). The scenario below has a $u$-ratio of about \~1.38 in both the independent variable and dependent variable.
+Likewise let's visualize what happens to the correlation when the range is enhanced. Enhancement in both variables can be accomplished by selecting individuals at the ends of the distribution of $Z$ (for this case we will select individuals below a score of -1 and above a score of 1). We can thus define the selection function as,
+
+$$
+\mathcal{S}(Z)=\begin{cases} 1 &\text{ if } Z \leq-1 \text{ or } Z \geq 1  \\  0 &\text{ if } Z > -1  \text{ or } Z < 1   \end{cases}
+$$
+
+
+In @fig-bvire, we observe an inflation of observed correlation ($\rho_{XY|\mathcal{S}(Z)}=.74$) relative to the target correlation ($\rho_{XY}=.50$). @fig-bvire has a $u$-ratio of about $u_X=u_Y=1.38$ in both the independent variable and dependent variable.
 
 ```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-bvire
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under bivariate indirect range enhancement. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+
 Selected <- ( z < -1 | z > 1 )
 
 ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
@@ -434,16 +534,16 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
         axis.ticks = element_line(color = border_color_red,linewidth=1),
         legend.key = element_rect(fill='transparent'),
         legend.text = element_text(color=text_color_red,size=12)) +
-  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{xy}$ = .50'),
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$r_{XY}$ = .50'),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.5,
-           label=TeX(paste0('$\\rho_{xy_S}$ = ',numform(cor(x[Selected],y[Selected])))),
+           label=TeX(paste0('$r_{XY|S(Z)}$ = ',numform(cor(x[Selected],y[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=2.1,
-           label=TeX(paste0('$\\u_{x}$ = ',numform(sd(x[Selected])))),
+           label=TeX(paste0('$\\u_{X}$ = ',numform(sd(x[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   annotate(geom = 'text',x=-3,y=1.7,
-           label=TeX(paste0('$\\u_{y}$ = ',numform(sd(y[Selected])))),
+           label=TeX(paste0('$\\u_{Y}$ = ',numform(sd(y[Selected])))),
            color = text_color_red, size = 5, hjust='left') + 
   scale_alpha_manual(values = c(.15,.8)) +
   ylim(-3,3) +
@@ -453,226 +553,64 @@ ggplot(data=NULL, aes(x = x, y = y, alpha=Selected)) +
   ggtitle('Bivariate Range Enhancement')
 ```
 
-Note that bivariate restriction or bivariate enhancement will increase the amount of bias in the correlation coefficients similar to that of measurement error in both variables rather than just one (see chapter 5). A bias correction formula for bivariate range restriction is much more complicated than the univariate formulation. Particularly we need to have a basic idea of the selection mechanism at play [@dahlke2019]. The correction formula requires the direction of the correlation between the selector variable, $z$, and the independent ($\rho_{xz}$) and dependent variable ($\rho_{yz}$). For example, if we run a study on a college admissions test and college academic performance (indexed by grade-point average), we can be reasonably certain that the selection (i.e., admissions decisions) are positively correlated with both academic performance and SAT scores. Other situations this may not be as straight-forward however laying out the correlational structure of the selection mechanism is vital step of the correction procedure. To break down the correction formula into simpler parts, let us first define a factor we will denote with $\lambda$. This factor is what takes into account the direction of the correlation of $\rho_{xz}$ (if positive, we can set $\rho_{yz}=1$, if negative, $\rho_{yz}=-1$, if zero, $\rho_{yz}=0$) and $\rho_{yz}$ (repeat the same procedure as $\rho_{xz}$).
+A bias correction formula for bivariate range restriction is much more complicated than the univariate formulation. In the univariate case, we did not need any more information about the selection process beyond what we could infer from $u_X$. However in the bivariate case, we need to have a basic idea of the selection mechanism at play [@dahlke2020]. Particularly we at least know the direction of the correlation between the selector variable, $Z$, and the independent ($\rho_{XZ}$) and dependent variable ($\rho_{YZ}$). This will require a little bit of knowledge about the selection process within a given study. Let us first define a factor we will denote with $\lambda$ [@dahlke2020]. This factor takes into account the direction of the correlation of $\rho_{XZ}$ (if positive, we can set $\rho_{XZ}=1$, if negative, $\rho_{XZ}=-1$, if zero, $\rho_{XZ}=0$) and $\rho_{YZ}$ (repeat the same procedure as $\rho_{XZ}$). Therefore $\lambda$ can be defined as,
 
-```{=tex}
-\begin{align}
-\lambda =& \text{ sign}\left(\rho_{xz}\rho_{yz} [1-u_x][1-u_y]\right)\times \\
-&\frac{\text{sign}
-\left(1-u_x\right)\min\left(u_x,\frac{1}{u_x}\right) + 
-\left(1-u_x\right)\min\left(u_y,\frac{1}{u_y}\right)
-}{
-\min\left(u_x,\frac{1}{u_x}\right)+\min\left(u_y,\frac{1}{u_y}\right)
-}
-\end{align}
-```
-The output of $\lambda$ will be either -1, 0, or 1. We can then plug this factor into the full correction equation that provides us with an unbiased estimate of the correlation in the unrestricted population,
+$$\begin{aligned}
+\lambda =& \text{ sign}\left(\rho_{XZ}\rho_{YZ} [1-u_X][1-u_Y]\right)\times \\[.3em] &\frac{\text{sign}
+\left(1-u_X\right)\min\left(u_X,\frac{1}{u_X}\right) + 
+\text{ sign}\left(1-u_Y\right)\min\left(u_Y,\frac{1}{u_Y}\right)
+}{\min\left(u_X,\frac{1}{u_X}\right)+\min\left(u_Y,\frac{1}{u_Y}\right)}.
+\end{aligned}$$
+
+Although complex, the output of $\lambda$ will be either -1, 0, or 1. We can then plug this factor into the full correction equation that provides us with an unbiased estimate of the correlation in the unrestricted population,
 
 $$
-r_c = r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}
-$$ 
-
-Similar to the univariate formula, we can also incorporate measurement error into the correction. Measurement error will bias the observed correlation on top of the bias induced by range restriction/enhancement. Therefore we can incorporate the reliabilities estimated within the restricted sample ($_{xx'_S}$ and $r_{yy'_S}$), into our correction formula:
-
-$$
-r_c = \frac{r_{xy_S}u_xu_y+\lambda\sqrt{|1-u_x^2||1-u_y^2|}}{\sqrt{1-u_x^2(1-r_{xx'_S})}\sqrt{1-u_y^2(1-r_{yy'_S})}}
+r_{XY} = r_{XY|\mathcal{S}(Z)}u_Xu_Y+\lambda\sqrt{|1-u_X^2||1-u_Y^2|}
 $$
 
-If the reliability estimates come from an unrestricted sample, we can get estimates of the reliability coefficients in the selected sample using @eq-rel-x and @eq-rel-y. We then can correct the observed sampling variance ($\sigma^2_{\varepsilon_o}$),
+Similar to the univariate formula, we can also incorporate measurement error into the correction. Measurement error will bias the correlation on top of the bias induced by range restriction/enhancement. Therefore we can incorporate the reliabilities estimated within the restricted sample ($r_{XX'|\mathcal{S}(Z)}$ and $r_{YY'|\mathcal{S}(Z)}$), into our correction formula:
 
 $$
-\sigma^2_{\varepsilon_c} = \sigma^2_{\varepsilon_o}\left(\frac{r_c}{r_{xy_S}}\right)^2.
+r_{TU} = \frac{r_{XY|\mathcal{S}(Z)}u_Xu_Y+\lambda\sqrt{|1-u_X^2||1-u_Y^2|}}{\sqrt{1-u_X^2\left(1-r_{XX'|\mathcal{S}(Z)}\right)}\sqrt{1-u_Y^2\left(1-r_{YY'|\mathcal{S}(Z)}\right)}}
 $$
 
-### Correcting Correlations in R
+If the reliability estimates come from an target population reference sample, we can get estimates of the reliability coefficients in the selected sample using @eq-rel-x and @eq-rel-y. We then can correct the observed sampling variance ($\sigma^2_{\varepsilon_o}$),
 
-#### Univariate Indirect Range Restriction {.unnumbered}
 
-To correct correlations for range restriction we can start by simulating data from the the `mvrnorm` function in the `MASS` package. Lets first simulate 1000 data points. Then we will select values above the mean of the selector variable, $z$.
+$$
+se(r_{TU}) = \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\hat{a}}= \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\left[\frac{r_{XY|\mathcal{S}(Z)}}{r_{TU}}\right]}.
+$$
+
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Continuing with the example from the univariate case, a university admits applicants based on some criterion upon a composite of multiple measures of performance ($Z$). Two of those measures is a standardized test ($X$) and high school grade-point average (GPA). A researcher then wants to see how test performance predicts college GPA ($Y$). Since *both* test performance is correlated with the composite used in the college admissions process, it is likely that we will observe substantial range restriction in the college sample. The $u$-ratio in test performance and GPA was $u_{X}=u_{Y}=0.80$ (applicants are the target population). We also want to correct for measurement error in the dependent variable (grade-point average) only we use to measure stress, therefore we obtain a reliability estimate within our sample of $r_{YY'|\mathcal{S}(Z)}=.90$. The researcher then conducts the study and finds a sample correlation of $r_{XY|\mathcal{S}(Z)}=.25$.
+
+In R, we can correct the correlation by using the `correct_r` function in the `psychmeta` package [@dahlke2019]. The `correction = 'uvirr_x'`
 
 ```{r,message=FALSE}
-# load packages
-# install.packages('MASS')
-library(MASS)
-
-# set seed
-set.seed(1)
-
-# define parameters
-rho_xy <- .5
-n <- 1000
-
-# simulate data
-data <- mvrnorm(n=n,
-                mu=c(0,0),
-                Sigma = reshape_vec2mat(c(rho_xy)),
-                empirical=TRUE)
-x <- data[,1]
-y <- data[,2]
-z <- x + rnorm(n,0,.5)
-selected <- z > 0
-```
-
-We can start with univariate indirect range restriction by selecting only on the independent variable. We will select only the values above the mean.
-
-```{r}
-# calculate correlation between unrestricted and restricted scores
-rxy <- cor(x,y) # unrestricted
-rxyS <- cor(x[selected],y[selected]) # restricted
-
-# print results
-rbind(paste0('unrestricted: rxy = ',round(rxy,2)),
-      paste0('restricted: rxyS = ',round(rxyS,2))
-      )
-
-```
-
-As expected, we observe an attenuation of the correlation under range restriction. Now lets calculate the $u$-ratios for both variables. We should expect the variability not only in $x$, but also $y$ in the restricted sample to be smaller than the unrestricted sample. Since $x$ and $y$ are positively correlated, restriction $x$ will restrict
-
-```{r}
-# calculate u-ratios
-ux <- sd(x[selected])/sd(x)
-uy <- sd(y[selected])/sd(y)
-
-# print results
-rbind(paste0('ux = ',round(ux,2)),
-      paste0('uy = ',round(uy,2))
-      )
-```
-
-Now we can apply the correction for univariate direct range restriction by hand from @eq-univariate and @eq-univariate.
-
-```{r}
-# correct the restricted correlation
-rc <- rxyS / ( ux*sqrt((1/ux^2-1)*rxyS^2+1 ))
-
-# acquire sample size from 
-n <- length(x[selected])
-
-# calculate the observed correlation sampling variance
-var_e_o <- (1-rxyS^2)^2 / (n-1)
-
-# correct sampling variance
-var_e_c <- var_e_o * (rc/rxyS)^2
-
-# print results
-rbind(paste0('corrected cor: r = ',round(rc,3)),
-      paste0('corrected var: var_e = ',round(var_e_c,3))
-      )
-```
-
-The correction formula produced a very close estimate of the true population correlation ($r_c = .50$ vs $\rho_{xy}=.50$). Lets also correct the correlation using the `correct_r` function in the psychmeta package, `psychmeta` [@dahlke2019].
-
-```{r}
-# load packages
-# install.packages('psychmeta')
 library(psychmeta)
 
-# correct the restricted correlation for univariate direct range restriction
-correct_r(rxyi = rxyS,
-          correction = 'bvirr',  # uvdrr_x = univariate direct range restriction in x
-          ux = ux,
-          uy = uy,
-          n = n)
+correct_r(correction = 'uvirr_x',
+          rxyi = .25,  # restricted correlation
+          ryy = .90,  # reliability of GPA
+          ux = .80,   # u ratio of SAT scores
+          n = 100)    # sample size
 ```
 
-We can see that the correction made by the `correct_r` function provides identical results to the one done by hand.
+The true score correlation in the target population is estimated to be $r_{TU} = .32\, [.07,\, .53]$.
+:::
 
-#### Bivariate Indirect Range Restriction {.unnumbered}
 
-To correct correlations for range restriction we can start by simulating data from the the `mvrnorm` function in the `MASS` package. Lets first simulate 1000 data points. Then we will select values above the mean of the selector variable, $z$.
 
-```{r,message=FALSE}
-# load packages
-# install.packages('MASS')
-library(MASS)
+## Beware of assumptions {.unnumbered}
 
-# set seed
-set.seed(1)
+Note that these corrections require the following assumptions: 1) linearity between $X$ and $Y$, 2) homoskedasticity, that is, equal variance in $Y$ at every level of $X$.
 
-# define parameters
-rho_xz <- .8
-rho_yz <- .8
-rho_xy <- .5
-n <- 1000
 
-# simulate data
-data <- mvrnorm(n=n,
-                mu=c(0,0,0),
-                Sigma = reshape_vec2mat(c(.5,.8,.8)),
-                empirical=TRUE)
-x <- data[,1]
-y <- data[,2]
-z <- data[,3]
-selected <- z > 0
+
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 ```
-
-We can see how the correlations are attenuated under bivariate indirect range restriction. We will select only the values above the mean.
-
-```{r}
-# calculate correlation between unrestricted and restricted scores
-rxy <- cor(x,y) # unrestricted
-rxyS <- cor(x[selected],y[selected]) # restricted
-
-# print results
-rbind(paste0('unrestricted: rxy = ',round(rxy,2)),
-      paste0('restricted: rxyS = ',round(rxyS,2))
-      )
-
-```
-
-As expected, we observe an attenuation of the correlation under range restriction. Now lets calculate the $u$-ratios for both variables. We should expect the variability in $x$ and $y$ in the restricted sample to be smaller than the unrestricted sample.
-
-```{r}
-# calculate u-ratios
-ux <- sd(x[selected])/sd(x)
-uy <- sd(y[selected])/sd(y)
-
-# print results
-rbind(paste0('ux = ',round(ux,2)),
-      paste0('uy = ',round(uy,2))
-      )
-```
-
-Now we can apply the correction for univariate direct range restriction by hand from @eq-univariate and @eq-univariate.
-
-```{r}
-# calculate lambda
-rho_xz <- 1 # assume a positive correlation for rho_xz
-rho_yz <- 1 # assume a positive correlation for rho_yz
-lambda <- sign(rho_xz*rho_yz*(1-ux)*(1-uy)) * (sign(1-ux)*min(c(ux,1/ux))+sign(1-uy)*min(c(uy,1/uy)))/(min(c(ux,1/ux))+min(c(uy,1/uy)))
-
-# correct the restricted correlation
-rc <- rxyS*ux*uy + lambda*sqrt(abs(1-ux^2)*abs(1-uy^2))
-
-# acquire sample size from 
-n <- length(x[selected])
-
-# calculate the observed correlation sampling variance
-var_e_o <- (1-rxyS^2)^2 / (n-1)
-
-# correct sampling variance
-var_e_c <- var_e_o * (rc/rxyS)^2
-
-# print results
-rbind(paste0('corrected cor: r = ',round(rc,3)),
-      paste0('corrected var: var_e = ',round(var_e_c,3))
-      )
-```
-
-The correction formula produced a very close estimate of the true population correlation ($r_c = .50$ vs $\rho_{xy}=.50$). Lets also correct the correlation using the `correct_r` function in the psychmeta package, `psychmeta` [@dahlke2019].
-
-```{r}
-# load packages
-# install.packages('psychmeta')
-library(psychmeta)
-
-# correct the restricted correlation for univariate direct range restriction
-correct_r(rxyi = rxyS,
-          correction = 'bvirr',  # uvdrr_x = univariate direct range restriction in x
-          ux = ux,
-          uy = uy,
-          n = n)
-```
-
-We can see that the correction made by the `correct_r` function provides identical results to the one done by hand.

@@ -1,11 +1,11 @@
 project:
   type: book
-  out
+
 book:
   favicon: figure/favicon_book.png
   title: "Artifact Corrections for Effect Sizes"
-  subtitle: "Implementation in R and Application to Meta-Analysis"
-  twitter-card: 
+  subtitle: "Seeing Reality for What it is"
+  twitter-card:
     creator: "@MatthewBJane"
     image: figure/MJB_twitter.jpg
   page-navigation: true
@@ -13,7 +13,9 @@ book:
   site-url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
   date: "10/08/2023"
   repo-url: https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/
-  downloads: [pdf, epub]
+  downloads: [pdf]
+  sidebar:
+    style: floating
   author:
   - name: "Matthew B. Jané"
     url: https://matthewbjane.com
@@ -35,6 +37,9 @@ book:
       chapters:
         - metaanalysis_intro.qmd
         - artifact_correction_metaanalysis.qmd
+    - part: "Conclusion"
+      chapters:
+        - conclusion.qmd
     - part: "References"
       chapters:
       - references_page.qmd
@@ -43,19 +48,20 @@ book:
 bibliography: references.bib
 format:
   html:
-    theme: lux
+    theme: [zephyr,theme.scss]
     linkcolor: '#a62675'
-    title-block-banner: true
-    title-block-style: default
-    title-block-banner-color: white
     code-overflow: scroll
-  pdf:
-    code-block-bg: '#f5f7ff'
-    code-block-border-left: false
-    highlight-style: breeze
-    mainfont: Times
-    header-includes: |
-      \titlehead{\includegraphics[width=7in]{figure/MJB_cover.jpg}}
+    comments:
+      hypothesis: true
+        
+  # pdf:
+  #   code-block-bg: '#f5f7ff'
+  #   code-block-border-left: false
+  #   highlight-style: breeze
+  #   mainfont: Times 
+  #   fig-pos: "H"
+  #   header-includes: |
+  #     \titlehead{\includegraphics[width=7in]{figure/MJB_cover.jpg}}
 
 citeproc: true
 

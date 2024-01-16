@@ -1,0 +1,77 @@
+/*-- scss:defaults --*/
+
+
+
+/*-- scss:rules --*/
+
+.inline-fragment {
+  display: flex;
+}
+
+.inline-fragment p {
+  padding-right: 10px;
+}
+
+
+.reveal a {
+    color: #d74ea2ff;
+    text-decoration: none;
+    transition: color .15s ease;
+}
+
+
+
+code span.at {
+    color: #bf2986ff;
+    font-style: inherit;
+}
+
+code span.fu {
+    color: #397689ff;
+    font-style: inherit;
+}
+
+code span.st {
+    color: #177;
+    font-style: inherit;
+}
+
+code span.co {
+    color: #999;
+    font-style: inherit;
+}
+
+code span.dv {
+    color: #861d5e;
+    font-style: inherit;
+}
+
+
+p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
+    background-color: #f8f8f8;
+    color: #a62675ff;
+    padding: 0.2em;
+}
+
+.reveal h2 { font-size: 1.2em; }
+
+.reveal pre.sourceCode code {
+    border-color: #bf2986ff;
+    background-color: #f6d5e920;
+    padding: 6px 9px;
+    max-height: 500px;
+    white-space: pre;
+    overflow: hidden;
+}
+
+
+.reveal table th, .reveal table td {
+    background-color: white;
+    border-radius: 10px;
+    border: 2px solid #bf2986ff;
+    border-bottom: 2px solid #bf2986ff;
+    border-top: 0px solid #bf2986ff;
+    border-left: 0px solid #bf2986ff;
+    border-collapse: separate;
+    border-spacing: 0px;
+}
