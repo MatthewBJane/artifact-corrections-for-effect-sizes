@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>effect-size</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="02-effect-size_files/libs/clipboard/clipboard.min.js"></script>
+<script src="02-effect-size_files/libs/quarto-html/quarto.js"></script>
+<script src="02-effect-size_files/libs/quarto-html/popper.min.js"></script>
+<script src="02-effect-size_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="02-effect-size_files/libs/quarto-html/anchor.min.js"></script>
+<link href="02-effect-size_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="02-effect-size_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="02-effect-size_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="02-effect-size_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="02-effect-size_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="02-effect-size_files/libs/quarto-diagram/mermaid.min.js"></script>
+<script src="02-effect-size_files/libs/quarto-diagram/mermaid-init.js"></script>
+<link href="02-effect-size_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="samples-and-effect-sizes" class="level1">
+<h1>Samples and Effect Sizes</h1>
+<section id="effect-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="effect-sizes">Effect Sizes</h2>
+<p>An <strong>effect size</strong> is a parameter that describes the association of two random variables<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> (e.g., <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>). Effect sizes are often used to quantify scientific research findings and are usually the target quantity in a research study. Using expected values, we can define two types of effect sizes that will be of primary focus throughout the book: correlations and standardized mean differences. A <strong>correlation</strong> can be defined as the standardized covariance between two variables (see <a href="#fig-r-ex" class="quarto-xref">Figure&nbsp;1</a>). For two continuous random variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the correlation <span class="math inline">\(\rho_{XY}\)</span> can be expressed as,</p>
+<p><span id="eq-pop-corr"><span class="math display">\[
+\rho_{XY} = \frac{\sigma_{XY}}{\sigma_X\sigma_Y}.
+\tag{1}\]</span></span></p>
+<p>However a correlation does not have to be between two continuous variables. Typically a correlation between a Bernoulli random variable and a continuous random variable is a <em>point-biserial</em> correlation and it is expressed similarly to <a href="#eq-pop-corr" class="quarto-xref">Equation&nbsp;1</a>,</p>
+<p><span id="eq-pb-corr"><span class="math display">\[
+\rho_{GY} := \frac{\sigma_{GY}}{\sigma_G\sigma_Y}.
+\tag{2}\]</span></span></p>
+<p>The correlation coefficient is a bounded by -1 and 1.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-r-ex" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-r-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-size_files/figure-html/fig-r-ex-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-r-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: A correlation between two variables (<span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>). The left panel shows a negative correlation and the right panel shows a positive correlation. The ellipses show the contour of a joint distribution.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The relationship between a Bernoulli random variable and a continuous random variable can alternatively be expressed as a standardized mean difference. A <strong>standardized mean difference</strong> is the mean difference between two groups standardized by the within-group standard deviation (see <a href="#fig-d-ex" class="quarto-xref">Figure&nbsp;2</a>). The groups are defined by the Bernoulli random variable and the standardized mean difference,</p>
+<p><span id="eq-pop-smd"><span class="math display">\[
+\delta_{GY} :=  \frac{\mu_{Y|G=1}-\mu_{Y|G=0}}{\sigma_{Y|G}}.
+\tag{3}\]</span></span></p>
+<p>Note that this formulation assumes homogeneity of variances between groups such that, <span class="math inline">\(\sigma_{Y|G}=\sigma_{Y|G=1}=\sigma_{Y|G=0}\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-d-ex" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-size_files/figure-html/fig-d-ex-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: A standardized mean difference in the population between two distributions. The mean and standard deviation of group <span class="math inline">\(A\)</span> is <span class="math inline">\(\mu_{Y|G=0}=9\)</span> and <span class="math inline">\(\sigma_{Y|G=0}=4\)</span>, respectively. Whereas mean and standard deviation of group <span class="math inline">\(B\)</span> is <span class="math inline">\(\mu_{Y|G=1}=12\)</span> and <span class="math inline">\(\sigma_{Y|G=1}=4\)</span>, respectively. Therefore the standardized mean difference is <span class="math inline">\(\delta_{GY} = (9-12)/4=-.75\)</span>. Note that <span class="math inline">\(\sigma_{Y|G=0}=\sigma_{Y|G=1}=\sigma_{Y|G}\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="samples" class="level3">
+<h3 class="anchored" data-anchor-id="samples">Samples</h3>
+<p>For a researcher to make inferences about effect size parameters in the population of interest, they must draw a sample of individuals from the population. Ideally, sampling is done at random in order to produce unbiased estimates of the population effect size. In practice however, this is usually not possible. In cognitive and behavioral sciences, many studies are conducted on convenience samples that are sampled from a narrow subset of the population of interest. A non-random sample may not (on average) share the same composition of characteristics as the population of interest and thus may produce biased estimates of population effect size. Here we define a <strong>study sample</strong> <span class="math inline">\(\mathcal{S}\)</span> as a random sample of <em>eligible</em> individuals, that is, individuals that the researcher has access to. The pool of eligible individuals <span class="math inline">\(\Psi_\mathsf{E}\)</span> (i.e., the study population) is a subset of the population of interest <span class="math inline">\(\Psi\)</span>, therefore an eligible individual is any <span class="math inline">\(\psi\in\Psi_\mathsf{E} \subseteq \Psi\)</span>. The study sample <span class="math inline">\(\mathcal{S}\)</span> is a random draw of <span class="math inline">\(n\)</span> eligible individuals from the population of interest,</p>
+<p><span class="math display">\[
+\mathcal{S} := \{\psi_i \mid  \psi_{1}\dots\psi_n \in_\text{R} \Psi_\mathsf{E} \subseteq \Psi\},
+\]</span></p>
+<p>where <span class="math inline">\(\in_\text{R}\)</span> denotes a random draw from a set. The fibers <span class="math inline">\(\ell^{-1}(\psi_{1})...\ell^{-1}(\psi_{n})\)</span> are all the possible outcomes for each individual in the study sample <span class="math inline">\(\mathcal{S}\)</span>. We will use the notation <span class="math inline">\(Y_i\)</span>, <span class="math inline">\(X_i\)</span>, and <span class="math inline">\(G_i\)</span> to denote the true value of the random variable for an individual <span class="math inline">\(i\)</span> (recall that the true value as defined here does not vary across possible outcomes of an individual, e.g., <span class="math inline">\(Y(\omega)\)</span> for any <span class="math inline">\(\omega\in\ell^{-1}(\psi_i)\)</span>).</p>
+</section>
+<section id="sample-estimates-of-effect-sizes" class="level3">
+<h3 class="anchored" data-anchor-id="sample-estimates-of-effect-sizes">Sample Estimates of Effect Sizes</h3>
+<p>The effect size in the population of interest is a fixed value that does not change from sample to sample. However, an estimate of the effect size from sample data will vary from sample to sample. We will denote sample estimates of effect sizes with English letters as opposed to the Greek letters we used for population effect sizes. The sample estimate of a correlation is computed via Pearson’s estimator <span class="citation" data-cites="pearson1895">[@pearson1895]</span>,</p>
+<p><span id="eq-pearson-r"><span class="math display">\[
+r_{XY} := \frac{s_{XY}}{s_{X}s_{Y}} = \frac{\sum_{i=1}^n (X_i - m_{X})(Y_i - m_{Y})}{\sqrt{\sum_{i=1}^n (X_i - m_{X})^2}\sqrt{\sum_{i=1}^n (Y_i - m_{Y})^2}},
+\tag{4}\]</span></span></p>
+<p>Where <span class="math inline">\(m\)</span> and <span class="math inline">\(s^2\)</span> denote the sample estimates of the means and (co-)variances.</p>
+<div id="exm-smd" class="border theorem example" style="padding:5px;border-radius:2px">
+<p><span class="theorem-title"><strong>Example 1 (Relationship between Test Scores)</strong></span> In the United States, universities frequently require taking one of two standardized tests assessing academic ability, the Scholastic Achievement Test (SAT) and the American College Test (ACT). Since these tests are used interchangeably in university admission decisions, it is good to know how related the scores of these tests really are. A data set of 700 individuals who took both the SAT and the ACT from <span class="citation" data-cites="revelle2010">@revelle2010</span> can be used to estimate the correlation. The data set splits the SAT test into Quantitative (SATQ) and Verbal (SATV) subtests which each range from 200-800, whereas the ACT is reported as a score from 1-36. After removal of individuals who did not complete The Quantitative section of the SAT or who scored well below the expected guessing score (individuals with ACT &lt; 5 and SATV/SATQ &lt; 220), the final sample consisted of 681 individuals. We can plot out the relationship between the total SAT score (SATV + SATQ) and the ACT scores with a scatter plot (see <a href="#fig-scatter-cor-ex" class="quarto-xref">Figure&nbsp;3</a>)</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-scatter-cor-ex" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-size_files/figure-html/fig-scatter-cor-ex-1.png" id="fig-scatter-cor-ex" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-scatter-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The resulting covariance matrix between variables is displayed in <a href="#tbl-cor-ex" class="quarto-xref">Table&nbsp;1</a>. The covariance matrix shows the covariance between all the variables in the model. Note that the covariance between a variable and itself is equal to the variance (e.g., <span class="math inline">\(\sigma_{XX}=\sigma^2_{X}\)</span>). Therefore the diagonal (from top-left number to bottom-right number) of the matrix are the variances of each of the variable whereas the off-diagonal is are the covariances between pairs of variables.</p>
+<div class="cell">
+<div id="tbl-cor-ex" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Covariance matrix.
+</figcaption>
+<div aria-describedby="tbl-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+ 
+
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tinytable_llihsqzvugo8kkend6qp</title>
+    <style>
+.table td.tinytable_css_te5xk0gcp17oujj49jes, .table th.tinytable_css_te5xk0gcp17oujj49jes {    border-bottom: solid 0.1em #d3d8dc; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+  
+
+  
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_llihsqzvugo8kkend6qp" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col">Test</th>
+                <th scope="col">ACT</th>
+                <th scope="col">SATQ</th>
+                <th scope="col">SATV</th>
+                <th scope="col">SAT</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>ACT </td>
+                  <td> 22.37</td>
+                  <td>  328.32</td>
+                  <td>  297.36</td>
+                  <td>  625.69</td>
+                </tr>
+                <tr>
+                  <td>SATQ</td>
+                  <td>328.32</td>
+                  <td>12669.09</td>
+                  <td> 7753.61</td>
+                  <td>20422.70</td>
+                </tr>
+                <tr>
+                  <td>SATV</td>
+                  <td>297.36</td>
+                  <td> 7753.61</td>
+                  <td>11898.10</td>
+                  <td>19651.70</td>
+                </tr>
+                <tr>
+                  <td>SAT </td>
+                  <td>625.69</td>
+                  <td>20422.70</td>
+                  <td>19651.70</td>
+                  <td>40074.40</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function styleCell_tinytable_xsy95wmwyacppx3ogn8t(i, j, css_id) {
+        var table = document.getElementById("tinytable_llihsqzvugo8kkend6qp");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_llihsqzvugo8kkend6qp');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_xsy95wmwyacppx3ogn8t(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_llihsqzvugo8kkend6qp");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 0, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 1, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 2, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 3, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 4, 'tinytable_css_te5xk0gcp17oujj49jes') })
+    </script>
+
+  
+
+
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The correlation coefficient between total SAT (the last column) and ACT (first column) can be computed using the formula in <a href="#eq-pearson-r" class="quarto-xref">Equation&nbsp;4</a>. Let’s treat SAT as our X variable and the ACT be the Y variable:</p>
+<p><span class="math display">\[
+r_{XY} = \frac{s_{XY}}{s_X s_Y} = \frac{625.69}{\sqrt{40074.40} \times \sqrt{22.37}} = .66
+\]</span></p>
+</div>
+<p>For an SMD, the commonly used estimate for comparison between two independent groups is Cohen’s estimator <span class="citation" data-cites="cohen1988">[@cohen1988]</span>,</p>
+<p><span class="math display">\[
+d_{GY} = \frac{m_{Y|G=1} - m_{Y|G=0}}{s_{Y|G}}.
+\]</span></p>
+<p>This is commonly referred to as Cohen’s <em>d</em> or simply the <em>d</em> statistic. The sample estimate of the standard deviation of <span class="math inline">\(Y\)</span> given <span class="math inline">\(G\)</span> is the pooled within-group standard deviation,</p>
+<p><span class="math display">\[
+s_{Y|G} = \sqrt{\frac{(n_0 - 1)s^2_{Y|G=0} + (n_1 - 1)s^2_{Y|G=1}}{n_0 + n_1 -2}}.
+\]</span></p>
+<p>The within-group sample size is denoted by <span class="math inline">\(n_0\)</span> and <span class="math inline">\(n_1\)</span> for <span class="math inline">\(G=0\)</span> and <span class="math inline">\(G=1\)</span>, respectively. If there is reason to believe that the variances differ between groups, such that <span class="math inline">\(s_{Y|G=0}\neq s_{Y|G=1}\)</span>, then it may be best to standardize the mean difference with just one of the groups (usually a control/reference group).</p>
+<div id="exm-smd" class="border theorem example" style="padding:5px;border-radius:2px">
+<p><span class="theorem-title"><strong>Example 2 (Gender Differences in Agreeableness)</strong></span> In personality psychology the Big 5 personality traits are five dimensions where preferences and attitudes tend to vary along (Openness, Conscientiousness, Extraversion, Agreeableness, and Neuroticism). Agreeableness reflects a person’s cooperativeness, politeness, kindness, friendliness, and compassion. Agreeableness tends to differ on average between men and women with women generally scoring higher. Using a data set of 2800 participants from <span class="citation" data-cites="goldberg1999">@goldberg1999</span>, we can calculate the standardized mean difference from 2709 individuals who answered all of the items pertaining to agreeableness. The data set consists of 896 men and 1813 women who all responded to five statements related to agreeableness (e.g., “Inquire about others’ well-being”). Each participant self assessed the accuracy (from 1-Very Inaccurate to 6-Very Accurate) of each of the five statement with respect to themselves. Agreeableness is scored based on the average of their responses to all of the statements and POMP scored so 0 is the minimum possible score (very disagreeable) and 100 is the maximum possible score (very agreeable). The distributions within men and women are displayed in <a href="#fig-smd-agreeableness" class="quarto-xref">Figure&nbsp;4</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-smd-agreeableness" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-smd-agreeableness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-size_files/figure-html/fig-smd-agreeableness-1.png" id="fig-smd-agreeableness" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-smd-agreeableness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The descriptive statistics for both groups are presented in <a href="#tbl-smd-ex" class="quarto-xref">Table&nbsp;2</a>. We find the mean agreeableness score of women in the sample is 75.50 whereas the mean for men is 67.55. We also find the standard deviation to be 17.10 and 18.63 in women and men, respectively.</p>
+<div class="cell">
+<div id="tbl-smd-ex" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-smd-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Descriptive statistics.
+</figcaption>
+<div aria-describedby="tbl-smd-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+ 
+
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tinytable_m5ao1vlyac15er0184qs</title>
+    <style>
+.table td.tinytable_css_1udokm5k4ogwigjmju4q, .table th.tinytable_css_1udokm5k4ogwigjmju4q {    border-bottom: solid 0.1em #d3d8dc; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+  
+
+  
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_m5ao1vlyac15er0184qs" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col">Gender</th>
+                <th scope="col">n</th>
+                <th scope="col">mean</th>
+                <th scope="col">sd</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>Women</td>
+                  <td>1813</td>
+                  <td>75.50</td>
+                  <td>17.10</td>
+                </tr>
+                <tr>
+                  <td>Men  </td>
+                  <td> 896</td>
+                  <td>67.55</td>
+                  <td>18.63</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function styleCell_tinytable_pc2ex3pkkfnk2pmzl23z(i, j, css_id) {
+        var table = document.getElementById("tinytable_m5ao1vlyac15er0184qs");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_m5ao1vlyac15er0184qs');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_pc2ex3pkkfnk2pmzl23z(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_m5ao1vlyac15er0184qs");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_pc2ex3pkkfnk2pmzl23z(0, 0, 'tinytable_css_1udokm5k4ogwigjmju4q') })
+window.addEventListener('load', function () { styleCell_tinytable_pc2ex3pkkfnk2pmzl23z(0, 1, 'tinytable_css_1udokm5k4ogwigjmju4q') })
+window.addEventListener('load', function () { styleCell_tinytable_pc2ex3pkkfnk2pmzl23z(0, 2, 'tinytable_css_1udokm5k4ogwigjmju4q') })
+window.addEventListener('load', function () { styleCell_tinytable_pc2ex3pkkfnk2pmzl23z(0, 3, 'tinytable_css_1udokm5k4ogwigjmju4q') })
+    </script>
+
+  
+
+
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The sample estimate of the standardized mean difference can be computed with the following procedure:</p>
+<ol type="1">
+<li>Calculate the mean difference (denoting <span class="math inline">\(G=1\)</span> as women and <span class="math inline">\(G=0\)</span> as men):</li>
+</ol>
+<p><span class="math display">\[
+m_{Y|G=1} - m_{Y|G=0} = 75.50 - 67.55 = 7.95
+\]</span></p>
+<ol start="2" type="1">
+<li>Then we can calculate the pooled standard deviation:</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+        s_{Y|G} &amp;= \sqrt{\frac{(n_0 - 1)s^2_{Y|G=0} + (n_1 - 1)s^2_{Y|G=1}}{n_0 + n_1 -2}} \\[.3em] &amp;= \sqrt{\frac{(1812)17.10^2 + (895)18.63^2}{1812 + 895 -2}}\\[.3em] &amp;= 17.63
+\end{align}\]</span></p>
+<ol start="3" type="1">
+<li>Then we can calculate the standardized mean difference:</li>
+</ol>
+<p><span class="math display">\[
+d_{GY} = \frac{m_{Y|G=1} - m_{Y|G=0}}{s_{Y|G}} = \frac{7.95}{17.63} = 0.45
+\]</span></p>
+</div>
+</section>
+</section>
+<section id="errors-in-effect-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="errors-in-effect-sizes">Errors in Effect Sizes</h2>
+<section id="random-sampling-errors" class="level3">
+<h3 class="anchored" data-anchor-id="random-sampling-errors">Random (Sampling) Errors</h3>
+<p>The target population effect size is the effect size of the random variables of interest in tge population of interest. The target populatuon effect size is a constant, unchanging value that remains fixed across samples. However, if we were to take a simple random sample from the population of interest such that the eligible population is synonymous with the population of interest, <span class="math inline">\(\Psi_\mathsf{E}=\Psi\)</span>. A sample estimate of an effect size varies from sample to sample (<span class="math inline">\(\mathcal{S}_1,\mathcal{S}_2,\dots\)</span>) and does not exactly reflect the population value. This is due to the fact that randomly taking a subset of the population will contain inherent variability in the composition of the sample. <strong>Sampling errors</strong> describe the random deviations that we observe in effect size estimates from sample to sample <span class="citation" data-cites="barraza2019">[@barraza2019]</span>. Sampling errors are random, however we will see in the next section that some errors are systematic. We can quantify sampling errors by the variance of the effect size estimator which is mostly a function of sample size (i.e., larger samples, smaller variance). To obtain estimates of sampling variance, we have to include assumptions about the joint distribution (unless we we used a non-parametric estimator, e.g., bootstrap). To calculate the sampling variance of Pearson’s correlation estimator we must first assume that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> follow a bivariate normal distribution,</p>
+<p><span class="math display">\[
+X,Y\sim\mathcal{N}_2\left(\begin{bmatrix} \mu_{X} \\ \mu_Y\end{bmatrix},\begin{bmatrix} \sigma^2_{X} &amp; \sigma_{XY} \\ \sigma_{XY}&amp;\sigma^2_{Y} \end{bmatrix}\right).
+\]</span></p>
+<p>Given this assumption, the asymptotic sampling variance of the estimator is,</p>
+<p><span id="eq-asymp-var-r"><span class="math display">\[
+\text{var}(r_{XY}) \overset{_\infty}{=} \frac{\left(1 - \rho_{XY}^2\right)^2}{n}.
+\tag{5}\]</span></span></p>
+<p>Where <span class="math inline">\(\overset{_\infty}{=}\)</span> denotes equivalency as <span class="math inline">\(n\rightarrow \infty\)</span>. The variance of an effect size estimator tends to be some function of sample size, where large samples will show less variance compared to small samples. For an illustration of sampling error, see <a href="#fig-3.1" class="quarto-xref">Figure&nbsp;5</a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-3.1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-3.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-size_files/figure-html/fig-3.1-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: This figure shows the distribution of sample estimates. The blue diamonds denotes the population effect size, which stays constant across samples. The black dots denote the sample effect size estimate. The grey lines denote random sampling errors, which represent the difference between the estimates and the population value. The sampling distribution on the right shows the probability distribution of estimates across repeated samples, the width of this distribution is described by the variance of the estimator. Note the illustration shows a normally distributed estimator, but this is not a requirement.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="systematic-errors" class="level3">
+<h3 class="anchored" data-anchor-id="systematic-errors">Systematic Errors</h3>
+<p>Sampling errors produce random errors in effect sizes, however, we can also observe systematic errors. <strong>Systematic errors</strong> are deviations from the target population value that are consistent across samples and produce bias in effect size estimates. In other words, effect size estimates will be <em>on average</em> larger or smaller than the target population value <span class="citation" data-cites="barraza2019">[@barraza2019]</span>. Random sampling errors, on the other hand, will be larger or smaller than the target population value only by chance. <strong>Attenuation</strong> describes a type of systematic error where the effect size estimates are <em>smaller</em> than the target population value on average. <strong>Inflation</strong> on the other hand, is a type of bias that produce effect size estimates that are <em>larger</em> on average. An <strong>unbiased</strong> effect size would be one where there is no systematic errors and therefore, on average, it is equal to the population effect size. As we will see in future chapters, study artifacts such as selection effects and measurement error can produce effect sizes that contain systematic errors.</p>
+<p>We can see in <a href="#fig-systematic-errors" class="quarto-xref">Figure&nbsp;6</a> that the sampling distribution does not become wider or smaller with systematic errors (this may occur indirectly if the sampling variance depends on the effect size itself), instead the whole sampling distribution shifts downward or upward depending on whether the effect size estimates are attenuated or inflated, respectively.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-systematic-errors" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-systematic-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-size_files/figure-html/fig-systematic-errors-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-systematic-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Three sampling distributions representing estimators that are unbiased, attenuated, and inflated. The blue line indicates the the location of the target population effect size, whereas the black dots show the effect size estimates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="a-model-of-observed-effect-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="a-model-of-observed-effect-sizes">A Model of Observed Effect Sizes</h2>
+<p>We can think of an observed effect size estimate as having three components:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+   X("systematic &lt;br&gt;error (bias)") --&gt; E["observed effect &lt;br&gt;size estimate"]
+   Z("target population&lt;br&gt;effect size (estimand)") --&gt; E
+   Y("random (sampling)&lt;br&gt;error") --&gt; E
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Let’s construct a statistical model for an observed effect size estimate <span class="math inline">\(h_i\)</span> for a given sample, <span class="math inline">\(i\)</span>, that accounts for each of these three components. The <strong>target population effect size</strong>} will be denoted by the Greek letter <span class="math inline">\(\theta\)</span> which does not vary from sample to sample. The <strong>artifact attenuation/inflation factor</strong> is denoted with the Greek letter <span class="math inline">\(\alpha\)</span> and accounts for the systematic error that is consistent across samples. Finally the <strong>sampling error</strong> is denoted by the Greek letter <span class="math inline">\(\varepsilon\)</span> which accounts for the random sampling error across samples <span class="citation" data-cites="raju1991">[@raju1991, based on eq. 1]</span>,</p>
+<p><span id="eq-model"><span class="math display">\[
+h_i = \alpha \theta + \varepsilon_i.
+\tag{6}\]</span></span></p>
+<p>Note that <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\theta\)</span> are fixed and does not vary across samples (no subscript <span class="math inline">\(i\)</span>), wheras <span class="math inline">\(\varepsilon_i\)</span> does vary from sample to sample. For the above equation to be true we need to assume that the expectation (i.e., the mean over repeated samples) of <span class="math inline">\(\varepsilon_i\)</span> is zero such that, <span class="math inline">\(\mathbb{E}[\varepsilon_i] = 0\)</span>. A consequence of this assumption is that the expectation of the observed effect size estimate is <span class="math inline">\(\mathbb{E}[h_i]=\alpha \theta\)</span>. We will label the term <span class="math inline">\(\alpha \theta\)</span> as the <strong>contaminated population effect size</strong> as it is a fixed value that encompasses the target effect size and systematic error.</p>
+<p>The artifact attenuation/inflation factor, <span class="math inline">\(\alpha\)</span>, completely describes the net systematic error in the observed effect size estimates. The value of <span class="math inline">\(\alpha\)</span> can indicate whether <span class="math inline">\(h_i\)</span> is an unbiased (<span class="math inline">\(\alpha = 0\)</span>), attenuated (<span class="math inline">\(\alpha &lt; 1\)</span>), or inflated estimator (<span class="math inline">\(\alpha &gt; 1\)</span>).</p>
+<p>Because of random sampling error, the observed effect size estimate will differ from sample to sample (<span class="math inline">\(h_1\neq\)</span> <span class="math inline">\(h_2\neq\)</span> <span class="math inline">\(h_3\neq...\)</span>). The extent to which estimates fluctuate across samples can be quantified by the variance of the effect size estimator, denoted as <span class="math inline">\(\text{var}(h_i)\)</span>. Remember that the contaminated population effect size (<span class="math inline">\(\alpha \theta\)</span>) fixed across samples, this would result in variation in random sampling errors to be solely responsible for the variation in observed effect sizes such that, <span class="math inline">\(\text{var}(h_i)=\text{var}(\varepsilon_i)\)</span>.</p>
+</section>
+<section id="correcting-effect-sizes" class="level2">
+<h2 class="anchored" data-anchor-id="correcting-effect-sizes">Correcting Effect Sizes</h2>
+<p>In principle, if we know the value of the artifact attenuation/inflation factor <span class="math inline">\(\alpha\)</span> then we could correct the observed effect size for systematic errors. However, <span class="math inline">\(\alpha\)</span> is unknown and must be estimated. An estimate of <span class="math inline">\(\alpha\)</span> will be denoted by the English letter <span class="math inline">\(a\)</span>. According to the model described in <a href="#eq-model" class="quarto-xref">Equation&nbsp;6</a>, <span class="math inline">\(\alpha\)</span> is a fixed value that does not vary from sample to sample, however it’s sample estimate will:</p>
+<p><span id="eq-a"><span class="math display">\[
+a_i = \alpha + \xi_i,
+\tag{7}\]</span></span></p>
+<p>where <span class="math inline">\(\xi_i\)</span> denotes the sampling error in <span class="math inline">\(a_i\)</span>. The corrected effect size can thus be calculated by dividing the observed effect size by the estimated artifact factor,</p>
+<p><span id="eq-correction"><span class="math display">\[
+h_{c_i} = \frac{h_i}{a_i},
+\tag{8}\]</span></span></p>
+<p>The corrected effect size will only be an asymptotically (as the sample size approaches infinity) unbiased estimator of the target population value. As we will see in future chapters, corrections will also impose additional distributional assumptions on the data.</p>
+<p>Sampling variance of the corrected effect size will depend greatly on the estimation procedure of the effect size and the artifact factor. Sampling variance for corrected effect sizes will be discussed in more detail for each artifact correction chapter.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Computing SMDs in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Let’s load in a data set for a plant growth experiment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"PlantGrowth"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># view first 6 plants</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(PlantGrowth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  weight group
+1   4.17  ctrl
+2   5.58  ctrl
+3   5.18  ctrl
+4   6.11  ctrl
+5   4.50  ctrl
+6   4.61  ctrl</code></pre>
+</div>
+</div>
+<p>We see that the data set contains two variables, weight of the plant and the experimental group. There are three two experimental groups present: a control group and two treatment groups. If we want to obtain the SMD between the each treatment group and the control group, we can use the <code>cohen.d</code> function <code>psych</code> package <span class="citation" data-cites="psych">[@psych]</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate SMD for first treatment group</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">cohen.d</span>(weight <span class="sc">~</span> group,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> <span class="fu">subset</span>(PlantGrowth, group <span class="sc">==</span> <span class="st">'ctrl'</span> <span class="sc">|</span> group <span class="sc">==</span> <span class="st">'trt1'</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>d1<span class="sc">$</span>cohen.d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          lower     effect     upper
+weight -1.44938 -0.5615655 0.3411078</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate SMD for first treatment group</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">cohen.d</span>(weight <span class="sc">~</span> group,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> <span class="fu">subset</span>(PlantGrowth, group <span class="sc">==</span> <span class="st">'ctrl'</span> <span class="sc">|</span> group <span class="sc">==</span> <span class="st">'trt2'</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>d2<span class="sc">$</span>cohen.d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            lower   effect    upper
+weight 0.05850126 1.005987 1.929048</code></pre>
+</div>
+</div>
+<p>We see that the first treatment showed a negative effect on plant growth (<span class="math inline">\(d=-0.56\)</span>) and the second treatment shows a positive effect (<span class="math inline">\(d=1.01\)</span>). For our purposes we want the estimate and the sampling variance of the estimator, therefore we can extract that information from the output of <code>cohen.d()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> d1<span class="sc">$</span>cohen.d[,<span class="st">'effect'</span>], </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">var.d =</span> d1<span class="sc">$</span>se<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           d     var.d
+1 -0.5615655 0.8014621</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> d2<span class="sc">$</span>cohen.d[,<span class="st">'effect'</span>], </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">var.d =</span> d2<span class="sc">$</span>se<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         d     var.d
+1 1.005987 0.8747367</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>1: Effect sizes can be defined more broadly as the association between multiple variables, however this book will only focus on the more narrow case of just two variables.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

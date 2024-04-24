@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artifact Corrections for Effect Sizes - 10&nbsp; Direct Selection</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../11-indirect-selection/11-indirect-selection.html" rel="next">
+<link href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html" rel="prev">
+<link href="../figure/favicon_book.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 10&nbsp; Direct Selection">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/10-direct-selection/figure/MJB_twitter.jpg">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html">Selection Effects</a></li><li class="breadcrumb-item"><a href="../10-direct-selection/10-direct-selection.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Direct Selection</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="../Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../00-dedication/00-dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-definitions/01-definitions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Samples, Random Variables, and Expectations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02-effect-sizes/02-effect-sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-small-samples/03-small-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Small Samples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../04-introduction-to-measurement-error/04-introduction-to-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measurement Error</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05-error-in-continuous-variables/05-error-in-continuous-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classical Measurement Errors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06-misclassification/06-misclassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../07-artificial-dichotomization/07-artificial-dichotomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../08-scale-coarseness/08-scale-coarseness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selection Effects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10-direct-selection/10-direct-selection.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11-indirect-selection/11-indirect-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-artifact-correction-meta-analysis/13-artifact-correction-meta-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Artifact Correction Meta-Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-conclusion/14-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references/references_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">10.1</span> Introduction</a></li>
+  <li><a href="#study-population" id="toc-study-population" class="nav-link" data-scroll-target="#study-population"><span class="header-section-number">10.2</span> Study Population</a></li>
+  <li><a href="#quantifying-direct-selection-with-the-u-ratio" id="toc-quantifying-direct-selection-with-the-u-ratio" class="nav-link" data-scroll-target="#quantifying-direct-selection-with-the-u-ratio"><span class="header-section-number">10.3</span> Quantifying Direct Selection with the <em>u</em>-ratio</a></li>
+  <li><a href="#correcting-correlations" id="toc-correcting-correlations" class="nav-link" data-scroll-target="#correcting-correlations"><span class="header-section-number">10.4</span> Correcting Correlations</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-target-correlation" id="toc-defining-our-target-correlation" class="nav-link" data-scroll-target="#defining-our-target-correlation"><span class="header-section-number">10.4.1</span> Defining our Target Correlation</a></li>
+  <li><a href="#sec-corr-DDR" id="toc-sec-corr-DDR" class="nav-link" data-scroll-target="#sec-corr-DDR"><span class="header-section-number">10.4.2</span> Artifact Correction for Correlations</a></li>
+  </ul></li>
+  <li><a href="#correcting-standardized-mean-differences-smds" id="toc-correcting-standardized-mean-differences-smds" class="nav-link" data-scroll-target="#correcting-standardized-mean-differences-smds"><span class="header-section-number">10.5</span> Correcting Standardized Mean Differences (SMDs)</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-target-smd" id="toc-defining-our-target-smd" class="nav-link" data-scroll-target="#defining-our-target-smd"><span class="header-section-number">10.5.1</span> Defining our Target SMD</a></li>
+  <li><a href="#artifact-correction-for-smds" id="toc-artifact-correction-for-smds" class="nav-link" data-scroll-target="#artifact-correction-for-smds"><span class="header-section-number">10.5.2</span> Artifact Correction for SMDs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html">Selection Effects</a></li><li class="breadcrumb-item"><a href="../10-direct-selection/10-direct-selection.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Direct Selection</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-direct_range_restriction" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">10.1</span> Introduction</h2>
+<p>Direct selection occurs when subjects are explicitly selected based on some eligibility criterion on the variables of interest (rather than a third variable). Range restriction is a form of selection bias that describes a situation where there is less variation in our sample then there is in the population. Whereas range enhancement indicates that there is <em>more</em> variation in a sample then there is in the population.</p>
+<div id="exm-corr" class="border theorem example" style="--bs-border-width:2pt;--bs-border-color:#5fa6bcff; padding:5pt;">
+<p><span class="theorem-title"><strong>Example 10.1 (Correlation between Test Scores)</strong></span> The chapter on effect sizes introduced in example relating the SAT and ACT (two college admissions test in the United States). Recall that the data set consists of 668 individuals who took both the SAT and the ACT from <span class="citation" data-cites="revelle2010">Revelle, Wilt, and Rosenthal (<a href="../references/references_page.html#ref-revelle2010" role="doc-biblioref">2010</a>)</span> can be used to estimate the correlation. The data set splits the SAT test into Quantitative (SATQ) and Verbal (SATV) subtests which each range from 200-800, whereas the ACT is reported as a score from 1-36. We can plot out the relationship between the total SAT score (SATV + SATQ) and the ACT scores with a scatter plot (see <a href="../02-effect-sizes/02-effect-sizes.html#fig-scatter-cor-ex" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-scatter-ds-ex" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-ds-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-direct-selection_files/figure-html/fig-scatter-ds-ex-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-ds-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.1: Scatter plot showing the joint distribution of SAT and ACT scores.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In the <a href="../11-indirect-selection/11-indirect-selection.html#fig-scatter-ds-ex" class="quarto-xref">Figure&nbsp;<span>11.1</span></a> we see a strong correlation of .66 between test scores. Now let’s say we only study individuals from an elite college that requires students to have a minimum SAT score of 1200. Therefore all the individuals below 1200 would not be included in this sample. Let’s see how that impacts the correlation:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-scatter-ds-ex-restrict" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-ds-ex-restrict-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-direct-selection_files/figure-html/fig-scatter-ds-ex-restrict-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scatter-ds-ex-restrict-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.2: Scatter plot showing the joint distribution of SAT and ACT scores.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As we can see in <a href="../11-indirect-selection/11-indirect-selection.html#fig-scatter-ds-ex-restrict" class="quarto-xref">Figure&nbsp;<span>11.2</span></a> the correlation is attenuated from <span class="math inline">\(r=.66\)</span> to <span class="math inline">\(r=.43\)</span> when the range of students is restricted to SAT scores above 1200.</p>
+</div>
+</section>
+<section id="study-population" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="study-population"><span class="header-section-number">10.2</span> Study Population</h2>
+<p>Recall in the first content chapter on probability and random variables, we defined a study sample <span class="math inline">\(\mathcal{S}\)</span> as being all possible outcomes of a random draw of individuals from the study population <span class="math inline">\(\mathcal{E}\subseteq \Psi\)</span>, where <span class="math inline">\(\Psi\)</span> is our population of interest. However we were vague about what <span class="math inline">\(\mathcal{E}\)</span> actually is. In situations of direct selection we can define <span class="math inline">\(\mathcal{E}\)</span> more concretely with some eligibility criterion. For univariate direct selection, the study population can be defined as a subset of one of the random variables of interest,</p>
+<p><span class="math display">\[
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(X^{-1}(B)\right)\;\middle\vert\; B \in \mathcal{B}_\mathbb{R}  \right\rbrace \subseteq \Psi,
+\]</span></p>
+<p>where <span class="math inline">\(B\)</span> is some Borel set on the real line and <span class="math inline">\(\ell\)</span> is the assignment to individual function. Most often <span class="math inline">\(B\)</span> will be some interval on the real-line, for instance, the SAT and ACT example restricted scores above SAT &gt; 1200 therefore the eligible population is any person scoring within the interval <span class="math inline">\(B=[1200,1600]\)</span> (where 1600 is a perfect score). For bivariate direct selection, both variables of interest are used to define the population,</p>
+<p><span class="math display">\[
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(X^{-1}(B_1)\cap Y^{-1}(B_2)\right)\;\middle\vert\; B_1,B_2 \in \mathcal{B}_\mathbb{R}  \right\rbrace \subseteq \Psi,
+\]</span></p>
+<p>It is often the case that selection is made via observed proxies, <span class="math inline">\(\widetilde{X}\)</span> and <span class="math inline">\(\widetilde{Y}\)</span>, since these are usually what we actually observe. The selection in the SAT and ACT example was based on the observed scores of the SAT.</p>
+</section>
+<section id="quantifying-direct-selection-with-the-u-ratio" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="quantifying-direct-selection-with-the-u-ratio"><span class="header-section-number">10.3</span> Quantifying Direct Selection with the <em>u</em>-ratio</h2>
+<p>The distribution of scores in the population of interest <span class="math inline">\(\Psi\)</span> will exhibit a greater (or lesser) degree of variability compared to the study population <span class="math inline">\(\mathcal{E}\)</span>. Therefore the standard deviation of scores in the target population (<span class="math inline">\(\sigma_{X}\)</span>) will differ from that of the study population (<span class="math inline">\(\sigma_{X|\mathcal{E}}\)</span>). To index the difference between the two standard deviations, we can calculate the <span class="math inline">\(u\)</span>-ratio <span class="citation" data-cites="hunter1990a">Wiernik and Dahlke (<a href="../references/references_page.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>. The <span class="math inline">\(u\)</span>-ratio is defined as the ratio between the standard deviations of the population (<span class="math inline">\(\sigma_{X|\mathcal{E}}\)</span>) under selection and the target population (<span class="math inline">\(\sigma_{X}\)</span>) such that,</p>
+<p><span class="math display">\[
+\upsilon_X = \frac{\sigma_{X|\mathcal{E}}}{\sigma_{X}}
+\]</span></p>
+<p>Where <span class="math inline">\(\upsilon_{X}\)</span> denotes the population <span class="math inline">\(u\)</span>-ratio. The <span class="math inline">\(u\)</span>-ratio in cases of <strong>range restriction</strong> will exist in the interval (0–1). Conversely, when the <span class="math inline">\(u\)</span>-ratio is greater than 1 it is indicative of <strong>range enhancement</strong>. For a sample, the <span class="math inline">\(u\)</span>-ratio is calculated from sample standard deviations,</p>
+<p><span id="eq-u-ratio"><span class="math display">\[
+u_X = \frac{s_{X|\mathcal{E}}}{s_X}
+\tag{10.1}\]</span></span></p>
+<p>Where <span class="math inline">\(u_{X}\)</span> denotes the sample <span class="math inline">\(u\)</span>-ratio. The target population standard deviation is often quite difficult to estimate since we generally do not have access to an estimate of the population of interest. However, the unrestricted standard deviation can be estimated from some reference or norm study that is representative of the population of interest. For example, the distribution full-scale IQ scores derived from the Wechsler Adult Intelligence Test has a standard deviation of 15 in the US population <span class="citation" data-cites="wechsler2008">(<a href="../references/references_page.html#ref-wechsler2008" role="doc-biblioref">Wechsler 2008</a>)</span>. We can use this estimate as the standard deviation for the target population. Lets say we select a sample from members of Mensa, a high IQ society, where members are specifically selected on the basis high IQ scores. If the standard deviation of Mensa members is 5, then the <span class="math inline">\(u\)</span>-ratio would be,</p>
+<p><span class="math display">\[
+u_\widetilde{X} = \frac{s_{\widetilde{X}|\mathcal{E}}}{s_\widetilde{X}} = \frac{5}{15}= .33,
+\]</span></p>
+<p>where <span class="math inline">\(u_\widetilde{X}\)</span>, <span class="math inline">\(s_\widetilde{X}\)</span>, and <span class="math inline">\(s_{\widetilde{X}|\mathcal{E}}\)</span> are the sample estimate counterparts of the components in <a href="../11-indirect-selection/11-indirect-selection.html#eq-u-ratio" class="quarto-xref">Equation&nbsp;<span>11.1</span></a>, but now they with respect to observed IQ scores. If an estimate of the population standard deviation is not readily available, then a reliability coefficient from the reference sample and the sample under selection can be used to estimate the <span class="math inline">\(u\)</span>-ratio of observed scores,</p>
+<p><span class="math display">\[
+u_\widetilde{X} = \sqrt{\frac{1-r_{\widetilde{X}\widetilde{X}'}}{1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}}}.
+\]</span></p>
+<p>Where <span class="math inline">\(r_{XX'|\mathcal{E}}\)</span> and <span class="math inline">\(r_{XX'}\)</span> are the reliability estimates within the study sample and reference sample respectively.</p>
+</section>
+<section id="correcting-correlations" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="correcting-correlations"><span class="header-section-number">10.4</span> Correcting Correlations</h2>
+<section id="defining-our-target-correlation" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="defining-our-target-correlation"><span class="header-section-number">10.4.1</span> Defining our Target Correlation</h3>
+<p>We want to estimate the correlation in the target population between true scores of the independent (<span class="math inline">\(X\)</span>) and dependent variable (<span class="math inline">\(Y\)</span>). Within a study that suffers from direct selection <em>and</em> measurement error, the observed score correlation will be biased relative to our target true score population correlation, <span class="math inline">\(\rho_{XY}\)</span>. We can model observed score correlation under direct selection as,</p>
+<p><span class="math display">\[
+r_{\widetilde{X}\widetilde{Y}|\mathcal{E}} = \alpha \rho_{XY} + \varepsilon_r
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha\)</span> is the artifact attenuation/inflation factor and <span class="math inline">\(\varepsilon_r\)</span> is the sampling error term.</p>
+</section>
+<section id="sec-corr-DDR" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="sec-corr-DDR"><span class="header-section-number">10.4.2</span> Artifact Correction for Correlations</h3>
+<section id="the-univariate-case" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="the-univariate-case">The Univariate Case</h4>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be linearly related and homoscedastic. Consider the eligibility of an individual study population is on <span class="math inline">\(X\)</span> and not <span class="math inline">\(Y\)</span>. It is important to note, that if there is direct selection one of the two variables, then there will be indirect selection in the other variable as long as they are correlated. This would suggest that if <span class="math inline">\(u_X\neq 1\)</span> and <span class="math inline">\(\rho_{XY}\neq 0\)</span> then <span class="math inline">\(u_Y\neq 1\)</span>. Lets visualize the correlation between independent (<span class="math inline">\(X\)</span>) and dependent (<span class="math inline">\(Y\)</span>) with zero-means and unit variance under univariate direct range restriction (see <a href="#fig-uvdrr" class="quarto-xref">Figure&nbsp;<span>10.3</span></a>). Defining the study population as individuals with an <span class="math inline">\(X\)</span> value greater than –.5,</p>
+<p><span class="math display">\[
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(X^{-1}([-.5,\infty])\right) \right\rbrace \subseteq \Psi,
+\]</span></p>
+<p>The scores of individuals that have been selected will show less variance than the population pool. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of <span class="math inline">\(u_X=0.69\)</span> in the independent variable. We see in <a href="#fig-uvdrr" class="quarto-xref">Figure&nbsp;<span>10.3</span></a> that the correlation in the restricted scores <span class="math inline">\((r_{XY|\mathcal{E}})\)</span> are attenuated relative to the unrestricted correlation (<span class="math inline">\(r_{XY}\)</span>, indicative of <span class="math inline">\(\alpha&lt;1\)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-uvdrr" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-uvdrr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-direct-selection_files/figure-html/fig-uvdrr-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uvdrr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.3: Scatterplot showing a correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> under univariate direct range restriction. Dark blue dots indicate the selected sample and the transparent dots indicate the rejected sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can also visualize what happens to the correlation when the range is enhanced. Enhancement can be accomplished by selecting individuals at the ends of the distribution <span class="citation" data-cites="taylor1976">(<a href="../references/references_page.html#ref-taylor1976" role="doc-biblioref">Taylor and Griess 1976</a>)</span>. Therefore we can define the study population as anyone below -.5 and above .5,</p>
+<p><span class="math display">\[
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(X^{-1}([\infty,-.5] \cup [.5,\infty])\right) \right\rbrace \subseteq \Psi,
+\]</span></p>
+<p>In the visualization below (<a href="#fig-uvdre" class="quarto-xref">Figure&nbsp;<span>10.4</span></a>), we see an opposite effect on the correlation, that is, an inflation of the unrestricted correlation rather than an attenuation (indicating <span class="math inline">\(\alpha&gt;1\)</span>) like we see under range restriction. The scenario below has a <span class="math inline">\(u\)</span>-ratio <span class="math inline">\(u_X=1.26\)</span> in the independent variable.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-uvdre" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-uvdre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-direct-selection_files/figure-html/fig-uvdre-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uvdre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.4: Scatterplot showing a correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> under univariate direct range enhancement. Dark blue dots indicate the selected sample and the transparent dots indicate the rejected sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>It starts to become apparent that if <span class="math inline">\(u_X&gt;1\)</span> (i.e., <span class="math inline">\(s_X&lt;s_{X|\mathcal{E}}\)</span>) the observed correlation is inflated and when <span class="math inline">\(u_X&lt;1\)</span> (i.e., <span class="math inline">\(s_X&gt;s_{X|\mathcal{E}}\)</span>) it becomes attenuated <span class="citation" data-cites="sackett2000">(<a href="../references/references_page.html#ref-sackett2000" role="doc-biblioref">Sackett and Yang 2000</a>)</span>.</p>
+<p>The attenuation/inflation of the correlation is dependent on the magnitude of the correlation, this is due to the fact that selection occurs on <span class="math inline">\(X\)</span> <em>and</em> <span class="math inline">\(X\)</span> is correlated with <span class="math inline">\(Y\)</span>, there will also be indirect range restriction in <span class="math inline">\(Y\)</span>. Therefore unlike other artifacts that have been discussed so far, range restriction/enhancement depends not only on the artifact value (i.e., the <span class="math inline">\(u\)</span>-ratio), but also on the restricted correlation <span class="citation" data-cites="hunter2006">(<a href="../references/references_page.html#ref-hunter2006" role="doc-biblioref">Hunter, Schmidt, and Le 2006</a>)</span>. Assuming linearity and homoscedasticity between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the attenuation/inflation factor <span class="math inline">\(\alpha\)</span> is defined as <span class="citation" data-cites="hunter2006">(adapted from equation 4, <a href="../references/references_page.html#ref-hunter2006" role="doc-biblioref">Hunter, Schmidt, and Le 2006</a>)</span>,</p>
+<p><span id="eq-ds-uni-alpha-pop"><span class="math display">\[
+\alpha = \upsilon_X \sqrt{1+\rho_{XY|\mathcal{E}}^2\left(\frac{1}{\upsilon_X}-1\right)}
+\tag{10.2}\]</span></span></p>
+<p>However the population values of <span class="math inline">\(\upsilon_X\)</span> and <span class="math inline">\(\rho_{XY|\mathcal{E}}\)</span> are unknown and must be estimated. Therefore a sample estimate of the artifact factor <span class="math inline">\(a\)</span> can be computed as,</p>
+<p><span id="eq-ds-uni-alpha-sam"><span class="math display">\[
+a = u_X \sqrt{1+\rho_{XY|\mathcal{E}}^2\left(\frac{1}{u_X}-1\right)}
+\tag{10.3}\]</span></span></p>
+<p>The correction formula for univariate direct selection was first developed by <span class="citation" data-cites="pearson1903">Pearson (<a href="../references/references_page.html#ref-pearson1903" role="doc-biblioref">1903</a>)</span> and also provided more recently by <span class="citation" data-cites="hunter2006">Hunter, Schmidt, and Le (<a href="../references/references_page.html#ref-hunter2006" role="doc-biblioref">2006</a>)</span> and <span class="citation" data-cites="wiernik2020">Wiernik and Dahlke (<a href="../references/references_page.html#ref-wiernik2020" role="doc-biblioref">2020</a>)</span>. To correct for the systematic bias in correlations, we can divide the correlation under selection by the attenuation factor,</p>
+<p><span id="eq-univariate"><span class="math display">\[
+r_{XY} = \frac{r_{XY|\mathcal{E}}}{a} = \frac{r_{XY|\mathcal{E}}}{u_X \sqrt{1+\rho_{XY|\mathcal{E}}^2\left(\frac{1}{u_X}-1\right)}}.
+\tag{10.4}\]</span></span></p>
+<p>If the raw data is available, a bootstrapping procedure is preferred to estimate the sampling variance of the corrected correlation. If it is unavailable then we can treat the factor <span class="math inline">\(a\)</span> as known and obtain an estimate of the sampling variance,</p>
+<p><span id="eq-univariate-se"><span class="math display">\[
+\widehat{\mathrm{var}}(r_{XY}) = \frac{\widehat{\mathrm{var}}\left(r_{XY|\mathcal{E}}\right)}{a^2} = \frac{\widehat{\mathrm{var}}\left(r_{XY|\mathcal{E}}\right)}{u_X \sqrt{1+\rho_{XY|\mathcal{E}}^2\left(\frac{1}{u_X}-1\right)}^2}.
+\tag{10.5}\]</span></span></p>
+<p>If we want to also correct for measurement error in both samples, then we can also incorporate the reliability into these equations. Note that the following equations will incorporate the reliability within the selected sample (<span class="math inline">\(\rho_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\)</span>) rather than the reference sample (<span class="math inline">\(\rho_{\widetilde{X}\widetilde{X}'}\)</span>). If the reliability coefficient comes from the reference sample, then we can estimate the selected (restricted or enhanced) sample reliability with the corresponding <span class="math inline">\(u\)</span>-ratio,</p>
+<p><span id="eq-samp-reliability"><span class="math display">\[
+\rho_{\widetilde{X}\widetilde{X}'|\mathcal{E}} = 1-\frac{1-\rho_{\widetilde{X}\widetilde{X}'}}{\upsilon^2_\widetilde{X}}.
+\tag{10.6}\]</span></span></p>
+<p>Then we can use the reliability and <span class="math inline">\(u\)</span>-ratios simultaneously to calculate a new attenuation/inflation factor that accounts for both bias in measurement error and direct selection,</p>
+<p><span class="math display">\[
+\alpha = \upsilon_\widetilde{X}\sqrt{1-\upsilon_\widetilde{X}^2(1-\rho_{\widetilde{X}\widetilde{X}'|\mathcal{E}})}\sqrt{\rho_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}}+\rho_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2\left(\frac{1}{\upsilon^2_\widetilde{X}}-1\right)}.
+\]</span></p>
+<p>Where the sample estimate of <span class="math inline">\(\alpha\)</span> is</p>
+<p><span class="math display">\[
+a = u_\widetilde{X}\sqrt{1-u_\widetilde{X}^2(1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}})}\sqrt{r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}}+r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2\left(\frac{1}{u^2_\widetilde{X}}-1\right)}.
+\]</span></p>
+<p>Then we can use the sample estimate to correct the correlation and to obtain a consistent estimate of the true score correlation in the target population <span class="citation" data-cites="wiernik2020">(adapted from table 3, <a href="../references/references_page.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>,</p>
+<p><span class="math display">\[
+r_{XY}=\frac{r_{XY|\mathcal{E}}}{a} =\frac{r_{XY|\mathcal{E}}}{u_\widetilde{X}\sqrt{1-u_\widetilde{X}^2(1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}})}\sqrt{r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}}+r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2\left(\frac{1}{u^2_\widetilde{X}}-1\right)}}
+\]</span></p>
+<p>Again, a bootstrapping procedure is best for commputing the sampling variance if the raw data is available. Otherwise, if we treat <span class="math inline">\(a\)</span> as known we can be adjust the sampling variance as,</p>
+<p><span class="math display">\[
+\widehat{\mathrm{var}}(r_{XY}) = \frac{\widehat{\mathrm{var}}(r_{XY|\mathcal{E}})}{a^2}
+\]</span></p>
+<p>There are three important things to note about the equations in this section: 1) these corrections assume linearity and homoskedasticity in the target population population, 2) all these corrections show selection on the independent variable, <span class="math inline">\(X\)</span>, however it does not matter whether univariate selection is on <span class="math inline">\(X\)</span> or <span class="math inline">\(Y\)</span>, the corrections can be applied in the same fashion (just remember to flip <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and vice versa in the equations), 3) The corrections assume that any range restriction/enhancement observed in the non-selection variable (in our example this would be <span class="math inline">\(Y\)</span>) is mediated by the range restriction/enhancement in the variable under selection (i.e., <span class="math inline">\(X\)</span>).</p>
+</section>
+<section id="the-bivariate-case" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="the-bivariate-case">The Bivariate Case</h4>
+<p>Bivariate direct range restriction/enhancement occurs when selection occurs on both variables of interest, therefore the selection function will be a function of <span class="math inline">\(X\)</span> <em>and</em> <span class="math inline">\(Y\)</span>. Let’s visualize the correlation between independent (<span class="math inline">\(X\)</span>) and dependent (<span class="math inline">\(Y\)</span>) variables under bivariate range restriction by only selecting individuals above some cut off point for both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (see <a href="#fig-bvdrr" class="quarto-xref">Figure&nbsp;<span>10.5</span></a>). For this example the selection function is</p>
+<p><span class="math display">\[
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(X^{-1}([-.5,\infty]) \cap Y^{-1}([-.5,\infty])\right) \right\rbrace \subseteq \Psi,
+\]</span></p>
+<p>The scores of individuals that have been selected will show less variance than the entire pool of individuals. Specifically, the scenario below shows a <span class="math inline">\(u\)</span>-ratio of about 0.70 in the independent variable and dependent variables. We see <a href="#fig-bvdrr" class="quarto-xref">Figure&nbsp;<span>10.5</span></a> that the correlation in the restricted sample (<span class="math inline">\(r_{XY|\mathcal{E}}\)</span>) is attenuated relative to the unrestricted correlation (<span class="math inline">\(r_{XY}\)</span>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bvdrr" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bvdrr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-direct-selection_files/figure-html/fig-bvdrr-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bvdrr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.5: Scatterplot showing a correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> under bivariate direct range restriction. Dark blue dots indicate the selected sample and the transparent dots indicate the rejected sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Likewise let’s visualize what happens to the correlation when the range is enhanced. Enhancement in both variables can be accomplished by selecting individuals at the ends of the distribution of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Therefore we can define the selection function as,</p>
+<p><span class="math display">\[
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(X^{-1}([-\infty,-.5] \cup [.5,\infty]) \cap Y^{-1}([-\infty,-.5] \cup [.5,\infty])\right)  \right\rbrace \subseteq \Psi,
+\]</span></p>
+<p>Note that this type of selection would be exceedingly rare to see in practice. In <a href="#fig-bvdre" class="quarto-xref">Figure&nbsp;<span>10.6</span></a>, we see inflation of the enhanced correlation relative to the target correlation. The scenario below has a <span class="math inline">\(u\)</span>-ratio of about 1.32 in both the independent variable and dependent variable.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bvdre" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bvdre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="10-direct-selection_files/figure-html/fig-bvdre-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bvdre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.6: Scatterplot showing a correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> under bivariate direct range enhancement. Dark blue dots indicate the selected sample and the transparent dots indicate the rejected sample.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A correction procedure for bivariate range restriction is much more complicated than the univariate formulation. To break down the correction formula into simpler parts, let us first define a factor we will denote with the Greek letter <span class="math inline">\(J_{XY}\)</span>,</p>
+<p><span id="eq-biv-1"><span class="math display">\[
+J_{XY} = \frac{\upsilon_X \upsilon_Y\left(\rho_{XY|\mathcal{E}}^2-1\right)}{2\rho_{XY|\mathcal{E}}}.
+\tag{10.7}\]</span></span></p>
+<p>A sample estimate can be denoted as <span class="math inline">\(\hat{J}_{XY}\)</span> and computed as,</p>
+<p><span class="math display">\[
+\hat{J}_{XY} = \frac{u_X u_Y\left(r_{XY|\mathcal{E}}^2-1\right)}{2r_{XY|\mathcal{E}}}.
+\]</span></p>
+<p>This factor contains all the parameters needed to correct the correlation coefficient under direct selection. An unbiased estimate of the target population correlation can obtained by the following correction formula <span class="citation" data-cites="wiernik2020">(adapted from table 3 <a href="../references/references_page.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>,</p>
+<p><span id="eq-biv-2"><span class="math display">\[
+r_{XY} = \hat{J}_{XY} + \mathrm{sign}\left[r_{XY|\mathcal{E}}\right]\sqrt{\hat{J}_{XY}^2+1},
+\tag{10.8}\]</span></span></p>
+<p>where <span class="math inline">\(\mathrm{sign}[\cdot]\)</span> is the sign function denoting whether it is positive (<span class="math inline">\(\mathrm{sign}[\cdot&gt;0]=1\)</span>), negative (<span class="math inline">\(\mathrm{sign}[\cdot]=-1\)</span>) or zero (<span class="math inline">\(\mathrm{sign}[\cdot]=0\)</span>). The sample estimate of the artifact attenuation/inflation factor can be expressed simply as the ratio of the observed correlation and the corrected correlation <span class="math inline">\(a = r_{XY|\mathcal{E}}/r_{XY}\)</span>. If Where the standard error can be computed from calculating the artifact factor (<span class="math inline">\(a\)</span>) from the corrected and restricted/enhanced correlation,</p>
+<p><span id="eq-biv-se"><span class="math display">\[
+\widehat{\mathrm{var}}(r_{XY}) = \frac{\widehat{\mathrm{var}}\left(r_{XY|\mathcal{E}}\right)}{a}= \frac{\widehat{\mathrm{var}}\left(r_{XY|\mathcal{E}}\right)}{\left[\frac{r_{XY|\mathcal{E}}}{r_{XY}}\right]}.
+\tag{10.9}\]</span></span></p>
+<p>Now we can also incorporate measurement error into the correction formula. Note that the following equations will incorporate the reliability within the selected sample (<span class="math inline">\(r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\)</span>) rather than the unrestricted population (<span class="math inline">\(r_{\widetilde{X}\widetilde{X}'}\)</span>; see <a href="#eq-samp-reliability" class="quarto-xref">Equation&nbsp;<span>10.6</span></a> on converting to the selected sample). Then we can use the restricted/enhanced (selected) sample reliability and the <span class="math inline">\(u\)</span>-ratios in the following equation to obtain an consistent estimate of the target true score population correlation,</p>
+<p><span class="math display">\[
+r_{XY} = \frac{\hat{J}_{\widetilde{X}\widetilde{Y}} + \text{sign}\left[r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right]\sqrt{\hat{J}_{\widetilde{X}\widetilde{Y}}^2+1}}{\sqrt{1-u_\widetilde{X}^2\left(1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\right)}\sqrt{1-u_\widetilde{Y}^2\left(1-r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}}\right)}}.
+\]</span></p>
+<p>If the reliability coefficient comes from the unrestricted population, the formula simplifies to,</p>
+<p><span class="math display">\[
+r_{XY} = \frac{\hat{J}_{\widetilde{X}\widetilde{Y}} + \text{sign}\left[r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right]\sqrt{\hat{J}_{\widetilde{X}\widetilde{Y}}^2+1}}{\sqrt{r_{\widetilde{X}\widetilde{X}'}}\sqrt{r_{\widetilde{Y}\widetilde{Y}'}}}.
+\]</span></p>
+<p>We can use the same equation as <a href="#eq-biv-se" class="quarto-xref">Equation&nbsp;<span>10.9</span></a> to calculate the corrected standard error. The standard error can then be calculated as,</p>
+<p><span class="math display">\[
+\widehat{\mathrm{var}}(r_{\widetilde{X}\widetilde{Y}}) = \frac{\widehat{\mathrm{var}}\left(r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right)}{a}= \frac{\widehat{\mathrm{var}}\left(r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right)}{\left[\frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}}{r_{\widetilde{X}\widetilde{Y}}}\right]}.
+\]</span></p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Correcting Correlations in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To continue with our example of SAT and ACT score correlations, let us use the correction formulae that we learned to correct the range restricted correlation when individuals are selected above a 1200 SAT score. Using the <code>sat.act</code> data set in the <code>psychTools</code> package <span class="citation" data-cites="psychTools">(<a href="../references/references_page.html#ref-psychTools" role="doc-biblioref">William Revelle 2024</a>)</span>. Lets first clean the data, compute the composite SAT score and add two variables in the data set indicating eligibility of the participant for a univariate selection case (SAT &gt; 1200) and a bivariate selection case (SAT &gt; 1200 and ACT &gt; 28):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychTools)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> sat.act[<span class="fu">complete.cases</span>(sat.act[,<span class="fu">c</span>(<span class="st">"SATQ"</span>,<span class="st">"SATV"</span>,<span class="st">"ACT"</span>)]),] <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># remove scores that are well below guess rate</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ACT <span class="sc">&gt;</span> <span class="dv">7</span> <span class="sc">&amp;</span> SATV <span class="sc">&gt;</span> <span class="dv">300</span> <span class="sc">&amp;</span> SATQ <span class="sc">&gt;</span> <span class="dv">300</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># compute composite</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SAT =</span> SATV <span class="sc">+</span> SATQ) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># eligibility indicator</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">eligible_uni =</span> SAT<span class="sc">&gt;</span><span class="dv">1200</span>, <span class="co"># univariate selection</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">eligible_biv =</span> SAT<span class="sc">&gt;</span><span class="dv">1200</span> <span class="sc">&amp;</span> ACT<span class="sc">&gt;</span><span class="dv">29</span>) <span class="co"># bivariate selection</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  gender education age ACT SATV SATQ  SAT eligible_uni eligible_biv
+1      2         3  19  24  500  500 1000        FALSE        FALSE
+2      2         3  23  35  600  500 1100        FALSE        FALSE
+3      2         3  20  21  480  470  950        FALSE        FALSE
+4      1         4  27  26  550  520 1070        FALSE        FALSE
+5      1         2  33  31  600  550 1150        FALSE        FALSE
+6      1         5  26  28  640  640 1280         TRUE        FALSE</code></pre>
+</div>
+</div>
+<p>Lets compute the correlation observed in the sample of eligible individuals and compare it to that of the full sample,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># full sample</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rXY <span class="ot">&lt;-</span> <span class="fu">cor</span>(df<span class="sc">$</span>ACT, df<span class="sc">$</span>SAT)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>rXY</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6616793</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eligible sample (univariate case)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rXYelig_uni <span class="ot">&lt;-</span> <span class="fu">cor</span>(df<span class="sc">$</span>ACT[df<span class="sc">$</span>eligible_uni], df<span class="sc">$</span>SAT[df<span class="sc">$</span>eligible_uni])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>rXYelig_uni</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4282125</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eligible sample (bivariate case)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>rXYelig_biv <span class="ot">&lt;-</span> <span class="fu">cor</span>(df<span class="sc">$</span>ACT[df<span class="sc">$</span>eligible_biv], df<span class="sc">$</span>SAT[df<span class="sc">$</span>eligible_biv])</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>rXYelig_biv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.252818</code></pre>
+</div>
+</div>
+<p>As expected, the correlation is much lower (i.e., attenuated) after selecting above an SAT score of 1200 and even lower when selecting above an SAT score of 1200 <em>and</em> an ACT score of 29. Let us now calculate the u-ratio for SAT scores (<span class="math inline">\(X\)</span>),</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># u ratio of X in univariate case</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>uX_uni <span class="ot">&lt;-</span> <span class="fu">sd</span>(df<span class="sc">$</span>SAT[df<span class="sc">$</span>eligible_uni]) <span class="sc">/</span> <span class="fu">sd</span>(df<span class="sc">$</span>SAT) </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>uX_uni</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5115896</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># u ratio of X and Y in bivariate case</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>uX_biv <span class="ot">&lt;-</span> <span class="fu">sd</span>(df<span class="sc">$</span>SAT[df<span class="sc">$</span>eligible_biv]) <span class="sc">/</span> <span class="fu">sd</span>(df<span class="sc">$</span>SAT) </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>uY_biv <span class="ot">&lt;-</span> <span class="fu">sd</span>(df<span class="sc">$</span>ACT[df<span class="sc">$</span>eligible_biv]) <span class="sc">/</span> <span class="fu">sd</span>(df<span class="sc">$</span>ACT) </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(uX_biv, uY_biv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       uX_biv    uY_biv
+[1,] 0.479102 0.3883424</code></pre>
+</div>
+</div>
+<p>The u-ratio for bothe cases is well below 1 indicating that there is substantial range restriction. Notice that the u-ratios for the bivariate case are even lower due to the fact that not only is there direct restriction on both variables, but there is also indirect restriction from the other variable. Let us now use the direct selection correction procedure we discussed in this section with the <code>correct_r</code> function in the <code>psychmeta</code> package <span class="citation" data-cites="psychmeta">(<a href="../references/references_page.html#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correct correlation for univariate direct restriction</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>r_corrected_uni <span class="ot">&lt;-</span> <span class="fu">correct_r</span>(<span class="at">correction =</span> <span class="st">'uvdrr_x'</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">rxyi =</span> rXYelig_uni,  </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ux =</span> uX_uni,   </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> <span class="fu">sum</span>(df<span class="sc">$</span>eligible_uni) ) <span class="co"># sample size</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling variance for corrected correlation</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>var_r_uni <span class="ot">&lt;-</span> <span class="fu">var_error_r</span>(<span class="at">r =</span> r_corrected_uni<span class="sc">$</span>correlations<span class="sc">$</span>rtpa<span class="sc">$</span>value,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> r_corrected_uni<span class="sc">$</span>correlations<span class="sc">$</span>rtpa<span class="sc">$</span>n_effective)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># correct correlation</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>r_corrected_biv <span class="ot">&lt;-</span> <span class="fu">correct_r</span>(<span class="at">correction =</span> <span class="st">'bvdrr'</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                         <span class="at">rxyi =</span> rXYelig_biv,  </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ux =</span> uX_biv,   </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                         <span class="at">uy =</span> uY_biv,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> <span class="fu">sum</span>(df<span class="sc">$</span>eligible_biv) ) <span class="co"># sample size</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling variance for corrected correlation</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>var_r_biv <span class="ot">&lt;-</span> <span class="fu">var_error_r</span>(<span class="at">r =</span> r_corrected_biv<span class="sc">$</span>correlations<span class="sc">$</span>rtpa<span class="sc">$</span>value,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n =</span> r_corrected_biv<span class="sc">$</span>correlations<span class="sc">$</span>rtpa<span class="sc">$</span>n_effective)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># corrected correlation and sampling variance</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="at">case =</span> <span class="fu">c</span>(<span class="st">"Univariate"</span>,<span class="st">"Bivariate"</span>),</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">rXY =</span> <span class="fu">c</span>(r_corrected_uni<span class="sc">$</span>correlations<span class="sc">$</span>rtpa<span class="sc">$</span>value,</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>              r_corrected_biv<span class="sc">$</span>correlations<span class="sc">$</span>rtpa<span class="sc">$</span>value),</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">var_r =</span> <span class="fu">c</span>(var_r_uni,var_r_biv))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     case         rXY                 var_r               
+[1,] "Univariate" "0.679532413152317" "0.0019129561847871"
+[2,] "Bivariate"  "0.713214274752572" "0.0208542548632104"</code></pre>
+</div>
+</div>
+<p>The univariate correction procedure increases the correlation from .428 to .680 which is a much better approximation to the full sample correlation of .662. Likewise, the bivariate correction went from an extremely attenuated observed correlation .25 to a better estimate of .71.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="correcting-standardized-mean-differences-smds" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="correcting-standardized-mean-differences-smds"><span class="header-section-number">10.5</span> Correcting Standardized Mean Differences (SMDs)</h2>
+<section id="defining-our-target-smd" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="defining-our-target-smd"><span class="header-section-number">10.5.1</span> Defining our Target SMD</h3>
+<p>The quantity of interest is the target population SMD between actual members of groups 0 and 1. We can denote this SMD as <span class="math inline">\(\delta_{GY}\)</span>. Within a study that suffers from direct selection, the observed SMD (<span class="math inline">\(d_{GY|\mathcal{E}}\)</span>) will be biased relative to the target, <span class="math inline">\(\delta_{GY}\)</span>. We can model the observed standardized mean difference as,</p>
+<p><span class="math display">\[
+d_{GY|\mathcal{E}}= \alpha\delta_{GY} + \varepsilon_d.
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha\)</span> is the attenuation/inflation factor and <span class="math inline">\(\varepsilon_d\)</span> is the sampling error term.</p>
+</section>
+<section id="artifact-correction-for-smds" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="artifact-correction-for-smds"><span class="header-section-number">10.5.2</span> Artifact Correction for SMDs</h3>
+<section id="selection-on-the-continuous-variable" class="level4" data-number="10.5.2.1">
+<h4 data-number="10.5.2.1" class="anchored" data-anchor-id="selection-on-the-continuous-variable"><span class="header-section-number">10.5.2.1</span> Selection on the Continuous Variable</h4>
+<p>To correct for direct selection on the continuous variable, we can first convert the observed SMD (<span class="math inline">\(d_{GY|\mathcal{E}}\)</span>) to a point-biserial correlation (<span class="math inline">\(r_{GY|\mathcal{E}}\)</span>). Converting <span class="math inline">\(d_{GY|\mathcal{E}}\)</span> to <span class="math inline">\(r_{GY|\mathcal{E}}\)</span> can be done by using the observed proportion of individuals in group 0 (or 1), <span class="math inline">\(p_{G|\mathcal{E}}\)</span>,</p>
+<p><span class="math display">\[
+r_{GY|\mathcal{E}} = \frac{d_{GY|\mathcal{E}}}{\sqrt{\frac{1}{p_{G|\mathcal{E}}(1-p_{G|\mathcal{E}})}-d_{GY|\mathcal{E}}^2}}.
+\]</span></p>
+<p>We can then correct the point-biserial correlation for univariate direct selection using the formulas in <a href="#sec-corr-DDR" class="quarto-xref"><span>Section 10.4.2</span></a>. Note that if you want to correct for measurement error as well, replace <span class="math inline">\(r_{\widetilde{X}\widetilde{X}'}\)</span> with <span class="math inline">\(r_{\widetilde{G}\widetilde{G}'}\)</span> (i.e., group classification reliability; see chapter on <em>group misclassification</em>) whenever you are working with SMDs. Once we obtained the corrected correlation, <span class="math inline">\(r_{GY}\)</span>, we can convert back to a standardized mean difference, we need to use an adjusted group proportions, <span class="math inline">\(p_G\)</span>:</p>
+<p><span class="math display">\[
+d_{GY} = \frac{r_{GY}}{\sqrt{p_G\left(1-p_G\right)\left(1-r_{GY}^2\right)}}.
+\]</span></p>
+<p>Where the adjusted group <span class="math inline">\(p_G\)</span> is estimated with the following formula</p>
+<p><span class="math display">\[
+p_G = \frac{1}{2}-\frac{1}{2}\sqrt{1-4p_{G|\mathcal{E}}(1-p_{G|\mathcal{E}})\left[1+r_{GY|\mathcal{E}}^2\left(\frac{1}{u^2_X}-1\right)\right]}
+\]</span></p>
+<p>The adjusted proportion, <span class="math inline">\(p_G\)</span>, can also be estimated from the proportion of individuals in the target population (e.g., the proportion of men vs women in the general population). This adjustment is necessary in order to account for indirect selection in the grouping variable. This is similar to the situation described in <a href="#sec-corr-DDR" class="quarto-xref"><span>Section 10.4.2</span></a>, where one variable suffers from direct range restriction and any variable that is correlated with it, will suffer from indirect selection. The corresponding corrected sampling error can also be computed with the observed and adjusted proportions such that,</p>
+<p><span class="math display">\[
+\widehat{\mathrm{var}}(d_{GY}) = \frac {\widehat{\mathrm{var}}\left(d_{GY|\mathcal{E}}\right)\left(\frac{r_{GY}}{r_{GY|\mathcal{E}}}\right)^2} {\left(1+d_{GY|\mathcal{E}}^2\,p_{G|\mathcal{E}}[1-p_{G|\mathcal{E}}]\right)^2\left(d_{GY|\mathcal{E}}^2+\frac{1}{p_{G|\mathcal{E}}(1-p_{G|\mathcal{E}})}\right)p_G(1-p_G)(1-r_{GY}^2)^3}.
+\]</span></p>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-psychmeta" class="csl-entry" role="listitem">
+Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
+</div>
+<div id="ref-hunter1990a" class="csl-entry" role="listitem">
+Hunter, John E., and Frank L. Schmidt. 2015. <em>Methods of meta-analysis: correcting error and bias in research findings (third)</em>. Third. Thousand Oaks, California: Sage Publications.
+</div>
+<div id="ref-hunter2006" class="csl-entry" role="listitem">
+Hunter, John E., Frank L. Schmidt, and Huy Le. 2006. <span>“Implications of Direct and Indirect Range Restriction for Meta-Analysis Methods and Findings.”</span> <em>Journal of Applied Psychology</em> 91 (3): 594–612. <a href="https://doi.org/10.1037/0021-9010.91.3.594">https://doi.org/10.1037/0021-9010.91.3.594</a>.
+</div>
+<div id="ref-pearson1903" class="csl-entry" role="listitem">
+Pearson, Karl. 1903. <span>“I. Mathematical Contributions to the Theory of Evolution. <span></span>XI. On the Influence of Natural Selection on the Variability and Correlation of Organs.”</span> <em>Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character</em> 200 (321-330): 1–66. <a href="https://doi.org/10.1098/rsta.1903.0001">https://doi.org/10.1098/rsta.1903.0001</a>.
+</div>
+<div id="ref-revelle2010" class="csl-entry" role="listitem">
+Revelle, William, Joshua Wilt, and Allen Rosenthal. 2010. <span>“Individual Differences in Cognition: New Methods for Examining the Personality-Cognition Link.”</span> In, edited by Aleksandra Gruszka, Gerald Matthews, and Blazej Szymura, 27–49. New York, NY: Springer. <a href="https://doi.org/10.1007/978-1-4419-1210-7_2">https://doi.org/10.1007/978-1-4419-1210-7_2</a>.
+</div>
+<div id="ref-sackett2000" class="csl-entry" role="listitem">
+Sackett, Paul R., and Hyuckseung Yang. 2000. <span>“Correction for Range Restriction: An Expanded Typology.”</span> <em>Journal of Applied Psychology</em> 85 (1): 112–18. <a href="https://doi.org/10.1037/0021-9010.85.1.112">https://doi.org/10.1037/0021-9010.85.1.112</a>.
+</div>
+<div id="ref-taylor1976" class="csl-entry" role="listitem">
+Taylor, Erwin K., and Thomas Griess. 1976. <span>“The Missing Middle in Validation Research.”</span> <em>Personnel Psychology</em> 29 (1): 5–11. <a href="https://doi.org/10.1111/j.1744-6570.1976.tb00397.x">https://doi.org/10.1111/j.1744-6570.1976.tb00397.x</a>.
+</div>
+<div id="ref-wechsler2008" class="csl-entry" role="listitem">
+Wechsler, David. 2008. <em>Wechsler Adult Intelligence Scale–Fourth Edition</em>. 4th ed. <a href="https://doi.org/10.1037/t15169-000">https://doi.org/10.1037/t15169-000</a>.
+</div>
+<div id="ref-wiernik2020" class="csl-entry" role="listitem">
+Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining Unbiased Results in Meta-Analysis: The Importance of Correcting for Statistical Artifacts.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
+</div>
+<div id="ref-psychTools" class="csl-entry" role="listitem">
+William Revelle. 2024. <em>psychTools: Tools to Accompany the ’Psych’ Package for Psychological Research</em>. Evanston, Illinois: Northwestern University. <a href="https://CRAN.R-project.org/package=psychTools">https://CRAN.R-project.org/package=psychTools</a>.
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html" class="pagination-link  aria-label=" selection="" effects"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Selection Effects</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../11-indirect-selection/11-indirect-selection.html" class="pagination-link" aria-label="<span class='chapter-number'>11</span>&nbsp; <span class='chapter-title'>Indirect Selection</span>">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

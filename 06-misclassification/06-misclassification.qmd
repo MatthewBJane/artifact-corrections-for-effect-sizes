@@ -1,0 +1,380 @@
+# Group Misclassification
+
+```{r color_scheme,echo = F,warning=F,message=F}
+source("plotting-themes.R", local = knitr::knit_global())
+```
+
+## Introduction
+
+Group misclassification describes a situation where true group membership (e.g., people with a disorder) does not perfectly match the observed group membership (e.g., people *diagnosed* with a disorder). Group misclassification can be considered a type of measurement error where instead of accounting for errors in continuous variables (i.e., unreliability), group misclassification accounts for errors in categorical variables. This section will be focused on non-differential (random) misclassification.
+
+## Defining Group Misclassification
+
+Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two groups, group 0 and group 1. In order to identify members of group 0 and group 1, we have to rely on some measurement (classification) procedure. We can also suppose that this measurement procedure produces imperfect group assignments, that is, people who are actually in group 0 are sometimes assigned group 1 and vice versa. We can visualize the performance of the classification procedure with a contingency table (see @tbl-class) between actual group membership ($G$) and observed group membership ($\widetilde{G}$) where each cell is the number of number of individuals in that cell:
+
+::: columns
+::: {.column width="20%"}
+:::
+
+::: {.column width="60%"}
+
+|                    | $G=0$ | $G=1$ |
+|:------------------:|:------------------:|:------------------:|
+| $\widetilde{G}=0$ |      $n_{00}$      |      $n_{01}$       |
+| $\widetilde{G}=1$ |      $n_{10}$      |      $n_{11}$      |
+
+: Contingency table between observed and true group membership. {#tbl-class .hover}
+:::
+
+::: {.column width="20%"}
+:::
+:::
+
+We can see from the contingency table that individuals who were correctly classified, would populate the cell blocks $n_{00}$ or $n_{11}$ and those who were misclassified would belong to cells $n_{01}$ and $n_{10}$. Therefore we can define the proportion of individuals that are accurately classified as $p_{\text{acc}} = (n_{01} + n_{10})/n$ ($n$ is the total sample size) whereas the proportion of people misclassified can be defined as $p_{\text{mis}} = 1-p_\text{acc}=(n_{01} + n_{10})/n$. A high-quality classifier would would minimize $p_{\text{mis}}$ and maximize $p_{\text{acc}}$.
+
+## Classification Reliability
+
+Similar to quantifying reliability in continuous variables by calculating the correlation in parallel sets of observed scores, the same can be done in categorical variables. Instead of a contingency table between observed ($\widetilde{G}$) and true ($G$) group membership, we will instead create a contingency table of two measurements producing two sets of observed group assignments ($\widetilde{G}$ and $\widetilde{G}'$, see @tbl-class-obs). An example might be two clinician's diagnoses of Major Depressive Disorder (MDD) in the same sample of patients.
+
+::: columns
+::: {.column width="20%"}
+:::
+
+::: {.column width="60%"}
+
+|                    | $\widetilde{G}'=0$ | $\widetilde{G}'=1$ |
+|:------------------:|:------------------:|:------------------:|
+| $\widetilde{G}=0$ |      $n_{00}$      |      $n_{01}$       |
+| $\widetilde{G}=1$ |      $n_{10}$      |      $n_{11}$      |
+
+: Contingency table between two sets of observed group assignments {#tbl-class-obs .hover}
+:::
+
+::: {.column width="20%"}
+:::
+:::
+
+To obtain the reliability of the group assignments, we can calculate the correlation coefficient between the Bernoulli variables $\widetilde{G}$ and $\widetilde{G}'$. A Pearson correlation coefficient between two Bernoulli variables is also referred to as a phi coefficient or Matthews' correlation coefficient. Let's denote the reliability as $\rho_{\widetilde{G}\widetilde{G}'}$. Remember that reliability from the chapter on unreliability can be defined as the square of the correlation between true scores and observed scores. As is the case here, we can define classification reliability as the square of the correlation between assigned group membership and actual group membership,
+
+$$
+\rho_{\widetilde{G}\widetilde{G}'} = \rho^2_{\widetilde{G}G}
+$$
+
+There are a few ways to obtain a sample estimate of $\rho_{\widetilde{G}\widetilde{G}'}$. The first way is to calculate the sample estimate directly from the contingency table (@tbl-class-obs),
+
+$$
+r_{\widetilde{G}\widetilde{G}'} = \frac{n_{00}n_{11}-n_{01}n_{10}}{\sqrt{(n_{00}+n_{10})(n_{01}+n_{11})(n_{00}+n_{01})(n_{10}+n_{11})}}.
+$$
+
+Where $n_{AA}$, $n_{BB}$, $n_{AB}$, and $n_{BA}$ are the number of subjects within their respective cells of the contingency table. If the values of the contingency table are not available, we can calculate the reliability from the $\chi^2$-statistic,
+
+$$
+r_{\widetilde{G}\widetilde{G}'} = \sqrt{\frac{\chi^2}{n}}.
+$$
+
+Where $n$ is the total sample size (sum of all cells). If the $\chi^2$-statistic is unavailable, we can approximate the reliability from the accuracy ($p_{\text{acc}}$) or the proportion of people misclassified ($p_{\text{mis}}$),
+
+$$
+r_{\widetilde{G}\widetilde{G}'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2.
+$$
+
+This approximation assumes that the group sizes are approximately equal *and* the misclassification rates are approximately equal between groups. Otherwise, $r_{\widetilde{G}\widetilde{G}'}$ will be overestimated [@wiernik2020].
+
+::: {.callout-note appearance="default" icon="false"}
+## Classification Reliability in R
+
+The `irr` package [@irr] has a data set called `diagnoses` that consists of 6 raters diagnosing the same thirty patients with various disorders. We will just look at depression for now. First we can construct the contingency table between the first two raters diagnoses of depression (1) vs not depression (0).
+
+```{r,message=FALSE}
+library(irr)
+library(tidyverse)
+library(psych)
+
+data(diagnoses)
+
+# get depression diagnoses from first 2 raters
+df <- diagnoses |>
+  mutate(depress1 = as.numeric(rater1 == "1. Depression"),
+         depress2 = as.numeric(rater2 == "1. Depression")) |>
+  dplyr::select(depress1,depress2)
+  
+# create contingency table
+contingency_table <- table(df)
+
+contingency_table
+
+```
+
+The `psych` package [@psych] has a function `phi()` for calculating the phi coefficient from a contingency table:
+
+```{r}
+# calculate reliability from phi coefficient
+phi(contingency_table)
+
+```
+
+Therefore our estimate of the classification reliability is $r_{\widetilde{G}\widetilde{G}'}=.63$.
+
+:::
+
+## Correcting Standardized Mean Differences (SMD)
+
+### Defining our Target Quantity
+
+Our quantity of interest is the true score population standardized mean difference, $\delta_{GY}$, between actual members of group 0 and group 1 on the true scores of the dependent variable, $Y$. Non-differential error in the assignment of groups (i.e., group misclassification) will bias the observed correlation. We can model the observed standardized mean difference as a function of the target quantity, $\delta_{GU}$,
+
+$$
+d_{\widetilde{G}\widetilde{Y}} = \alpha\delta_{GU} + \varepsilon_d.
+$$
+
+Where $\alpha$ is the artifact attenuation factor and $\varepsilon_d$ denotes the sampling error.
+
+### Artifact Correction for SMDs
+
+SMDs are attenuated when non-differential misclassification is present. This is partially due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group 0 and group 1 score differently on some outcome, $Y$. When some subjects are erroneously assigned to the incorrect group, the observed mean will be a weighted average of the correct group mean and the incorrect group mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects,
+
+$$
+\mu_{Y|\widetilde{G}=0} = \left(\frac{n_{00}}{n_{00}+n_{01}}\right)\mu_{Y|G=0} + \left(\frac{n_{01}}{n_{00}+n_{01}}\right)\mu_{Y|G=1},
+$$
+
+$$
+\mu_{Y|\widetilde{G}=1} = \left(\frac{n_{10}}{n_{11}+n_{10}}\right)\mu_{Y|G=0} + \left(\frac{n_{11}}{n_{11}+n_{10}}\right)\mu_{Y|G=1}.
+$$
+
+From the above equations, it becomes evident that as the number of misclassified individuals increases ($n_{01}$ and $n_{10}$), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, @fig-no-mis shows the distributions for groups $A$ and $B$ without any misclassification. In this case, there is no attenuation of the standardized mean difference.
+
+```{r, echo = FALSE,warning=FALSE,fig.height=5}
+#| id: fig-no-mis
+#| fig-cap: Distributions of scores without misclassification. Red squares denote actual group 0 members, blue circles denote actual group 1 members.
+
+set.seed(25)
+n = 50
+P_mis = 5
+
+`Score` = c(rnorm(n,30,8) , rnorm(n,38,8))
+
+`Assigned Group` =  c(rep('0',n) , rep('1',n))
+ord = c(rep(4,P_mis),rep(1,n-P_mis),
+        rep(3,P_mis),rep(2,n-P_mis))
+`Actual Group` =  c(rep('1',n) , rep('0',n))
+
+DIFF = (mean(`Score`[`Assigned Group`=='1'])-mean(`Score`[`Assigned Group`=='0']))
+SD = (sd(`Score`[`Assigned Group` == '0']) + sd(`Score`[`Assigned Group` == '1']))/2
+d = round(DIFF / SD,2)
+
+ggplot(data = NULL, aes(y = `Assigned Group`,
+                        x = `Score`,
+                        shape = `Actual Group`,
+                        fill = `Actual Group`,
+                        color = `Actual Group`,
+                        order = ord,
+                        group = NA)) +
+  geom_dots(side = "top", scale = 0.75,stackratio = 1.1,dotsize=.9, 
+            position = "dodge",linewidth = 1) + 
+  theme_ggdist() + 
+  theme(aspect.ratio = 1,
+        axis.text.y = element_text(size=14),
+        axis.text.x = element_text(size=13),
+        axis.title.y = element_text(size=14),
+        axis.title.x = element_text(size=14),
+        title = element_text(size=13),
+        legend.position = "none") +  
+  scale_fill_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_color_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_shape_manual(values = c(21,22))+
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group`=='1')[`Assigned Group`=='1']+.95,
+                        x = `Score`[`Assigned Group`=='1'],
+                        shape = `Actual Group`[`Assigned Group`=='1'],
+                        fill = `Actual Group`[`Assigned Group`=='1'],
+                        color = `Actual Group`[`Assigned Group`=='1'],
+                        order = ord[`Assigned Group`=='1'],
+                        group = NA),
+                     shape = 16,point_size = 3.2,
+                     point_color = main_color_blue,
+                     interval_color = main_color_blue,
+                     point_interval = mean_qi) +
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group`=='1')[`Assigned Group`=='0']+.95,
+                        x = `Score`[`Assigned Group`=='0'],
+                        shape = `Actual Group`[`Assigned Group`=='0'],
+                        fill = `Actual Group`[`Assigned Group`=='0'],
+                        color = `Actual Group`[`Assigned Group`=='0'],
+                        order = ord[`Assigned Group`=='0'],
+                        group = NA),
+                     shape = 15,point_size = 3.2,
+                     point_color = main_color_red,
+                     interval_color =main_color_red,
+                     point_interval = mean_qi) + 
+  annotate('text',x = mean(`Score`[`Assigned Group` == '1']),
+           y = 1.85,
+           label = round(mean(`Score`[`Assigned Group` == '1']),1),
+           color=text_color_blue) +
+  annotate('text',x = mean(`Score`[`Assigned Group` == '0']),
+           y = 0.85,
+           label = round(mean(`Score`[`Assigned Group` == '0']),1),
+           color=text_color_red) +
+  annotate('text',
+           x = 8,
+           y = 2.65,
+           label = TeX(paste0('$d_{GY}$ = ',d)) ,
+           color="black", hjust='left') +
+  annotate('text',
+           x = 8,
+           y = 2.85,
+           label = TeX("$\\delta_{GY}$ = 1.00"),
+           color="black", hjust='left') +
+  ggtitle("Group Difference", subtitle = "No Misclassification")
+
+```
+
+If some individuals are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. @fig-mis is showing what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of $r_{\widetilde{G}\widetilde{G}'}=.64$.
+
+```{r, echo = FALSE,warning=FALSE,fig.height=5}
+#| id: fig-mis
+#| fig-cap: Distributions of scores with a 10% misclassification rate. Observed standardized mean differences are biased toward the null (i.e., $\delta$ = 0). Note that a few members of group 0 (red squares) are within assigned group 1 and vice versa (indicative of misclassification). 
+
+set.seed(25)
+n = 50
+P_mis = 5
+
+`Score` = c(rnorm(n,30,8) , rnorm(n,38,8))
+
+`Assigned Group` = c(rep('1',P_mis) , rep('0',n-P_mis),
+                    rep('0',P_mis), rep('1',n-P_mis))
+ord = c(rep(4,P_mis),rep(1,n-P_mis),
+        rep(3,P_mis),rep(2,n-P_mis))
+`Actual Group` =   c(rep('1',n) , rep('0',n))
+DIFF = (mean(`Score`[`Assigned Group`==1])-mean(`Score`[`Assigned Group`==0]))
+SD = (sd(`Score`[`Assigned Group` == 0]) + sd(`Score`[`Assigned Group` == 1]))/2
+d = round(DIFF / SD,2)
+ggplot(data = NULL, aes(y = `Assigned Group`,
+                        x = `Score`,
+                        shape = `Actual Group`,
+                        fill = `Actual Group`,
+                        color = `Actual Group`,
+                        order = ord,
+                        group = NA)) +
+  geom_dots(side = "top", scale = 0.75,stackratio = 1.1,dotsize=.9, 
+            position = "dodge",linewidth = 1) + 
+  theme_ggdist() + 
+  theme(aspect.ratio = 1,
+        axis.text.y = element_text(size=14),
+        axis.text.x = element_text(size=13),
+        axis.title.y = element_text(size=14),
+        axis.title.x = element_text(size=14),
+        title = element_text(size=13),
+        legend.position = "none") +  
+  scale_fill_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_color_manual(values = c(main_color_blue,main_color_red)) + 
+  scale_shape_manual(values = c(21,22))+
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group`==1)[`Assigned Group`==1]+.95,
+                        x = `Score`[`Assigned Group`==1],
+                        shape = `Actual Group`[`Assigned Group`==1],
+                        fill = `Actual Group`[`Assigned Group`==1],
+                        color = `Actual Group`[`Assigned Group`==1],
+                        order = ord[`Assigned Group`==1],
+                        group = NA),
+                     shape = 16,point_size = 3.2,
+                     point_color = main_color_blue,
+                     interval_color = main_color_blue,
+                     point_interval = mean_qi) +
+  stat_pointinterval(aes(y = as.numeric(`Assigned Group`==1)[`Assigned Group`==0]+.95,
+                        x = `Score`[`Assigned Group`==0],
+                        shape = `Actual Group`[`Assigned Group`==0],
+                        fill = `Actual Group`[`Assigned Group`==0],
+                        color = `Actual Group`[`Assigned Group`==0],
+                        order = ord[`Assigned Group`==0],
+                        group = NA),
+                     shape = 15,point_size = 3.2,
+                     point_color = main_color_red,
+                     interval_color =main_color_red,
+                     point_interval = mean_qi) + 
+  annotate('text',x = mean(`Score`[`Assigned Group` == 1]),
+           y = 1.85,
+           label = round(mean(`Score`[`Assigned Group` == 1]),1),
+           color=text_color_blue) +
+  annotate('text',x = mean(`Score`[`Assigned Group` == 0]),
+           y = 0.85,
+           label = round(mean(`Score`[`Assigned Group` == 0]),1),
+           color=text_color_red) +
+  annotate('text',
+           x = 8,
+           y = 2.65,
+           label = TeX(paste0('$d_{\\tilde{G}Y}$ = ',d)) ,
+           color="black", hjust='left') +
+  annotate('text',
+           x = 8,
+           y = 2.85,
+           label = TeX("$\\delta_{\\tilde{G}Y}$ = 1.00"),
+           color="black", hjust='left') +
+  ggtitle("Group Difference", subtitle = "10% misclassification rate")
+
+```
+
+As described in the chapter on classicla measurement error, some SMD corrections require a three-step procedure: 1) converting to a point-biserial correlation, 2) correcting the correlation, 3) converting back to an SMD. To correct for attenuation induced by non-differential misclassification we first need to convert the observed standardized mean difference to a point-biserial correlation coefficient by using the observed proportion of the sample that has been assigned to either group 0 or group 1 ($p_\widetilde{G}$). Let there be misclassification as well as measurement error in the outcome $\widetilde{Y}$. Let's converting $d_{\widetilde{G}\widetilde{Y}}$ to $r_{\widetilde{G}\widetilde{Y}}$:
+
+$$
+r_{\widetilde{G}\widetilde{Y}} = \frac{d_{\widetilde{G}\widetilde{Y}}}{\sqrt{\frac{1}{p_{\widetilde{G}}(1-p_\widetilde{G})}-d_{\widetilde{G}\widetilde{Y}}^2}}.
+$$
+
+We can then correct the point-biserial correlation for group misclassification by dividing by the square root of the classification reliability. Since we also want to correct for measurement error in the continuous dependent variable, we can simultaneously apply an additional correction:
+
+$$
+r_{GY} = \frac{r_{\widetilde{G}\widetilde{Y}}}{\sqrt{r_{\widetilde{G}\widetilde{G}'}}\sqrt{r_{\widetilde{Y}\widetilde{Y}'}}}.
+$$
+
+Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference ($d_{GY}$). When converting back to a standardized mean difference, we need to use the true group proportions, $p_G$. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used $p_\widetilde{G}$:
+
+$$
+d_{GU} = \frac{r_{GY}}{\sqrt{p_G\left(1-p_G\right)\left(1-r_{GY}^2\right)}}.
+$$
+
+This process of converting, correcting, and then back-converting must also be done for the standard error. To avoid redundancy, we can incorporate each step into a single equation:
+
+$$
+\mathrm{var}(d_{GY}) = \frac {\mathrm{var}(d_{\widetilde{G}\widetilde{Y}})\times \left(\frac{r_{GU}}{r_{\widetilde{G}\widetilde{Y}}}\right)} {\left(1+d_{\widetilde{G}\widetilde{Y}}^2p_\widetilde{G}(1-p_\widetilde{G})\right)^2\left(d_{\widetilde{G}\widetilde{Y}}^2+\frac{1}{p_\widetilde{G}(1-p_\widetilde{G})}\right)p_G(1-p_G)(1-r_{GY}^2)^3}.
+$$
+This variance formula assumes that the reliability coefficients are known. If raw data is available, it is recommended that a bootstrap (resampling) procedure is used to estimate the sampling variance.
+
+
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+A researcher wants to compare the academic performance (measured by a standardized test) of people with and without Major Depressive Disorder (MDD). The researcher reports a classification reliability of $r_{\widetilde{G}\widetilde{G}'}=.80$ and a reliability of the standardized test as $r_{\widetilde{Y}\widetilde{Y}'}=.85$. The researcher than finds a standardized mean difference of $d_{\widetilde{G}\widetilde{Y}}=.30$ favoring controls (i.e., controls had a higher average on the test). Using the `correct_d()` function in the `psychmeta` package [@psychmeta], we can obtain an unbiased estimate of the target standardized mean difference.
+
+```{r,message=FALSE}
+library(psychmeta)
+
+dGY <- .30
+rYY <- .85
+rGG <- .80
+n0 <- n1 <- 100
+
+
+d_corrected <- correct_d(correction = "meas",
+                         d = dGY,
+                         ryy = rYY, 
+                         rGg = sqrt(rGG), 
+                         n1 = n0,
+                         n2 = n1)
+
+# display corrected correlation
+d_corrected$d_values$dGp$value
+
+```
+
+The corrected SMD is $d_{GY}=0.37$. Using the effective sample size from the output we can compute the sampling variance
+
+```{r}
+# compute sampling variance
+var_error_d(d = d_corrected$d_values$dGp$value,
+            n1 = d_corrected$d_values$dGp$n_effective)
+
+```
+
+
+:::
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

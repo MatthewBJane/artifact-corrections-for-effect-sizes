@@ -1,0 +1,323 @@
+# Small Samples
+
+```{r color_scheme,echo = F,warning=F,message=F}
+source("plotting-themes.R", local = knitr::knit_global())
+```
+
+## Introduction
+
+The purpose of sample estimates is to draw inferences about the population effect sizes. However, effect size estimators such as Pearson's correlation coefficient and Cohen's $d$ are biased in small sample sizes. This small sample bias can be construed as an artifact and can be adjusted with the appropriate correction factor.
+
+## Correcting SMDs
+
+### Defining the Target SMD
+
+Our quantity of interest is the population SMD, $\delta_{GY}$. For now, let the asterisk $*$ denote the Cohen's sample estimator defined in the previous chapter, $d^*_{GY}$. We can model the relationship between the population standardized mean difference and the estimate as,
+
+$$
+d^*_{GY} = \alpha\delta_{GY}+\varepsilon_d.
+$$
+
+Where $\alpha$ is an attenuation/inflation factor and $\varepsilon$ is our sampling error term.
+
+### Artifact Correction for SMDs
+
+As the sample size approaches infinity, Cohen's estimator of the standardized mean difference is unbiased [@hedges1981; @cohen1977]. However, in small sample sizes Cohen's estimator is inflated, that is, on average, it overestimates the population standardized mean difference. To see why this is the case, we can first define the population standardized mean difference between group $A$ and group $B$ such that,
+
+$$
+\delta = \frac{\mu_{Y|G=0}-\mu_{Y|G=0}}{\sigma_{Y|G}}.
+$$
+
+Cohen's sample estimator [@cohen1988] of the SMD is,
+
+$$
+d^*_{GY} = \frac{m_{Y|G=0}-m_{Y|G=0}}{s_{Y|G}},
+$$ {#eq-d}
+
+where $s_{Y|G}$ is calculated from pooling the within-group standard deviations. The estimator, $d^*_{GY}$, is an asymptotically unbiased estimate of $\delta_{GY}$ as $n\rightarrow \infty$. However, $d^*_{GY}$ is a biased estimator of $\delta_{GY}$ when the sample size is finite ($n<\infty$). Particularly, the smaller the sample size, the larger the bias. We can see that in @fig-d-bias, $d^*_{GY}$ tends to over-estimates $\delta_{GY}$, therefore $d^*_{GY}$ is an *inflated* estimator of $\delta_{GY}$. To obtain an unbiased estimate of the population standardized mean difference, we need to first calculate the artifact inflation factor, $\alpha$. Before we can calculate $\alpha$ we have to assume that the distribution of $Y$ conditioned on $G$ is normal such that,
+
+$$
+Y|G^{-1}(0)  \sim \mathcal{N}_1(\mu_{Y|G=0},\sigma^2_{Y|G})
+$$
+
+$$
+Y|G^{-1}(1) \sim \mathcal{N}_1(\mu_{Y|G=1},\sigma^2_{Y|G})
+$$
+
+Recall that the inverse of a random variable will return the subset of the sample space assigned that value (e.g., $G^{-1}(0)\subset \Omega$). In this case, the artifact inflation factor has been derived previously by @hedges1989. For other types of artifacts, $\alpha$ is unknown in practice and must be estimated, however, for small sample bias the exact value of $\alpha$ is known (provided the distributional assumptions are true). The precise value of $\alpha$ is a function of sample size [equation 6e, @hedges1989],
+
+$$
+\alpha = \frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}.
+$$
+
+Where $\Gamma(\cdot)$ denotes the gamma function. The gamma function is factorial function generalized to non-integers [note that a factorial function on integers would look something like: $4! = 4 \cdot 3 \cdot 2 \cdot 1$, @marco2021]. There is also an approximation of $\alpha$ that is more computationally trivial [re-arrangement of the first formula on pp. 114, @hedges1989]:
+
+$$
+\alpha \approx \frac{4n-9}{4n-12}
+$$
+
+However, with the advent of computers, this approximation formula is unnecessary. We can see in @fig-d-bias that there is notable bias when sample size is below 20. Furthermore, the bias is most pronounced when the sample SMD value is larger (there is no bias at $d*_{GY}=0$).
+
+```{r,echo=FALSE}
+#| id: fig-d-bias
+#| fig-cap: Plot showing the bias in the standardized mean difference computed in small samples. The X-axis is the sample size ($n$, the vertical bars are indicative of each integer). The Y-axis is the the estimated standardized mean difference ($d$). The dark pink coloring indicates more bias where $\mathsf{bias} = \mathbb{E}[d]-\delta$.
+n <- 5:40
+d <- seq(0,1.0,length.out=100)
+
+sims <- expand.grid(n,d)
+a <- (sqrt((sims$Var1-2)/2) * gamma((sims$Var1-3)/2)/gamma((sims$Var1-2)/2))
+
+
+ggplot(data = NULL, aes(x = sims$Var1, 
+                        y = sims$Var2,
+                        fill=sims$Var2-sims$Var2/a,
+                        color=sims$Var2-sims$Var2/a)) +
+    geom_point(shape = 15,size=2.3) +
+    scale_fill_gradient2(high = main_color_blue, 
+                         low = 'white',
+                         midpoint = .15,
+                         mid = main_color_blue,
+                         limits=c(0,.3),
+                         breaks = c(0,.3)) +
+    scale_color_gradient2(high = main_color_blue, 
+                         low = 'white',
+                         midpoint = .15,
+                        mid = main_color_blue,
+                         limits=c(0,.3),
+                         breaks = c(0,.3)) +
+    scale_x_continuous(limits = c(4,40), expand = c(0, 0),
+                       labels = seq(0,40,by=5),
+                       breaks = seq(0,40,by=5)) +
+    scale_y_continuous(limits = c(0,1), expand = c(0, 0),
+                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
+                       breaks = seq(0,1,by=.1)) +
+  xlab(TeX("Sample Size (n)"))+
+  ylab(TeX("Estimated SMD (d)")) + 
+  th_blue + theme(aspect.ratio = 1,panel.background = element_rect(fill='white')) +
+  labs(fill = "Bias",col = "Bias")
+
+
+```
+
+Using value of $\alpha$, we can correct the $d$ value such that,
+
+$$
+d_{GY} = \frac{d^*_{GY}}{\alpha} = \frac{d^*_{GY}}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}.
+$$ {#eq-d-corr}
+
+To obtain the sampling variance of $d_{GY}$, since we the value of $alpha$ is fixed for a given sample size we can simply divide the sampling variance of $d^*_{GY}$ by $\alpha^2$,
+
+$$
+\mathrm{var}(d_{GY}) = \frac{\mathrm{var}(d^*_{GY})}{\alpha^2} = \frac{\mathrm{var}(d^*_{GY})}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]^2}.
+$$ {#eq-se-corr-d}
+
+::: {#exm-vocab .border style="--bs-border-width:2pt;--bs-border-color:#5fa6bcff; padding:5pt;"}
+## English Vocabulary Performance
+
+The General Social Survey (GSS) is a large national survey conducted by the University of Chicago. The survey includes data on English vocabulary knowledge from 28,867 individuals. Vocabulary scores are calculated by asking respondents about their knowledge of 10 words and the number of words they know out of 10 is their vocabulary score. For many immigrants coming to the the United States, English is not their first language so there is reason to believe that individuals born in the United states will see higher vocabulary scores than those who were not. Let's say we were to conduct a study on a small 20 person sample of the GSS sample,
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+#| id: fig-vocab-results
+
+library(tidyverse)
+library(carData)
+library(psych)
+
+data("GSSvocab")
+set.seed(343)
+
+df <- GSSvocab
+
+
+df$nativeBorn <- recode(df$nativeBorn, 
+                        `yes` = "Native Born", 
+                        `no` = "Immigrant")
+
+df <- df[complete.cases(df[,c("nativeBorn","vocab")]),]
+
+
+id_1 <- sample(row.names(df[df$nativeBorn=="Native Born",]), 10)
+id_2 <- sample(row.names(df[df$nativeBorn=="Immigrant",]), 10)
+
+
+id <- c(id_1,id_2)
+
+d = cohen.d(vocab ~ nativeBorn,data=df[id,])$cohen.d[,"effect"]
+
+ggplot(df[id,],aes(x = vocab,y = nativeBorn,color=nativeBorn,fill=nativeBorn)) + 
+  stat_dotsinterval(point_size = 8,dotsize=.5,binwidth=1,slab_alpha = .5,
+                    side="both",interval_color = "transparent", shape = 18,
+                    slab_linewidth=0,point_interval = mean_qi) +
+  theme_ggdist() +
+  scale_fill_manual(values = c(main_color_blue,main_color_red)) +
+  scale_color_manual(values = c(darkmain_color_blue,darkmain_color_red)) +
+  theme(aspect.ratio = .6,legend.position = "none",
+        axis.text.y = element_text(size=14),axis.text.x = element_text(size=12),
+        axis.title.x = element_text(size=14)) +
+  annotate(geom="text",x=.8,y=2.4,label=TeX('$d_{GY} =$'),size=5) +
+  annotate(geom="text",x=1.65,y=2.4,label=round(d,2),size=5) +
+  xlab("Vocabulary score") +
+  ylab("") +
+  scale_x_continuous(breaks = 0:10, labels = 0:10, limits = c(0,10))
+  
+
+
+```
+
+The sample SMD between native born individuals and immigrants using Cohen's estimator of the standardized mean difference is $d^*_{GY}=.78$. The correction factor can be applied to obtain an unbiased estimate of the population SMD,
+
+$$
+d_{GY} = \frac{d^*_{GY}}{\alpha} = \frac{d^*_{GY}}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]} = \frac{.78}{ \left[\frac{42103.23}{40320}\right]} = .75.
+$$
+
+Note that $\Gamma(\cdot)$ can be solved in R with the `gamma()` function. Notice that the correction is small, since the bias observed with moderate to large sample sizes becomes quite small.
+:::
+
+## Correcting Correlations
+
+### Defining the Target Correlation
+
+Our target quantity is the population correlation, $\rho_{XY}$. We can model the relationship between the population correlation and Pearson's sample estimator ($r^*_{XY}$) with,
+
+$$
+r^*_{XY} = \alpha\rho_{XY}+\varepsilon_r
+$$
+
+Where $a$ is our small sample biasing factor and $e$ is our sampling error term.
+
+### Artifact Correction for Correlations
+
+Let's first define the correlation in the population as the covariance between $X$ and $Y$ ($\sigma_{XY}$) standardized by the product of the standard deviation of $X$ ($\sigma_X$) and $Y$ ($\sigma_Y$):
+
+$$
+\rho = \frac{\sigma_{XY}}{\sigma_{X}\sigma_Y}.
+$$
+
+Pearson's sample estimator can be defined as,
+
+$$
+r_{XY} = \frac{s_{XY}}{s_{X}s_Y}
+$$
+
+Assuming the joint distribution of $X$ and $Y$ is normal such that,
+
+$$
+X,Y\sim\mathcal{N}_2\left(\begin{bmatrix} \mu_{X} \\ \mu_Y\end{bmatrix},\begin{bmatrix} \sigma^2_{X} & \sigma_{XY} \\ \sigma_{XY}&\sigma^2_{Y} \end{bmatrix}\right),
+$$
+
+then Pearson's sample estimator will be attenuated in small samples [@olkin1958]. Then attenuation factor $\alpha$ was derived by Olkin and Pratt [-@olkin1958, eq. 2.3],
+
+$$
+\alpha = \frac{1}{F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-\left(r^*_{XY}\right)^2\right)}.
+$$ {#eq-a-r}
+
+Where $F(\cdot)$ is the hypergeometric function. The hypergeometric function is a complicated and iterative function which which can be defined in terms of $\Gamma(\cdot)$ functions [plugging in values into equation 2.2, @olkin1958]
+
+$$
+F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-\left(r^*_{XY}\right)^2\right) = \sum^{\infty}_{z=0} \frac{\Gamma\left(\frac{1}{2} + z\right)\Gamma\left(\frac{n-1}{2}\right)\left(1-\left(r^*_{XY}\right)^2\right)^z}{\Gamma\left(\frac{1}{2}\right)\Gamma\left(\frac{n-1}{2}+z\right)z!}
+$$
+
+Although this formula is complex, it can be easily done in R so do not worry! There is also an approximation of $\alpha$ that is much simpler than [@eq-a-r; @olkin1958, simplified from the reciprocal of equation 2.7],
+
+$$
+a \approx \frac{2(n-3)}{2n-\left(r^*_{XY}\right)^2-5}
+$$
+
+Then we can correct the point-estimate the sampling variance for small sample bias. I will emphasize again that approximations are not necessary if a computer is available. We can see in @fig-r-bias that there is notable bias when sample size is below 15. Furthermore, the bias is most pronounced when the sample correlation around .60 (there is no bias at $r=0$ and $r=\pm 1$).
+
+```{r,echo=FALSE, fig.height=4}
+#| id: fig-r-bias
+#| fig-cap: Plot showing the bias in the correlations computed in small samples. The X-axis is the sample size ($n$, the vertical bars are indicative of each integer). The Y-axis is the the estimated Pearson correlation ($r_{XY}$). The dark pink coloring indicates more bias. 
+
+n <- 5:40
+r <- seq(0,1,length.out=100)
+
+sims <- expand.grid(n,r)
+a <- 2*(sims$Var1-3)/(2*sims$Var1-sims$Var2^2-5)
+
+
+ggplot(data = NULL, aes(x = sims$Var1, 
+                        y = sims$Var2,
+                        fill=sims$Var2-sims$Var2/a,
+                        color=sims$Var2-sims$Var2/a)) +
+    geom_point(shape = 15,size=2.3) +
+    scale_fill_gradient(low = main_color_red, 
+                        high = 'white',
+                         limits=c(-.1,0),
+                         breaks = c(-.1,0)) +
+    scale_color_gradient(low = main_color_red, 
+                         high = 'white',
+                        limits=c(-.1,0),
+                         breaks = c(-.1,0)) +
+    scale_x_continuous(limits = c(4,40), expand = c(0, 0),
+                       labels = seq(0,40,by=5),
+                       breaks = seq(0,40,by=5)) +
+    scale_y_continuous(limits = c(0,1), expand = c(0, 0),
+                       labels = c('0','','.20','','.40','','.60','','.80','','1.00'),
+                       breaks = seq(0,1,by=.1)) +
+  xlab(TeX("Sample Size (n)"))+
+  ylab(TeX("Estimated Correlation")) + 
+  th_red + theme(aspect.ratio = 1,panel.background = element_rect(fill='white')) +
+  labs(fill = "bias",col = "bias")
+
+
+```
+
+To correct for small sample bias, we can divide the sample correlation $r$ by the attenuation factor $\alpha$,
+
+$$
+r_{XY} = \frac{r^*_{XY}}{\alpha} = \frac{r^*_{XY}}{1/F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-(r^*_{XY})^2\right)}
+$$ {#eq-r-corr}
+
+Where the sampling variance of $r_{XY}$ can be obtained by correcting the observed sampling variance ($\mathrm{var}\left(r^*_{XY}\right)$),
+
+$$
+\mathrm{var}\left(r_{XY}\right) = \frac{\mathrm{var}\left(r^*_{XY}\right)}{\alpha^2} = \frac{\mathrm{var}\left(r^*_{XY}\right)}{\left[1/F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right)\right]^2}
+$$ {#eq-se-corr}
+
+## Small Sample Correction in R
+
+::: {.callout-note appearance="default" icon="false"}
+## Height and Weight (Fake Data)
+
+Let's say we compute a correlation of $r_{XY}=.63$ between height and weight in a sample of 20 individuals and an SMD of $d_{XY}=.80$ between the height of males ($n_0=10$) and females ($n_1=10$) in the same sample. In R, we can use the `escalc` function in the `metafor` package [@viechtbauer2010] to calculate the sample estimates corrected for bias in small samples. For the correlation, we can set the `measure` argument to be `measure = "UCOR"` which will produce an Unbiased CORrelation equivalent to the correction we see in @eq-r-corr,
+
+```{r,message=FALSE}
+# install.packages('metafor')
+# install.packages('gsl')
+library(metafor)
+
+rXY_obs <- .63  # Pearson's sample estimator
+n <- 20 # sample size
+
+# correct the correlation
+escalc(measure = 'UCOR',
+       ri = rXY_obs,
+       ni = n,
+       var.names = c("rXY", "var"), # label output
+       digits = 3) # round digits to third decimal
+```
+
+As we can see the output shows a corrected correlation that is a bit larger than the observed Pearson correlation. To correct the SMD for small sample bias we can use the same function (`escalc()`) but with this time we can set the `measure` argument to be `measure = "SMD"` which corrects the Cohen's sample estimator.
+
+```{r}
+
+dGY_obs <- .80  # Pearson's sample estimator
+n0 <- n1 <- 10 # within-group sample sizes
+
+# correct the correlation
+escalc(measure = 'SMD',
+       di = dGY_obs,
+       n1i = n0,
+       n2i = n1,
+       var.names = c("dGY", "var"), # label output
+       digits = 3) # round digits to third decimal
+
+```
+
+As expected, the corrected SMD is slightly adjusted to be smaller than the observed correlation.
+:::
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee to support this work!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

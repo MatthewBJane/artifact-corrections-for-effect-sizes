@@ -11,7 +11,7 @@ book:
   page-navigation: true
   url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
   site-url: https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
-  date: "10/08/2023"
+  date: "04/24/2024"
   repo-url: https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/
   downloads: [pdf]
   sidebar:
@@ -22,27 +22,23 @@ book:
   cover-image: figure/MJB_cover.jpg
   chapters:
     - index.qmd
-    - dedication.qmd
-    - intro.qmd
-    - part: "Artifact Corrections"
+    - "00-dedication/00-dedication.qmd"
+    - "01-definitions/01-definitions.qmd"
+    - "02-effect-sizes/02-effect-sizes.qmd"
+    - "03-small-samples/03-small-samples.qmd"
+    - part: "04-introduction-to-measurement-error/04-introduction-to-measurement-error.qmd"
       chapters:
-        - small_samples.qmd
-        - unreliability.qmd
-        - misclassification.qmd
-        - artificial_dichotomization.qmd
-        - scale_coarseness.qmd
-        - direct_range_restriction.qmd
-        - indirect_range_restriction.qmd
-    - part: "Application to Meta-Analysis"
+        - "05-error-in-continuous-variables/05-error-in-continuous-variables.qmd"
+        - "06-misclassification/06-misclassification.qmd"
+        - "07-artificial-dichotomization/07-artificial-dichotomization.qmd"
+        - "08-scale-coarseness/08-scale-coarseness.qmd"
+    - part: "09-introduction-to-selection-effects/09-introduction-to-selection-effects.qmd"
       chapters:
-        - metaanalysis_intro.qmd
-        - artifact_correction_metaanalysis.qmd
-    - part: "Conclusion"
-      chapters:
-        - conclusion.qmd
-    - part: "References"
-      chapters:
-      - references_page.qmd
+        - "10-direct-selection/10-direct-selection.qmd"
+        - "11-indirect-selection/11-indirect-selection.qmd"
+    - "13-artifact-correction-meta-analysis/13-artifact-correction-meta-analysis.qmd"
+    - "14-conclusion/14-conclusion.qmd"
+    - "references/references_page.qmd"
       
     
 bibliography: references.bib
@@ -55,6 +51,12 @@ format:
       hypothesis: true
         
   # pdf:
+  #   include-in-header:
+  #     - text: |
+  #         \usepackage{xcolor}
+  #         \definecolor{rr}{HTML}{cb427b}
+  #         \definecolor{gg}{HTML}{797979}
+  #         \definecolor{bb}{HTML}{347e9f}
   #   code-block-bg: '#f5f7ff'
   #   code-block-border-left: false
   #   highlight-style: breeze

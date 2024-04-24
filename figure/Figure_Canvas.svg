@@ -7,7 +7,7 @@
    viewBox="0 0 139.35145 106.60327"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    sodipodi:docname="Figure_Canvas.svg"
    inkscape:export-filename="logo.png"
    inkscape:export-xdpi="250"
@@ -28,13 +28,13 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.7855271"
-     inkscape:cx="8512.1189"
-     inkscape:cy="318.25764"
+     inkscape:zoom="1.1109031"
+     inkscape:cx="2502.4685"
+     inkscape:cy="187.23506"
      inkscape:window-width="1728"
-     inkscape:window-height="1080"
+     inkscape:window-height="985"
      inkscape:window-x="0"
-     inkscape:window-y="37"
+     inkscape:window-y="38"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -46,7 +46,9 @@
        id="page20136"
        inkscape:export-filename="./unreliability_diagram_1.png"
        inkscape:export-xdpi="350"
-       inkscape:export-ydpi="350" /><inkscape:page
+       inkscape:export-ydpi="350"
+       margin="0"
+       bleed="0" /><inkscape:page
        x="0"
        y="114.84758"
        width="139.35144"
@@ -6109,15 +6111,15 @@
        transform="translate(24.835808,-32.522723)"><tspan
          x="423.12888"
          y="192.65268"
-         id="tspan22211"><tspan
+         id="tspan2"><tspan
            style="stroke-width:0.5"
-           id="tspan22209">Estimate of the Mean of
+           id="tspan1">Estimate of the Mean of
 </tspan></tspan><tspan
          x="423.12888"
          y="194.76935"
-         id="tspan22215"><tspan
+         id="tspan4"><tspan
            style="stroke-width:0.5"
-           id="tspan22213"> Population Effect Sizes</tspan></tspan></text><text
+           id="tspan3"> Population Effect Sizes</tspan></tspan></text><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.5861px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:end;text-anchor:end;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.07;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.5"
        x="541.27844"
@@ -6356,15 +6358,15 @@
        transform="translate(147.47985,-12.267329)"><tspan
          x="423.12888"
          y="192.65268"
-         id="tspan22219"><tspan
+         id="tspan6"><tspan
            style="stroke-width:0.5"
-           id="tspan22217">Estimate of the Mean of
+           id="tspan5">Estimate of the Mean of
 </tspan></tspan><tspan
          x="423.12888"
          y="194.76935"
-         id="tspan22223"><tspan
+         id="tspan8"><tspan
            style="stroke-width:0.5"
-           id="tspan22221"> Population Effect Sizes</tspan></tspan></text><text
+           id="tspan7"> Population Effect Sizes</tspan></tspan></text><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:end;text-anchor:end;fill:#be2c86;fill-opacity:1;stroke:none;stroke-width:0.499999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.649999;stroke-dashoffset:0;stroke-opacity:0.25"
        x="648.15289"
@@ -6602,15 +6604,15 @@
          transform="translate(-36.290912,-33.150967)"><tspan
            x="423.12888"
            y="192.65268"
-           id="tspan22227"><tspan
+           id="tspan10"><tspan
              style="stroke-width:0.5"
-             id="tspan22225">Estimate of the
+             id="tspan9">Estimate of the
 </tspan></tspan><tspan
            x="423.12888"
            y="194.76935"
-           id="tspan22231"><tspan
+           id="tspan12"><tspan
              style="stroke-width:0.5"
-             id="tspan22229"> Population Effect Size</tspan></tspan></text></g><text
+             id="tspan11"> Population Effect Size</tspan></tspan></text></g><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.5861px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:end;text-anchor:end;fill:#4d4d4d;fill-opacity:1;stroke:none;stroke-width:0.07;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:0.5"
        x="543.20331"
@@ -7000,21 +7002,21 @@
        transform="translate(293.65562,-18.320299)"><tspan
          x="402.23453"
          y="192.65268"
-         id="tspan22235"><tspan
+         id="tspan14"><tspan
            style="stroke-width:0.5"
-           id="tspan22233">Estimate of the Mean
+           id="tspan13">Estimate of the Mean
 </tspan></tspan><tspan
          x="402.23453"
          y="194.76935"
-         id="tspan22239"><tspan
+         id="tspan16"><tspan
            style="stroke-width:0.5"
-           id="tspan22237">of True Population 
+           id="tspan15">of True Population 
 </tspan></tspan><tspan
          x="402.23453"
          y="196.88602"
-         id="tspan22243"><tspan
+         id="tspan18"><tspan
            style="stroke-width:0.5"
-           id="tspan22241">Effect Sizes</tspan></tspan></text><text
+           id="tspan17">Effect Sizes</tspan></tspan></text><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;white-space:pre;inline-size:27.0778;display:inline;fill:#862cbe;fill-opacity:1;stroke:none;stroke-width:0.499999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.649999;stroke-dashoffset:0;stroke-opacity:0.25"
        x="399.9809"
@@ -7023,21 +7025,21 @@
        transform="translate(269.71752,-9.9267505)"><tspan
          x="399.9809"
          y="192.65268"
-         id="tspan22247"><tspan
+         id="tspan20"><tspan
            style="stroke-width:0.5"
-           id="tspan22245">Estimate of the 
+           id="tspan19">Estimate of the 
 </tspan></tspan><tspan
          x="399.9809"
          y="194.76935"
-         id="tspan22251"><tspan
+         id="tspan22"><tspan
            style="stroke-width:0.5"
-           id="tspan22249">Mean of Observed 
+           id="tspan21">Mean of Observed 
 </tspan></tspan><tspan
          x="399.9809"
          y="196.88602"
-         id="tspan22255"><tspan
+         id="tspan24"><tspan
            style="stroke-width:0.5"
-           id="tspan22253">Population Effect Sizes</tspan></tspan></text><path
+           id="tspan23">Population Effect Sizes</tspan></tspan></text><path
        style="fill:none;fill-opacity:1;stroke:#be2c86;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker16741-58-7-4-5-2)"
        d="m 683.13071,157.28813 c 0.58092,1.09423 0.54442,1.64913 2.53249,2.04676"
        id="path49221-2-7-1-4-5"
@@ -7289,21 +7291,21 @@
        transform="translate(361.74858,-18.05723)"><tspan
          x="402.23453"
          y="192.65268"
-         id="tspan22259"><tspan
+         id="tspan26"><tspan
            style="stroke-width:0.5"
-           id="tspan22257">Estimate of the Mean
+           id="tspan25">Estimate of the Mean
 </tspan></tspan><tspan
          x="402.23453"
          y="194.76935"
-         id="tspan22263"><tspan
+         id="tspan28"><tspan
            style="stroke-width:0.5"
-           id="tspan22261">of True Population 
+           id="tspan27">of True Population 
 </tspan></tspan><tspan
          x="402.23453"
          y="196.88602"
-         id="tspan22267"><tspan
+         id="tspan30"><tspan
            style="stroke-width:0.5"
-           id="tspan22265">Effect Sizes</tspan></tspan></text><text
+           id="tspan29">Effect Sizes</tspan></tspan></text><text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.11667px;line-height:1;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;white-space:pre;inline-size:27.0778;display:inline;fill:#2ca261;fill-opacity:1;stroke:none;stroke-width:0.499999;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:0.649999;stroke-dashoffset:0;stroke-opacity:0.25"
        x="399.9809"
@@ -7312,21 +7314,21 @@
        transform="translate(336.75214,-9.6636815)"><tspan
          x="399.9809"
          y="192.65268"
-         id="tspan22271"><tspan
+         id="tspan32"><tspan
            style="stroke-width:0.5"
-           id="tspan22269">Estimate of the 
+           id="tspan31">Estimate of the 
 </tspan></tspan><tspan
          x="399.9809"
          y="194.76935"
-         id="tspan22275"><tspan
+         id="tspan34"><tspan
            style="stroke-width:0.5"
-           id="tspan22273">Mean of Corrected 
+           id="tspan33">Mean of Corrected 
 </tspan></tspan><tspan
          x="399.9809"
          y="196.88602"
-         id="tspan22279"><tspan
+         id="tspan36"><tspan
            style="stroke-width:0.5"
-           id="tspan22277">Population Effect Sizes</tspan></tspan></text><path
+           id="tspan35">Population Effect Sizes</tspan></tspan></text><path
        style="fill:none;fill-opacity:1;stroke:#397689;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-start:url(#marker16741-58-7-4-5-2-3)"
        d="m 750.73593,155.60216 c 0.17271,-1.27427 0.68202,-1.70716 1.83195,-1.93695"
        id="path49221-2-7-1-4-5-1"
@@ -7387,15 +7389,15 @@
        transform="translate(146.48724,92.643803)"><tspan
          x="423.12888"
          y="192.65268"
-         id="tspan22283"><tspan
+         id="tspan38"><tspan
            style="stroke-width:0.5"
-           id="tspan22281">Estimate of the
+           id="tspan37">Estimate of the
 </tspan></tspan><tspan
          x="423.12888"
          y="194.76935"
-         id="tspan22287"><tspan
+         id="tspan40"><tspan
            style="stroke-width:0.5"
-           id="tspan22285"> Population Effect Size</tspan></tspan></text><path
+           id="tspan39"> Population Effect Size</tspan></tspan></text><path
        style="fill:none;fill-opacity:1;stroke:#397689;stroke-width:0.708116;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:1"
        d="m 770.03358,113.66057 c -5.77783,0 -1.90653,13.17536 -18.84361,13.17536"
        id="path59635-8-9-9-3-2"

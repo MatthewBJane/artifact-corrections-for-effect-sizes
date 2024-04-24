@@ -1,43 +1,69 @@
+---
+citation: true
+---
+
 # Greetings
 
-Welcome to the living open source textbook ***Artifact Corrections for Effect Sizes***. This textbook covers all the essential equations and code needed to correct for biases in our effect size estimates. It will also hopefully provide readers with a deeper understanding, appreciation, and intuition for these seemingly complex formulas. It also covers how to apply these corrections to meta-analysis.
+Welcome to the living open source textbook ***Study Artifacts and Their Corrections***. This book is designed to assist social/clinical/behavioral/cognitive researchers in understanding the nature of study artifacts, their impact on effect sizes, and proper correction methods. Each chapter includes practical examples, R code, and equations for seamlessly implementing these corrections into your own research projects.
+```{=html}
+<a href="https://www.buymeacoffee.com/matthewbjane"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=matthewbjane&button_colour=ed5c9b&font_colour=ffffff&font_family=Arial&outline_colour=ffffff&coffee_colour=ffffff" /></a>
+```
+#### What are Study Artifacts? {.unnumbered}
 
-#### What are Statistical Artifacts? {.unnumbered}
-
-In this book statistical artifacts will be defined broadly as **any source of contamination that induces bias in research findings**. Artifacts are present in virtually every research study, so it is crucial that we address them.
+In this book, artifacts will be defined broadly as **any source of methodological contamination that induce bias in research findings**. In an ideal world where studies are conducted perfectly, this book would not exist. Hopefully one day, we reach a point where studies contain only small, inconsequential imperfections and this book becomes obsolete, a relic of a darker past. Until that day, artifact corrections can provide a temporary band-aid to *some* methodological flaws.
 
 #### Open and Living Textbook {.unnumbered}
 
-A living textbook is one that constantly updates with new features and is open to changes from others. This book will contain modern methods and cutting-edge techniques for artifact corrections, so in order to keep this book up-to-date it needs to grow as the research grows. New features, such as interactive figures will be added soon
+A living textbook is one that continuously updates with new features and is open to changes from others. This book will contain modern methods and cutting-edge techniques for artifact corrections, so in order to keep this book up-to-date it needs to grow as the research grows.
+
+#### Support My Work {.unnumbered}
+
+Please help keep this book maintained and free for everyone by supporting me through [buymeacoffee.com/matthewbjane](https://www.buymeacoffee.com/matthewbjane)
+
+
+#### Citation and License {.unnumbered}
 
 It is important that this book is both open-source and open-access. All the figures, code, and documents are available in a [github repository](https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/). The current maintainer of the book is [Matthew B. Jané](https://matthewbjane.com). This work is under a [CC-BY license](LICENSE), therefore if you use any part of this work in your own work, it is important that you acknowledge it and cite it as follows:
 
+
 ##### APA {.unnumbered}
 
-Jané, M. B. (2023). Artifact Corrections for Effect Sizes: Implementation in R and Application to Meta-Analysis. (n.p.). https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
+Jané, M. B. (2024). Artifact Corrections for Effect Sizes: Seeing Reality for What It Is. (n.p.). https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
 
 ##### BibTeX {.unnumbered}
 
 ``` default
 @book{MatthewBJane2023,
-  title     = "Artifact Corrections for Effect Sizes: Implementation in R and Application to Meta-Analysis",
+  title     = "Artifact Corrections for Effect Sizes: Seeing Reality for What It Is",
   author    = "Jané, Matthew B.",
-  year      = 2023,
+  year      = 2024,
   publisher = "(n.p.)",
   url      = {https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/}
 }
 ```
 
+
+
+
 #### Contributions {.unnumbered}
 
 Please feel free to contribute to this textbook, if your contribution makes it to the published version of this book, your name will be included in the contributor list below with a description of your work.
 
-| Name                                                             | Affiliation       | Role                                |
-|---------------------|---------------------|------------------------------|
-| [Velu Immonen, BS](https://www.instagram.com/veluimmonen/?hl=en) | Solent University | Designed cover and twitter preview. |
+| Name      | Affiliation       | Role                                |
+|----------------------------------|------------------|--------------------|
+| Blair T. Johnson| University of Connecticut | Reviewing, editing, & consulting |
+| Edward Kroc | University of British Columbia | Reviewing, editing, & consulting |
+| Christopher Rhoads | University of Connecticut | Reviewing & editing |
+| Elizibeth Schifano | University of Connecticut | Reviewing & editing |
+| Velu Immonen | Solent University | Designed cover and twitter preview. |
+| Peter Licari | N/A | Reviewing & editing |
+| Shane Tutwiler| University of Rhode Island | Reviewing & Editing |
+| Ashley E. Mullan | Vanderbilt University Medical Center | Reviewing & editing |
+| Vinícius Litvinoff Justus | University of Campinas | Reviewing & editing |
+| Rafael Valdece Sousa Bastos | N/A | Reviewing & editing |
+| Ryan Panela | University of Toronto | Reviewing & editing |
+| Vilgot Huhn| Karolinska Institutet | Reviewing & editing |
 
-
-
-
-
+```{=html}
 <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

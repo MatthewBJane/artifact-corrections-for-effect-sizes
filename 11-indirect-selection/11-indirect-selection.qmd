@@ -1,0 +1,706 @@
+# Indirect Selection
+
+
+```{r color_scheme,echo = F,warning=F,message=F}
+source("plotting-themes.R", local = knitr::knit_global())
+```
+
+## Introduction
+
+Indirect selection occurs when the selection process is not directly on the variable of interest, but rather on another related variable. Similar to direct range restriction, this will cause restriction (or enhancement) in the variable of interest.
+
+
+::: {#exm-corr .border style="--bs-border-width:2pt;--bs-border-color:#5fa6bcff; padding:5pt;"}
+## Correlation between Test Scores
+
+Continuing with the example of test score correlations we saw in the chapter on direct selection. Recall A data set of 668 individuals who took both the SAT and the ACT from @revelle2010 can be used to estimate the correlation. The data set splits the SAT test into Quantitative (SATQ) and Verbal (SATV) subtests which each range from 200-800, whereas the ACT is reported as a score from 1-36. We can plot out the relationship between the SAT quantitative score (SATQ) and the ACT scores with a scatter plot (see @fig-scatter-ds-ex).
+
+```{r,warning=FALSE,message=FALSE,echo=FALSE}
+#| id: fig-scatter-ds-ex
+#| fig-cap: Scatter plot showing the joint distribution of SATQ and ACT scores.
+
+library(psychTools)
+
+df <- sat.act[complete.cases(sat.act[,c("SATQ","SATV","ACT")]),]
+
+df <- df[df$ACT > 7 & df$SATV > 300 & df$SATQ > 300,]
+
+
+ggplot(df, aes(x=SATQ, y=ACT)) +
+  geom_point(color=main_color_red,alpha=.8) +
+  th_red +
+  theme(aspect.ratio=1) +
+  annotate(geom="text",
+           x=min(df$SATQ),
+           y=max(df$ACT),
+           label=paste("r =",round(cor(df$SATQ,df$ACT),2)),
+           hjust="left",
+           vjust="top",
+           color=text_color_red,
+           size = 5)
+
+```
+
+In the @fig-scatter-ds-ex we see a strong correlation of .61 between test scores. Now let's say we are looking at a sample of English tutors who were selected upon their verbal SAT scores (SATV > 600) as part of their job application. Therefore all the individuals who scored below 600 on the verbal section would not be included in this sample. Let's see how that impacts the correlation:
+
+```{r,warning=FALSE,message=FALSE,echo=FALSE}
+#| id: fig-scatter-ds-ex-restrict
+#| fig-cap: Scatter plot showing the joint distribution of SAT and ACT scores.
+
+library(psychTools)
+
+df <- sat.act[complete.cases(sat.act[,c("SATQ","SATV","ACT")]),]
+
+df <- df[df$ACT > 7 & df$SATV > 300 & df$SATQ > 300,]
+
+
+ggplot(df, aes(x=SATQ, y=ACT, alpha = SATV>600)) +
+  geom_point(color=main_color_red) +
+  scale_alpha_manual(values = c(.1, .8)) +
+  th_red +
+  theme(aspect.ratio=1) +
+  annotate(geom="text",
+           x=min(df$SATQ),
+           y=max(df$ACT),
+           label=paste("r =",round(cor(df$SATV[df$SATV>600],df$ACT[df$SATV>600]),2)),
+           hjust="left",
+           vjust="top",
+           color=text_color_red,
+           size = 5)
+
+
+
+```
+
+As we can see in @fig-scatter-ds-ex-restrict the correlation is attenuated from $r=.66$ to $r=.34$ when the range of students is restricted to SATV scores above 600.
+:::
+
+
+
+## Study Population
+
+Recall in the direct range restriction chapter that we looked to define the study population $\mathcal{E}\subseteq\Psi$ with respect to one or both of the random variables of interest (i.e., $X$ and $Y$). For this chapter, we will introduce a new random variable $Z$ that is not a variable of scientific interest to us. Therefore the study population can thus be defined as,
+
+$$
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(Z^{-1}(B)\right)\;\middle\vert\; B \in \mathcal{B}_\mathbb{R}  \right\rbrace \subseteq \Psi,
+$$
+
+where $B$ is some Borel set on the real line and $\ell$ is the assignment to individual function. Most often $B$ will be some interval on the real-line, for instance, the SAT and ACT example restricted scores above SATV \> 600 therefore the eligible population is any person scoring within the interval $B=[600,800]$ (where 800 is a perfect score).
+
+
+## Quantifying Selection-Induced Restriction/enhancement
+
+The distribution of scores in the target population may exhibit a greater (or lesser) degree of variability compared to the sample that has been selected into the study. Therefore the standard deviation of scores in the target population ($\sigma_{X}$) may differ from the study population ($\sigma_{X|\mathcal{E}}$). To index the difference between the two standard deviations, we can calculate the u-ratio as we did with direct selection. The u-ratio is the ratio between the standard deviations of the population under selection and the target population such that ($\upsilon$ denotes the population u-ratio),
+
+$$
+\upsilon_X = \frac{\sigma_{X|\mathcal{E}}}{\sigma_{X}}
+$$ {#eq-u-ratio}
+
+The u-ratio in cases of range *restriction* will exist in the interval $\upsilon_X\in[0,1)$ . Conversely, when the u-ratio is greater than 1, $\upsilon_X\in(1,\infty]$, it is indicative of range *enhancement*. The target population standard deviation is often quite difficult to acquire since we do not usually have access to a random sample from that population. However, the target population standard deviation can be estimated from a reference sample that is representative of the target population. This often comes in the form of standardization samples or norm samples (obtained from test manuals) if the unrestricted group is the general population. For example, the distribution full-scale IQ scores derived from the Wechsler Adult Intelligence Test has a standard deviation of 15 in the US population [@wechsler2008]. We can use this estimate as the standard deviation for the unrestricted population. Lets say we select a sample from members of Harvard students, who tend to have higher IQs than the general population (this is due to the fact that selection criterion, such as GPA and SAT scores are positively correlated with IQ). If the standard deviation of IQ in Harvard students is 10, then the $u$-ratio would be,
+
+$$
+u_\widetilde{X} =  \frac{s_{\widetilde{X}|\mathcal{E}}}{s_\widetilde{X}} = \frac{10}{15}= .67
+$$ 
+
+where $u_\widetilde{X}$, $s_\widetilde{X}$, and $s_{\widetilde{X}|\mathcal{E}}$ are the sample estimate counterparts of the components in @eq-u-ratio. However it is not always the case that an estimate of the unrestricted standard deviation is readily available. Therefore if the reliability coefficient from the reference sample and the study can be used to estimate the $u$-ratio,
+
+$$
+u_X = \sqrt{\frac{1-r_{\widetilde{X}\widetilde{X}'}}{1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}}}
+$$
+
+Where $r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}$ and $r_{\widetilde{X}\widetilde{X}'}$ are the reliability estimates from the sample under selection and the reference (target population) sample, respectively. In the context of indirect range restriction, the selection does not occur directly on $X$ (or $Y$), instead it occurs on a third variable, $Z$. Assuming linearity and homoscedasticity between variables, the affect that selection on $Z$ has on $X$ is dependent on the correlation between them, $\rho_{XZ}$. Therefore we can see how the u-ratio of $Z$ ($\upsilon_Z$) related to the u-ratio of $X$ [@hunter2006],
+
+$$
+u_X = \sqrt{\rho_{XZ}^2\upsilon_Z^2 -\rho_{XZ}^2 + 1 }
+$$
+
+If $\rho_{XZ}=0$, then you will notice that $\upsilon_X=1$, effectively having no range restriction/enhancement on $X$. Also, notice that a correlation of $\rho_{XZ}=1$ will return $\upsilon_X=\upsilon_Z$, indicating that directly selecting on $Z$ would effectively be direct selection on $X$ as well. This relationship between $\upsilon_X$, $\upsilon_Z$, and $\rho_{XZ}$ can be visualized in @fig-ux-uz
+
+```{r, echo =FALSE,message=FALSE,warning=FALSE, fig.height=8}
+#| id: fig-ux-uz
+#| fig-cap: The impact of the association between $X$ and $Z$. The data consists of $N=1,000$ simulated observations, where the red plots show a low correlation case ($\rho_{XZ}=.20$) and the blue plots show a high correlation case ($\rho_{XZ}=.80$). The top plots show the relationship between $X$ and $Z$ with the darker points indicating individuals that have been selected into the sample. The bottom plots shows the probability of selection into the sample as a function of X. The dark distribution on the top of the plot show the distribution of individuals in the selected sample. Notice that the distribution of the selected individual's in the high correlation case is a narrower distribution than the low correlation case.
+
+set.seed(34444)
+data <- mvrnorm(n=1000,mu=c(0,0),
+                Sigma = reshape_vec2mat(c(.8)),
+                empirical=TRUE)
+x = data[,1]
+z = data[,2]
+Eligible <- z > 0
+Eligible = ifelse(Eligible, "selected", "rejected")
+
+uz = sd(z[Eligible=="selected"])
+ux = sd(x[Eligible=="selected"])
+
+h1 = ggplot(data=NULL,aes(x = x))  +
+  stat_dots(aes(y = as.numeric(Eligible=='selected'), 
+                side = ifelse(Eligible == "selected", "bottom", "top"),
+                alpha = Eligible),
+    na.rm = TRUE, scale=1/3,fill=main_color_blue,color=main_color_blue) +
+  stat_smooth(aes(y = as.numeric(Eligible=='selected')),
+              method = 'glm', 
+              method.args = list(family='binomial'),
+              se = FALSE,
+              color = text_color_blue) +
+  coord_cartesian(expand = FALSE) +
+  theme(legend.position = 'none',
+        title = element_text(color = text_color_blue)) +
+  scale_fill_brewer() +
+  scale_alpha_manual(values = c(.1,.9)) +
+  annotate(geom='text',x=-1.85,y=.76,
+           label=TeX(paste0('$u_X=$',numform(ux))),color=text_color_blue) +
+  annotate(geom='text',x=-1.85,y=.7,
+           label=TeX(paste0('$u_Z=$',numform(uz))),color=text_color_blue) +
+  th_blue +
+  labs(
+    x = "X",
+    y = ""
+  )
+
+h1u = ggplot(data=NULL,aes(x = x,y=z))  +
+  geom_point(aes(alpha = Eligible),
+    na.rm = TRUE, size=.8,fill=main_color_blue,color=main_color_blue) +
+  coord_cartesian(expand = FALSE) +
+  theme(legend.position = 'none',
+        title = element_text(color = text_color_blue)) +
+  scale_fill_brewer() +
+  scale_x_continuous(limits = c(-3,3)) +
+  scale_y_continuous(limits = c(-3,3)) +
+  scale_alpha_manual(values = c(.15,.8)) +
+  th_blue +
+  labs(
+    title = TeX('High correlation: $\\rho_{XZ}=$.80'),
+    x = "X",
+    y = "Z"
+  )
+
+
+
+
+set.seed(4)
+data <- mvrnorm(n=1000,mu=c(0,0),
+                Sigma = reshape_vec2mat(c(.20)),
+                empirical=TRUE)
+x1 = data[,1]
+z1 = data[,2]
+Eligible1 <- z1 > 0
+Eligible1 = ifelse(Eligible1, "selected", "rejected")
+
+uz1 = sd(z1[Eligible1=="selected"])
+ux1 = sd(x1[Eligible1=="selected"])
+
+h2 = ggplot(data=NULL,aes(x = x1))  +
+  stat_dots(aes(y = as.numeric(Eligible1=='selected'), 
+                side = ifelse(Eligible1 == "selected", "bottom", "top"),
+                alpha = Eligible1),
+    na.rm = TRUE, scale = 1/3,fill=main_color_red,color=main_color_red) +
+  stat_smooth(aes(y = as.numeric(Eligible1=='selected')),
+              method = 'glm', 
+              method.args = list(family='binomial'),
+              se = FALSE,
+              color = text_color_red) +
+  coord_cartesian(expand = FALSE) +
+  theme(legend.position = 'none',
+        title = element_text(color = text_color_red)) +
+  scale_fill_brewer() +
+  scale_alpha_manual(values = c(.1,.7)) +
+  annotate(geom='text',x=-1.85,y=.76,
+           label=TeX(paste0('$u_X=$',numform(ux1))),
+           color=text_color_red) +
+  annotate(geom='text',x=-1.85,y=.7,
+           label=TeX(paste0('$u_Z=$',numform(uz1))),
+           color=text_color_red) +
+  th_red +
+  labs(
+    x = "X",
+    y = "Probability of selection"
+  )
+
+h2u = ggplot(data=NULL,aes(x = x1,y=z1))  +
+  geom_point(aes(alpha = Eligible1),
+    na.rm = TRUE, size = .8,fill=main_color_red,color=main_color_red) +
+  coord_cartesian(expand = FALSE) +
+  theme(legend.position = 'none',
+        title = element_text(color = text_color_blue)) +
+  scale_fill_brewer() +
+  scale_alpha_manual(values = c(.15,.8)) +
+  scale_x_continuous(limits = c(-3,3)) +
+  scale_y_continuous(limits = c(-3,3)) +
+  th_red +
+  labs(
+    title = TeX('Low correlation: $\\rho_{XZ}=$.20'),
+    x = "X",
+    y = "Z"
+  )
+
+(h2u + h1u) / (h2 + h1)
+
+```
+
+## Correcting Correlations
+
+### Defining our Target Correlation
+
+We want to estimate the correlation in the target population between true scores of the independent ($X$) and dependent variable ($Y$). Within a study that suffers from indirect selection *and* measurement error, the observed score correlation will be biased relative to our target true score population correlation, $\rho_{XY}$. We can model observed score correlation under direct selection as,
+
+$$
+r_{\widetilde{X}\widetilde{Y}|\mathcal{E}} = \alpha \rho_{XY} + \varepsilon_r
+$$
+
+Where $\alpha$ is the artifact attenuation/inflation factor and $\varepsilon_r$ is the sampling error term.
+
+### Artifact Correction for Correlations
+
+#### The Univariate Case {.unnumbered}
+
+Range restriction (or enhancement) in either the independent or dependent variable will induce bias into the correlation coefficient. Let us consider a case where we select individuals based on meeting some criterion of some third variable, $Z$. In the univariate case, we assume that selection on $Z$ only directly affects restriction/enhancement in $X$ while any restriction/enhancement in $Y$ is mediated by the effect on $X$ (see @fig-corr-model-uni).
+
+Now consider a study where we want to calculate correlation in the target population between an independent variable, $X$, and a dependent variable, $Y$. However, the individual's are selected whether they are above the mean of $Z$ (Mean = 0). We can thus define the selection function such that,
+
+$$
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(Z^{-1}([-.5,\infty])\right) \right\rbrace \subseteq \Psi,
+$$
+
+In the following examples, we will simulate a correlation of $\rho_{XZ}=.80$. @fig-uvirr shows a u-ratio of about $u_X=0.75$ in the independent variable. We see that the sample correlation in the restricted scores ($r_{XY|\mathcal{E}}=.42$) is attenuated relative to the unrestricted correlation ($r_{XY}=.50$).
+
+```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-uvirr
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under univariate indirect range restriction. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+set.seed(343)
+data <- mvrnorm(n=2000,mu=c(0,0),
+                Sigma = reshape_vec2mat(c(.5)),
+                empirical=TRUE)
+
+x = data[,1]
+y = data[,2]
+z = x + rnorm(2000,0,.75)
+Eligible <- z > 0
+
+ggplot(data=NULL, aes(x = x, y = y, alpha=Eligible)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_red) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_red) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_red) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_red,size=17),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, 
+                                    color = border_color_red,
+                                    linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_red),
+        axis.text = element_text(size=14, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_red,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$\\rho_{XY}$ = .50'),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$r_{XY|E}$ = ',numform(cor(x[Eligible],y[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{X}$ = ',numform(sd(x[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Univariate Range Restriction') 
+
+```
+
+We can also visualize what happens to the correlation when the range is enhanced. Enhancement can be accomplished by selecting individuals at the ends of the distribution [@taylor1976]. For indirect selection, individuals are selected at the ends of the distribution of $Z$ such that the selection function can be defined as,
+
+$$
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(Z^{-1}([-\infty,-1]\cup [1,\infty])\right) \right\rbrace \subseteq \Psi.
+$$
+
+In @fig-uvire, we see an opposite effect on the correlation, that is, an inflation of the correlation rather than an attenuation like we see under range restriction. The scenario below has a $u$-ratio of about $u_X=1.32$ in the independent variable.
+
+```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-uvire
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under univariate indirect range enhancement. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+
+Eligible <- z < -1 | z > 1 
+
+ggplot(data=NULL, aes(x = x, y = y, alpha=Eligible)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_blue) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_red) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_red) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_red,size=17),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_red),
+        axis.text = element_text(size=14, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_red,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$r_{XY}$ = .50'),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$r_{XY|E}$ = ',numform(cor(x[Eligible],y[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{X}$ = ',numform(sd(x[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("x scores") +
+  ylab("y scores") +
+  ggtitle('Univariate Range Enhancement')
+
+
+```
+
+In summary, if $u_X>1$ the observed correlation is inflated relative to the correlation in the target population. Whereas the correlation is attenuated when $u_X<1$ [@sackett2000]. The artifact attenuation/inflation factor $\alpha$ for indirect selection is as follows [equation 5, @le2006],
+
+$$
+\alpha = \sqrt{\rho_{XY|\mathcal{E}}^2 + \upsilon_{X}^2 (1- \rho_{XY|\mathcal{E}}^2)  }
+$$ 
+
+A sample estimate of the attenuation/inflation factor, $a$, can be computed as,
+
+
+$$
+a = \sqrt{r_{XY|\mathcal{E}}^2 + u_{X}^2 (1- r_{XY|\mathcal{E}}^2)  }
+$$ 
+
+
+Using the estimated attenuation/inflation factor, we can correct the observed correlation for bias induced by indirect selection
+
+$$
+r_{XY} = \frac{r_{XY|\mathcal{E}}}{a} = \frac{r_{XY|\mathcal{E}}}{\sqrt{r_{XY|\mathcal{E}}^2 + u_{X}^2 (1- r_{XY|\mathcal{E}}^2)  }}
+$$ {#eq-univariate}
+
+If we want to correct for range restriction/enhancement *and* measurement error, we can incorporate the reliability coefficients (under selection) of $X$ ($r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}$) and $Y$ ($r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}}$) into the formula for $\alpha$,
+
+
+$$
+\alpha = \sqrt{\rho_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2 + \frac{\upsilon_{\widetilde{X}}^2 \rho_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\left(\rho_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\rho_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}} - \rho_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2\right) }{1 - \upsilon_{\widetilde{X}}^2 \left(1-\rho_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\right)} }.
+$$ {#eq-univariate-meas-pop}
+
+The sample estimate of $\alpha$ is,
+
+$$
+a = \sqrt{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2 + \frac{u_{\widetilde{X}}^2 r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\left(r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}} - r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2\right) }{1 - u_{\widetilde{X}}^2 \left(1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\right)} }
+$$ {#eq-univariate-meas-sam}
+
+
+Now correcting the observed correlation with this modified estimate of $a$ to correct the observed correlation will yield the true score correlation in the target population,
+
+$$
+r_{XY}=\frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}}{a} = \frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}}{\sqrt{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2 + \frac{u_{\widetilde{X}}^2 r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\left(r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}} - r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}^2\right) }{1 - u_{\widetilde{X}}^2 \left(1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\right)} }}
+$$
+
+If the reliability coefficients come from the target population and do not suffer selection effects, we can estimate the reliability under selection using the following formulas [equation 11 and 12 @le2006]:
+
+$$
+r_{\widetilde{X}\widetilde{X}'|\mathcal{E}} = 1-\frac{1-r_{\widetilde{X}\widetilde{X}'}}{u_\widetilde{X}^2}
+$$ {#eq-rel-x}
+
+$$
+r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}} = 1-\frac{1-r_{\widetilde{Y}\widetilde{Y}'}}{u_\widetilde{Y}^2}
+$$ {#eq-rel-y}
+
+We now need to adjust the standard error for the corrected correlation coefficient. To do this, we can either divide the observed standard error by the attenuation/inflation factor (or equivalently, the observed correlation divided by the corrected correlation),
+
+$$
+\widehat{\mathrm{var}}(r_{XY}) = \frac{\widehat{\mathrm{var}}\left(r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right)}{a^2}= \frac{\widehat{\mathrm{var}}\left(r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right)}{\left[\frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}}{r_{XY}}\right]^2}.
+$$
+
+
+#### The Bivariate Case {.unnumbered}
+
+Bivariate indirect range restriction/enhancement occurs when the selection variable has independent relationships with both the independent and dependent variable. Like we did for the univariate case, let's visualize the correlation between independent ($X$) and dependent ($Y$) variables under range restriction by only selecting individuals above a score of -0.50 in our selector variable, $Z$. Therefore the selection function can be defined as,
+
+$$
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(Z^{-1}([-.5,\infty])\right) \right\rbrace \subseteq \Psi.
+$$
+
+We will also fix the correlations between $Z$ and independent variable, as well as the selector and dependent variable to be $\rho_{XZ} = \rho_{YZ} = .80$. Unlike the univariate case, in the bivariate case $X$ *and* $Y$ have direct relationships with $Z$. The scenario displayed in @fig-bvirr, shows a $u$-ratio of about $u_X=u_Y=0.81$ in the independent variable and dependent variables. We see in the figure below that the correlation in the restricted sample ($r_{XY|\mathcal{E}}=.25$) is attenuated relative to the target population correlation ($r_{XY}=.50$).
+
+```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-bvirr
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under bivariate indirect range restriction. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+set.seed(1)
+
+data <- mvrnorm(n=2000,
+                mu=c(0,0,0),
+                Sigma = reshape_vec2mat(c(.5,.8,.8)),
+                empirical=TRUE)
+
+x = data[,1]
+y = data[,2]
+z = data[,3]
+
+Eligible <- z > -.5
+
+ggplot(data=NULL, aes(x = x, y = y, alpha=Eligible)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_red) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_red) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_red) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_red,size=17),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_red),
+        axis.text = element_text(size=14, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_red,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$r_{XY}$ = .50'),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$r_{XY|E}$ = ',numform(cor(x[Eligible],y[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{X}$ = ',numform(sd(x[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=1.7,
+           label=TeX(paste0('$\\u_{Y}$ = ',numform(sd(y[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Bivariate Range Restriction') 
+```
+
+Likewise let's visualize what happens to the correlation when the range is enhanced. Enhancement in both variables can be accomplished by selecting individuals at the ends of the distribution of $Z$ (for this case we will select individuals below a score of -1 and above a score of 1). We can thus define the study population as,
+
+$$
+\mathcal{E} = \left\lbrace\vphantom{\int} \psi\in \ell\left(Z^{-1}([-\infty,1]\cup[1,\infty])\right) \right\rbrace \subseteq \Psi.
+$$
+
+In @fig-bvire, we observe an inflation of observed correlation ($r_{XY|\mathcal{E}}=.74$) relative to the target correlation ($r_{XY}=.50$). @fig-bvire has a $u$-ratio of about $u_X=u_Y=1.38$ in both the independent variable and dependent variable.
+
+```{r, echo=FALSE,warning=FALSE,fig.height=5}
+#| id: fig-bvire
+#| fig-cap: Scatterplot showing a correlation between $X$ and $Y$ under bivariate indirect range enhancement. Dark red dots indicate the selected sample and the transparent dots indicate the rejected sample.
+
+
+Eligible <- ( z < -1 | z > 1 )
+
+ggplot(data=NULL, aes(x = x, y = y, alpha=Eligible)) +
+  geom_vline(xintercept = 0, alpha=.1, linewidth = .8,color = main_color_red) +
+  geom_hline(yintercept = 0, alpha=.1, linewidth = .8,color = main_color_red) +
+  geom_point(stroke = 0, size = 1.65,color = main_color_red) + 
+  guides(alpha = guide_legend(override.aes = list(size = 5)))+
+  theme(aspect.ratio = 1,
+        panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        title = element_text(color = text_color_red,size=17),
+        panel.background = element_rect(fill = panel_color_red),
+        panel.border = element_rect(fill = NA, color = border_color_red,linewidth=1.2),
+        axis.title = element_text(size=16, color = text_color_red),
+        axis.text = element_text(size=14, color = text_color_red),
+        axis.ticks = element_line(color = border_color_red,linewidth=1),
+        legend.key = element_rect(fill='transparent'),
+        legend.text = element_text(color=text_color_red,size=12)) +
+  annotate(geom = 'text',x=-3,y=2.9,label=TeX('$r_{XY}$ = .50'),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.5,
+           label=TeX(paste0('$r_{XY|E}$ = ',numform(cor(x[Eligible],y[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=2.1,
+           label=TeX(paste0('$\\u_{X}$ = ',numform(sd(x[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  annotate(geom = 'text',x=-3,y=1.7,
+           label=TeX(paste0('$\\u_{Y}$ = ',numform(sd(y[Eligible])))),
+           color = text_color_red, size = 5, hjust='left') + 
+  scale_alpha_manual(values = c(.15,.8)) +
+  ylim(-3,3) +
+  xlim(-3,3) +
+  xlab("X") +
+  ylab("Y") +
+  ggtitle('Bivariate Range Enhancement')
+```
+
+A correction formula for bivariate range restriction is much more complicated than the univariate formulation. In the univariate case, we did not need any more information about the selection process beyond what we could infer from $u_X$. However in the bivariate case, we need to have a basic idea of the selection mechanism at play [@dahlke2020]. Particularly we at least know the direction of the correlation between the selector variable, $Z$, and the independent ($\rho_{XZ}$) and dependent variable ($\rho_{YZ}$). This will require a little bit of knowledge about the selection process within a given study. Let us first define a factor we will denote with $\Lambda$ [@dahlke2020]. This factor takes into account the direction of the correlation of $\rho_{XZ}$ (if positive, we can set $\rho_{XZ}=1$, if negative, $\rho_{XZ}=-1$, if zero, $\rho_{XZ}=0$) and $\rho_{YZ}$ (repeat the same procedure as $\rho_{XZ}$). Therefore $\lambda$ can be defined as,
+
+$$\begin{aligned}
+\Lambda =& \text{ sign}\left(\rho_{XZ}\rho_{YZ} [1-u_X][1-u_Y]\right) \\[.3em] &\times\frac{\text{sign}
+\left(1-u_X\right)\min\left(u_X,\frac{1}{u_X}\right) + 
+\text{ sign}\left(1-u_Y\right)\min\left(u_Y,\frac{1}{u_Y}\right)
+}{\min\left(u_X,\frac{1}{u_X}\right)+\min\left(u_Y,\frac{1}{u_Y}\right)}.
+\end{aligned}$$
+
+Although complex, the output of $\Lambda$ will be either -1, 0, or 1. We can then plug this factor into the full correction equation that provides us with an consistent estimate of the correlation in the unrestricted population,
+
+$$
+r_{XY} = r_{XY|\mathcal{E}}u_Xu_Y+\Lambda\sqrt{|1-u_X^2||1-u_Y^2|}
+$$
+
+Similar to the univariate formula, we can also incorporate measurement error into the correction. Measurement error will bias the correlation on top of the bias induced by range restriction/enhancement. Therefore we can incorporate the reliabilities estimated within the restricted sample ($r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}$ and $r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}}$), into our correction formula:
+
+$$
+r_{XY} = \frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\cdot u_\widetilde{X} u_\widetilde{Y}+\Lambda\sqrt{|1-u_\widetilde{X}^2||1-u_\widetilde{Y}^2|}}{\sqrt{1-u_\widetilde{X}^2\left(1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}}\right)}\sqrt{1-u_\widetilde{Y}^2\left(1-r_{\widetilde{Y}\widetilde{Y}'|\mathcal{E}}\right)}}
+$$
+
+If the reliability estimates come from an target population reference sample, we can get estimates of the reliability coefficients in the selected sample using @eq-rel-x and @eq-rel-y. We then can correct the observed sampling variance ($\sigma^2_{\varepsilon_o}$),
+
+$$
+\widehat{\mathrm{var}}(r_{XY}) = \frac{\widehat{\mathrm{var}}\left(r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right)}{a^2}= \frac{\widehat{\mathrm{var}}\left(r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}\right)}{\left[\frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}}}{r_{XY}}\right]^2}.
+$$
+
+
+::: {.callout-note appearance="default" icon="false"}
+## Correcting Correlations
+
+To continue with our example of SAT and ACT score correlations, let us use the correction formulae that we learned to correct the indirect range restricted correlation between the quantitative sub-test of the SAT and the ACT. We will look at the case where individuals are selected above 600 on the *verbal* section of the SAT. Using the `sat.act` data set in the `psychTools` package [@psychTools]. Lets first clean the data and add two variables in the data set indicating eligibility of the participant.
+
+```{r,message=FALSE}
+library(psychmeta)
+library(psychTools)
+library(tidyverse)
+
+df <- sat.act[complete.cases(sat.act[,c("SATQ","SATV","ACT")]),] |>
+  # remove scores that are well below guess rate
+  filter(ACT > 7 & SATV > 300 & SATQ > 300) |>
+  # eligibility indicator
+  mutate(eligible = SATV>600) # selection
+
+head(df)
+```
+
+Lets compute the correlation observed in the sample of eligible individuals and compare it to that of the full sample,
+
+```{r}
+# full sample
+rXY <- cor(df$ACT, df$SATQ)
+rXY
+
+# eligible sample
+rXYelig <- cor(df$ACT[df$eligible], df$SATQ[df$eligible])
+rXYelig
+
+
+```
+
+As expected, the correlation is much lower (i.e., attenuated) after selecting above an SAT score of 1200 and even lower when selecting above an SAT score of 1200 *and* an ACT score of 29. Let us now calculate the u-ratio for SAT scores ($X$),
+
+```{r}
+# u ratio of X and Y
+uX <- sd(df$SATQ[df$eligible]) / sd(df$SATQ) 
+uY <- sd(df$ACT[df$eligible]) / sd(df$ACT) 
+cbind(uX, uY)
+```
+
+The u-ratio for both cases is well below 1 indicating that there is substantial range restriction. Now let's use the direct selection correction procedure we discussed in this section with the `correct_r` function in the `psychmeta` package [@psychmeta],
+
+```{r}
+
+# correct correlation for bivariate indirect restriction
+r_corrected <- correct_r(correction = 'bvirr',
+                         rxyi = rXYelig,  
+                         ux = uX,   
+                         uy = uY,   
+                         n = sum(df$eligible), # sample size
+                         sign_rxz = 1,
+                         sign_ryz = 1)
+
+# sampling variance for corrected correlation
+var_r <- var_error_r(r = r_corrected$correlations$rtpa$value,
+                     n = r_corrected$correlations$rtpa$n_effective)
+
+
+
+cbind(rXY = r_corrected$correlations$rtpa$value,
+      var_r = var_r)
+
+```
+
+The bivariate correction procedure increases the correlation from .493 to .690 which is a better approximation to the full sample correlation of .608. If we instead hypothesize that the restriction in ACT scores is fully mediated by SATQ, then we can use the univariate indirect selection correction:
+
+
+```{r}
+
+# correct correlation for bivariate indirect restriction
+r_corrected <- correct_r(correction = 'uvirr_x',
+                         rxyi = rXYelig,  
+                         ux = uX,
+                         n = sum(df$eligible), # sample size
+                         sign_rxz = 1,
+                         sign_ryz = 1)
+
+# sampling variance for corrected correlation
+var_r <- var_error_r(r = r_corrected$correlations$rtpa$value,
+                     n = r_corrected$correlations$rtpa$n_effective)
+
+
+
+cbind(rXY = r_corrected$correlations$rtpa$value,
+      var_r = var_r)
+
+```
+
+This value is a bit closer to the actual full sample correlation (.608) than the bivariate correction.
+
+:::
+
+
+
+
+
+## Correcting Standardized Mean Differences (SMDs)
+
+This section will look earily similar to the SMD section for direct selection, that is because the directions to correct the SMD as outlined here is virtually identical.
+
+### Defining our Target SMD
+
+The quantity of interest is the target population SMD between actual members of groups 0 and 1. We can denote this SMD as $\delta_{GY}$. Within a study that suffers from direct selection, the observed SMD ($d_{GY|\mathcal{E}}$) will be biased relative to the target, $\delta_{GY}$. We can model the observed standardized mean difference as,
+
+$$
+d_{GY|\mathcal{E}}= \alpha\delta_{GY} + \varepsilon_d.
+$$
+
+Where $\alpha$ is the attenuation/inflation factor and $\varepsilon_d$ is the sampling error term.
+
+### Artifact Correction for SMDs
+
+#### Selection on the Continuous Variable
+
+To correct for direct selection on the continuous variable, we can first convert the observed SMD ($d_{GY|\mathcal{E}}$) to a point-biserial correlation ($r_{GY|\mathcal{E}}$). Converting $d_{GY|\mathcal{E}}$ to $r_{GY|\mathcal{E}}$ can be done by using the observed proportion of individuals in group 0 (or 1), $p_{G|\mathcal{E}}$,
+
+$$
+r_{GY|\mathcal{E}} = \frac{d_{GY|\mathcal{E}}}{\sqrt{\frac{1}{p_{G|\mathcal{E}}(1-p_{G|\mathcal{E}})}-d_{GY|\mathcal{E}}^2}}.
+$$
+
+We can then correct the point-biserial correlation for univariate direct selection using the formulas in @sec-corr-DDR. Note that if you want to correct for measurement error as well, replace $r_{\widetilde{X}\widetilde{X}'}$ with $r_{\widetilde{G}\widetilde{G}'}$ (i.e., group classification reliability; see chapter on *group misclassification*) whenever you are working with SMDs. Once we obtained the corrected correlation, $r_{GY}$, we can convert back to a standardized mean difference, we need to use an adjusted group proportions, $p_G$:
+
+$$
+d_{GY} = \frac{r_{GY}}{\sqrt{p_G\left(1-p_G\right)\left(1-r_{GY}^2\right)}}.
+$$
+
+Where the adjusted group $p_G$ is estimated with the following formula
+
+$$
+p_G = \frac{1}{2}-\frac{1}{2}\sqrt{1-4p_{G|\mathcal{E}}(1-p_{G|\mathcal{E}})\left[1+r_{GY|\mathcal{E}}^2\left(\frac{1}{u^2_X}-1\right)\right]}
+$$
+
+The adjusted proportion, $p_G$, can also be estimated from the proportion of individuals in the target population (e.g., the proportion of men vs women in the general population). This adjustment is necessary in order to account for indirect selection in the grouping variable. This is similar to the situation described in @sec-corr-DDR, where one variable suffers from direct range restriction and any variable that is correlated with it, will suffer from indirect selection. The corresponding corrected sampling error can also be computed with the observed and adjusted proportions such that,
+
+$$
+\widehat{\mathrm{var}}(d_{GY}) = \frac {\widehat{\mathrm{var}}\left(d_{GY|\mathcal{E}}\right)\left(\frac{r_{GY}}{r_{GY|\mathcal{E}}}\right)^2} {\left(1+d_{GY|\mathcal{E}}^2\,p_{G|\mathcal{E}}[1-p_{G|\mathcal{E}}]\right)^2\left(d_{GY|\mathcal{E}}^2+\frac{1}{p_{G|\mathcal{E}}(1-p_{G|\mathcal{E}})}\right)p_G(1-p_G)(1-r_{GY}^2)^3}.
+$$
+
+
+
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

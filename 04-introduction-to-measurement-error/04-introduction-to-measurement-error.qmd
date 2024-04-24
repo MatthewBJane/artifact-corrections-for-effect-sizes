@@ -1,0 +1,23 @@
+# Measurement Error
+
+## Introduction
+
+In general terms, measurement is the process of quantifying an attribute or characteristic of something. In scientific measurement, the measurand is the quantity or the attribute we intend to measure modeled as a random variable of interest. In the psychological sciences for example, measurands usually take the form of constructs such as intelligence or anxiety and it is the goal of measurement to produce quantities (i.e., scores) that accurately reflect individual differences in these constructs. However, in this book we interpret measurement more broadly such that meausurands do not have to reflect a *real* attribute of interest, instead they can be useful indices that have useful predictive value (e.g., socio-economic status, body mass index). This section of the book will cover various types of errors: classical errors, group misclassification, artificial dichotomization, and scale coarseness.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

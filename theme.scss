@@ -11,12 +11,16 @@ $callout-border-width: .5em;
 
 /*-- scss:rules --*/
 
+b, strong {
+    font-weight: bolder;
+    color: #397689;
+}
+
 
 .callout.callout-titled .callout-body>div>:last-child:not(.sourceCode) {
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
     border-width: thin;
-    border-style: dotted;
     border-color: #d74ea255;
 }
 
@@ -90,6 +94,10 @@ div.callout-tip.callout-style-default>.callout-header {
 
 // end
 
+.MathJax, .MathJax_Display  {
+    font-size: 14pt  !important;
+}
+
 .quarto-cover-image {
     border-radius: 10px;
     box-shadow: #d74ea260 5px 5px, #d74ea240 10px 10px, #d74ea220 15px 15px, #d74ea210 20px 20px, #d74ea205 25px 25px;
@@ -159,14 +167,30 @@ p.subtitle {
     color: #ffffff;
 }
 
-.sidebar-navigation .chapter-title:hover {
+.sidebar-navigation .sidebar-item-container:hover {
     color: white;
     font-style: bold;
     background-color: #5fa6bcff;
-    padding-right: 4px;
-    padding-left: 4px;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
     border-radius: 5px;
 }
+
+.sidebar-navigation .sidebar-item-container{
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 5px;
+}
+
+.sidebar-navigation .sidebar-item-container:hover .chapter-number{
+    color: white;
+    font-style: bold;
+}
+
 
 .sidebar-item .chapter-number {
     color: #5fa6bcff;
@@ -237,6 +261,14 @@ h5, .h5 {
     font-style: bold;
 }
 
+span.theorem-title{
+  background-color:#5fa6bc33;
+  padding: 3pt;
+  color: #326982ff;
+  border-radius:3pt;
+}
+
+
 code span.at {
     color: #bf2986ff;
     font-style: inherit;
@@ -279,13 +311,26 @@ div.sourceCode, div.sourceCode pre.sourceCode {
 }
 
 
+
+
 .table>:not(caption)>*>* {
-    padding: 1rem 1rem;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    border: 2px solid #bf2986ff;
-    border-collapse: separate;
-    border-spacing: 0px;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    box-shadow: 0 0 0 0;
+    text-transform: none;
 }
 
+.table>thead {
+    border: 1.7px solid #d74ea2ff;
+    background-color: #d74ea2ff;
+    color: #ffffff;
+    text-align: left;
+    text-transform: none;
+}
 
+.table>tbody {
+    border: 1.7px solid #d74ea2ff;
+    text-transform: none;
+}

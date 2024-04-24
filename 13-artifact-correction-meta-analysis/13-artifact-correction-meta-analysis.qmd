@@ -1,0 +1,291 @@
+# Artifact Correction Meta-Analysis {#sec-artifact}
+
+
+## Introduction
+
+Meta-analysis is an analytic tool to synthesize quantitative evidence from multiple studies. By systematically combining and analyzing the results of multiple studies, meta-analysis provides a comprehensive overview, unveiling patterns, trends, and insights that individual studies might not be able to capture. Combining research findings also has the added benefit of increasing the precision of our results (i.e., greater statistical power). In this section we will cover the method described by [@hunter1990a] since it is readily compatible with artifact corrections (see next chapter). For the random-effects model however, we use an integrated approach that incorporates methods from @hunter1990a and @hedges1998 that was first introduced by @morris2014. However it is important to note that there are other common methods to conduct meta-analyses that have their strengths and weaknesses [@hedges2014; @callender1980; @johnson1995].
+
+## Common Effect Model
+
+A common effect model is the simplest form of meta-analysis. It assumes that all the variation in observed effect sizes is attributable to sampling error (see @fig-common-effect). In other words, all the observed effect sizes are estimates of the same population effect size. Note that there is a distinction between *fixed effects* models and a *common effect* model [@viechtbauer; @laird1990]. The common effect model assumes that the true effect size is identical for each study while the fixed effects model does not assume this. Instead, the fixed effects model can be interpreted as the weighted average of true effects. Computationally, they are the same and provide the same parameter estimates, yet the interpretation differs [@viechtbauer].
+
+![The diagram above depicts a common effect meta-analysis of five studies. The study effect sizes are homogenous and all estimate a single true population effect size.](figure/fixed_effects_diagram.png){#fig-common-effect}
+
+Take a correlation coefficient between $X$ and $Y$ as an example. The common effect model can be modeled such that population correlation $\rho$ is held constant each study correlation estimate $(r_{XY\jmath})$, such that,
+
+$$
+r_{XY\jmath}  = \rho_{XY} + \varepsilon_{\jmath}
+$$ {#eq-fixed-mdl}
+
+Where $\varepsilon_\jmath$ indicates sampling error^[1: the r subscript that usually follows $\varepsilon_r$ is removed for the sake of simplicity.] and the subscript $\jmath$ denotes each study. Similar to the true score theory model that we discussed in chapter 4, the variance components of each term can similarly be written out as,
+
+$$
+\mathrm{var}(r_{XY}) = \mathrm{var}(\rho_{XY}) + \mathrm{var}(\varepsilon)
+$$
+
+However in our common effect model, the population effect size is fixed across studies and will not vary, simplifying the formula to,
+
+$$
+\mathrm{var}(r_{XY}) = \mathrm{var}(\varepsilon)
+$$ {#eq-var-fixed}
+
+Therefore the only source of variation in the observed effect sizes is sampling error. Ultimately, our goal in a common effects model is to obtain a precise estimate of the population correlation. To obtain an estimate of the population correlation, $\rho_{XY}$, we can calculate the average observed effect size, $\bar{r}_{XY}$ from $k$ studies. However, in practice, effect sizes from different studies have varying levels of precision (i.e., different sampling variances). A simple arithmetic average will not account for the differences between studies in their precision. Instead, we can calculate a weighted average where the weights each study can be calculated by the inverse variance of each study such that,
+
+$$
+w_\jmath = \frac{1}{\widehat{\mathrm{var}}(r_{XY})_\jmath}.
+$$
+
+The sampling variances are different for each study hence the subscript $\jmath$. Then we can calculate a weighted average to get an estimate $\hat{\rho}_{XY}$ of the population correlation $\rho_{XY}$,
+
+$$
+\hat{\rho}_{XY} =\frac{\sum^k_{\jmath=1}w_\jmath r_\jmath}{\sum^k_{\jmath=1}w_\jmath}.
+$$
+
+Where $\sum^k_{i=1}$ is the sum across all $k$ studies. This weighted average will be an unbiased estimate of the population effect size. However, even though this mean effect size is more precise compared to single-study estimates, it is not exempt from error itself. We we can compute the sampling variance for $\hat{\rho}_{XY}$ as,
+
+$$
+\widehat{\mathrm{var}}(\hat{\rho}_{XY}) = \frac{1}{\sum^k_{\jmath=1} w_\jmath}
+$$
+
+The sampling variance can be used to compute the normal approximation of the 95% confidence intervals of the meta-analytic point estimate:
+
+$$
+C_{95} = \hat{\rho}_{XY}\pm 1.96 \cdot \sqrt{\widehat{\mathrm{var}}(\hat{\rho}_{XY}) }
+$$
+
+All of this can be done analogously with standardized mean differences as we will see in the example below:
+
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Lets use a meta-analytic data set investigating the the effectiveness of a writing-to-learn intervention on academic achievement from @bangert-drowns2004. This data set has standardized mean differences between the treatment group and a control group from $k=48$ studies (total sample size: $n=5,576$) and is available within the developmental version of the `metadat` package [@metadat]. Lets conduct a common effect meta-analysis using the equations from the previous section. We can use the `rma` function in the `metafor` package [@viechtbauer2010] to conduct a common effect (`method = 'EE'`) meta-analysis without having to write each equation by hand.
+
+```{r,message=FALSE}
+
+library(metadat)
+library(metafor)
+library(tidyverse)
+
+# display first 6 studies
+df <- dat.bangertdrowns2004 |>
+  dplyr::select('author','year','ni','yi','vi')
+
+head(df)
+
+
+# fixed effects model
+mdl <- rma(data = df,
+           yi = yi, # SMDs
+           vi = vi, # sampling variance
+           method = 'EE') # Equal-effects = Common Effect
+
+# print results
+data.frame(delta_hat = mdl$b[1],
+           var = mdl$se[1]^2,
+           CI_ll = mdl$ci.lb[1],
+           CI_ul = mdl$ci.ub[1])
+```
+
+The results show an estimated population SMD of $\hat{\delta}_{GY}=0.17\, [0.11,\, 0.22]$.
+:::
+
+## Random Effects Model {#sec-random}
+
+The random-effects model refers to a model that allows for the population effect size to vary from study to study (see @fig-random-effects). Random-effects differs from the fixed effects model in an important way: it does not assume that all observed effect sizes come from a single (fixed) population effect size [@borenstein2010]. This variation in population effect sizes is called heterogeneity. In the traditional @hunter1990a the weights utilized in the random effects meta-analysis are identical to the common effect model. In other conventional meta-analysis methods [@hedges1998], random-effect weights usually include a random effect component containing the variation in population effect sizes (this has the effect of making study weights more similar to each other with more variation in population effects). A modern approach introduced by @morris2014 and later tested by @brannick2019, added this random effect component to the Hunter-Schmidt method. The simulation study by @brannick2019, concluded that weights incorporating random effect components improved the Hunter-Schmidt estimates. Here we will discuss Hedges-Vevea's method with some elements taken from Hunter-Schmidt.
+
+![The diagram above depicts a random-effects meta-analysis of five studies. Effect sizes are more variable than the common effect meta-analysis since effect sizes vary due to sampling error *and* population effect sizes.](figure/random_effects_diagram.png){#fig-random-effects}
+
+The model from @eq-fixed-mdl can be changed slightly to encompass variation of the population effect size from study to study:
+
+$$
+r_{XY\jmath} = \rho_{XY\jmath} + \varepsilon_{\jmath}.
+$$
+
+In the common effect model, we assumed that all the variation in study correlations is accounted for by variation in sampling error (see @eq-var-fixed). However in the random-effects model the variance in population correlations ($\sigma^2_\rho$) is allowed to be greater than zero. The variance components can be written out as,
+
+$$
+\mathrm{var}(r_{XY}) = \mathrm{var}(\rho_{XY}) + \mathrm{var}(\varepsilon)
+$$ {#eq-var-random}
+
+Estimating variance components can be done computationally through an iterative estimation procedure called REstricted Maximum Likelihood (REML) estimation. The meta-analyses we call in the R code will do this for us automatically. The estimated variance of population effect sizes, $\widehat{\mathrm{var}}(\rho_{XY})$, can now be incorporated into the inverse variance weights alongside
+
+$$
+w_\jmath = \frac{1}{\widehat{\mathrm{var}}(r_{XY})_\jmath +\widehat{\mathrm{var}}(\rho_{XY})}
+$$
+
+
+The sampling variances are different for each study hence the subscript $\jmath$. Now we can estimate the *mean* of population effects by taking the weighted average effect size [equation 16.5, @thehand2009],
+
+$$
+\hat{\bar{\rho}}_{XY} = \frac{\sum^k_{\jmath=1}w_\jmath r_{XY\jmath}}{\sum^k_{\jmath=1}w_\jmath}.
+$$
+
+Where $\jmath=1...k$ studies. The standard error of the mean of population effects can calculated from the summation of inverse weights [equation 16.6, @thehand2009],
+
+$$
+\widehat{\mathrm{var}}\left(\hat{\bar{\rho}}_{XY}\right) = \frac{1}{\sum^k_{\jmath=1}w_\jmath}.
+$$
+
+The 95% confidence interval can then be calculated as,
+
+$$
+C_{95} = \hat{\bar{\rho}} \pm 1.96\cdot\sqrt{ \widehat{\mathrm{var}}\left(\hat{\bar{\rho}}\right)}
+$$
+
+In other conventions, the variance in population effects ($\mathrm{var}(\rho_{XY})$) is denoted as $\tau^2$ [@borenstein2010; @dersimonian2007; @hedges1998], but conceptually $\mathrm{var}(\rho_{XY})$ and $\tau^2$ these are identical. Taking the square root of $\mathrm{var}(\rho_{XY})$ is the standard deviation of population effect sizes which can be a useful measure of heterogeneity. Furthermore, we can use $\mathrm{var}(\rho_{XY})$ to calculate credibility (prediction) intervals which allows us to draw inferences about the range of plausible population effect sizes. For example, the 90% credibility interval can be calculated with the following equations:
+
+$$
+CR_{90} = \hat{\bar{\rho}}_{XY} \pm 1.645\cdot \sqrt{\widehat{\mathrm{var}}(\rho_{XY})}
+$$
+
+The confidence interval and credibility interval have fundamentally different interpretations that are often misinterpreted in published work [@whitener1990]. When we are interpreting a single realized interval (i.e., our estimate-in-hand), the 90% *credibility* interval can be interpreted as the region in which 90% of population effect sizes exist, however, a 95% *confidence* interval describes the interval in which there is a 95% probability of containing the true *mean* of population effect sizes. It is important to note that the confidence interval interpretation here is only valid in the case of a single realized interval [@vos2022], if there is more than one interval obtained from the same population of studies, then the interpretation does not hold (this would be a rare in a meta-analysis).
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Let's continue looking at the meta-analysis from @bangert-drowns2004. This data set has standardized mean differences between the treatment group and a control group from $k=48$ studies (total sample size: $n=5,576$) and is available within the developmental version of the `metadat` package [@metadat]. Lets conduct a common effect meta-analysis using the equations from the previous section. We can use the `rma` function in the `metafor` package [@viechtbauer2010] to conduct a random effect meta-analysis with REML estimation we can use the `method = 'REML'` argument.
+
+```{r,message=FALSE}
+
+library(metadat)
+library(metafor)
+library(tidyverse)
+
+# display first 6 studies
+df <- dat.bangertdrowns2004 |>
+  dplyr::select('author','year','ni','yi','vi')
+
+head(df)
+
+
+# fixed effects model
+mdl <- rma(data = df,
+           yi = yi, # SMDs
+           vi = vi, # sampling variance
+           method = 'REML') # Equal-effects = Common Effect
+
+# print results
+data.frame(delta_hat = mdl$b[1],
+           var = mdl$se[1]^2,
+           CI_ll = mdl$ci.lb[1],
+           CI_ul = mdl$ci.ub[1])
+```
+
+The results show an estimated population effect of $\hat{\bar{\rho}}=0.22\, [0.13,\, 0.31]$.
+:::
+
+
+## Artifact Corrections
+
+Artifact correction meta-analysis, also referred to as psychometric meta-analysis, is a form of meta-analysis where effect sizes are systematically corrected for sources of bias. These sources of bias have been discussed in previous chapters 4-10. Methodology for conducting artifact correction style meta-analyses were originally pioneered by Frank Schmidt and John Hunter [-@hunter1990a; -@schmidt1977] and then reviewed more recently by Brenton Wiernik and Jeffrey Dahlke [-@wiernik2020]. There has also been powerful R packages developed to aide in the application of artifact correction meta-analyses that we have used in previous chapters [@dahlke2019]. You will notice that in this section, we do not discuss standardized mean differences. This is due to the fact that the artifact correction model is designed for pearson correlations, in order to use this method for standardized mean differences, convert to pearson correlations using the methods described in chapter 11, and then use the correction methods used below. Once you apply the corrections to the converted correlations they can then be converted back to a standardized mean difference.
+
+## Bare Bones vs Artifact Correction Meta-Analysis
+
+Bare bones meta-analyses are what we just went over, that is, meta-analyses that do not correct for biases in effect size estimates. This section will be dedicated to the artifact correction approach to meta-analysis that aims to correct for statistical artifacts. The choice between these two types of meta-analyses depends on the research question, the available data, and the assumptions researchers are willing to make. If the goal is to investigate effect sizes as they are reported, then a bare-bones meta-analysis might be the way to go. On the other hand, if the goal is to obtain a more accurate estimate of the target effect size by accounting for biases induced by statistical artifacts, an artifact correction meta-analysis is preferrable.
+
+1.  Bare-Bones Meta-Analysis: In a bare-bones meta-analysis, the focus is on aggregating effect sizes from various studies without explicitly correcting for potential biases in these effect size estimates.
+
+2.  Artifact Correction Meta-Analysis: In contrast, an artifact correction meta-analysis takes into account and attempts to correct for biases that may be present in the effect size estimates from individual studies. This involves addressing potential sources of bias, such as measurement error or selection effects, through statistical techniques or adjustments. By doing so, the meta-analysis aims to provide a more accurate and unbiased estimate of the true effect size. Although it is important to note that this method will require additional assumptions about the nature of the data.
+
+Note that the bare-bones model does not assume that there is no bias, rather, the bare-bones model is estimating something else entirely, that is, the population effect size.
+
+
+## Individual Artifact Correction Model
+
+The individual artifact correction model corrects each effect size individually prior to conducting the meta-analysis. In practice, observed (study) effect sizes ($r_{\widetilde{X}\widetilde{Y}|\mathcal{E}\jmath}$) can be severely biased relative to our target population correlation ($\rho_{XY\jmath}$) due to measurement and selection artifacts as described in previous chapters. The nature of the beast is that there will be some that we can account for and some we can not. If we decide that corrections to observed effect sizes are necessary to answer our research question, then we can construct an artifact correction model. In the artifact correction model, we can incorporate an artifact attenuation/inflation factor, $\alpha_\jmath$, to the bare-bones formula such that,
+
+$$
+r_{\widetilde{X}\widetilde{Y}|\mathcal{E}\jmath} = \alpha_\jmath\rho_{XY\jmath} + \varepsilon_\jmath
+$$ {#eq-art-mdl}
+
+The attenuation/inflation factor, $\alpha_i$, must be estimated for each study, $i$. Using estimates of $\alpha$ (estimate denoted with the English letter $a$), @eq-art-mdl can be re-arranged to obtain unbiased estimates of the target population effect size:
+
+$$
+\frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}\jmath}}{a_\jmath} = \rho_{XY_\jmath} + \frac{\varepsilon_\jmath}{a_\jmath}
+$$ {#eq-correction-mdl}
+
+This division of $\hat{a}_i$ will provide us with our corrected effect size estimates that we can denote with the subscript,
+
+$$
+r_{XY\jmath} = \frac{r_{\widetilde{X}\widetilde{Y}|\mathcal{E}\jmath}}{a_\jmath}
+$$
+Using a random effects meta-analysis described in @sec-random, we can average the $r_{XY\jmath}$ to get an estimate of the mean of true population correlations $\hat{\bar{\rho}}_{XY}$.
+
+If we were to conduct a bare-bones and an artifact correction meta-analysis and compute the variance in population correlations, we could see how the corrections reduce the heterogeneity in the effect size estimates by comparing variance in true effect sizes between both models. The percent reduction in heterogeneity can be computed by taking the ratio of the two. @hunter1990a suggest that if 75% of the heterogeneity is accounted for by artifact corrections, then we can assume that the remaining heterogeneity is attributable to remaining artifacts that have not been addressed in the current meta-analysis. Although it is important to point out that this is simply a rule of thumb rather than a mathematical property (arguably not even a useful rule of thumb).
+
+::: {.callout-note appearance="default" icon="false"}
+## Applied Example in R
+
+Lets conduct an individual correction meta-analysis in r using the data set by @roth2015. This data set consists of correlations between school grades and intelligence test scores. It also contains information on the reliability of the intelligence test scores and the extent of range restriction in test scores. We can conduct a meta-analysis correcting for univariate indirect range restriction and measurement error in test scores. The artifact attenuation/inflation factor for the correlation would be:
+
+$$
+a_\jmath=\sqrt{r_{\widetilde{X}\widetilde{X}'|\mathcal{E}\jmath}^2 + \frac{u_{\widetilde{X}\jmath}^2 r_{\widetilde{X}\widetilde{X}'_\jmath}(r_{\widetilde{X}\widetilde{X}'|\mathcal{E}\jmath} - r_{\widetilde{X}Y'|\mathcal{E}\jmath}^2) }{1 - u_{\widetilde{X}\jmath}^2 (1-r_{\widetilde{X}\widetilde{X}'|\mathcal{E}\jmath})} }
+$$
+
+Lets conduct the meta-analysis using the the `psychmeta` package [@psychmeta]. The function `ma_r_ic` is designed to conduct an individual correction meta-analysis on correlation coefficients.
+
+```{r,message=FALSE}
+# install.packages('psychmeta')
+library(psychmeta)
+
+
+
+# conduct individual correction meta-analysis
+mdl_ic <- ma_r_ic(rxyi = rxyi, n = n,
+            correction_method = "uvirr",
+            rxx = rxxi,
+            ux = ux,
+            ux_observed = TRUE,
+            rxx_restricted = TRUE,
+            data = data_r_roth_2015)
+
+summary_stats <- data.frame(
+  k = mdl_ic$meta_tables$`analysis_id: 1`$individual_correction$true_score$k,
+  n = mdl_ic$meta_tables$`analysis_id: 1`$individual_correction$true_score$N,
+  mean_rho = mdl_ic$meta_tables$`analysis_id: 1`$individual_correction$true_score$mean_rho,
+  SE = mdl_ic$meta_tables$`analysis_id: 1`$individual_correction$true_score$se_r_c,
+  SD_rho = mdl_ic$meta_tables$`analysis_id: 1`$individual_correction$true_score$sd_rho)
+
+summary_stats 
+```
+
+
+
+
+
+
+
+We can also obtain credibility intervals by using the `credibility` function in the `psychmeta` package. The interval defaults to 80% intervals, however we can change that to 90% by inputting .90 into the `cred_level` argument.
+
+```{r}
+credibility(mean = summary_stats$mean_rho,
+            sd = summary_stats$SD_rho,
+            cred_method = "norm",
+            cred_level = .90)
+
+```
+
+Lets compare these results to the bare-bones model. In `psychmeta` the bare-bones model can be conduced using `ma_r_bb`. However, the `ma_r_ic` function also reports the bare-bones results as well. Therefore we can just extract the necessary statistics from the model.
+
+```{r}
+data.frame(
+  k = mdl_ic$meta_tables$`analysis_id: 1`$barebones$k,
+  n = mdl_ic$meta_tables$`analysis_id: 1`$barebones$N,
+  mean_rho_obs = mdl_ic$meta_tables$`analysis_id: 1`$barebones$mean_r,
+  SE = mdl_ic$meta_tables$`analysis_id: 1`$barebones$se_r,
+  SD_rho_obs = mdl_ic$meta_tables$`analysis_id: 1`$barebones$sd_r)
+
+```
+
+We can see that the estimate of the population correlation is largely attenuated in the observed values. This is due to the fact tests of intelligence are not perfectly reliable and the scores were restricted in their range.
+
+:::
+
+
+
+
+
+```{=html}
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+```

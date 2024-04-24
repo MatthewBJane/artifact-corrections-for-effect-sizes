@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artifact Corrections for Effect Sizes - 7&nbsp; Group Misclassification</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../07-artificial-dichotomization/07-artificial-dichotomization.html" rel="next">
+<link href="../05-error-in-continuous-variables/05-error-in-continuous-variables.html" rel="prev">
+<link href="../figure/favicon_book.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 7&nbsp; Group Misclassification">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/06-misclassification/figure/MJB_twitter.jpg">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../04-introduction-to-measurement-error/04-introduction-to-measurement-error.html">Measurement Error</a></li><li class="breadcrumb-item"><a href="../06-misclassification/06-misclassification.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Group Misclassification</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="../Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../00-dedication/00-dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-definitions/01-definitions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Samples, Random Variables, and Expectations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02-effect-sizes/02-effect-sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-small-samples/03-small-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Small Samples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../04-introduction-to-measurement-error/04-introduction-to-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measurement Error</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05-error-in-continuous-variables/05-error-in-continuous-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classical Measurement Errors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06-misclassification/06-misclassification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../07-artificial-dichotomization/07-artificial-dichotomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../08-scale-coarseness/08-scale-coarseness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selection Effects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10-direct-selection/10-direct-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11-indirect-selection/11-indirect-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-artifact-correction-meta-analysis/13-artifact-correction-meta-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Artifact Correction Meta-Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-conclusion/14-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references/references_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> Introduction</a></li>
+  <li><a href="#defining-group-misclassification" id="toc-defining-group-misclassification" class="nav-link" data-scroll-target="#defining-group-misclassification"><span class="header-section-number">7.2</span> Defining Group Misclassification</a></li>
+  <li><a href="#classification-reliability" id="toc-classification-reliability" class="nav-link" data-scroll-target="#classification-reliability"><span class="header-section-number">7.3</span> Classification Reliability</a></li>
+  <li><a href="#correcting-standardized-mean-differences-smd" id="toc-correcting-standardized-mean-differences-smd" class="nav-link" data-scroll-target="#correcting-standardized-mean-differences-smd"><span class="header-section-number">7.4</span> Correcting Standardized Mean Differences (SMD)</a>
+  <ul class="collapse">
+  <li><a href="#defining-our-target-quantity" id="toc-defining-our-target-quantity" class="nav-link" data-scroll-target="#defining-our-target-quantity"><span class="header-section-number">7.4.1</span> Defining our Target Quantity</a></li>
+  <li><a href="#artifact-correction-for-smds" id="toc-artifact-correction-for-smds" class="nav-link" data-scroll-target="#artifact-correction-for-smds"><span class="header-section-number">7.4.2</span> Artifact Correction for SMDs</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../04-introduction-to-measurement-error/04-introduction-to-measurement-error.html">Measurement Error</a></li><li class="breadcrumb-item"><a href="../06-misclassification/06-misclassification.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Group Misclassification</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Group Misclassification</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
+<p>Group misclassification describes a situation where true group membership (e.g., people with a disorder) does not perfectly match the observed group membership (e.g., people <em>diagnosed</em> with a disorder). Group misclassification can be considered a type of measurement error where instead of accounting for errors in continuous variables (i.e., unreliability), group misclassification accounts for errors in categorical variables. This section will be focused on non-differential (random) misclassification.</p>
+</section>
+<section id="defining-group-misclassification" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="defining-group-misclassification"><span class="header-section-number">7.2</span> Defining Group Misclassification</h2>
+<p>Misclassification can be defined as any deviations between true group membership and observed group membership. Let us imagine two groups, group 0 and group 1. In order to identify members of group 0 and group 1, we have to rely on some measurement (classification) procedure. We can also suppose that this measurement procedure produces imperfect group assignments, that is, people who are actually in group 0 are sometimes assigned group 1 and vice versa. We can visualize the performance of the classification procedure with a contingency table (see <a href="#tbl-class" class="quarto-xref">Table&nbsp;<span>7.1</span></a>) between actual group membership (<span class="math inline">\(G\)</span>) and observed group membership (<span class="math inline">\(\widetilde{G}\)</span>) where each cell is the number of number of individuals in that cell:</p>
+<div class="columns">
+<div class="column" style="width:20%;">
+
+</div><div class="column" style="width:60%;">
+<div id="tbl-class" class="hover quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.1: Contingency table between observed and true group membership.
+</figcaption>
+<div aria-describedby="tbl-class-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-hover table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(G=0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(G=1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\widetilde{G}=0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{00}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{01}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\widetilde{G}=1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{10}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{11}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div><div class="column" style="width:20%;">
+
+</div>
+</div>
+<p>We can see from the contingency table that individuals who were correctly classified, would populate the cell blocks <span class="math inline">\(n_{00}\)</span> or <span class="math inline">\(n_{11}\)</span> and those who were misclassified would belong to cells <span class="math inline">\(n_{01}\)</span> and <span class="math inline">\(n_{10}\)</span>. Therefore we can define the proportion of individuals that are accurately classified as <span class="math inline">\(p_{\text{acc}} = (n_{01} + n_{10})/n\)</span> (<span class="math inline">\(n\)</span> is the total sample size) whereas the proportion of people misclassified can be defined as <span class="math inline">\(p_{\text{mis}} = 1-p_\text{acc}=(n_{01} + n_{10})/n\)</span>. A high-quality classifier would would minimize <span class="math inline">\(p_{\text{mis}}\)</span> and maximize <span class="math inline">\(p_{\text{acc}}\)</span>.</p>
+</section>
+<section id="classification-reliability" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="classification-reliability"><span class="header-section-number">7.3</span> Classification Reliability</h2>
+<p>Similar to quantifying reliability in continuous variables by calculating the correlation in parallel sets of observed scores, the same can be done in categorical variables. Instead of a contingency table between observed (<span class="math inline">\(\widetilde{G}\)</span>) and true (<span class="math inline">\(G\)</span>) group membership, we will instead create a contingency table of two measurements producing two sets of observed group assignments (<span class="math inline">\(\widetilde{G}\)</span> and <span class="math inline">\(\widetilde{G}'\)</span>, see <a href="#tbl-class-obs" class="quarto-xref">Table&nbsp;<span>7.2</span></a>). An example might be two clinician’s diagnoses of Major Depressive Disorder (MDD) in the same sample of patients.</p>
+<div class="columns">
+<div class="column" style="width:20%;">
+
+</div><div class="column" style="width:60%;">
+<div id="tbl-class-obs" class="hover quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-class-obs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;7.2: Contingency table between two sets of observed group assignments
+</figcaption>
+<div aria-describedby="tbl-class-obs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table-hover table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><span class="math inline">\(\widetilde{G}'=0\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\widetilde{G}'=1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\(\widetilde{G}=0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{00}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{01}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">\(\widetilde{G}=1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{10}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{11}\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</div><div class="column" style="width:20%;">
+
+</div>
+</div>
+<p>To obtain the reliability of the group assignments, we can calculate the correlation coefficient between the Bernoulli variables <span class="math inline">\(\widetilde{G}\)</span> and <span class="math inline">\(\widetilde{G}'\)</span>. A Pearson correlation coefficient between two Bernoulli variables is also referred to as a phi coefficient or Matthews’ correlation coefficient. Let’s denote the reliability as <span class="math inline">\(\rho_{\widetilde{G}\widetilde{G}'}\)</span>. Remember that reliability from the chapter on unreliability can be defined as the square of the correlation between true scores and observed scores. As is the case here, we can define classification reliability as the square of the correlation between assigned group membership and actual group membership,</p>
+<p><span class="math display">\[
+\rho_{\widetilde{G}\widetilde{G}'} = \rho^2_{\widetilde{G}G}
+\]</span></p>
+<p>There are a few ways to obtain a sample estimate of <span class="math inline">\(\rho_{\widetilde{G}\widetilde{G}'}\)</span>. The first way is to calculate the sample estimate directly from the contingency table (<a href="#tbl-class-obs" class="quarto-xref">Table&nbsp;<span>7.2</span></a>),</p>
+<p><span class="math display">\[
+r_{\widetilde{G}\widetilde{G}'} = \frac{n_{00}n_{11}-n_{01}n_{10}}{\sqrt{(n_{00}+n_{10})(n_{01}+n_{11})(n_{00}+n_{01})(n_{10}+n_{11})}}.
+\]</span></p>
+<p>Where <span class="math inline">\(n_{AA}\)</span>, <span class="math inline">\(n_{BB}\)</span>, <span class="math inline">\(n_{AB}\)</span>, and <span class="math inline">\(n_{BA}\)</span> are the number of subjects within their respective cells of the contingency table. If the values of the contingency table are not available, we can calculate the reliability from the <span class="math inline">\(\chi^2\)</span>-statistic,</p>
+<p><span class="math display">\[
+r_{\widetilde{G}\widetilde{G}'} = \sqrt{\frac{\chi^2}{n}}.
+\]</span></p>
+<p>Where <span class="math inline">\(n\)</span> is the total sample size (sum of all cells). If the <span class="math inline">\(\chi^2\)</span>-statistic is unavailable, we can approximate the reliability from the accuracy (<span class="math inline">\(p_{\text{acc}}\)</span>) or the proportion of people misclassified (<span class="math inline">\(p_{\text{mis}}\)</span>),</p>
+<p><span class="math display">\[
+r_{\widetilde{G}\widetilde{G}'} = (2p_{\text{acc}}-1)^2 = (1-2p_{\text{mis}})^2.
+\]</span></p>
+<p>This approximation assumes that the group sizes are approximately equal <em>and</em> the misclassification rates are approximately equal between groups. Otherwise, <span class="math inline">\(r_{\widetilde{G}\widetilde{G}'}\)</span> will be overestimated <span class="citation" data-cites="wiernik2020">(<a href="../references/references_page.html#ref-wiernik2020" role="doc-biblioref">Wiernik and Dahlke 2020</a>)</span>.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Classification Reliability in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>irr</code> package <span class="citation" data-cites="irr">(<a href="../references/references_page.html#ref-irr" role="doc-biblioref">Gamer et al. 2019</a>)</span> has a data set called <code>diagnoses</code> that consists of 6 raters diagnosing the same thirty patients with various disorders. We will just look at depression for now. First we can construct the contingency table between the first two raters diagnoses of depression (1) vs not depression (0).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(irr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(diagnoses)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># get depression diagnoses from first 2 raters</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> diagnoses <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">depress1 =</span> <span class="fu">as.numeric</span>(rater1 <span class="sc">==</span> <span class="st">"1. Depression"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">depress2 =</span> <span class="fu">as.numeric</span>(rater2 <span class="sc">==</span> <span class="st">"1. Depression"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(depress1,depress2)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># create contingency table</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>contingency_table <span class="ot">&lt;-</span> <span class="fu">table</span>(df)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>contingency_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        depress2
+depress1  0  1
+       0 17  0
+       1  6  7</code></pre>
+</div>
+</div>
+<p>The <code>psych</code> package <span class="citation" data-cites="psych">(<a href="../references/references_page.html#ref-psych" role="doc-biblioref">William Revelle 2023</a>)</span> has a function <code>phi()</code> for calculating the phi coefficient from a contingency table:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate reliability from phi coefficient</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">phi</span>(contingency_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.63</code></pre>
+</div>
+</div>
+<p>Therefore our estimate of the classification reliability is <span class="math inline">\(r_{\widetilde{G}\widetilde{G}'}=.63\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="correcting-standardized-mean-differences-smd" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="correcting-standardized-mean-differences-smd"><span class="header-section-number">7.4</span> Correcting Standardized Mean Differences (SMD)</h2>
+<section id="defining-our-target-quantity" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="defining-our-target-quantity"><span class="header-section-number">7.4.1</span> Defining our Target Quantity</h3>
+<p>Our quantity of interest is the true score population standardized mean difference, <span class="math inline">\(\delta_{GY}\)</span>, between actual members of group 0 and group 1 on the true scores of the dependent variable, <span class="math inline">\(Y\)</span>. Non-differential error in the assignment of groups (i.e., group misclassification) will bias the observed correlation. We can model the observed standardized mean difference as a function of the target quantity, <span class="math inline">\(\delta_{GU}\)</span>,</p>
+<p><span class="math display">\[
+d_{\widetilde{G}\widetilde{Y}} = \alpha\delta_{GU} + \varepsilon_d.
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha\)</span> is the artifact attenuation factor and <span class="math inline">\(\varepsilon_d\)</span> denotes the sampling error.</p>
+</section>
+<section id="artifact-correction-for-smds" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="artifact-correction-for-smds"><span class="header-section-number">7.4.2</span> Artifact Correction for SMDs</h3>
+<p>SMDs are attenuated when non-differential misclassification is present. This is partially due to the fact that the means of each group are driven closer to one another. Let us suppose that, on average, group 0 and group 1 score differently on some outcome, <span class="math inline">\(Y\)</span>. When some subjects are erroneously assigned to the incorrect group, the observed mean will be a weighted average of the correct group mean and the incorrect group mean. To calculate the mean of the observed groups we must incorporate the true mean of the correctly classified subjects and the misclassified subjects,</p>
+<p><span class="math display">\[
+\mu_{Y|\widetilde{G}=0} = \left(\frac{n_{00}}{n_{00}+n_{01}}\right)\mu_{Y|G=0} + \left(\frac{n_{01}}{n_{00}+n_{01}}\right)\mu_{Y|G=1},
+\]</span></p>
+<p><span class="math display">\[
+\mu_{Y|\widetilde{G}=1} = \left(\frac{n_{10}}{n_{11}+n_{10}}\right)\mu_{Y|G=0} + \left(\frac{n_{11}}{n_{11}+n_{10}}\right)\mu_{Y|G=1}.
+\]</span></p>
+<p>From the above equations, it becomes evident that as the number of misclassified individuals increases (<span class="math inline">\(n_{01}\)</span> and <span class="math inline">\(n_{10}\)</span>), the observed means of each group gradually converge towards each other. As the means converge, the standardized mean difference will correspondingly shift toward zero. To illustrate this phenomenon, <a href="#fig-no-mis" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> shows the distributions for groups <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> without any misclassification. In this case, there is no attenuation of the standardized mean difference.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-no-mis" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-no-mis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-misclassification_files/figure-html/fig-no-mis-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-no-mis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: Distributions of scores without misclassification. Red squares denote actual group 0 members, blue circles denote actual group 1 members.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>If some individuals are assigned to the incorrect group, then we will see attenuation in the standardized mean difference as the means converge. <a href="#fig-mis" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> is showing what happens when the group misclassification rate is 10%. A group misclassification rate of 10% is equivalent to a classification reliability of <span class="math inline">\(r_{\widetilde{G}\widetilde{G}'}=.64\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-mis" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="06-misclassification_files/figure-html/fig-mis-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.2: Distributions of scores with a 10% misclassification rate. Observed standardized mean differences are biased toward the null (i.e., <span class="math inline">\(\delta\)</span> = 0). Note that a few members of group 0 (red squares) are within assigned group 1 and vice versa (indicative of misclassification).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As described in the chapter on classicla measurement error, some SMD corrections require a three-step procedure: 1) converting to a point-biserial correlation, 2) correcting the correlation, 3) converting back to an SMD. To correct for attenuation induced by non-differential misclassification we first need to convert the observed standardized mean difference to a point-biserial correlation coefficient by using the observed proportion of the sample that has been assigned to either group 0 or group 1 (<span class="math inline">\(p_\widetilde{G}\)</span>). Let there be misclassification as well as measurement error in the outcome <span class="math inline">\(\widetilde{Y}\)</span>. Let’s converting <span class="math inline">\(d_{\widetilde{G}\widetilde{Y}}\)</span> to <span class="math inline">\(r_{\widetilde{G}\widetilde{Y}}\)</span>:</p>
+<p><span class="math display">\[
+r_{\widetilde{G}\widetilde{Y}} = \frac{d_{\widetilde{G}\widetilde{Y}}}{\sqrt{\frac{1}{p_{\widetilde{G}}(1-p_\widetilde{G})}-d_{\widetilde{G}\widetilde{Y}}^2}}.
+\]</span></p>
+<p>We can then correct the point-biserial correlation for group misclassification by dividing by the square root of the classification reliability. Since we also want to correct for measurement error in the continuous dependent variable, we can simultaneously apply an additional correction:</p>
+<p><span class="math display">\[
+r_{GY} = \frac{r_{\widetilde{G}\widetilde{Y}}}{\sqrt{r_{\widetilde{G}\widetilde{G}'}}\sqrt{r_{\widetilde{Y}\widetilde{Y}'}}}.
+\]</span></p>
+<p>Now we can convert the corrected point-biserial correlation into a corrected standardized mean difference (<span class="math inline">\(d_{GY}\)</span>). When converting back to a standardized mean difference, we need to use the true group proportions, <span class="math inline">\(p_G\)</span>. Although if we are to assume equal misclassification rates between groups, then the observed proportion can be used <span class="math inline">\(p_\widetilde{G}\)</span>:</p>
+<p><span class="math display">\[
+d_{GU} = \frac{r_{GY}}{\sqrt{p_G\left(1-p_G\right)\left(1-r_{GY}^2\right)}}.
+\]</span></p>
+<p>This process of converting, correcting, and then back-converting must also be done for the standard error. To avoid redundancy, we can incorporate each step into a single equation:</p>
+<p><span class="math display">\[
+\mathrm{var}(d_{GY}) = \frac {\mathrm{var}(d_{\widetilde{G}\widetilde{Y}})\times \left(\frac{r_{GU}}{r_{\widetilde{G}\widetilde{Y}}}\right)} {\left(1+d_{\widetilde{G}\widetilde{Y}}^2p_\widetilde{G}(1-p_\widetilde{G})\right)^2\left(d_{\widetilde{G}\widetilde{Y}}^2+\frac{1}{p_\widetilde{G}(1-p_\widetilde{G})}\right)p_G(1-p_G)(1-r_{GY}^2)^3}.
+\]</span> This variance formula assumes that the reliability coefficients are known. If raw data is available, it is recommended that a bootstrap (resampling) procedure is used to estimate the sampling variance.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Applied Example in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A researcher wants to compare the academic performance (measured by a standardized test) of people with and without Major Depressive Disorder (MDD). The researcher reports a classification reliability of <span class="math inline">\(r_{\widetilde{G}\widetilde{G}'}=.80\)</span> and a reliability of the standardized test as <span class="math inline">\(r_{\widetilde{Y}\widetilde{Y}'}=.85\)</span>. The researcher than finds a standardized mean difference of <span class="math inline">\(d_{\widetilde{G}\widetilde{Y}}=.30\)</span> favoring controls (i.e., controls had a higher average on the test). Using the <code>correct_d()</code> function in the <code>psychmeta</code> package <span class="citation" data-cites="psychmeta">(<a href="../references/references_page.html#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>, we can obtain an unbiased estimate of the target standardized mean difference.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dGY <span class="ot">&lt;-</span> .<span class="dv">30</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>rYY <span class="ot">&lt;-</span> .<span class="dv">85</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>rGG <span class="ot">&lt;-</span> .<span class="dv">80</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>n0 <span class="ot">&lt;-</span> n1 <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>d_corrected <span class="ot">&lt;-</span> <span class="fu">correct_d</span>(<span class="at">correction =</span> <span class="st">"meas"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">d =</span> dGY,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">ryy =</span> rYY, </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">rGg =</span> <span class="fu">sqrt</span>(rGG), </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n1 =</span> n0,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                         <span class="at">n2 =</span> n1)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># display corrected correlation</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>d_corrected<span class="sc">$</span>d_values<span class="sc">$</span>dGp<span class="sc">$</span>value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3657449</code></pre>
+</div>
+</div>
+<p>The corrected SMD is <span class="math inline">\(d_{GY}=0.37\)</span>. Using the effective sample size from the output we can compute the sampling variance</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute sampling variance</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var_error_d</span>(<span class="at">d =</span> d_corrected<span class="sc">$</span>d_values<span class="sc">$</span>dGp<span class="sc">$</span>value,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">n1 =</span> d_corrected<span class="sc">$</span>d_values<span class="sc">$</span>dGp<span class="sc">$</span>n_effective)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03093188</code></pre>
+</div>
+</div>
+</div>
+</div>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me on Buy me a coffee!" data-message="Thank you for being here! Consider buying me a coffee!" data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-psychmeta" class="csl-entry" role="listitem">
+Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
+</div>
+<div id="ref-irr" class="csl-entry" role="listitem">
+Gamer, Matthias, Jim Lemon, Ian Fellows, and Puspendra Singh. 2019. <em>Irr: Various Coefficients of Interrater Reliability and Agreement</em>. <a href="https://CRAN.R-project.org/package=irr">https://CRAN.R-project.org/package=irr</a>.
+</div>
+<div id="ref-wiernik2020" class="csl-entry" role="listitem">
+Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. <span>“Obtaining Unbiased Results in Meta-Analysis: The Importance of Correcting for Statistical Artifacts.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3 (1): 94–123. <a href="https://doi.org/10.1177/2515245919885611">https://doi.org/10.1177/2515245919885611</a>.
+</div>
+<div id="ref-psych" class="csl-entry" role="listitem">
+William Revelle. 2023. <em>Psych: Procedures for Psychological, Psychometric, and Personality Research</em>. Evanston, Illinois: Northwestern University. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../05-error-in-continuous-variables/05-error-in-continuous-variables.html" class="pagination-link  aria-label=" &lt;span="" measurement="" errors&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classical Measurement Errors</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../07-artificial-dichotomization/07-artificial-dichotomization.html" class="pagination-link" aria-label="<span class='chapter-number'>8</span>&nbsp; <span class='chapter-title'>Artificial Dichotomization</span>">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

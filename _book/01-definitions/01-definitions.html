@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Matthew B. Jané">
+<meta name="description" content="Editors">
+
+<title>Artifact Corrections for Effect Sizes - 3&nbsp; Samples, Random Variables, and Expectations</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../02-effect-sizes/02-effect-sizes.html" rel="next">
+<link href="../00-dedication/00-dedication.html" rel="prev">
+<link href="../figure/favicon_book.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 3&nbsp; Samples, Random Variables, and Expectations">
+<meta name="twitter:description" content="Editors">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/01-definitions/figure/MJB_twitter.jpg">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../01-definitions/01-definitions.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Samples, Random Variables, and Expectations</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="../Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../00-dedication/00-dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-definitions/01-definitions.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Samples, Random Variables, and Expectations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02-effect-sizes/02-effect-sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-small-samples/03-small-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Small Samples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../04-introduction-to-measurement-error/04-introduction-to-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measurement Error</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05-error-in-continuous-variables/05-error-in-continuous-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classical Measurement Errors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06-misclassification/06-misclassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../07-artificial-dichotomization/07-artificial-dichotomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../08-scale-coarseness/08-scale-coarseness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selection Effects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10-direct-selection/10-direct-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11-indirect-selection/11-indirect-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-artifact-correction-meta-analysis/13-artifact-correction-meta-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Artifact Correction Meta-Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-conclusion/14-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references/references_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">3.1</span> Introduction</a></li>
+  <li><a href="#the-sample-space-and-target-population" id="toc-the-sample-space-and-target-population" class="nav-link" data-scroll-target="#the-sample-space-and-target-population"><span class="header-section-number">3.2</span> The Sample Space and Target Population</a></li>
+  <li><a href="#random-variables-and-measurement-error" id="toc-random-variables-and-measurement-error" class="nav-link" data-scroll-target="#random-variables-and-measurement-error"><span class="header-section-number">3.3</span> Random Variables and Measurement Error</a></li>
+  <li><a href="#probability-distributions-and-density-functions" id="toc-probability-distributions-and-density-functions" class="nav-link" data-scroll-target="#probability-distributions-and-density-functions"><span class="header-section-number">3.4</span> Probability Distributions and Density Functions</a></li>
+  <li><a href="#study-samples" id="toc-study-samples" class="nav-link" data-scroll-target="#study-samples"><span class="header-section-number">3.5</span> Study Samples</a></li>
+  <li><a href="#conditional-expectations-and-variance-of-random-variables" id="toc-conditional-expectations-and-variance-of-random-variables" class="nav-link" data-scroll-target="#conditional-expectations-and-variance-of-random-variables"><span class="header-section-number">3.6</span> Conditional Expectations and Variance of Random Variables</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Samples, Random Variables, and Expectations</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Matthew B. Jané </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">3.1</span> Introduction</h2>
+<p>This section is meant to provide a foundation for the rest of the book by defining concepts like populations, probability distributions, and (conditional) expectations. This section will be dense and may require some basic understanding of measure theory. This chapter does not need to be entirely understood in order to understand the rest of the book, however some of the notation used in later chapters will be introduced here. I make sure to frequently reiterate what the meaning of the notation throughout the book, so not much should be lost if this chapter is skipped.</p>
+</section>
+<section id="the-sample-space-and-target-population" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-sample-space-and-target-population"><span class="header-section-number">3.2</span> The Sample Space and Target Population</h2>
+<p>Let <span class="math inline">\((\Psi,\mathcal{F}_\Psi)\)</span> be a measurable space. The set <span class="math inline">\(\Psi\)</span> is a sample space and, in our case, the population of interest. Each <span class="math inline">\(\psi \in \Psi\)</span> is an experimental object of study such as an individual person or animal. Throughout the text <span class="math inline">\(\psi\)</span> will most often be referred to as an “individual”, but take note that this encompasses any experimental object of interest. The <span class="math inline">\(\sigma\)</span>-field <span class="math inline">\(\mathcal{F}_\Psi\)</span> is a collection of measurable subsets of <span class="math inline">\(\Psi\)</span> that is closed under complement as well as countable unions and intersections.</p>
+<p>Let <span class="math inline">\((\Omega,\mathcal{F}_\Omega)\)</span> also be a measurable space. The set <span class="math inline">\(\Omega\)</span> is the outcome space where each <span class="math inline">\(\omega\in\Omega\)</span> is a possible outcome. The <span class="math inline">\(\sigma\)</span>–field <span class="math inline">\(\mathcal{F}_\Omega\)</span> is the collection of measurable subsets.</p>
+<div id="fig-spaces" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-spaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/spaces.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-spaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: Spaces <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(\Psi\)</span>. The sample space <span class="math inline">\(\Omega\)</span> is the space of all possible outcomes whereas the space <span class="math inline">\(\Psi\)</span> is the population of interest (i.e., the space of all possible individuals). Each dot denotes the elements <span class="math inline">\(\omega\in\Omega\)</span> and <span class="math inline">\(\psi\in\Psi\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Let <span class="math inline">\(\ell\)</span> be an assignment-to-individual function that maps the sample space <span class="math inline">\(\Omega\)</span> to the population of interest <span class="math inline">\(\Psi\)</span> <span class="citation" data-cites="zimmerman1975 kroc2020">(<a href="../references/references_page.html#ref-zimmerman1975" role="doc-biblioref">Zimmerman 1975</a>; <a href="../references/references_page.html#ref-kroc2020" role="doc-biblioref">Kroc and Zumbo 2020</a>)</span>,</p>
+<p><span class="math display">\[
+\ell: (\Omega,\mathcal{F}_\Omega) \rightarrow (\Psi,\mathcal{F}_\Psi).
+\]</span></p>
+<p>The function <span class="math inline">\(\ell\)</span> is <span class="math inline">\(\mathcal{F}\)</span>-measurable such that <span class="math inline">\(\ell^{-1}(\psi) \in \mathcal{F}_{\Omega}\)</span>. The preimage of an individual <span class="math inline">\(\psi\in\Psi\)</span> under the assignment-to-individual function is also known as a <em>fiber</em> and encapsulates all possible outcomes for given individual (see <a href="#fig-fibers" class="quarto-xref">Figure&nbsp;<span>3.2</span></a>). We can union the fibers of <span class="math inline">\(\ell\)</span> to recover the total sample space such that <span class="math inline">\(\Omega = \bigcup_{\psi\in\Psi}\ell^{-1}(\psi)\)</span>.</p>
+<div id="fig-fibers" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fibers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/fibers.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fibers-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.2: Assignment-to-individual function and it’s fibers. The top panels show the function <span class="math inline">\(\ell\)</span> mapping elements of <span class="math inline">\(\Omega\)</span> to a single element of <span class="math inline">\(\Psi\)</span>. The bottom panels shows a fiber of <span class="math inline">\(\psi\)</span> under <span class="math inline">\(\ell\)</span> which is a subset of <span class="math inline">\(\Omega\)</span> and an element of <span class="math inline">\(\mathcal{F}_\Omega\)</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="random-variables-and-measurement-error" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="random-variables-and-measurement-error"><span class="header-section-number">3.3</span> Random Variables and Measurement Error</h2>
+<p>The sample units in the sample space are arbitrarily valued, but we can convert them to real number values by defining a random variable, that is, a function that takes each <span class="math inline">\(\omega\in\Omega\)</span> and assigns it a real-valued quantity. A real-valued random variable <span class="math inline">\(V\)</span> is a measurable function that maps the probability space <span class="math inline">\((\Omega,\mathcal{F}_\Omega,{\Pr}_V)\)</span> equipped with a probability measure <span class="math inline">\({\Pr}_V\)</span> to the set of real numbers equipped with the Borel <span class="math inline">\(\sigma\)</span>–field (i.e., the smallest <span class="math inline">\(\sigma\)</span>–field containing all open sets; see <a href="#fig-rv" class="quarto-xref">Figure&nbsp;<span>3.3</span></a>),</p>
+<p><span class="math display">\[
+V: (\Omega,\mathcal{F}_\Omega,{\Pr}_V) \rightarrow (\mathbb{R},\mathcal{B}_\mathbb{R}).
+\]</span></p>
+<p>Where the probability of the sample space is <span class="math inline">\({\Pr}_V(\Omega)=1\)</span>. The random variable is <span class="math inline">\((\mathcal{F}_\Omega,\mathcal{B}_\mathbb{R})\)</span>–measurable such that <span class="math inline">\(V^{-1}(B)\in\mathcal{F}_\Omega\)</span> for all <span class="math inline">\(B\in\mathcal{B}_\mathbb{R}\)</span>.</p>
+<div id="fig-rv" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/rv.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.3: Random variable. Three elements of <span class="math inline">\(\Omega\)</span> labeled <span class="math inline">\(\omega_a,\)</span> <span class="math inline">\(\omega_b,\)</span> and <span class="math inline">\(\omega_c\)</span> are assigned real-valued quantities under the random variable <span class="math inline">\(V\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>We can now define the relevant random variables that will be used over the course of the book. Let <span class="math inline">\(Y\)</span> be a random variable of scientific interest (i.e., the measurand) denoting our <em>dependent</em> variable (i.e., the outcome variable). For real-world studies, we often are unable to observe the true value of <span class="math inline">\(Y\)</span> directly and instead we must rely on drawing inferences about the true value from a error-prone proxy <span class="math inline">\(\widetilde{Y}\)</span> that is obtained from a measurement procedure. Clearly if the measurement procedure does not produce any error then <span class="math inline">\(\widetilde{Y}(\omega) = Y(\omega)\)</span> for each <span class="math inline">\(\omega\in\Omega\)</span>. If the measurement procedure contains <strong>measurement error</strong> then there will be differences between the true value <span class="math inline">\(Y\)</span> and outcomes of the measurement <span class="math inline">\(\widetilde{Y}\)</span>. We can specify an algebraic structure relating the proxy <span class="math inline">\(\widetilde{Y}\)</span> to the true value <span class="math inline">\(Y\)</span>,</p>
+<p><span id="eq-meas-y"><span class="math display">\[
+\widetilde{Y} = Y + E_Y
+\tag{3.1}\]</span></span></p>
+<p>Where <span class="math inline">\(E_Y\)</span> is the measurement error term defined as the difference between the error-prone proxy and the true value <span class="math inline">\(E_Y = \widetilde{Y} - Y\)</span> (see <a href="#fig-me" class="quarto-xref">Figure&nbsp;<span>3.4</span></a>).For this book, the random variable <span class="math inline">\(Y\)</span> will be continuous such that for any outcome <span class="math inline">\(\omega\in\Omega\)</span> the random variables take on real values, <span class="math inline">\(Y(\omega) \in \mathbb{R}\)</span>.</p>
+<p>The set of all possible measurement outcomes for an individual <span class="math inline">\(\psi\in\Psi\)</span> can be written as <span class="math inline">\(\widetilde{Y}(\ell^{-1}(\psi))\in\mathcal{F}_\Omega\)</span>. Over these possible measurement outcomes, we will assume that the dependent variable of interest <span class="math inline">\(Y\)</span> stays constant across all outcomes for an individual such that <span class="math inline">\(Y(\omega_\mathsf{a})=Y(\omega_\mathsf{b})\)</span> if <span class="math inline">\(\omega_\mathsf{a},\omega_\mathsf{b} \in \ell^{-1}(\psi)\)</span> whereas the measured proxy variable may not, <span class="math inline">\(\widetilde{Y}(\omega_\mathsf{a})\neq \widetilde{Y}(\omega_\mathsf{b})\)</span>. This is a property of true scores most often associated with Classical Test Theory <span class="citation" data-cites="kroc2020">(<a href="../references/references_page.html#ref-kroc2020" role="doc-biblioref">Kroc and Zumbo 2020</a>)</span>, which may not be optimal for many applications such as longitudinal studies where true scores are expected to change over time within a person.</p>
+<div id="fig-me" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-me-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/me.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-me-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.4: Measurement error. Each of the components of <a href="#eq-meas-y" class="quarto-xref">Equation&nbsp;<span>3.1</span></a> shown with respect to the real line.
+</figcaption>
+</figure>
+</div>
+<p>We also want to define two independent variables <span class="math inline">\(X\)</span> and <span class="math inline">\(G\)</span> of interest and structure them in an algebraically similar manner to <a href="#eq-meas-y" class="quarto-xref">Equation&nbsp;<span>3.1</span></a>,</p>
+<p><span id="eq-meas-x"><span class="math display">\[
+\widetilde{X} = X + E_X
+\tag{3.2}\]</span></span></p>
+<p><span id="eq-meas-g"><span class="math display">\[
+\widetilde{G} = G + E_G
+\tag{3.3}\]</span></span></p>
+<p>Where <span class="math inline">\(X\)</span> is a continuous random variable similar to <span class="math inline">\(Y\)</span> and thus also takes on real values whereas <span class="math inline">\(G\)</span> is a Bernoulli random variable and takes the value of either 0 or 1, <span class="math inline">\(G(\omega)\in\{0,1\}\)</span>. Measurement errors for Bernoulli random variables are usually referred to as misclassifications (see chapter on group misclassification).</p>
+</section>
+<section id="probability-distributions-and-density-functions" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="probability-distributions-and-density-functions"><span class="header-section-number">3.4</span> Probability Distributions and Density Functions</h2>
+<p>The probability distribution of a random variable allows us to assign probabilities to most subsets of the real line. The probability distribution of a continuous random variable <span class="math inline">\(V\)</span> can often (except in mostly pathological cases) be described by a probability density function <span class="math inline">\(f_V\)</span> (see <a href="#fig-pdf" class="quarto-xref">Figure&nbsp;<span>3.5</span></a>). The probability density function <span class="math inline">\(f_V\)</span> is a nonnegative function that satisfies,</p>
+<p><span id="eq-pdf-1"><span class="math display">\[
+{\Pr}_V(V\in\mathbb{R}) = \int_\mathbb{R} f_V(v)\, dv = 1.
+\tag{3.4}\]</span></span></p>
+<p>In other words, the probability of <span class="math inline">\(V\)</span> taking on a value anywhere on the real line is 1 (i.e., no uncertainty in that statement). To obtain the probability that <span class="math inline">\(V\)</span> exists in some Borel subset <span class="math inline">\(B \subset \mathbb{R}\)</span> of the real line (e.g., an interval), we can integrate the probability density function <span class="math inline">\(f_V\)</span> over <span class="math inline">\(B\)</span>,</p>
+<p><span id="eq-pdf-2"><span class="math display">\[
+{\Pr}_V(V\in B) = \int_{B\subset \mathbb{R}} f_V(v)\, dv.
+\tag{3.5}\]</span></span></p>
+<div id="fig-pdf" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-pdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/pdf.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-pdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.5: Probability Distributions. The outcome space <span class="math inline">\(\Omega\)</span> is mapped to the real line. How the values are distributed across the real line is described by the probability density function <span class="math inline">\(f_{V}(v)\)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Assume random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (along with the associated proxies and errors) are continuous and their probability distributions can both be described by their respective probability density functions <span class="math inline">\(f_X\)</span> and <span class="math inline">\(f_Y\)</span>. However the distribution of a Bernoulli random variable <span class="math inline">\(G\)</span> is be described by a probability <em>mass</em> function (<a href="#fig-bernoulli-pdf" class="quarto-xref">Figure&nbsp;<span>3.6</span></a>),</p>
+<p><span id="eq-fG"><span class="math display">\[
+f_G(g) = p_G^g (1-p_G)^{1-g}
+\tag{3.6}\]</span></span></p>
+<p>Where the parameter <span class="math inline">\(p_G\)</span> denotes the probability that <span class="math inline">\(G=1\)</span>. Therefore the probability distribution of 0 or 1 can explicitly written out as,</p>
+<p><span class="math display">\[
+{\Pr}_G(G = 1) = p_G \;\;\; \text{and} \;\;\;
+{\Pr}_G(G = 0) = 1-p_G.
+\]</span></p>
+<div id="fig-bernoulli-pdf" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bernoulli-pdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/bernoulli-pdf.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bernoulli-pdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.6: Probability Distributions. The sample space <span class="math inline">\(\Omega\)</span> is mapped to the real line with the value of the random variable <span class="math inline">\(V\)</span> only taking on values of 0 or 1.
+</figcaption>
+</figure>
+</div>
+<!-- ## Joint Probability Distributions and Density Functions -->
+<!-- To properly think about effect sizes we must be able to describe the relationship between random variables. For our purposes, we want to be able to describe the relationship between each of the independent variables ($X$ and $G$) and the dependent variable ($Y$). Let's first consider the product between two real-valued measurable spaces, -->
+<!-- $$ -->
+<!-- (\mathbb{R},\mathcal{B}_\mathbb{R}) \times(\mathbb{R},\mathcal{B}_\mathbb{R}) = (\mathbb{R}\times \mathbb{R},\mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R}) = (\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2}), -->
+<!-- $$ -->
+<!-- The resulting space $(\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2})$ is a *product* space where $\mathcal{B}_{\mathbb{R}^2}$ is the Borel $\sigma$--field over $\mathbb{R}^2$. Notice that the Cartesian product of two copies of the Borel $\sigma$--field over $\mathbb{R}$ is equal to the Borel $\sigma$--field over $\mathbb{R}^2$. The independent random variables $X$ and $G$ and the dependent random variables $X$ and $Y$ map the outcome space equipped with a joint probability measure to the real-valued product space, -->
+<!-- $$ -->
+<!-- (X,Y) : (\Omega, \mathcal{F}_{\Omega},{\Pr}_{XY}) \rightarrow  (\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2}). -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- (G,Y) : (\Omega, \mathcal{F}_{\Omega},{\Pr}_{GY}) \rightarrow  (\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2}). -->
+<!-- $$ -->
+<!-- ![Random variables on product spaces. The random variables $(X,Y)$ take on values in $\mathbb{R}^2$.](figure/biv%20rv.png){#fig-biv-rv} -->
+<!-- The probability distributions of each pair of random variables can now be considered jointly. Joint probability distributions between can be described by joint density functions $f_{XY}$ and $f_{GY}$ that satisfies, -->
+<!-- $$ -->
+<!-- {\Pr}_{XY}(X,Y \in \mathbb{R}^2) = \iint\limits_{\mathbb{R}^2} f_{XY}(x,y) \,dx \, dy  = 1. -->
+<!-- $$ -->
+<!-- $$ -->
+<!-- {\Pr}_{GY}(G,Y \in \mathbb{R}^2) = \iint\limits_{\mathbb{R}^2} f_{GY}(g,y) \,dg \, dy  = 1. -->
+<!-- $$ -->
+<!-- The probability of $X,Y\in B$ for any set $B\in\mathcal{B}_{\mathbb{R}^2}$ can be expressed similarly, -->
+<!-- $$ -->
+<!-- {\Pr}_{XY}(X,Y \in B) = \iint\limits_{B\subset \mathbb{R}^2} f_{XY}(x,y) \,dx \, dy. -->
+<!-- $$ $$ -->
+<!-- {\Pr}_{GY}(G,Y \in B) = \iint\limits_{B\subset \mathbb{R}^2} f_{GY}(g,y) \,dg \, dy. -->
+<!-- $$ -->
+</section>
+<section id="study-samples" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="study-samples"><span class="header-section-number">3.5</span> Study Samples</h2>
+<p>For a researcher to make inferences about parameters in the population of interest, they must draw a sample of individuals from the population. Ideally, sampling is done at random in order to produce unbiased estimates of the population parameters. In practice however, this is usually not possible. In cognitive and behavioral sciences, many studies are conducted on convenience samples that are sampled from a narrow subset of the population of interest. A non-random sample may not (on average) share the same composition of characteristics as the population of interest and thus may produce biased estimates of population parameters. Here we define a <strong>study sample</strong> <span class="math inline">\(\mathcal{S}\)</span> as a subset of the sample space consisting of the possible outcomes of individuals drawn from the set of <em>eligible</em> individuals (i.e., individuals the researcher has access to). Let <span class="math inline">\(\mathcal{E}\subseteq \Psi\)</span> be the <strong>study population</strong>, that is, full set of eligible individuals. The study sample <span class="math inline">\(\mathcal{S}\)</span> is the set of possible values from a random draw of <span class="math inline">\(n\)</span> eligible individuals,</p>
+<p><span class="math display">\[
+\mathcal{S} := \bigcup^{n}_{i=1} \ell^{-1}(\psi_i)\, ,\;\;\;\; \psi_i = \psi_1...\psi_n \in_\text{R} \mathcal{E}\subseteq{\Psi}
+\]</span> where <span class="math inline">\(\in_\text{R}\)</span> denotes a random draw from a set. The eligibility of an individual (i.e., the members that constitute the study population <span class="math inline">\(\mathcal{E}\)</span>) will be defined more precisely in the chapters on selection effects.</p>
+<div id="fig-samples" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-samples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/sample.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-samples-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.7: Study samples. The study is the set of possible outcomes from individuals randomly drawn from the pool of eligible individuals.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="conditional-expectations-and-variance-of-random-variables" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="conditional-expectations-and-variance-of-random-variables"><span class="header-section-number">3.6</span> Conditional Expectations and Variance of Random Variables</h2>
+<p>The <strong>expectation</strong> of a random variable is a probability weighted average (i.e., the mean) over all possible sample units in the sample space. This can be defined with the Lebesgue integral of <span class="math inline">\(V\)</span> with respect to the probability measure <span class="math inline">\({\Pr_V}\)</span>,</p>
+<p><span id="eq-exp"><span class="math display">\[
+\mathbb{E}\left[V\right]  = \int_\Omega V \, d\,{\Pr}_V.
+\tag{3.7}\]</span></span></p>
+<p>The expected value can be interpreted as the <strong>population mean</strong> which will be denoted as <span class="math inline">\(\mu_{V}:=\mathbb{E}(V)\)</span>. The <strong>population variance</strong> <span class="math inline">\(\sigma^2_{V}\)</span> is the expectation of the squared deviation from it’s mean of the random variable <span class="math inline">\(V\)</span> and can be expressed as,</p>
+<p><span class="math display">\[
+\sigma^2_{V} := \mathbb{E}\left[V^2\right] - \mathbb{E}\left[V\vphantom{^2}\right]^2.
+\]</span></p>
+<p>The standard deviation of a random variable is the square root of the variance, <span class="math inline">\(\sigma_V\)</span>. The <strong><em>conditional</em></strong> <strong>expectation</strong> on the other hand is the mean over a subset of the sample space. For example, the expectation of <span class="math inline">\(Y\)</span> given the subset of the sample space <span class="math inline">\(\Omega\)</span> where <span class="math inline">\(G=1\)</span> can be expressed as,</p>
+<p><span class="math display">\[
+\mu_{Y|G=1} :=\mathbb{E}\left[ Y \mid G^{-1}(1)\right] = \int_{G^{-1}(1)} Y \, d\,{\Pr}_{Y|G},
+\]</span></p>
+<p>where <span class="math inline">\({\Pr}_{Y|G}\)</span> is the conditional probability measure.Then the conditional variance of <span class="math inline">\(Y\)</span> given <span class="math inline">\(G=1\)</span> is,</p>
+<p><span class="math display">\[
+\sigma^2_{Y|G=1} := \mathbb{E}\left[Y^2\mid G^{-1}(1) \right] - \mathbb{E}\left[Y\mid G^{-1}(1) \right]^2.
+\]</span> The study population mean of <span class="math inline">\(V\)</span> is the the expectation over the possible outcomes of all individuals in the study population <span class="math inline">\(\mathcal{E}\)</span> can be defined as,</p>
+<p><span class="math display">\[
+\mu_{V|\mathcal{E}} := \mathbb{E}\left[V\mid \ell^{-1}(\mathcal{E})\right]
+\]</span></p>
+<p>and the study population variance of <span class="math inline">\(V\)</span> is,</p>
+<p><span class="math display">\[
+\sigma^2_{Y|\mathcal{E}} := \mathbb{E}\left[Y^2\mid \ell^{-1}(\mathcal{E}) \right] - \mathbb{E}\left[Y\mid \ell^{-1}(\mathcal{E})\right]^2.
+\]</span></p>
+<p>It is worth noting that if the study population encompasses all individuals in the population of interest (i.e., all individuals in the population of interest are eligible to be sampled), then <span class="math inline">\(\mathcal{E}=\Psi\)</span>. This would indicate that the study population mean is equal to the target population mean <span class="math inline">\(\mu_{V} = \mu_{V|\mathcal{E}}\)</span>.</p>
+<p>The expectation conditioned on a study sample <span class="math inline">\(\mathbb{E}[\,\cdot\,|\mathcal{S}]\)</span> can be construed as a random variable that has its own probability distribution due to the random action in the study sample (i.e., the study sample is created from <span class="math inline">\(n\)</span> random draws from the eligible pool of individuals). The expectation over a sample is interpreted as a sample estimate of the mean,</p>
+<p><span class="math display">\[
+m_{V} := \mathbb{E}\left[V \mid \mathcal{S}\right] = \frac{1}{n}\sum_{1...n} V_i  .
+\]</span></p>
+<p>Where <span class="math inline">\(V_i\)</span> denotes the value of the random variable for each individual drawn from the population. Where the sample variance is,</p>
+<p><span class="math display">\[
+s_{V} := \mathbb{E}\left[V^2\,|\,\mathcal{S}\right] - \mathbb{E}\left[V\,|\,\mathcal{S}\vphantom{S^2}\right]^2.
+\]</span></p>
+<p>Sample estimates of parameters will always be denoted as English letters. The <strong>covariance</strong> between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is the product of the differences from the mean for each respective variable and can be expressed as,</p>
+<p><span class="math display">\[
+\sigma_{XY} := \mathbb{E}[XY] - \mathbb{E}[X]\mathbb{E}[Y]
+\]</span></p>
+<p>The sample covariance can similarly defined using conditional expectations,</p>
+<p><span class="math display">\[
+s_{XY} := \mathbb{E}[XY\,|\,\mathcal{S}] - \mathbb{E}[X\,|\,\mathcal{S}]\,\mathbb{E}[Y\,|\,\mathcal{S}]
+\]</span></p>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="matthewbjane" data-description="Support me by buying me a coffee!" data-message="Thank you for being here! You can support this work." data-color="#eeb4d7ff" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-kroc2020" class="csl-entry" role="listitem">
+Kroc, Edward, and Bruno D. Zumbo. 2020. <span>“A Transdisciplinary View of Measurement Error Models and the Variations of x=t+e.”</span> <em>Journal of Mathematical Psychology</em> 98 (September): 102372. <a href="https://doi.org/10.1016/j.jmp.2020.102372">https://doi.org/10.1016/j.jmp.2020.102372</a>.
+</div>
+<div id="ref-zimmerman1975" class="csl-entry" role="listitem">
+Zimmerman, Donald W. 1975. <span>“Probability Spaces, Hilbert Spaces, and the Axioms of Test Theory.”</span> <em>Psychometrika</em> 40 (3): 395–412. <a href="https://doi.org/10.1007/BF02291765">https://doi.org/10.1007/BF02291765</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../00-dedication/00-dedication.html" class="pagination-link  aria-label=" &lt;span="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../02-effect-sizes/02-effect-sizes.html" class="pagination-link" aria-label="<span class='chapter-number'>4</span>&nbsp; <span class='chapter-title'>Effect Sizes and Artifacts</span>">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

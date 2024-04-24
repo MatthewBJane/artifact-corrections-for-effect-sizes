@@ -2,58 +2,66 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/index.html</loc>
-    <lastmod>2024-01-16T20:07:40.321Z</lastmod>
+    <lastmod>2024-04-24T05:22:33.666Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/dedication.html</loc>
-    <lastmod>2024-01-16T20:07:40.323Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/00-dedication/00-dedication.html</loc>
+    <lastmod>2023-10-09T06:26:00.908Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/intro.html</loc>
-    <lastmod>2024-01-16T20:13:49.929Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/01-definitions/01-definitions.html</loc>
+    <lastmod>2024-04-24T03:21:34.853Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/small_samples.html</loc>
-    <lastmod>2024-01-16T20:07:40.340Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/02-effect-sizes/02-effect-sizes.html</loc>
+    <lastmod>2024-04-24T04:52:42.965Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/unreliability.html</loc>
-    <lastmod>2024-01-16T20:07:40.351Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/03-small-samples/03-small-samples.html</loc>
+    <lastmod>2024-04-21T15:16:17.022Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/misclassification.html</loc>
-    <lastmod>2024-01-16T20:07:40.356Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/04-introduction-to-measurement-error/04-introduction-to-measurement-error.html</loc>
+    <lastmod>2024-04-20T02:18:31.584Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/artificial_dichotomization.html</loc>
-    <lastmod>2024-01-16T20:07:40.366Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/05-error-in-continuous-variables/05-error-in-continuous-variables.html</loc>
+    <lastmod>2024-04-23T01:39:15.807Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/scale_coarseness.html</loc>
-    <lastmod>2024-01-16T20:07:40.371Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/06-misclassification/06-misclassification.html</loc>
+    <lastmod>2024-04-23T04:14:10.386Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/direct_range_restriction.html</loc>
-    <lastmod>2024-01-16T20:07:40.378Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/07-artificial-dichotomization/07-artificial-dichotomization.html</loc>
+    <lastmod>2024-04-23T14:52:43.835Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/indirect_range_restriction.html</loc>
-    <lastmod>2024-01-16T20:07:40.386Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/08-scale-coarseness/08-scale-coarseness.html</loc>
+    <lastmod>2024-04-23T14:48:40.315Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/metaanalysis_intro.html</loc>
-    <lastmod>2024-01-16T20:07:40.391Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/09-introduction-to-selection-effects/09-introduction-to-selection-effects.html</loc>
+    <lastmod>2024-04-24T05:24:37.923Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/artifact_correction_metaanalysis.html</loc>
-    <lastmod>2024-01-16T20:07:40.403Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/10-direct-selection/10-direct-selection.html</loc>
+    <lastmod>2024-04-23T23:36:45.188Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/conclusion.html</loc>
-    <lastmod>2024-01-16T20:07:40.406Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/11-indirect-selection/11-indirect-selection.html</loc>
+    <lastmod>2024-04-23T23:58:45.263Z</lastmod>
   </url>
   <url>
-    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/references_page.html</loc>
-    <lastmod>2024-01-16T20:07:40.410Z</lastmod>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/13-artifact-correction-meta-analysis/13-artifact-correction-meta-analysis.html</loc>
+    <lastmod>2024-04-24T01:28:37.630Z</lastmod>
+  </url>
+  <url>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/14-conclusion/14-conclusion.html</loc>
+    <lastmod>2024-01-16T07:11:45.692Z</lastmod>
+  </url>
+  <url>
+    <loc>https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/references/references_page.html</loc>
+    <lastmod>2023-10-10T13:04:25.258Z</lastmod>
   </url>
 </urlset>

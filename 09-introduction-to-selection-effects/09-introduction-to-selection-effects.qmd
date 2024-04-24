@@ -1,0 +1,5 @@
+# Selection Effects
+
+## Introduction
+
+Selection effects arise when individuals within a studies only are include individuals that are based on some eligibility criterion impacts the distributions of random variables. **Range restriction** is a selection effect where eligible individuals show *less* variation in the study population than in the target population of interest. On the other hand, **range enhancement** describes a selection effect where eligible individuals show *more* variation in the study population than in the target population of interest. In this book we will cover two broad selection cases: *direct* selection and *indirect* selection. **Direct selection** occurs when individual eligibility is based on the random variables used in the analysis (e.g., eligible individuals are above the mean of $X$), whereas **indirect selection** occurs when eligibility is based on some other variables.

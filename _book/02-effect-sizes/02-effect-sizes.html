@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Artifact Corrections for Effect Sizes - 4&nbsp; Effect Sizes and Artifacts</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../03-small-samples/03-small-samples.html" rel="next">
+<link href="../01-definitions/01-definitions.html" rel="prev">
+<link href="../figure/favicon_book.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="twitter:title" content="Artifact Corrections for Effect Sizes - 4&nbsp; Effect Sizes and Artifacts">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/02-effect-sizes/figure/MJB_twitter.jpg">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../02-effect-sizes/02-effect-sizes.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Artifact Corrections for Effect Sizes</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="../Artifact-Corrections-for-Effect-Sizes.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Greetings</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../00-dedication/00-dedication.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Dedication</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01-definitions/01-definitions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Samples, Random Variables, and Expectations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02-effect-sizes/02-effect-sizes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03-small-samples/03-small-samples.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Small Samples</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../04-introduction-to-measurement-error/04-introduction-to-measurement-error.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measurement Error</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05-error-in-continuous-variables/05-error-in-continuous-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Classical Measurement Errors</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06-misclassification/06-misclassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Group Misclassification</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../07-artificial-dichotomization/07-artificial-dichotomization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Artificial Dichotomization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../08-scale-coarseness/08-scale-coarseness.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Scale Coarseness</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../09-introduction-to-selection-effects/09-introduction-to-selection-effects.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selection Effects</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../10-direct-selection/10-direct-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Direct Selection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../11-indirect-selection/11-indirect-selection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Indirect Selection</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../13-artifact-correction-meta-analysis/13-artifact-correction-meta-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Artifact Correction Meta-Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../14-conclusion/14-conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references/references_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#effect-sizes" id="toc-effect-sizes" class="nav-link active" data-scroll-target="#effect-sizes"><span class="header-section-number">4.1</span> Effect Sizes</a></li>
+  <li><a href="#correlations" id="toc-correlations" class="nav-link" data-scroll-target="#correlations"><span class="header-section-number">4.2</span> Correlations</a></li>
+  <li><a href="#standardized-mean-difference" id="toc-standardized-mean-difference" class="nav-link" data-scroll-target="#standardized-mean-difference"><span class="header-section-number">4.3</span> Standardized Mean Difference</a>
+  <ul class="collapse">
+  <li><a href="#sample-estimates-of-effect-sizes" id="toc-sample-estimates-of-effect-sizes" class="nav-link" data-scroll-target="#sample-estimates-of-effect-sizes"><span class="header-section-number">4.3.1</span> Sample Estimates of Effect Sizes</a></li>
+  </ul></li>
+  <li><a href="#errors-in-effect-sizes" id="toc-errors-in-effect-sizes" class="nav-link" data-scroll-target="#errors-in-effect-sizes"><span class="header-section-number">4.4</span> Errors in Effect Sizes</a>
+  <ul class="collapse">
+  <li><a href="#sec-estimand" id="toc-sec-estimand" class="nav-link" data-scroll-target="#sec-estimand"><span class="header-section-number">4.4.1</span> Target Population Effect Size</a></li>
+  <li><a href="#sec-random" id="toc-sec-random" class="nav-link" data-scroll-target="#sec-random"><span class="header-section-number">4.4.2</span> Random (Sampling) Errors</a></li>
+  <li><a href="#sec-systematic" id="toc-sec-systematic" class="nav-link" data-scroll-target="#sec-systematic"><span class="header-section-number">4.4.3</span> Systematic Errors</a></li>
+  <li><a href="#combining-systematic-and-random-errors" id="toc-combining-systematic-and-random-errors" class="nav-link" data-scroll-target="#combining-systematic-and-random-errors"><span class="header-section-number">4.4.4</span> Combining Systematic and Random Errors</a></li>
+  </ul></li>
+  <li><a href="#correcting-effect-sizes" id="toc-correcting-effect-sizes" class="nav-link" data-scroll-target="#correcting-effect-sizes"><span class="header-section-number">4.5</span> Correcting Effect Sizes</a></li>
+  <li><a href="#calculating-effect-sizes-in-r" id="toc-calculating-effect-sizes-in-r" class="nav-link" data-scroll-target="#calculating-effect-sizes-in-r"><span class="header-section-number">4.6</span> Calculating effect sizes in R</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Effect Sizes and Artifacts</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="effect-sizes" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="effect-sizes"><span class="header-section-number">4.1</span> Effect Sizes</h2>
+<p>An <strong>effect size</strong> is a parameter that describes the degree of association of two random variables<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> (e.g., <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>). Effect sizes are often used to quantitatively summarize research findings. We can define two types of effect sizes that will be of primary focus throughout the book: correlations and standardized mean differences (SMDs). Both correlations and SMDs are standardized effect sizes which means that they are without respect to location and scale of random variables. Standardized effect sizes allow for comparability across studies, in particular, they facilitate research syntheses and meta-analyses.</p>
+</section>
+<section id="correlations" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="correlations"><span class="header-section-number">4.2</span> Correlations</h2>
+<p>A <strong>correlation</strong> is defined as the standardized covariance between two variables (see <a href="#fig-r-ex" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>). For two continuous random variables, <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, the correlation <span class="math inline">\(\rho_{XY}\)</span> can be expressed as,</p>
+<p><span id="eq-pop-corr"><span class="math display">\[
+\rho_{XY} := \frac{\sigma_{XY}}{\sigma_X\sigma_Y}.
+\tag{4.1}\]</span></span></p>
+<p>Where <span class="math inline">\(\sigma_{XY}\)</span> is the covariance between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, <span class="math inline">\(\sigma_X\)</span> and <span class="math inline">\(\sigma_Y\)</span> are the standard deviations of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, respectively. A correlation does not have to be between two continuous variables. Typically, a correlation between a Bernoulli random variable and a continuous random variable is referred to as a <em>point-biserial</em> correlation and it is expressed similarly to <a href="#eq-pop-corr" class="quarto-xref">Equation&nbsp;<span>4.1</span></a>,</p>
+<p><span id="eq-pb-corr"><span class="math display">\[
+\rho_{GY} := \frac{\sigma_{GY}}{\sigma_G\sigma_Y}.
+\tag{4.2}\]</span></span></p>
+<p>A correlation (whether point-biserial or continuous) is bounded between -1 and 1, where -1 is a perfectly negative correlation, 1 is a perfectly positive correlation, and 0 indicates no correlation. Note that a correlation of zero does not necessarily mean that the two variables are independent.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-r-ex" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-r-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-r-ex-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-r-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: A correlation between two variables (<span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>). The left panel shows a negative correlation and the right panel shows a positive correlation. The ellipses show the contour of a joint distribution.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="standardized-mean-difference" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="standardized-mean-difference"><span class="header-section-number">4.3</span> Standardized Mean Difference</h2>
+<p>The relationship between a Bernoulli random variable and a continuous random variable can alternatively be expressed as a standardized mean difference. A <strong>standardized mean difference</strong> is the difference between the means of two groups standardized by the within-group standard deviation (see <a href="#fig-d-ex" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>). The groups are defined by the values of a Bernoulli random variable and the standardized mean difference,</p>
+<p><span id="eq-pop-smd"><span class="math display">\[
+\delta_{GY} :=  \frac{\mu_{Y|G=1}-\mu_{Y|G=0}}{\sigma_{Y|G}},
+\tag{4.3}\]</span></span></p>
+<p>where <span class="math inline">\(\mu_{Y|G=0}\)</span> and <span class="math inline">\(\mu_{Y|G=1}\)</span> is the population mean of <span class="math inline">\(Y\)</span> for group 0 and 1, respectively. The within-group standard deviation <span class="math inline">\(\sigma_{Y|G}\)</span> is assumed to be equal between groups such that, <span class="math inline">\(\sigma_{Y|G}=\sigma_{Y|G=1}=\sigma_{Y|G=0}\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-d-ex" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-d-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-d-ex-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-d-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: A standardized mean difference in the population between two distributions. The mean and standard deviation of group 0 is <span class="math inline">\(\mu_{Y|G=0}=9\)</span> and <span class="math inline">\(\sigma_{Y|G=0}=4\)</span>, respectively. Whereas mean and standard deviation of group <span class="math inline">\(B\)</span> is <span class="math inline">\(\mu_{Y|G=1}=12\)</span> and <span class="math inline">\(\sigma_{Y|G=1}=4\)</span>, respectively. Therefore the standardized mean difference is <span class="math inline">\(\delta_{GY} = (9-12)/4=0.75\)</span>. Note that <span class="math inline">\(\sigma_{Y|G=0}=\sigma_{Y|G=1}=\sigma_{Y|G}\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="sample-estimates-of-effect-sizes" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="sample-estimates-of-effect-sizes"><span class="header-section-number">4.3.1</span> Sample Estimates of Effect Sizes</h3>
+<p>The effect size in the population of interest is a fixed value that does not change from sample to sample. However, an estimate of the effect size from sample data will vary from sample to sample. We will denote sample estimates of effect sizes with English letters as opposed to the Greek letters we used for population effect sizes.</p>
+<section id="correlations-1" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="correlations-1">Correlations</h4>
+<p>The sample estimate of a correlation is computed as follows <span class="citation" data-cites="pearson1895">(<a href="../references/references_page.html#ref-pearson1895" role="doc-biblioref">Pearson 1895</a>)</span>,</p>
+<p><span id="eq-pearson-r"><span class="math display">\[
+r_{XY} := \frac{s_{XY}}{s_{X}s_{Y}}
+\tag{4.4}\]</span></span></p>
+<p>Where <span class="math inline">\(s_X\)</span> and <span class="math inline">\(s_Y\)</span> are the sample standard deviations and <span class="math inline">\(s_{XY}\)</span> is the covariance. See <a href="../11-indirect-selection/11-indirect-selection.html#exm-corr" class="quarto-xref">Example&nbsp;<span>11.1</span></a> for an example of a correlation between standardized test scores.</p>
+<div id="exm-corr" class="border theorem example" style="--bs-border-width:2pt;--bs-border-color:#5fa6bcff; padding:5pt;">
+<p><span class="theorem-title"><strong>Example 4.1 (Relationship between Test Scores)</strong></span> In the United States, universities frequently require prospective students to take one of two standardized tests assessing academic ability, the Scholastic Achievement Test (SAT) and the American College Test (ACT). Since these tests are used interchangeably in university admission decisions, it is good to know how related the scores of these tests really are. A data set from <span class="citation" data-cites="revelle2010">Revelle, Wilt, and Rosenthal (<a href="../references/references_page.html#ref-revelle2010" role="doc-biblioref">2010</a>)</span> consists of 668 individuals who took both the SAT and the ACT. The data set splits the SAT test into Quantitative (SATQ) and Verbal (SATV) subtests which each range from 200-800, whereas the ACT is reported as a score from 1-36. We can plot out the relationship between the total SAT score (SATV + SATQ) and the ACT scores with a scatter plot<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (see <a href="#fig-scatter-cor-ex" class="quarto-xref">Figure&nbsp;<span>4.3</span></a>)</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-scatter-cor-ex" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scatter-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-scatter-cor-ex-1.png" id="fig-scatter-cor-ex" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-scatter-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.3
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The resulting covariance matrix between variables is displayed in <a href="#tbl-cor-ex" class="quarto-xref">Table&nbsp;<span>4.1</span></a>. The covariance matrix shows the covariance between all the variables in the model. Note that the covariance between a variable and itself is equal to the variance (e.g., <span class="math inline">\(\sigma_{XX}=\sigma^2_{X}\)</span>). Therefore the diagonal (from top-left number to bottom-right number) of the matrix are the variances of each of the variable whereas the off-diagonal is are the covariances between pairs of variables.</p>
+<div class="cell">
+<div id="tbl-cor-ex" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.1: Covariance matrix.
+</figcaption>
+<div aria-describedby="tbl-cor-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+ 
+
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tinytable_llihsqzvugo8kkend6qp</title>
+    <style>
+.table td.tinytable_css_te5xk0gcp17oujj49jes, .table th.tinytable_css_te5xk0gcp17oujj49jes {    border-bottom: solid 0.1em #d3d8dc; }
+.table td.tinytable_css_05gcp1vz4mjrrby3pc2e, .table th.tinytable_css_05gcp1vz4mjrrby3pc2e {    color: white; background-color: #d74ea2ff; }
+.table td.tinytable_css_x3pkkfnk2pmzl23z0lkq, .table th.tinytable_css_x3pkkfnk2pmzl23z0lkq {    color: black; background-color: #dddddd; }
+.table td.tinytable_css_aa5z5jwaakkg8hu7m5ao, .table th.tinytable_css_aa5z5jwaakkg8hu7m5ao {    color: black; background-color: #dddddd; }
+.table td.tinytable_css_1vlyac15er0184qs1udo, .table th.tinytable_css_1vlyac15er0184qs1udo {    color: black; background-color: #dddddd; }
+.table td.tinytable_css_km5k4ogwigjmju4qw0sx, .table th.tinytable_css_km5k4ogwigjmju4qw0sx {    color: black; background-color: #dddddd; }
+.table td.tinytable_css_zjknxj2jxetcfztsrc6h, .table th.tinytable_css_zjknxj2jxetcfztsrc6h {    font-weight: bold; }
+.table td.tinytable_css_034zxpwigcz6l8vwrbty, .table th.tinytable_css_034zxpwigcz6l8vwrbty {    font-weight: bold; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+  
+
+  
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_llihsqzvugo8kkend6qp" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col">Test</th>
+                <th scope="col">ACT</th>
+                <th scope="col">SATQ</th>
+                <th scope="col">SATV</th>
+                <th scope="col">SAT</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>ACT </td>
+                  <td> 21.68</td>
+                  <td>  299.49</td>
+                  <td>  276.13</td>
+                  <td>  575.61</td>
+                </tr>
+                <tr>
+                  <td>SATQ</td>
+                  <td>299.49</td>
+                  <td>11179.27</td>
+                  <td> 6515.60</td>
+                  <td>17694.86</td>
+                </tr>
+                <tr>
+                  <td>SATV</td>
+                  <td>276.13</td>
+                  <td> 6515.60</td>
+                  <td>10699.90</td>
+                  <td>17215.50</td>
+                </tr>
+                <tr>
+                  <td>SAT </td>
+                  <td>575.61</td>
+                  <td>17694.86</td>
+                  <td>17215.50</td>
+                  <td>34910.36</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function styleCell_tinytable_xsy95wmwyacppx3ogn8t(i, j, css_id) {
+        var table = document.getElementById("tinytable_llihsqzvugo8kkend6qp");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_llihsqzvugo8kkend6qp');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_xsy95wmwyacppx3ogn8t(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_llihsqzvugo8kkend6qp");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 0, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 1, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 2, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 3, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(0, 4, 'tinytable_css_te5xk0gcp17oujj49jes') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(1, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(2, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(3, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(4, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(1, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(2, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(3, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(4, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(1, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(2, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(3, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(4, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(1, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(2, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(3, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(4, 0, 'tinytable_css_05gcp1vz4mjrrby3pc2e') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(1, 1, 'tinytable_css_x3pkkfnk2pmzl23z0lkq') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(2, 2, 'tinytable_css_aa5z5jwaakkg8hu7m5ao') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(3, 3, 'tinytable_css_1vlyac15er0184qs1udo') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(4, 4, 'tinytable_css_km5k4ogwigjmju4qw0sx') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(1, 4, 'tinytable_css_zjknxj2jxetcfztsrc6h') })
+window.addEventListener('load', function () { styleCell_tinytable_xsy95wmwyacppx3ogn8t(4, 1, 'tinytable_css_034zxpwigcz6l8vwrbty') })
+    </script>
+
+  
+
+
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The correlation coefficient between total SAT (the last column) and ACT (first column) can be computed using the formula in <a href="#eq-pearson-r" class="quarto-xref">Equation&nbsp;<span>4.4</span></a>. Let’s treat SAT as our <span class="math inline">\(X\)</span> variable and the ACT as our <span class="math inline">\(Y\)</span> variable:</p>
+<p><span class="math display">\[
+r_{XY} = \frac{s_{XY}}{s_X s_Y} = \frac{625.69}{\sqrt{40074.40} \times \sqrt{22.37}} = .66
+\]</span></p>
+</div>
+</section>
+<section id="standardized-mean-differences-smds" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="standardized-mean-differences-smds">Standardized Mean Differences (SMDs)</h4>
+<p>For an SMD, the commonly used estimate for comparison between two independent groups is Cohen’s estimator <span class="citation" data-cites="cohen1988">(<a href="../references/references_page.html#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span>,</p>
+<p><span class="math display">\[
+d_{GY} = \frac{m_{Y|G=1} - m_{Y|G=0}}{s_{Y|G}}.
+\]</span></p>
+<p>This is commonly referred to as Cohen’s <em>d</em> or simply the <em>d</em> statistic. The sample estimate of the standard deviation of <span class="math inline">\(Y\)</span> given <span class="math inline">\(G\)</span> is the pooled within-group standard deviation,</p>
+<p><span class="math display">\[
+s_{Y|G} = \sqrt{\frac{(n_0 - 1)s^2_{Y|G=0} + (n_1 - 1)s^2_{Y|G=1}}{n_0 + n_1 -2}}.
+\]</span></p>
+<p>The within-group sample size is denoted by <span class="math inline">\(n_0\)</span> and <span class="math inline">\(n_1\)</span> for <span class="math inline">\(G=0\)</span> and <span class="math inline">\(G=1\)</span>, respectively. If there is reason to believe that the variances differ between groups, such that <span class="math inline">\(s_{Y|G=0}\neq s_{Y|G=1}\)</span>, then it may be best to standardize the mean difference with just one of the groups (usually a control/reference group).</p>
+<div id="exm-smd" class="border theorem example" style="--bs-border-width:2pt;--bs-border-color:#5fa6bcff; padding:5pt;">
+<p><span class="theorem-title"><strong>Example 4.2 (Gender Differences in Agreeableness)</strong></span> In personality psychology, the Big 5 personality traits are five dimensions where preferences and attitudes tend to vary (Agreeableness, Openness, Conscientiousness, Extraversion, and Neuroticism). Agreeableness reflects a person’s cooperativeness, politeness, kindness, friendliness, and compassion. Agreeableness also tends to differ on average between men and women, with women generally scoring higher. Using a data set from <span class="citation" data-cites="goldberg1999">Goldberg (<a href="../references/references_page.html#ref-goldberg1999" role="doc-biblioref">1999</a>)</span> consisting of 2800 participants, we can calculate the standardized mean difference from 2709 individuals who answered all of the items pertaining to agreeableness. The data set consists of 896 men and 1813 women who all responded to five statements related to agreeableness (e.g., “Inquire about others’ well-being”). Each participant self assessed the accuracy (from 1-Very Inaccurate to 6-Very Accurate) of each of the five statements with respect to themselves. Agreeableness is scored based on the average of their responses to all of the statements and POMP scored so 0 is the minimum possible score (very disagreeable) and 100 is the maximum possible score (very agreeable). The distributions within men and women are displayed in <a href="#fig-smd-agreeableness" class="quarto-xref">Figure&nbsp;<span>4.4</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-smd-agreeableness" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-smd-agreeableness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-smd-agreeableness-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-smd-agreeableness-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.4: Histograms of agreeableness scores for men and women. Dark lines denote the mean for each group.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The descriptive statistics for both groups are presented in <a href="#tbl-smd-ex" class="quarto-xref">Table&nbsp;<span>4.2</span></a>. We find the mean agreeableness score of women in the sample is 75.50, whereas the mean for men is 67.55. We also find the standard deviation to be 17.10 and 18.63 in women and men, respectively.</p>
+<div class="cell">
+<div id="tbl-smd-ex" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-smd-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.2: Descriptive statistics.
+</figcaption>
+<div aria-describedby="tbl-smd-ex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+ 
+
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tinytable_57kn2dqci2s4oudzjuc2</title>
+    <style>
+.table td.tinytable_css_ns9c59ihkmpess4l0lcl, .table th.tinytable_css_ns9c59ihkmpess4l0lcl {    border-bottom: solid 0.1em #d3d8dc; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+  
+
+  
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_57kn2dqci2s4oudzjuc2" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col">Gender</th>
+                <th scope="col">n</th>
+                <th scope="col">mean</th>
+                <th scope="col">sd</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>Women</td>
+                  <td>1813</td>
+                  <td>75.50</td>
+                  <td>17.10</td>
+                </tr>
+                <tr>
+                  <td>Men  </td>
+                  <td> 896</td>
+                  <td>67.55</td>
+                  <td>18.63</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function styleCell_tinytable_btl0brboo7u4bt818lqm(i, j, css_id) {
+        var table = document.getElementById("tinytable_57kn2dqci2s4oudzjuc2");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_57kn2dqci2s4oudzjuc2');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_btl0brboo7u4bt818lqm(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_57kn2dqci2s4oudzjuc2");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_btl0brboo7u4bt818lqm(0, 0, 'tinytable_css_ns9c59ihkmpess4l0lcl') })
+window.addEventListener('load', function () { styleCell_tinytable_btl0brboo7u4bt818lqm(0, 1, 'tinytable_css_ns9c59ihkmpess4l0lcl') })
+window.addEventListener('load', function () { styleCell_tinytable_btl0brboo7u4bt818lqm(0, 2, 'tinytable_css_ns9c59ihkmpess4l0lcl') })
+window.addEventListener('load', function () { styleCell_tinytable_btl0brboo7u4bt818lqm(0, 3, 'tinytable_css_ns9c59ihkmpess4l0lcl') })
+    </script>
+
+  
+
+
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>The sample estimate of the SMD can be computed with the following procedure:</p>
+<ol type="1">
+<li>Calculate the mean difference (denoting <span class="math inline">\(G=1\)</span> as women and <span class="math inline">\(G=0\)</span> as men):</li>
+</ol>
+<p><span class="math display">\[
+m_{Y|G=1} - m_{Y|G=0} = 75.50 - 67.55 = 7.95
+\]</span></p>
+<ol start="2" type="1">
+<li>Then we can calculate the pooled standard deviation:</li>
+</ol>
+<p><span class="math display">\[\begin{align}
+        s_{Y|G} &amp;= \sqrt{\frac{(n_0 - 1)s^2_{Y|G=0} + (n_1 - 1)s^2_{Y|G=1}}{n_0 + n_1 -2}} \\[.3em] &amp;= \sqrt{\frac{(1812)17.10^2 + (895)18.63^2}{1812 + 895 -2}}\\[.3em] &amp;= 17.63
+\end{align}\]</span></p>
+<ol start="3" type="1">
+<li>Then we can calculate the standardized mean difference:</li>
+</ol>
+<p><span class="math display">\[
+d_{GY} = \frac{m_{Y|G=1} - m_{Y|G=0}}{s_{Y|G}} = \frac{7.95}{17.63} = 0.45
+\]</span></p>
+</div>
+</section>
+</section>
+</section>
+<section id="errors-in-effect-sizes" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="errors-in-effect-sizes"><span class="header-section-number">4.4</span> Errors in Effect Sizes</h2>
+<section id="sec-estimand" class="level3" data-number="4.4.1">
+<h3 data-number="4.4.1" class="anchored" data-anchor-id="sec-estimand"><span class="header-section-number">4.4.1</span> Target Population Effect Size</h3>
+<p>The <strong>target population effect size</strong> is the effect size between the random variables of interest among in the population of interest. This can also be termed the statistical estimand, that is, the quantity of inferential and scientific interest.</p>
+</section>
+<section id="sec-random" class="level3" data-number="4.4.2">
+<h3 data-number="4.4.2" class="anchored" data-anchor-id="sec-random"><span class="header-section-number">4.4.2</span> Random (Sampling) Errors</h3>
+<p>A population effect size is a constant, unchanging value that remains fixed across repeated samples. However, a sample estimate of an effect size varies from sample to sample and does not exactly reflect the population value. This is due to the fact that randomly taking a subset of the population will contain inherent variability in the composition of the sample. <strong>Sampling errors</strong> describe the random deviations that we observe in effect size estimates between samples <span class="citation" data-cites="barraza2019">(<a href="../references/references_page.html#ref-barraza2019" role="doc-biblioref">Barraza et al. 2019</a>)</span>. We can define sampling errors as the difference between the sample estimate of the effect size and the population effect size. We can define sampling errors for a sample correlation as <span class="math inline">\(\varepsilon_r = r_{XY} - \rho_{XY}\)</span> and then we can model the sample correlation as,</p>
+<p><span id="eq-r-sam"><span class="math display">\[
+r_{XY} = \rho_{XY} + \varepsilon_r.
+\tag{4.5}\]</span></span></p>
+<p>Similarly, the SMD sample estimate can be modeled as,</p>
+<p><span id="eq-d-sam"><span class="math display">\[
+d_{GY} = \delta_{GY} + \varepsilon_d.
+\tag{4.6}\]</span></span></p>
+<p>We can quantify sampling errors by the variance of the effect size estimator, which is mostly a function of sample size<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> (i.e., larger samples tend to have smaller variances). To estimate sampling variance, we have to include assumptions about the joint distribution (unless we use a non-parametric approach, e.g., bootstrap). Note that the variance of the error term is the same as the variance of the sample effect size (e.g., <span class="math inline">\(\mathrm{var}(r_{XY})=\mathrm{var}(\varepsilon_r)\)</span>). Although it is not necessary for the X and Y to be bivariate normal to compute a Pearson correlation, the traditional formula for sampling variance does require us to make this assumption. Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> follow a bivariate normal distribution,</p>
+<p><span class="math display">\[
+X,Y\sim\mathcal{N}_2\left(\begin{bmatrix} \mu_{X} \\ \mu_Y\end{bmatrix},\begin{bmatrix} \sigma^2_{X} &amp; \sigma_{XY} \\ \sigma_{XY}&amp;\sigma^2_{Y} \end{bmatrix}\right),
+\]</span></p>
+<p>where <span class="math inline">\(\mathcal{N}_D\)</span> denotes the <span class="math inline">\(D\)</span>-variate normal distribution parameterized by a mean vector and a covariance matrix. The asymptotic sampling variance of the estimator is,</p>
+<p><span id="eq-asymp-var-r"><span class="math display">\[
+\mathrm{var}(r_{XY}) \overset{_\infty}{=} \frac{\left(1 - \rho_{XY}^2\right)^2}{n}.
+\tag{4.7}\]</span></span></p>
+<p>where <span class="math inline">\(\overset{_\infty}{=}\)</span> denotes equivalency as <span class="math inline">\(n\rightarrow \infty\)</span>, hence the <em>asymptotic</em> sampling variance. The issue with <a href="#eq-asymp-var-r" class="quarto-xref">Equation&nbsp;<span>4.7</span></a> is that it contains the population correlation which is unknown in practice. Therefore we can substitute the population correlation with the sample correlation <span class="citation" data-cites="bonett2008">(<a href="../references/references_page.html#ref-bonett2008" role="doc-biblioref">Bonett 2008, 174</a>)</span>,</p>
+<p><span id="eq-sam-r-var"><span class="math display">\[
+\widehat{\mathrm{var}}(r_{XY})= \frac{\left(1 - r_{XY}^2\right)^2}{n-1}.
+\tag{4.8}\]</span></span></p>
+<p>The denominator now uses <span class="math inline">\(n-1\)</span> to adjust for the slight bias in small sample sizes. To stay consistent with many software packages we will continue to use <span class="math inline">\(n-1\)</span> for the denominator, however it is worth noting that a recent simulation study by <span class="citation" data-cites="gnambs2023">Gnambs (<a href="../references/references_page.html#ref-gnambs2023" role="doc-biblioref">2023</a>)</span> found that the denominator of <span class="math inline">\(n-3\)</span> provides slightly better variance estimates especially in small sample sizes. This difference is negligible in moderate to large samples.</p>
+<p>To obtain the sampling variance for Cohen’s SMD estimator, we must assume that the conditional distribution of <span class="math inline">\(Y\)</span> given <span class="math inline">\(G\)</span> is normal such that,</p>
+<p><span class="math display">\[
+Y|G^{-1}(1)\sim\mathcal{N}_1\left(\mu_{Y|G=1},\sigma^2_{Y|G}\right),
+\]</span></p>
+<p><span class="math display">\[
+Y|G^{-1}(0)\sim\mathcal{N}_1\left(\mu_{Y|G=0},\sigma^2_{Y|G}\right).
+\]</span></p>
+<p>where <span class="math inline">\(G^{-1}(0)\)</span> denotes all possible outcomes <span class="math inline">\(\omega\in\Omega\)</span> where <span class="math inline">\(G(\omega)=0\)</span>. Notice that the variance of <span class="math inline">\(Y\)</span> within <span class="math inline">\(G=0\)</span> and <span class="math inline">\(G=1\)</span> are equivalent in the two distributions, yet the means are allowed to differ. Given these assumptions, the asymptotic sampling variance for the SMD estimator is,</p>
+<p><span id="eq-asymp-var-d"><span class="math display">\[
+\mathrm{var}\left(d_{GY}\right) \overset{_\infty}{=} \frac{n}{n_0 n_1} + \frac{\delta^2_{GY}}{2n}
+\tag{4.9}\]</span></span></p>
+<p>Similar to <a href="#eq-asymp-var-r" class="quarto-xref">Equation&nbsp;<span>4.7</span></a>, the population SMD <span class="math inline">\(\delta_{GY}\)</span> is not known and must be replaced with the sample estimate <span class="math inline">\(d_{GY}\)</span> <span class="citation" data-cites="hunter1990a">(<a href="../references/references_page.html#ref-hunter1990a" role="doc-biblioref">J. E. Hunter and Schmidt 2015</a> eq. 7.23)</span>,</p>
+<p><span id="eq-sam-var-d"><span class="math display">\[
+\mathrm{var}\left(d_{GY}\right) = \left(\frac{n-1}{n-3}\right)\left(\frac{n}{n_0 n_1} + \frac{d^2_{GY}}{2n}\right) ,
+\tag{4.10}\]</span></span></p>
+<p>where the term <span class="math inline">\((n-1)/(n-3)\)</span> is added to account for slight bias in small samples. The sampling variances allow us to quantify how variable effect sizes are over repeated samples (<span class="math inline">\(\mathcal{S}_1,\mathcal{S}_2,...\)</span>). For an illustration of sampling error, see <a href="#fig-3.1" class="quarto-xref">Figure&nbsp;<span>4.5</span></a>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-3.1" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-3.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-3.1-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-3.1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.5: This figure shows the distribution of sample estimates. The blue diamonds denotes the population effect size, which stays constant across samples. The black dots denote the sample effect size estimate. The grey lines denote random sampling errors, which represent the difference between the estimates and the population value. The sampling distribution on the right shows the probability distribution of estimates across repeated samples, the width of this distribution is described by the variance of the estimator. Note the illustration shows a normally distributed estimator, but this is not a requirement.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-systematic" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="sec-systematic"><span class="header-section-number">4.4.3</span> Systematic Errors</h3>
+<p>Sampling errors produce random errors in effect sizes, however, we can also observe systematic errors. <strong>Systematic errors</strong> are deviations from the target population value that are consistent across samples and produce bias in effect size estimates. In other words, effect size estimates will be <em>on average</em> larger or smaller than the target population value <span class="citation" data-cites="barraza2019">(<a href="../references/references_page.html#ref-barraza2019" role="doc-biblioref">Barraza et al. 2019</a>)</span>. Random sampling errors, on the other hand, will be larger or smaller than the target population value only by chance. There are two population effect sizes we need to consider: the target population effect size and the study population effect size. The target population effect size as described earlier relates the variables of interest within the population of interest. However, the <strong>study population effect size</strong> is the expectation of the effect size estimate over infinite study replications. <strong>Attenuation</strong> describes a type of systematic error where the study effect size is biased <em>toward</em> the null (i.e., effect size = 0). On the other hand, <strong>inflation</strong> describes the situation where the study effect size is biased <em>away</em> from the null. An <strong>unbiased</strong> effect size would be one where there is no systematic errors and therefore, the study population effect size is equivalent to the target population effect size. As we will see in future chapters, study artifacts such as selection effects and measurement error can produce effect sizes that contain systematic errors.</p>
+<p>Let’s suppose we are interested in the correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, yet we are limited to error-prone proxies <span class="math inline">\(\widetilde{X}\)</span> and <span class="math inline">\(\widetilde{Y}\)</span>. Given the potential impact of measurement error on correlations, the target population correlation <span class="math inline">\(\rho_{XY}\)</span> does not necessarily equal the study population correlation <span class="math inline">\(\rho_{\widetilde{X}\widetilde{Y}}\)</span>. Instead we can relate them with an <strong>artifact attenuation/inflation factor</strong> <span class="math inline">\(\alpha\)</span>,</p>
+<p><span id="eq-a-study-pop"><span class="math display">\[
+\rho_{\widetilde{X}\widetilde{Y}} = \alpha \rho_{XY}
+\tag{4.11}\]</span></span></p>
+<p>Therefore <span class="math inline">\(\alpha\)</span> is mathematically defined as the ratio of the study population correlation and the target population correlation,</p>
+<p><span id="eq-a-def"><span class="math display">\[
+\alpha = \frac{\rho_{\widetilde{X}\widetilde{Y}}}{\rho_{XY}}
+\tag{4.12}\]</span></span></p>
+<p>An attenuated study population effect size would indicate that <span class="math inline">\(\alpha &lt; 1\)</span>, whereas an inflated study effect size would suggest that <span class="math inline">\(\alpha &gt; 1\)</span>. If the the study population correlation perfectly reflects the target population correlation, then <span class="math inline">\(\alpha = 1\)</span> which would reduce <a href="#eq-a-study-pop" class="quarto-xref">Equation&nbsp;<span>4.11</span></a> to <span class="math inline">\(\rho_{\widetilde{X}\widetilde{Y}} = \rho_{XY}\)</span>. A <strong>study effect size estimate</strong> denotes the estimate produced within a single study which can contain both systematic and random errors. Continuing with our example, we can model a study correlation estimate in a similar fashion to <a href="#eq-r-sam" class="quarto-xref">Equation&nbsp;<span>4.5</span></a>,</p>
+<p><span class="math display">\[
+r_{\widetilde{X}\widetilde{Y}} = \rho_{\widetilde{X}\widetilde{Y}} + \varepsilon_r
+\]</span></p>
+<p>Notice in <a href="#fig-systematic-errors" class="quarto-xref">Figure&nbsp;<span>4.6</span></a> that the sampling distributions do not become wider or smaller with systematic errors (this may occur indirectly if the sampling variance depends on the effect size itself), instead the whole sampling distribution shifts downward or upward depending on whether the effect size estimates are attenuated or inflated, respectively.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-systematic-errors" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-systematic-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-systematic-errors-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-systematic-errors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.6: Three sampling distributions representing estimators that are unbiased, attenuated, and inflated. The blue line indicates the the location of the target population effect size, whereas the black dots show the effect size estimates.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="combining-systematic-and-random-errors" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="combining-systematic-and-random-errors"><span class="header-section-number">4.4.4</span> Combining Systematic and Random Errors</h3>
+<p>According to <a href="#sec-systematic" class="quarto-xref"><span>Section 4.4.3</span></a>, <a href="../13-artifact-correction-meta-analysis/13-artifact-correction-meta-analysis.html#sec-random" class="quarto-xref"><span>Section 12.3</span></a>, and <a href="#sec-estimand" class="quarto-xref"><span>Section 4.4.1</span></a>, a study effect size estimate has three components:</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+   Z("target population&lt;br&gt;effect size (estimand)") --&gt; E["observed effect &lt;br&gt;size estimate"]
+   X("systematic &lt;br&gt;error (bias)") --&gt; E
+   Y("random (sampling)&lt;br&gt;error") --&gt; E
+
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Sticking with the example of the correlation between proxies <span class="math inline">\(\widetilde{X}\)</span> and <span class="math inline">\(\widetilde{Y}\)</span>, let’s construct a statistical model for a study correlation that encompasses the target population effect size, systematic error, and random sampling error,</p>
+<p><span id="eq-artifact-model"><span class="math display">\[
+r_{\widetilde{X}\widetilde{Y}} = \alpha \rho_{XY} + \varepsilon_r
+\tag{4.13}\]</span></span></p>
+<p>Notice that we have only defined <span class="math inline">\(\alpha\)</span> in terms of the target population correlation and the study population correlation, yet of course both of these values are not available in practice. Calculating <span class="math inline">\(\alpha\)</span> is one of the primary purposes of this book as it’s value will vary depending on the types of artifact(s), the type of effect size, along with what information is available.</p>
+</section>
+</section>
+<section id="correcting-effect-sizes" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="correcting-effect-sizes"><span class="header-section-number">4.5</span> Correcting Effect Sizes</h2>
+<p>Effect sizes can only be corrected for predictable, systematic errors. Therefore the only way to reduce random sampling error would be to increase the sample size. In principle, if we know the value of the artifact attenuation/inflation factor <span class="math inline">\(\alpha\)</span> then we could correct the observed effect size for systematic errors quite easily. Continuing with our example (correlation between proxies <span class="math inline">\(\widetilde{X}\)</span> and <span class="math inline">\(\widetilde{Y}\)</span>), the artifact attenuation/inflation factor can be divided on both sides of <a href="#eq-artifact-model" class="quarto-xref">Equation&nbsp;<span>4.13</span></a>:</p>
+<p><span id="eq-correction"><span class="math display">\[
+\frac{r_{\widetilde{X}\widetilde{Y}}}{\alpha} = \rho_{XY} + \frac{\varepsilon_r}{\alpha}
+\tag{4.14}\]</span></span></p>
+<p>The corrected correlation <span class="math inline">\(r_{\widetilde{X}\widetilde{Y}}/\alpha\)</span> is an unbiased estimate of the target population correlation <span class="math inline">\(\rho_{XY}\)</span>. We can thus rewrite <span class="math inline">\(r_{\widetilde{X}\widetilde{Y}}/\alpha\)</span> as <span class="math inline">\(r_{XY}\)</span>,</p>
+<p><span id="eq-correction-replace"><span class="math display">\[
+r_{XY} = \rho_{XY} + \frac{\varepsilon_r}{\alpha}
+\tag{4.15}\]</span></span></p>
+<p>Importantly, the error term is also divided by <span class="math inline">\(\alpha\)</span> which will change sampling variance. The sampling error variance of the corrected correlation is</p>
+<p><span id="eq-corrected-sam-variance"><span class="math display">\[
+\mathrm{var}(r_{XY})=\mathrm{var}\left(\frac{\varepsilon_r}{\alpha}\right)=\frac{\mathrm{var}(\varepsilon_r)}{\alpha^2}.
+\tag{4.16}\]</span></span></p>
+<p>Let’s consider the example of how artificial dichotomization affects correlation coefficients in <a href="#exm-dich" class="quarto-xref">Example&nbsp;<span>4.3</span></a>.</p>
+<div id="exm-dich" class="border theorem example" style="--bs-border-width:2pt;--bs-border-color:#5fa6bcff; padding:5pt;">
+<p><span class="theorem-title"><strong>Example 4.3 (Social Butterflies and Wallflowers)</strong></span> Let’s see what happens when we dichotomize a naturally continuous variable. Using a data set of 3032 individuals from <span class="citation" data-cites="psych">William Revelle (<a href="../references/references_page.html#ref-psych" role="doc-biblioref">2023</a>)</span> we can look at the correlation between Sociability and Impulsivity. The scores are summation of 4-point scale responses to various emotional statements. We can denote social butterflies as individuals who have a total score that is above the median, whereas Wallflowers are individuals who are below the median. This median split turns a continuous variable into a binary one. The figure below shows the distribution of sociability with the cut-point (i.e., the median).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ex-sociability-1" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ex-sociability-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-ex-sociability-1-1.png" id="fig-ex-sociability-1" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ex-sociability-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.7
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The joint distribution between sociability and impulsivity is plotted twice in <a href="#fig-ex-sociability-2" class="quarto-xref">Figure&nbsp;<span>4.8</span></a>. The plot to the left shows the total scores for sociability and impulsivity whereas the plot on the right shows the the total scores for impulsivity and <em>dichotomized</em> scores for sociability.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ex-sociability-2" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ex-sociability-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="02-effect-sizes_files/figure-html/fig-ex-sociability-2-1.png" id="fig-ex-sociability-2" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-ex-sociability-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.8
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The observed correlations between sociability and impulsivity differs when we leave sociability as it’s original score vs when we dichotomize it (see <a href="#tbl-ex-sociability" class="quarto-xref">Table&nbsp;<span>4.3</span></a>). However if we assume that sociability <span class="math inline">\(X\)</span> and impulsivity <span class="math inline">\(Y\)</span> are distributed normally, the correlation <span class="math inline">\(r_{XY}\)</span> will be attenuated under dichotomization of either (or both) variables. In our case, dichotomization shrunk the correlation from <span class="math inline">\(r_{XY}=.39\)</span> to <span class="math inline">\(r_{\widetilde{X}Y}=.31\)</span> (<span class="math inline">\(\widetilde{X}\)</span> is denoting dichotomized <span class="math inline">\(X\)</span>). A paper by <span class="citation" data-cites="hunter1990">J. Hunter and Schmidt (<a href="../references/references_page.html#ref-hunter1990" role="doc-biblioref">1990</a>)</span> derives the attenuation factor <span class="math inline">\(\alpha\)</span> for a correlation under a median split as <span class="math inline">\(\alpha \approx .80\)</span> (assuming the underlying continuous distribution is normal). Therefore we can take the dichotomized correlation of <span class="math inline">\(.31\)</span> and divide it by <span class="math inline">\(.80\)</span> to obtain a corrected correlation per <a href="#eq-correction" class="quarto-xref">Equation&nbsp;<span>4.14</span></a>,</p>
+<p><span class="math display">\[
+r_{XY} = \frac{r_{\widetilde{X}Y}}{\alpha} = \frac{.31}{.80} = .38
+\]</span></p>
+<div class="cell">
+<div id="tbl-ex-sociability" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ex-sociability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4.3: Correlations between sociability and impulsivity
+</figcaption>
+<div aria-describedby="tbl-ex-sociability-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+ 
+
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tinytable_h5emtp8hto8cop1l5js7</title>
+    <style>
+.table td.tinytable_css_go7tgff25402s4i473lu, .table th.tinytable_css_go7tgff25402s4i473lu {    border-bottom: solid 0.1em #d3d8dc; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+  
+
+  
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_h5emtp8hto8cop1l5js7" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col">Original</th>
+                <th scope="col">Dichotomized</th>
+                <th scope="col">Corrected</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>0.39</td>
+                  <td>0.31</td>
+                  <td>0.38</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function styleCell_tinytable_xvz1o1ng5ln7c46b8x62(i, j, css_id) {
+        var table = document.getElementById("tinytable_h5emtp8hto8cop1l5js7");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_h5emtp8hto8cop1l5js7');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_xvz1o1ng5ln7c46b8x62(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_h5emtp8hto8cop1l5js7");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_xvz1o1ng5ln7c46b8x62(0, 0, 'tinytable_css_go7tgff25402s4i473lu') })
+window.addEventListener('load', function () { styleCell_tinytable_xvz1o1ng5ln7c46b8x62(0, 1, 'tinytable_css_go7tgff25402s4i473lu') })
+window.addEventListener('load', function () { styleCell_tinytable_xvz1o1ng5ln7c46b8x62(0, 2, 'tinytable_css_go7tgff25402s4i473lu') })
+    </script>
+
+  
+
+
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>As we can see from the table, the corrected correlation closely aligns with the original correlation on continuous scores.</p>
+</div>
+<p>The artifact factor <span class="math inline">\(\alpha\)</span> is sometimes unknown and must be estimated. An estimate of <span class="math inline">\(\alpha\)</span> will be denoted by the English letter <span class="math inline">\(a\)</span>. We can relate the estimate and the true value with an error term <span class="math inline">\(\xi = a - \alpha\)</span>,</p>
+<p><span id="eq-a"><span class="math display">\[
+a = \alpha + \xi,
+\tag{4.17}\]</span></span></p>
+<p>The corrected effect size can then be approximated with the sample estimate and can thus be calculated by dividing the observed effect size by the estimated artifact factor. For example the corrected correlation under measurement error would be,</p>
+<p><span class="math display">\[
+r_{XY} \approx \frac{r_{\widetilde{X}\widetilde{Y}}}{a},
+\]</span></p>
+<p>Sampling variance of the corrected effect size will lead to some analytical issues. Technically we are not able to use <a href="#eq-corrected-sam-variance" class="quarto-xref">Equation&nbsp;<span>4.16</span></a> since <span class="math inline">\(a\)</span> is not a fixed value and can vary from sample to sample. Instead, we will have to either 1) treat <span class="math inline">\(a\)</span> as if it were fixed 2) use a bootstrapping procedure, or 3) use the Delta method (i.e., using a Taylor series expansion) to approximate to estimate the sampling variance. This will be discussed further in subsequent chapters.</p>
+</section>
+<section id="calculating-effect-sizes-in-r" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="calculating-effect-sizes-in-r"><span class="header-section-number">4.6</span> Calculating effect sizes in R</h2>
+<p>Let’s turn to R to calculate effect sizes such as correlations and standardized mean differences. We will work with the <code>bfi</code> data set from the <code>psych</code> package <span class="citation" data-cites="psych">(<a href="../references/references_page.html#ref-psych" role="doc-biblioref">William Revelle 2023</a>)</span> for both cases. The <code>bfi</code> data set consists of 5 items (6-point scales) from each of the big 5 personality traits (Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Oppenness to Experience) along with some demographic variables. The total data set contains 2,800 individuals. We can start by computing a standardized mean difference (SMD) between men and women for each personality trait:</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Computing SMDs in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this example we will compute the standardized mean difference (SMD) between men and women in each of the big 5 personality traits. Let’s load in the packages we need <span class="citation" data-cites="psych dplyr missRanger psychmeta">(<a href="../references/references_page.html#ref-psych" role="doc-biblioref">William Revelle 2023</a>; <a href="../references/references_page.html#ref-dplyr" role="doc-biblioref">Wickham et al. 2023</a>; <a href="../references/references_page.html#ref-missRanger" role="doc-biblioref">Mayer 2023</a>; <a href="../references/references_page.html#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span> and the big 5 personality data set:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load in packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych) <span class="co"># for data set and cohen.d function</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># for data cleaning</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(missRanger) <span class="co"># for imputation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta) <span class="co"># for calculating sampling variance</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># display the first 6 rows</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bfi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      A1 A2 A3 A4 A5 C1 C2 C3 C4 C5 E1 E2 E3 E4 E5 N1 N2 N3 N4 N5 O1 O2 O3 O4
+61617  2  4  3  4  4  2  3  3  4  4  3  3  3  4  4  3  4  2  2  3  3  6  3  4
+61618  2  4  5  2  5  5  4  4  3  4  1  1  6  4  3  3  3  3  5  5  4  2  4  3
+61620  5  4  5  4  4  4  5  4  2  5  2  4  4  4  5  4  5  4  2  3  4  2  5  5
+61621  4  4  6  5  5  4  4  3  5  5  5  3  4  4  4  2  5  2  4  1  3  3  4  3
+61622  2  3  3  4  5  4  4  5  3  2  2  2  5  4  5  2  3  4  4  3  3  3  4  3
+61623  6  6  5  6  5  6  6  6  1  3  2  1  6  5  6  3  5  2  2  3  4  3  5  6
+      O5 gender education age
+61617  3      1        NA  16
+61618  3      2        NA  18
+61620  2      2        NA  17
+61621  5      2        NA  17
+61622  3      1        NA  17
+61623  1      2         3  21</code></pre>
+</div>
+</div>
+<p>The items are denoted with the letter pertaining to each trait it is associated with (A = Agreeableness, C = Conscientiousness, E = Extraversion, N = Neuroticism, O = Oppenness to Experience). We first can impute missing item responses with a univariate imputation procedure <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> with the <code>missRanger::imputeUnivariate()</code> function <span class="citation" data-cites="missRanger">(<a href="../references/references_page.html#ref-missRanger" role="doc-biblioref">Mayer 2023</a>)</span>. Then we can calculate the total sum-scores for each of the five personality traits. Some items are reverse scored and must be flipped prior to summing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> bfi <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Impute missing item response values with univariate imputation</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imputeUnivariate</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate sum scores</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="dv">7</span><span class="sc">-</span>A1 <span class="sc">+</span>   A2 <span class="sc">+</span> A3 <span class="sc">+</span>   A4   <span class="sc">+</span>   A5, <span class="co"># Agreeableness</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">C =</span>   C1 <span class="sc">+</span>   C2 <span class="sc">+</span> C3 <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>C4   <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>C5, <span class="co"># Consientiousness</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">E =</span> <span class="dv">7</span><span class="sc">-</span>E1 <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>E2 <span class="sc">+</span> E3 <span class="sc">+</span>   E4   <span class="sc">+</span>   E5, <span class="co"># Extraversion</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">N =</span>   N1 <span class="sc">+</span>   N2 <span class="sc">+</span> N3 <span class="sc">+</span>   N4   <span class="sc">+</span>   N5, <span class="co"># Neuroticism</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">O =</span>   O1 <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>O2 <span class="sc">+</span> O3 <span class="sc">+</span>   O4   <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>O5) <span class="co"># Openness to Experience</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      A1 A2 A3 A4 A5 C1 C2 C3 C4 C5 E1 E2 E3 E4 E5 N1 N2 N3 N4 N5 O1 O2 O3 O4
+61617  2  4  3  4  4  2  3  3  4  4  3  3  3  4  4  3  4  2  2  3  3  6  3  4
+61618  2  4  5  2  5  5  4  4  3  4  1  1  6  4  3  3  3  3  5  5  4  2  4  3
+61620  5  4  5  4  4  4  5  4  2  5  2  4  4  4  5  4  5  4  2  3  4  2  5  5
+61621  4  4  6  5  5  4  4  3  5  5  5  3  4  4  4  2  5  2  4  1  3  3  4  3
+61622  2  3  3  4  5  4  4  5  3  2  2  2  5  4  5  2  3  4  4  3  3  3  4  3
+61623  6  6  5  6  5  6  6  6  1  3  2  1  6  5  6  3  5  2  2  3  4  3  5  6
+      O5 gender education age  A  C  E  N  O
+61617  3      1         3  16 20 14 19 14 15
+61618  3      2         4  18 21 20 25 19 20
+61620  2      2         5  17 19 20 21 18 24
+61621  5      2         4  17 23 15 18 14 16
+61622  3      1         3  17 20 22 24 16 18
+61623  1      2         3  21 23 28 28 15 25</code></pre>
+</div>
+</div>
+<p>We can then calculate the SMD between men and women using the <code>psych::cohen.d()</code>. The output displays the lower bound (<code>lower</code>), the SMD (<code>effect</code>), and the upper bound (<code>upper</code>) in that order. It also displays the multivariate version of the SMD (i.e., Maholonobis’ D) and the SMDs converted to point-biserial correlations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">cohen.d</span>(A <span class="sc">+</span> C <span class="sc">+</span> E <span class="sc">+</span> N <span class="sc">+</span> O <span class="sc">~</span> gender, <span class="at">data=</span>df)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call: cohen.d(x = A + C + E + N + O ~ gender, data = df)
+Cohen d statistic of difference between two means
+  lower effect upper
+A  0.37   0.45  0.53
+C  0.12   0.20  0.28
+E  0.15   0.23  0.31
+N  0.19   0.27  0.35
+O -0.20  -0.12 -0.04
+
+Multivariate (Mahalanobis) distance between groups
+[1] 0.66
+r equivalent of difference between two means
+    A     C     E     N     O 
+ 0.21  0.09  0.11  0.13 -0.06 </code></pre>
+</div>
+</div>
+<p>We can also extract the sampling variances for each SMD estimate by squaring the standard error calculated by the function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> results<span class="sc">$</span>cohen.d[,<span class="st">"effect"</span>], </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">var =</span> results<span class="sc">$</span>se<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           d         var
+A  0.4510107 0.006361921
+C  0.1980098 0.006249246
+E  0.2272884 0.006257676
+N  0.2695356 0.006272147
+O -0.1202016 0.006232197</code></pre>
+</div>
+</div>
+<p>If the raw data is not available, yet we want to calculate the SMD for each trait, the <code>psych</code> function allows us to input summary statistics. For example lets say we are given the following table:</p>
+<div class="cell">
+<div class="cell-output-display">
+ 
+
+  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tinytable_vtf5dcakb8fvsocvz6ar</title>
+    <style>
+.table td.tinytable_css_p0aw6ifgl5cyqzy5pjvv, .table th.tinytable_css_p0aw6ifgl5cyqzy5pjvv {    border-bottom: solid 0.1em #d3d8dc; }
+.table td.tinytable_css_usnqw6bxigmyq7h0xua5, .table th.tinytable_css_usnqw6bxigmyq7h0xua5 {    text-align: center; }
+.table td.tinytable_css_od0zgu04o3zt19q4g30z, .table th.tinytable_css_od0zgu04o3zt19q4g30z {    border-bottom: solid 0.05em #d3d8dc; }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+    </script>
+  
+
+  
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_vtf5dcakb8fvsocvz6ar" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+<tr>
+<th scope="col" align="center" colspan="1"> </th>
+<th scope="col" align="center" colspan="2">Women (n = 919)</th>
+<th scope="col" align="center" colspan="2">Men (n = 1881)</th>
+</tr>
+        
+              <tr>
+                <th scope="col">traits</th>
+                <th scope="col">mean</th>
+                <th scope="col">sd</th>
+                <th scope="col">mean</th>
+                <th scope="col">sd</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>Agreeableness    </td>
+                  <td>23.9 </td>
+                  <td>4.25 </td>
+                  <td>21.92</td>
+                  <td>4.631</td>
+                </tr>
+                <tr>
+                  <td>Conscientiousness</td>
+                  <td>21.63</td>
+                  <td>4.675</td>
+                  <td>20.69</td>
+                  <td>4.81 </td>
+                </tr>
+                <tr>
+                  <td>Extraversion     </td>
+                  <td>21.11</td>
+                  <td>5.097</td>
+                  <td>19.92</td>
+                  <td>5.569</td>
+                </tr>
+                <tr>
+                  <td>Neuroticism      </td>
+                  <td>16.32</td>
+                  <td>5.999</td>
+                  <td>14.73</td>
+                  <td>5.676</td>
+                </tr>
+                <tr>
+                  <td>Openness         </td>
+                  <td>22.78</td>
+                  <td>4.013</td>
+                  <td>23.27</td>
+                  <td>4.059</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function styleCell_tinytable_dy7ystzt9c383ybqvv30(i, j, css_id) {
+        var table = document.getElementById("tinytable_vtf5dcakb8fvsocvz6ar");
+        table.rows[i].cells[j].classList.add(css_id);
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_vtf5dcakb8fvsocvz6ar');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_tinytable_dy7ystzt9c383ybqvv30(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_vtf5dcakb8fvsocvz6ar");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(1, 0, 'tinytable_css_p0aw6ifgl5cyqzy5pjvv') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(1, 1, 'tinytable_css_p0aw6ifgl5cyqzy5pjvv') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(1, 2, 'tinytable_css_p0aw6ifgl5cyqzy5pjvv') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(1, 3, 'tinytable_css_p0aw6ifgl5cyqzy5pjvv') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(1, 4, 'tinytable_css_p0aw6ifgl5cyqzy5pjvv') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(0, 0, 'tinytable_css_usnqw6bxigmyq7h0xua5') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(0, 1, 'tinytable_css_usnqw6bxigmyq7h0xua5') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(0, 2, 'tinytable_css_usnqw6bxigmyq7h0xua5') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(0, 3, 'tinytable_css_usnqw6bxigmyq7h0xua5') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(0, 4, 'tinytable_css_usnqw6bxigmyq7h0xua5') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(0, 1, 'tinytable_css_od0zgu04o3zt19q4g30z') })
+window.addEventListener('load', function () { styleCell_tinytable_dy7ystzt9c383ybqvv30(0, 2, 'tinytable_css_od0zgu04o3zt19q4g30z') })
+    </script>
+
+  
+
+
+</div>
+</div>
+<p>We can plug in the corresponding values into the <code>m2d</code> function to obtain the SMD <code>d</code>, however it does not return estimates of sampling variance, therefore we can use the <code>var_error_d()</code> function from the <code>psychmeta</code> package <span class="citation" data-cites="psychmeta">(<a href="../references/references_page.html#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">m2d</span>(<span class="at">m1 =</span> <span class="fu">c</span>(<span class="fl">23.91</span>,<span class="fl">21.64</span>,<span class="fl">21.11</span>,<span class="fl">16.33</span>,<span class="fl">22.77</span>), </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">m2 =</span> <span class="fu">c</span>(<span class="fl">21.93</span>,<span class="fl">20.69</span>,<span class="fl">19.93</span>,<span class="fl">14.74</span>,<span class="fl">23.28</span>), </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">s1 =</span> <span class="fu">c</span>(<span class="fl">4.25</span>,<span class="fl">4.675</span>,<span class="fl">5.099</span>,<span class="fl">6.019</span>,<span class="fl">4.007</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">s2 =</span> <span class="fu">c</span>(<span class="fl">4.635</span>,<span class="fl">4.824</span>,<span class="fl">5.574</span>,<span class="fl">5.702</span>,<span class="fl">4.052</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">n1 =</span> <span class="dv">919</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">n2 =</span> <span class="dv">1881</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">pooled=</span><span class="cn">TRUE</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>var_d <span class="ot">&lt;-</span> <span class="fu">var_error_d</span>(d, <span class="at">n1=</span><span class="fu">rep</span>(<span class="dv">919</span>,<span class="dv">5</span>), <span class="at">n2 =</span> <span class="fu">rep</span>(<span class="dv">1881</span>,<span class="dv">5</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># display results</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(d, <span class="at">var =</span> var_d, <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"C"</span>,<span class="st">"E"</span>,<span class="st">"N"</span>,<span class="st">"O"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           d         var
+A  0.4387999 0.001655319
+C  0.1989268 0.001627997
+E  0.2176020 0.001629387
+N  0.2737645 0.001634315
+O -0.1263223 0.001623780</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Now we can compute the correlations between the personality traits in all participants.</p>
+<div class="callout callout-style-default callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Computing Correlations in R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In this example we will compute the correlations between each of the five personality traits. Let’s load in the packages we need <span class="citation" data-cites="psych dplyr missRanger psychmeta">(<a href="../references/references_page.html#ref-psych" role="doc-biblioref">William Revelle 2023</a>; <a href="../references/references_page.html#ref-dplyr" role="doc-biblioref">Wickham et al. 2023</a>; <a href="../references/references_page.html#ref-missRanger" role="doc-biblioref">Mayer 2023</a>; <a href="../references/references_page.html#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span> and the big 5 personality data set:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("psych")</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("dplyr")</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("missRanger")</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("psychmeta")</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># load in packages</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych) <span class="co"># for data set and cohen.d function</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># for data cleaning</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(missRanger) <span class="co"># for imputation</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psychmeta) <span class="co"># for calculating sampling variance</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># display the first 6 rows</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bfi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      A1 A2 A3 A4 A5 C1 C2 C3 C4 C5 E1 E2 E3 E4 E5 N1 N2 N3 N4 N5 O1 O2 O3 O4
+61617  2  4  3  4  4  2  3  3  4  4  3  3  3  4  4  3  4  2  2  3  3  6  3  4
+61618  2  4  5  2  5  5  4  4  3  4  1  1  6  4  3  3  3  3  5  5  4  2  4  3
+61620  5  4  5  4  4  4  5  4  2  5  2  4  4  4  5  4  5  4  2  3  4  2  5  5
+61621  4  4  6  5  5  4  4  3  5  5  5  3  4  4  4  2  5  2  4  1  3  3  4  3
+61622  2  3  3  4  5  4  4  5  3  2  2  2  5  4  5  2  3  4  4  3  3  3  4  3
+61623  6  6  5  6  5  6  6  6  1  3  2  1  6  5  6  3  5  2  2  3  4  3  5  6
+      O5 gender education age
+61617  3      1        NA  16
+61618  3      2        NA  18
+61620  2      2        NA  17
+61621  5      2        NA  17
+61622  3      1        NA  17
+61623  1      2         3  21</code></pre>
+</div>
+</div>
+<p>We can calculate the scores for each of the five personality traits (i.e., Agreeableness, Conscientiousness, Extraversion, Neuroticism, and Openness to Experience) by first imputing missing values with the <code>missRanger</code> package <span class="citation" data-cites="missRanger">(<a href="../references/references_page.html#ref-missRanger" role="doc-biblioref">Mayer 2023</a>)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> and then summing the scores row wise (i.e., a sum-score for each trait is calculated for each person). Some items are reverse scored and must be flipped prior.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> bfi <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imputeUnivariate</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A =</span> <span class="dv">7</span><span class="sc">-</span>A1 <span class="sc">+</span>   A2 <span class="sc">+</span> A3 <span class="sc">+</span>   A4   <span class="sc">+</span>   A5,   <span class="co"># Agreeableness</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">C =</span>   C1 <span class="sc">+</span>   C2 <span class="sc">+</span> C3 <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>C4   <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>C5, <span class="co"># Consientiousness</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">E =</span> <span class="dv">7</span><span class="sc">-</span>E1 <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>E2 <span class="sc">+</span> E3 <span class="sc">+</span>   E4   <span class="sc">+</span>   E5,   <span class="co"># Extraversion</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">N =</span>   N1 <span class="sc">+</span>   N2 <span class="sc">+</span> N3 <span class="sc">+</span>   N4   <span class="sc">+</span>   N5,   <span class="co"># Neuroticism</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">O =</span>   O1 <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>O2 <span class="sc">+</span> O3 <span class="sc">+</span>   O4   <span class="sc">+</span> <span class="dv">7</span><span class="sc">-</span>O5) <span class="co"># Openness to Experience</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      A1 A2 A3 A4 A5 C1 C2 C3 C4 C5 E1 E2 E3 E4 E5 N1 N2 N3 N4 N5 O1 O2 O3 O4
+61617  2  4  3  4  4  2  3  3  4  4  3  3  3  4  4  3  4  2  2  3  3  6  3  4
+61618  2  4  5  2  5  5  4  4  3  4  1  1  6  4  3  3  3  3  5  5  4  2  4  3
+61620  5  4  5  4  4  4  5  4  2  5  2  4  4  4  5  4  5  4  2  3  4  2  5  5
+61621  4  4  6  5  5  4  4  3  5  5  5  3  4  4  4  2  5  2  4  1  3  3  4  3
+61622  2  3  3  4  5  4  4  5  3  2  2  2  5  4  5  2  3  4  4  3  3  3  4  3
+61623  6  6  5  6  5  6  6  6  1  3  2  1  6  5  6  3  5  2  2  3  4  3  5  6
+      O5 gender education age  A  C  E  N  O
+61617  3      1         3  16 20 14 19 14 15
+61618  3      2         3  18 21 20 25 19 20
+61620  2      2         3  17 19 20 21 18 24
+61621  5      2         5  17 23 15 18 14 16
+61622  3      1         3  17 20 22 24 16 18
+61623  1      2         3  21 23 28 28 15 25</code></pre>
+</div>
+</div>
+<p>We can then compute the correlation matrix between all of the sum scores:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># construct correlation matrix</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>r_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(df[,<span class="fu">c</span>(<span class="st">"A"</span>,<span class="st">"C"</span>,<span class="st">"E"</span>,<span class="st">"N"</span>,<span class="st">"O"</span>)])</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(r_matrix,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       A      C      E      N      O
+A  1.000  0.257  0.457 -0.184  0.148
+C  0.257  1.000  0.260 -0.233  0.193
+E  0.457  0.260  1.000 -0.222  0.213
+N -0.184 -0.233 -0.222  1.000 -0.087
+O  0.148  0.193  0.213 -0.087  1.000</code></pre>
+</div>
+</div>
+<p>Note that the diagonals are 1 since anything correlated with itself is one. Then we can calculate the sampling variance for each element of the correlation matrix:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># manually calculate sampling variance</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>var_matrix <span class="ot">&lt;-</span> ((<span class="dv">1</span> <span class="sc">-</span> r_matrix<span class="sc">^</span><span class="dv">2</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="fu">nrow</span>(df)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(var_matrix,<span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        A       C       E       N       O
+A 0.00000 0.00031 0.00022 0.00033 0.00034
+C 0.00031 0.00000 0.00031 0.00032 0.00033
+E 0.00022 0.00031 0.00000 0.00032 0.00033
+N 0.00033 0.00032 0.00032 0.00000 0.00035
+O 0.00034 0.00033 0.00033 0.00035 0.00000</code></pre>
+</div>
+</div>
+<p>Note the diagonals will be zero since there is no uncertainty in a correlation of 1. We can also use the <code>psychmeta::var_error_r()</code> function <span class="citation" data-cites="psychmeta">(<a href="../references/references_page.html#ref-psychmeta" role="doc-biblioref">Dahlke and Wiernik 2019</a>)</span> to calculate the sampling variance for any given correlation (e.g., Agreeableness vs Conscientiousness)</p>
+<div class="cell">
+<pre><code>## [1] 0.0003116634</code></pre>
+</div>
+<p>As we can see, the <code>var_error_r</code> function produces identical results as the manual variance calculation.</p>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-barraza2019" class="csl-entry" role="listitem">
+Barraza, Felipe, Marcelo Arancibia, Eva Madrid, and Cristian Papuzinski. 2019. <span>“General Concepts in Biostatistics and Clinical Epidemiology: Random Error and Systematic Error.”</span> <em>Medwave</em> 19 (7): e7687. <a href="https://doi.org/10.5867/medwave.2019.07.7687">https://doi.org/10.5867/medwave.2019.07.7687</a>.
+</div>
+<div id="ref-bonett2008" class="csl-entry" role="listitem">
+Bonett, Douglas G. 2008. <span>“Meta-Analytic Interval Estimation for Bivariate Correlations.”</span> <em>Psychological Methods</em> 13 (3): 173–81. <a href="https://doi.org/10.1037/a0012868">https://doi.org/10.1037/a0012868</a>.
+</div>
+<div id="ref-cohen1988" class="csl-entry" role="listitem">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. Academic Press.
+</div>
+<div id="ref-psychmeta" class="csl-entry" role="listitem">
+Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. <span>“Psychmeta: An R Package for Psychometric Meta-Analysis.”</span> <em>Applied Psychological Measurement</em> 43 (5): 415–16. <a href="https://doi.org/10.1177/0146621618795933">https://doi.org/10.1177/0146621618795933</a>.
+</div>
+<div id="ref-enders2022" class="csl-entry" role="listitem">
+Enders, Craig K. 2022. <em>Applied Missing Data Analysis</em>. Guilford Publications.
+</div>
+<div id="ref-gnambs2023" class="csl-entry" role="listitem">
+Gnambs, Timo. 2023. <span>“A Brief Note on the Standard Error of the Pearson Correlation.”</span> <em>Collabra: Psychology</em> 9 (1): 87615. <a href="https://doi.org/10.1525/collabra.87615">https://doi.org/10.1525/collabra.87615</a>.
+</div>
+<div id="ref-goldberg1999" class="csl-entry" role="listitem">
+Goldberg, Lewis. 1999. <span>“Public Domain, Personality Inventory Measuring the Lower-Level Facets of Several Five-Factor Models.”</span> <em>Personality Psychology in Europe</em> 7: 7–28. <a href="https://cir.nii.ac.jp/crid/1571417125727416704">https://cir.nii.ac.jp/crid/1571417125727416704</a>.
+</div>
+<div id="ref-hunter1990a" class="csl-entry" role="listitem">
+Hunter, John E., and Frank L. Schmidt. 2015. <em>Methods of meta-analysis: correcting error and bias in research findings (third)</em>. Third. Thousand Oaks, California: Sage Publications.
+</div>
+<div id="ref-hunter1990" class="csl-entry" role="listitem">
+Hunter, John, and Frank Schmidt. 1990. <span>“Dichotomization of Continuous Variables: The Implications for Meta-Analysis.”</span> <em>Journal of Applied Psychology</em> 75 (June): 334–49. <a href="https://doi.org/10.1037/0021-9010.75.3.334">https://doi.org/10.1037/0021-9010.75.3.334</a>.
+</div>
+<div id="ref-missRanger" class="csl-entry" role="listitem">
+Mayer, Michael. 2023. <em>missRanger: Fast Imputation of Missing Values</em>. <a href="https://CRAN.R-project.org/package=missRanger">https://CRAN.R-project.org/package=missRanger</a>.
+</div>
+<div id="ref-pearson1895" class="csl-entry" role="listitem">
+Pearson, Karl. 1895. <span>“Notes on the History of Correlation.”</span> <em>Society of Biometricians and Mathematical Statisticians</em>. <a href="https://doi.org/10.2307/2331722">https://doi.org/10.2307/2331722</a>.
+</div>
+<div id="ref-revelle2010" class="csl-entry" role="listitem">
+Revelle, William, Joshua Wilt, and Allen Rosenthal. 2010. <span>“Individual Differences in Cognition: New Methods for Examining the Personality-Cognition Link.”</span> In, edited by Aleksandra Gruszka, Gerald Matthews, and Blazej Szymura, 27–49. New York, NY: Springer. <a href="https://doi.org/10.1007/978-1-4419-1210-7_2">https://doi.org/10.1007/978-1-4419-1210-7_2</a>.
+</div>
+<div id="ref-van2018flexible" class="csl-entry" role="listitem">
+Van Buuren, Stef. 2018. <em>Flexible Imputation of Missing Data</em>. CRC press.
+</div>
+<div id="ref-dplyr" class="csl-entry" role="listitem">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>.
+</div>
+<div id="ref-psych" class="csl-entry" role="listitem">
+William Revelle. 2023. <em>Psych: Procedures for Psychological, Psychometric, and Personality Research</em>. Evanston, Illinois: Northwestern University. <a href="https://CRAN.R-project.org/package=psych">https://CRAN.R-project.org/package=psych</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Effect sizes can be defined more broadly as the association between multiple variables, however this book will only focus on the more narrow case of just two variables.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>1: Individuals who did not complete any one of the tests or who scored well below the expected guessing score (ACT &lt; 10, SATQ &lt; 300, SATV &lt; 300). <a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>2: sampling variances often change with the location of the effect size, for example, the correlation coefficient has a variance of 0 when the correlation is unity no matter the sample size.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This may or may not be the optimal approach to imputing missing values, but imputation best practice is beyond the scope of this book. For information on imputation methods and best practice see <span class="citation" data-cites="enders2022">Enders (<a href="../references/references_page.html#ref-enders2022" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="van2018flexible">Van Buuren (<a href="../references/references_page.html#ref-van2018flexible" role="doc-biblioref">2018</a>)</span><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>This may or may not be the optimal approach to imputing missing values, but imputation best practice is beyond the scope of this book. For information on imputation methods and best practice see <span class="citation" data-cites="enders2022">Enders (<a href="../references/references_page.html#ref-enders2022" role="doc-biblioref">2022</a>)</span> and <span class="citation" data-cites="van2018flexible">Van Buuren (<a href="../references/references_page.html#ref-van2018flexible" role="doc-biblioref">2018</a>)</span><a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../01-definitions/01-definitions.html" class="pagination-link  aria-label=" &lt;span="" random="" variables,="" and="" expectations&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Samples, Random Variables, and Expectations</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../03-small-samples/03-small-samples.html" class="pagination-link" aria-label="<span class='chapter-number'>5</span>&nbsp; <span class='chapter-title'>Small Samples</span>">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Small Samples</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

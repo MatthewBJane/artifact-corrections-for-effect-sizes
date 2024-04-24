@@ -116,30 +116,44 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
   % turn on hanging indent if param 1 is 1
   \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
   \fi
   % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
 \usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
+\usepackage{xcolor}
+\definecolor{rr}{HTML}{cb427b}
+\definecolor{gg}{HTML}{797979}
+\definecolor{bb}{HTML}{347e9f}
 \KOMAoption{captions}{tableheading}
 \titlehead{\includegraphics[width=7in]{figure/MJB_cover.jpg}}
 \makeatletter
@@ -157,8 +171,6 @@
 \definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
 \definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
 \definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
-\makeatother
-\makeatletter
 \makeatother
 \makeatletter
 \@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
@@ -199,6 +211,8 @@
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
 \makeatother
 \makeatletter
+\makeatother
+\makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
@@ -206,12 +220,13 @@
 \@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
 \makeatother
 \makeatletter
-\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}{}
 \makeatother
 \makeatletter
-\@ifundefined{codebgcolor}{\definecolor{codebgcolor}{HTML}{f5f7ff}}
+\@ifundefined{codebgcolor}{\definecolor{codebgcolor}{HTML}{f5f7ff}}{}
 \makeatother
 \makeatletter
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, colback={codebgcolor}, boxrule=0pt, frame hidden, sharp corners, breakable]}{\end{tcolorbox}}\fi
 \makeatother
 \makeatletter
 \@ifpackageloaded{fontawesome5}{}{\usepackage{fontawesome5}}
@@ -219,7 +234,8 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
+
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same} % disable monospaced font for URLs
 \hypersetup{
@@ -245,7 +261,6 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, boxrule=0pt, sharp corners, colback={codebgcolor}, borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -255,30 +270,26 @@
 }
 \bookmarksetup{startatroot}
 
-\hypertarget{greetings}{%
-\chapter{Greetings}\label{greetings}}
+\chapter{Greetings}\label{greetings}
 
-Welcome to the living open source textbook \textbf{\emph{Artifact
-Corrections for Effect Sizes}}. This textbook covers all the essential
-equations and code needed to correct for biases in our effect size
-estimates. It will also hopefully provide readers with a deeper
-understanding, appreciation, and intuition for these seemingly complex
-formulas. It also covers how to apply these corrections to
-meta-analysis.
+Welcome to the living open source textbook \textbf{\emph{Study Artifacts
+and Their Corrections}}. This book is designed to assist researchers in
+understanding the nature of study artifacts, their biasing effect on
+effect sizes, and proper bias correction methods. Each chapter includes
+practical examples, R code, and equations for seamlessly implementing
+these corrections into your own research projects.
 
-\hypertarget{what-are-statistical-artifacts}{%
-\subsubsection*{What are Statistical
-Artifacts?}\label{what-are-statistical-artifacts}}
-\addcontentsline{toc}{subsubsection}{What are Statistical Artifacts?}
+\subsubsection*{What are Study
+Artifacts?}\label{what-are-study-artifacts}
+\addcontentsline{toc}{subsubsection}{What are Study Artifacts?}
 
-In this book statistical artifacts will be defined broadly as
-\textbf{any source of contamination that induces bias in research
-findings}. Artifacts are present in virtually every research study, so
-it is crucial that we address them.
+In this book, artifacts will be defined broadly as \textbf{any source of
+methodological contamination that induce bias in research findings}.
+Artifacts are present in virtually every research study, so it is
+crucial that we address them.
 
-\hypertarget{open-and-living-textbook}{%
 \subsubsection*{Open and Living
-Textbook}\label{open-and-living-textbook}}
+Textbook}\label{open-and-living-textbook}
 \addcontentsline{toc}{subsubsection}{Open and Living Textbook}
 
 A living textbook is one that constantly updates with new features and
@@ -296,32 +307,29 @@ repository}. The current maintainer of the book is
 work in your own work, it is important that you acknowledge it and cite
 it as follows:
 
-\hypertarget{apa}{%
-\paragraph*{APA}\label{apa}}
+\paragraph*{APA}\label{apa}
 \addcontentsline{toc}{paragraph}{APA}
 
-Jané, M. B. (2023). Artifact Corrections for Effect Sizes:
-Implementation in R and Application to Meta-Analysis. (n.p.).
+Jané, M. B. (2024). Artifact Corrections for Effect Sizes: Seeing
+Reality for What It Is. (n.p.).
 https://matthewbjane.quarto.pub/artifact-corrections-for-effect-sizes/
 
-\hypertarget{bibtex}{%
-\paragraph*{BibTeX}\label{bibtex}}
+\paragraph*{BibTeX}\label{bibtex}
 \addcontentsline{toc}{paragraph}{BibTeX}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{@book\{MatthewBJane2023,}
-\NormalTok{  title     = "Artifact Corrections for Effect Sizes: Implementation in R and Application to Meta{-}Analysis",}
+\NormalTok{  title     = "Artifact Corrections for Effect Sizes: Seeing Reality for What It Is",}
 \NormalTok{  author    = "Jané, Matthew B.",}
-\NormalTok{  year      = 2023,}
+\NormalTok{  year      = 2024,}
 \NormalTok{  publisher = "(n.p.)",}
 \NormalTok{  url      = \{https://matthewbjane.quarto.pub/artifact{-}corrections{-}for{-}effect{-}sizes/\}}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{contributions}{%
-\subsubsection*{Contributions}\label{contributions}}
+\subsubsection*{Contributions}\label{contributions}
 \addcontentsline{toc}{subsubsection}{Contributions}
 
 Please feel free to contribute to this textbook, if your contribution
@@ -329,9 +337,9 @@ makes it to the published version of this book, your name will be
 included in the contributor list below with a description of your work.
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2917}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2917}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4167}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2778}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Name
@@ -350,55 +358,507 @@ Solent University & Designed cover and twitter preview. \\
 
 \bookmarksetup{startatroot}
 
-\hypertarget{dedication}{%
-\chapter{Dedication}\label{dedication}}
+\chapter{Dedication}\label{dedication}
 
 In Loving Memory of Haley Jané
 
 My companion, whose love and presence have filled my life with joy and
 comfort.
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=4.16667in,height=\textheight]{figure/dedication_2.png}
-
-}
-
-\end{figure}
+\begin{center}
+\includegraphics[width=4.16667in,height=\textheight]{chapters/00-dedication/figure/dedication_2.png}
+\end{center}
 
 \bookmarksetup{startatroot}
 
-\hypertarget{effect-sizes-and-artifacts}{%
-\chapter{Effect Sizes and Artifacts}\label{effect-sizes-and-artifacts}}
+\chapter{Technical Introduction}\label{technical-introduction}
 
-\hypertarget{what-are-effect-sizes}{%
-\section{What are Effect Sizes?}\label{what-are-effect-sizes}}
+\section{Introduction}\label{introduction}
 
-Effect sizes are statistics that measure the magnitude of a relationship
-between variables. It's important to remember that effect sizes are a
-valuable tool, enabling researchers to extract meaningful insights from
-data, rather than being the ultimate objective themselves. Effect sizes
-aide in researcher's ability to draw meaningful inferences from data and
-therefore it is crucial that they are accurate. Correlation coefficients
-and standardized mean differences are two of the most common effect
-sizes and so they will be the primary focus of this book.
+This section lays out the framework for the rest of the book. First we
+start with the first principles defining what populations and samples
+are and distinguishing them
 
-\hypertarget{defining-the-scientific-estimand}{%
+\section{Measure-Theoretic Framework}\label{measure-theoretic-framework}
+
+\subsection{Outcome Space and Population of
+Interest}\label{outcome-space-and-population-of-interest}
+
+Let \((\Omega,\mathcal{F}_\Omega)\) be a measurable space. The set
+\(\Omega\) is the outcome space (i.e., the universe of possible
+outcomes) where each \(\omega \in \Omega\) is an outcome . The
+\(\sigma\)-field \(\mathcal{F}_\Omega\) is a collection of subsets of
+\(\Omega\) that is closed under countably many set operations. Let
+\((\Psi, \mathcal{F}_\Psi)\) be a measurable space where the set
+\(\Psi\) is the population of interest where each \(\psi \in \Psi\) is
+an experimental object of study such as an individual person or animal.
+Throughout the text \(\psi\) will most often be referred to as an
+``individual'', but take note that this encompasses any experimental
+object of interest.
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{chapters/01-definitions/figure/spaces.png}
+
+}
+
+\caption{\label{fig-spaces}Spaces \(\Omega\) and \(\Psi\). The space
+\(\Omega\) is the space of all possible outcomes whereas the space
+\(\Psi\) is the population of interest (i.e., the space of all possible
+individuals). Each dot denotes the elements \(\omega\in\Omega\) and
+\(\psi\in\Psi\).}
+
+\end{figure}%
+
+Let \(\ell\) be an assignment-to-individual function that maps the
+outcome space \(\Omega\) to the population of interest \(\Psi\)
+(Zimmerman 1975; Kroc and Zumbo 2020),
+
+\[
+\ell: (\Omega,\mathcal{F}_\Omega) \rightarrow (\Psi,\mathcal{F}_\Psi).
+\]
+
+The function \(\ell\) is \(\mathcal{F}\)-measurable such that
+\(\ell^{-1}(\psi) \in \mathcal{F}_{\Omega}\). The preimage of an
+individual \(\psi\in\Psi\) under the assignment-to-individual function
+is also known as a \emph{fiber} and encapsulates all possible outcomes
+for given individual (see Figure~\ref{fig-fibers}). The fibers of
+\(\ell\) create a partition of the outcome space,
+
+\begin{equation}\phantomsection\label{eq-sigma-field-ell}{
+\Lambda :=  \{\ell^{-1}(\psi) : \psi \in \Psi\} \subset \mathcal{F}_\Omega.
+}\end{equation}
+
+The partition \(\Lambda\) allows is the collection of disjoint subsets
+of \(\Omega\) uniquely assigned to each individual in the population of
+interest. Note that we can union the fibers of \(\ell\) to recover the
+total outcome space such that
+\(\Omega = \bigcup_{\psi\in\Psi}\ell^{-1}(\psi)\).
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{chapters/01-definitions/figure/fibers.png}
+
+}
+
+\caption{\label{fig-fibers}Assignment-to-individual function and it's
+fibers. The top panels show the function \(\ell\) mapping elements of
+\(\Omega\) to a single element of \(\Psi\). The bottom panels shows a
+fiber of \(\psi\) under \(\ell\) which is a subset of \(\Omega\).}
+
+\end{figure}%
+
+\subsection{Random Variables and Measurement
+Error}\label{random-variables-and-measurement-error}
+
+The outcomes \(\omega\) in the outcome space are arbitrary values, but
+we can convert them to real number values by defining a random variable
+that is a function which takes each \(\omega\in\Omega\) and assigns to
+it a real-valued quantity. A real-valued random variable \(V\) is a
+measurable function that maps the measurable space
+\((\Omega,\mathcal{F}_\Omega)\) equipped with a probability measure
+\({\Pr}_V\) to the set of real numbers equipped with the Borel
+\(\sigma\)--field (i.e., the smallest \(\sigma\)--field containing all
+open sets; see Figure~\ref{fig-rv}),
+
+\[
+V: (\Omega,\mathcal{F}_\Omega,{\Pr}_V) \rightarrow (\mathbb{R},\mathcal{B}_\mathbb{R}).
+\]
+
+Where the probability measure of the outcome space is
+\({\Pr}_V(\Omega)=1\).
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{chapters/01-definitions/figure/rv.png}
+
+}
+
+\caption{\label{fig-rv}Random variable. Three elements of \(\Omega\)
+labeled \(\omega_a,\) \(\omega_b,\) and \(\omega_c\) are assigned
+real-valued quantities under the random variable \(V\).}
+
+\end{figure}%
+
+We can now define the relevant random variables that will be used over
+the course of the book. Let \(Y\) be a random variable of scientific
+interest (i.e., the measurand) denoting our \emph{dependent} variable
+(i.e., the outcome variable). In a study, we often need to draw
+inferences about \(Y\) from an observable error-prone proxy,
+\(\widetilde{Y}\). The proxy variable contains \textbf{measurement
+error} which denote deviations between true value \(Y\) and values of
+the proxy variable. We can specify an algebraic structure relating the
+proxy \(\widetilde{Y}\) to the true value \(Y\),
+
+\begin{equation}\phantomsection\label{eq-meas-y}{
+\widetilde{Y} = Y + E_Y
+}\end{equation}
+
+Where \(E_Y\) is the measurement error term defined as the difference
+between the error-prone proxy and the true value
+\(E_Y = \widetilde{Y} - Y\) (see Figure~\ref{fig-me}). Let the random
+variable in Equation~\ref{eq-meas-y} be continuous such that for any
+outcome \(\omega\in\Omega\) the random variables take on real values
+such that
+\(\widetilde{Y}(\omega), Y(\omega), E_Y(\omega) \in \mathbb{R}\).
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{chapters/01-definitions/figure/me.png}
+
+}
+
+\caption{\label{fig-me}Measurement error. Each of the components of
+Equation~\ref{eq-meas-y} shown with respect to the real line.}
+
+\end{figure}%
+
+We also want to define two independent variables \(X\) and \(G\) of
+interest and structure them in an algebraically similar manner to
+Equation~\ref{eq-meas-y},
+
+\begin{equation}\phantomsection\label{eq-meas-x}{
+\widetilde{X} = X + E_X
+}\end{equation}
+
+\begin{equation}\phantomsection\label{eq-meas-g}{
+\widetilde{G} = G + E_G
+}\end{equation}
+
+Where \(X\) is a continuous random variable such that
+\(\widetilde{X}(\omega), X(\omega), E_X(\omega) \in \mathbb{R}\) and
+\(G\) is a Bernoulli random variable such that
+\(\widetilde{G}(\omega), G(\omega), E_G(\omega) \in\{0,1\}\). For the
+sake of this book, we will would like the true value to be constant over
+for each individual, that is, \(X(\omega),\) \(Y(\omega),\) and
+\(G(\omega)\) is constant for all \(\omega \in \ell^{-1}(\psi)\) for
+each \(\psi \in \Psi\). The error-prone proxies on the other hand will
+vary within a person providing a distribution of possible values. In the
+chapter on measurement error, we will define more precisely the how each
+of the proxy variables are calibrated to their respective true values.
+
+\subsection{Probability Distributions and Density
+Functions}\label{probability-distributions-and-density-functions}
+
+The probability distribution of a continuous random variable \(V\) can
+be described by a probability density function \(f_V\) that satisfies,
+
+\begin{equation}\phantomsection\label{eq-pdf-1}{
+{\Pr}_V(V\in\mathbb{R}) = \int_\mathbb{R} f_V(v)\, dv = 1.
+}\end{equation}
+
+In other words, the probability of \(V\) taking on a value anywhere on
+the real line is 1 (i.e., no uncertainty in that statement). To obtain
+the probability that \(V\) exists in some subset
+\(B \subset \mathbb{R}\) of the real line (e.g., an interval), we can
+integrate the probability density function \(f_V\) over \(B\),
+
+\begin{equation}\phantomsection\label{eq-pdf-2}{
+{\Pr}_V(V\in B) = \int_{B} f_V(v)\, dv.
+}\end{equation}
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{chapters/01-definitions/figure/pdf.png}
+
+}
+
+\caption{\label{fig-pdf}Probability Distributions. The outcome space
+\(\Omega\) is mapped to the real line. How the values are distributed
+across the real line is described by the probability density function
+\(f_{V}(v)\).}
+
+\end{figure}%
+
+The random variables \(X\) and \(Y\) (along with the associated proxies
+and errors) are continuous and their probability distributions can both
+be described by their respective probability density functions \(f_X\)
+and \(f_Y\). However the Bernoulli random variable \(G\) can be
+described by a probability \emph{mass} function,
+
+\[
+f_G(g) = p_G^g (1-p_G)^{1-g}
+\]
+
+Where the parameter \(p_G\) denotes the probability that \(G=1\).
+Therefore the probability distribution of 0 or 1 can explicitly written
+out as,
+
+\[
+{\Pr}_G(G = 1) = p_G \;\;\; \text{and} \;\;\;
+{\Pr}_G(G = 0) = 1-p_G.
+\]
+
+\begin{figure}[H]
+
+{\centering \includegraphics{chapters/01-definitions/figure/bernoulli-pdf.png}
+
+}
+
+\caption{Probability Distributions. The outcome space \(\Omega\) is
+mapped to the real line with the value of the random variable \(V\) only
+taking on values of 0 or 1.}
+
+\end{figure}%
+
+\subsection{Expectation and Variance of Random
+Variables}\label{expectation-and-variance-of-random-variables}
+
+The expected value (i.e., the mean) of a continuous random variable is a
+probability weighted average over all possible outcomes. This can be
+expressed with the integral over \(\mathbb{R}\),
+
+\[
+\mu_V := \mathbb{E}\lbrack V\rbrack  = \int_\mathbb{R} v f_V(v) \, dv. 
+\]
+
+The expected value of a Bernoulli random variable is simply
+\(\mathbb{E}(G)= p_G\). The variance \(\sigma^2_V\) of a random variable
+\(V\) is defined as the expected value of squared differences from the
+average,
+
+\[
+\sigma^2_V := \mathbb{E}\lbrack Y^2\rbrack - \mathbb{E}\lbrack Y\rbrack^2 = \mathbb{E}\left[(Y-\mu_Y)^2\right]
+\]
+
+Where the square root of the variance, \(\sigma_V\), is the standard
+deviation of \(V\).
+
+\subsection{Joint Probability Distributions and Density
+Functions}\label{joint-probability-distributions-and-density-functions}
+
+To properly think about effect sizes we must be able to describe the
+relationship between random variables. For our purposes, we want to be
+able to describe the relationship between independent (\(X\),\(G\)) and
+dependent variables (\(Y\)). Let's first consider the product between
+two real-valued measurable spaces,
+
+\[
+(\mathbb{R},\mathcal{B}_\mathbb{R}) \times(\mathbb{R},\mathcal{B}_\mathbb{R}) = (\mathbb{R}\times \mathbb{R},\mathcal{B}_\mathbb{R} \otimes \mathcal{B}_\mathbb{R}) = (\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2}),
+\]
+
+The resulting space \((\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2})\) is a
+\emph{product} space where \(\mathcal{B}_{\mathbb{R}^2}\) is the Borel
+\(\sigma\)--field over \(\mathbb{R}^2\). Notice that the product of two
+copies of the Borel \(\sigma\)--field over \(\mathbb{R}\) is equal to
+the Borel \(\sigma\)--field over \(\mathbb{R}^2\). The independent
+random variables \(X\) and \(G\) and the dependent random variables
+\(X\) and \(Y\) map the outcome space equipped with a joint probability
+measure to the real-valued product space,
+
+\[
+(X,Y) : (\Omega, \mathcal{F}_{\Omega},{\Pr}_{XY}) \rightarrow  (\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2}).
+\]
+
+\[
+(G,Y) : (\Omega, \mathcal{F}_{\Omega},{\Pr}_{GY}) \rightarrow  (\mathbb{R}^2,\mathcal{B}_{\mathbb{R}^2}).
+\]
+
+Therefore the image of \((X,Y)\) and \((G,Y)\) is
+
+\[
+(X,Y)(\omega) = (X(\omega),Y(\omega)) \in \mathbb{R}^2,
+\]
+
+\[
+(G,Y)(\omega) = (G(\omega),Y(\omega)) \in \{0,1\}\times\mathbb{R}.
+\]
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{chapters/01-definitions/figure/biv rv.png}
+
+}
+
+\caption{\label{fig-biv-rv}Random variables on product spaces. The
+random variables \((X,Y)\) take on values in \(\mathbb{R}^2\).}
+
+\end{figure}%
+
+The probability distributions of each pair of random variables can now
+be considered jointly. Joint probability distributions between can be
+described by joint density functions \(f_{XY}\) and \(f_{GY}\) that
+satisfies,
+
+\[
+{\Pr}_{XY}(X,Y \in \mathbb{R}^2) = \iint\limits_{\mathbb{R}^2} f_{XY}(x,y) \,dx \, dy  = 1.
+\]
+
+\[
+{\Pr}_{GY}(G,Y \in \mathbb{R}^2) = \iint\limits_{\mathbb{R}^2} f_{GY}(g,y) \,dg \, dy  = 1.
+\]
+
+The probability of \(X,Y\in B\) for any set
+\(B\in\mathcal{B}_{\mathbb{R}^2}\) can be expressed similarly,
+
+\[
+{\Pr}_{XY}(X,Y \in B) = \iint\limits_{B} f_{XY}(x,y) \,dx \, dy.
+\] \[
+{\Pr}_{GY}(G,Y \in B) = \iint\limits_{B} f_{GY}(g,y) \,dg \, dy.
+\]
+
+The distribution is visualized in \textbf{?@fig-jointpdf}
+
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{chapters/01-definitions/figure/biv-joint.png}
+
+}
+
+\caption{\label{fig-joint-pdf}Joint distributions. The joint
+distribution of \((X,Y)\). Shaded areas in the product space denotes the
+probability density with darker pink denotes higher density.}
+
+\end{figure}%
+
+\subsection{Conditional Expectations and
+Variance}\label{conditional-expectations-and-variance}
+
+Importantly, the joint density can be used to obtain the conditional
+expectation and variance. For instance, we can calculate the expected
+value of \(Y\) given \(G=1\) using the joint density \(f_{GY}\),
+
+\begin{equation}\phantomsection\label{eq-cond-mean}{\begin{align}
+\mu_{Y|G=1} :=& \mathbb{E}\lbrack Y \mid G=1\rbrack \\=& \frac{1}{f_G(G=1)}\int_{\mathbb{R}} y\, f_{GY}(G=1,y) \, dy,
+\end{align}}\end{equation}
+
+where the term \(\frac{1}{f_G(G=1)}\) is used for renormalizing the
+probability density function. The conditional variance is,
+
+\begin{equation}\phantomsection\label{eq-cond-var}{\begin{align}
+\sigma^2_{Y|G=1} :=& \mathbb{E}\lbrack Y^2 \mid G=1\rbrack - \mathbb{E}\lbrack Y \mid G=1\rbrack^2\\ =& \mathbb{E}\left[(Y_{G=1}-\mu_{Y|G=1})^2\right].
+\end{align}}\end{equation}
+
+We can also define the \textbf{covariance} between two variables as the
+expected value of the product of the differences from the mean,
+
+\begin{equation}\phantomsection\label{eq-cov}{\begin{align}
+\sigma_{XY} = \mathbb{E}\lbrack XY \rbrack - \mathbb{E}\lbrack X\rbrack\mathbb{E}\lbrack Y\rbrack = \mathbb{E}\left[(X-\mu_X)(Y-\mu_Y)\right]
+\end{align}}\end{equation}
+
+\subsection{Effect Sizes}\label{effect-sizes}
+
+An \textbf{effect size} is a parameter that describes the association of
+two random variables\footnote{1: Effect sizes can be defined more
+  broadly as the association between multiple variables, however this
+  book will only focus on the more narrow case of just two variables.}
+(e.g., \(X\) and \(Y\)). Effect sizes are often used to quantify
+scientific research findings and are usually the target quantity in a
+research study. Using expected values, we can define two types of effect
+sizes that will be of primary focus throughout the book: correlations
+and standardized mean differences. A \textbf{correlation} can be defined
+as the standardized covariance between two variables. For two continuous
+random variables, \(X\) and \(Y\), the correlation \(\rho_{XY}\) can be
+expressed as,
+
+\begin{equation}\phantomsection\label{eq-pop-corr}{
+\rho_{XY} = \frac{\sigma_{XY}}{\sigma_X\sigma_Y}.
+}\end{equation}
+
+However a correlation does not have to be between two continuous
+variables. Typically a correlation between a Bernoulli random variable
+and a continuous random variable is a \emph{point-biserial} correlation
+and it is expressed similarly to Equation~\ref{eq-pop-corr},
+
+\begin{equation}\phantomsection\label{eq-pb-corr}{
+\rho_{GY} := \frac{\sigma_{GY}}{\sigma_G\sigma_Y}.
+}\end{equation}
+
+The correlation coefficient is a bounded by -1 and 1The relationship
+between a Bernoulli random variable and a continuous random variable can
+alternatively be expressed as a standardized mean difference. A
+\textbf{standardized mean difference} is the mean difference between two
+groups standardized by the within-group standard deviation. The groups
+are defined by the Bernoulli random variable and the standardized mean
+difference,
+
+\begin{equation}\phantomsection\label{eq-pop-smd}{
+\delta_{GY} :=  \frac{\mu_{Y|G=1}-\mu_{Y|G=0}}{\sigma_{Y|G}}.
+}\end{equation}
+
+Note that this formulation assumes homogeneity of variances between
+groups such that, \(\sigma_{Y|G}=\sigma_{Y|G=1}=\sigma_{Y|G=0}\). The
+effect sizes can also be functions of error-prone proxies of each of
+these variables (e.g., \(\rho_{\widetilde{X}\widetilde{Y}}\),
+\(\delta_{\widetilde{G}\widetilde{Y}}\)).
+
+For a researcher to make inferences about effect size parameters in the
+population of interest, they must draw a sample of individuals from the
+population. Ideally, sampling is done at random in order to produce
+unbiased estimates of the population effect size. In practice however,
+this is usually not possible. In cognitive and behavioral sciences, many
+studies are conducted on convenience samples that are sampled from a
+narrow subset of the population of interest. A non-random sample may not
+(on average) share the same composition of characteristics as the
+population of interest and thus may produce biased estimates of
+population effect size. Here we define a \textbf{study sample}
+\(\mathcal{S}\) as a random sample of \emph{eligible} individuals, that
+is, individuals that the researcher has access to. The pool of eligible
+individuals \(\Psi_\mathsf{E}\) (i.e., the study population) is a subset
+of the population of interest \(\Psi\), therefore an eligible individual
+is any \(\psi\in\Psi_\mathsf{E} \subseteq \Psi\). The study sample
+\(\mathcal{S}\) is a random draw of \(n\) eligible individuals from the
+population of interest,
+
+\[
+\mathcal{S} := \{\psi_i \mid  \psi_{1}\dots\psi_n \in_\text{R} \Psi_\mathsf{E} \subseteq \Psi\},
+\]
+
+where \(\in_\text{R}\) denotes a random draw from a set. The effect size
+in the population of interest is a fixed value that does not change from
+sample to sample. However, an estimate of the effect size from sample
+data will vary from sample to sample. We will denote sample estimates of
+effect sizes with English letters as opposed to the Greek letters we
+used for population effect sizes. The sample estimate of a correlation
+is computed via Pearson's estimator (Pearson 1895),
+
+\[
+r_{XY} := \frac{s_{XY}}{s_{X}s_{Y}} = \frac{\sum_{i=1}^n (X_i - m_{X})(Y_i - m_{Y})}{\sqrt{\sum_{i=1}^n (X_i - m_{X})^2}\sqrt{\sum_{i=1}^n (Y_i - m_{Y})^2}},
+\] \{\#eq-\}
+
+Where \(m\) denote \(s^2\) the sample estimates of the means and
+(co-)variances. For an SMD, we can use Cohen's estimator (Cohen 1988),
+
+\[
+d_{GY} = \frac{m_{Y|G=1} - m_{Y|G=0}}{s_{Y|G}} 
+\]
+
+Where the sample estimate of the standard deviation of \(Y\) given \(G\)
+is the pooled within-group standard deviation,
+
+\[
+s_{Y|G} = \sqrt{\frac{(n_0 - 1)s_{Y|G=0} + (n_1 - 1)s_{Y|G=1}}{n_0 + n_1 -2}}
+\]
+
 \section{Defining the Scientific
-Estimand}\label{defining-the-scientific-estimand}}
+Estimand}\label{defining-the-scientific-estimand}
 
-It is important to clearly define the quantity that we aim to estimate
-(i.e., the estimand). A clearly defined estimand not only shapes our
-statistical analyses but also establishes a meaningful connection
-between empirical observations and a theoretical quantity (Lundberg,
-Johnson, and Stewart 2021). A study can produce effect size estimates
-that do not accurately reflect the target value. Inaccuracies in effect
-size estimates can be due to deviations between the current study's
+It is important to clearly define the quantity that we intend to
+estimate (i.e., the estimand). A clearly defined estimand not only
+shapes our statistical analyses but also establishes a meaningful
+connection between empirical observations and a theoretical quantity
+(Lundberg, Johnson, and Stewart 2021). A study can produce effect size
+estimates that do not accurately reflect the target value. Inaccuracies
+in effect size estimates can be due to deviations between the study's
 design and the design of a technically perfect study (Rubin 1992).
-Obtaining a quality estimate of the target effect size requires that the
-study sample and the measured variables accurately reflect the
-population and variables of interest. We can illustrate this with the
-following example:
+Obtaining an accurate estimate of the target effect size requires that a
+study's sample and measured variables accurately reflect the target
+population and variables. We can illustrate this with the following
+example:
 
 Let's say we want to know the correlation between student motivation and
 stress among high-school students. Suppose we conduct a study to
@@ -409,14 +869,13 @@ of 1-10. Let's now compare how the target population and variables
 differ from the study population and variables (see
 Table~\ref{tbl-target}):
 
-\hypertarget{tbl-target}{}
 \begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2182}}
-  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2182}}
-  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2182}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3455}}@{}}
-\caption{\label{tbl-target}Comparison of the target and the
-study.}\tabularnewline
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1944}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1944}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1944}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4167}}@{}}
+\caption{Comparison of the target and the
+study.}\label{tbl-target}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 \end{minipage} & \begin{minipage}[b]{\linewidth}\centering
@@ -442,7 +901,7 @@ Potential sources of contamination
 \bottomrule\noalign{}
 \endlastfoot
 POPULATION & High-School Students & Seniors High-School students &
-\textbf{Range Restriction.} Senior student's at private universities may
+\textbf{Selection Effects.} Senior student's at private high schools may
 have a more narrow range of characteristics such as stress and
 motivation than other classes (e.g., freshmen) and schools (e.g.,
 public). \\
@@ -452,19 +911,17 @@ motivation and stress likely will produce errors that do not reflect the
 true motivation and stress of each individual. \\
 \end{longtable}
 
-\hypertarget{effect-size-errors}{%
-\section{Effect Size Errors}\label{effect-size-errors}}
+\section{Effect Size Errors}\label{effect-size-errors}
 
-\hypertarget{random-sampling-errors}{%
-\subsection{Random (Sampling) Errors}\label{random-sampling-errors}}
+\subsection{Random (Sampling) Errors}\label{random-sampling-errors}
 
 Let's start by differentiating between a population effect size and a
-sample estimate. The \textbf{population} effect size, characterizes the
-effect size among all possible observations of interest. In contrast, a
-\textbf{sample} effect size is an estimate of this population value,
-estimated by a random sample of observations. Throughout the book,
-population effect sizes will be denoted with Greek letters whereas
-sample estimates will be denoted with an English letters.
+sample estimate. The \textbf{population} effect size characterizes the
+effect size among all possible sample units of interest (e.g., people).
+In contrast, a \textbf{sample} effect size is an estimate of this
+population value, estimated by a random sample of observations.
+Throughout the book, population effect sizes will be denoted with Greek
+letters whereas sample estimates will be denoted with English letters.
 
 The population effect size is a constant, unchanging value that remains
 fixed across samples. However, if we were to take a random sample from
@@ -475,16 +932,18 @@ of the population will contain inherent variability in the composition
 of the sample. \textbf{Sampling errors} describe the random deviations
 that we observe in effect size estimates from sample to sample (Barraza
 et al. 2019). Sampling errors are random, however we will see in the
-next section that not all errors are systematic. We can quantify
-sampling errors by the variance of the effect size estimator. The
-variance of an effect size estimator tends to be some function of sample
-size, where large samples will show less variance compared to small
-samples. For an illustration of sampling error, see
+next section that only some errors are random and others are rando. We
+can quantify sampling errors by the variance of the effect size
+estimator. The variance of an effect size estimator tends to be some
+function of sample size, where large samples will show less variance
+compared to small samples. For an illustration of sampling error, see
 Figure~\ref{fig-3.1}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{intro_files/figure-pdf/fig-3.1-1.pdf}
+\centering{
+
+\includegraphics{chapters/01-definitions/01-definitions_files/figure-pdf/fig-3.1-1.pdf}
 
 }
 
@@ -499,10 +958,9 @@ distribution is described by the variance of the estimator. Note the
 illustration shows a normally distributed estimator, but this is not a
 requirement.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{systematic-errors}{%
-\subsection{Systematic Errors}\label{systematic-errors}}
+\subsection{Systematic Errors}\label{systematic-errors}
 
 Sampling errors produce random errors in effect sizes, however, we can
 also observe systematic errors. \textbf{Systematic errors} are
@@ -530,7 +988,9 @@ attenuated or inflated, respectively.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{intro_files/figure-pdf/fig-systematic-errors-1.pdf}
+\centering{
+
+\includegraphics{chapters/01-definitions/01-definitions_files/figure-pdf/fig-systematic-errors-1.pdf}
 
 }
 
@@ -539,109 +999,96 @@ representing estimators that are unbiased, attenuated, and inflated. The
 blue line indicates the the location of the target population effect
 size, whereas the black dots show the effect size estimates.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{modeling-observed-effect-sizes}{%
 \section{Modeling Observed Effect
-Sizes}\label{modeling-observed-effect-sizes}}
+Sizes}\label{modeling-observed-effect-sizes}
 
 We can think of an observed effect size estimate as having three
 components:
 
-\begin{figure}[H]
-
-{\centering \includegraphics[width=5.56in,height=1.77in]{intro_files/figure-latex/mermaid-figure-1.png}
-
-}
-
-\end{figure}
+\includegraphics[width=5.56in,height=1.77in]{chapters/01-definitions/01-definitions_files/figure-latex/mermaid-figure-1.png}
 
 Let's construct a statistical model for an observed effect size estimate
 \(h_i\) for a given sample, \(i\), that accounts for each of these three
-components. The {\textbf{target population effect size}} will be denoted
-by the Greek letter {\(\theta\)} which does not vary from sample to
-sample. The {\textbf{artifact attenuation/inflation factor}} is denoted
-with the Greek letter {\(\alpha\)} and accounts for the systematic error
-that is consistent across samples. Finally the {\textbf{sample error}}
-is denoted by the Greek letter {\(\varepsilon\)} which accounts for the
+components. The \textbf{target population effect size}\} will be denoted
+by the Greek letter \(\theta\) which does not vary from sample to
+sample. The \textbf{artifact attenuation/inflation factor} is denoted
+with the Greek letter \(\alpha\) and accounts for the systematic error
+that is consistent across samples. Finally the \textbf{sampling error}
+is denoted by the Greek letter \(\varepsilon\) which accounts for the
 random sampling error across samples (Raju et al. 1991, based on eq. 1),
 
-\begin{equation}\protect\hypertarget{eq-model}{}{
-h_i = {\color{#cb427b}\alpha} {\color{#347e9f}\theta} + 
-{\color{#797979ff}\varepsilon}_i.
-}\label{eq-model}\end{equation}
+\begin{equation}\phantomsection\label{eq-model}{
+h_i = \alpha \theta + \varepsilon_i.
+}\end{equation}
 
-Note that \({\color{#cb427b}\alpha}\) and \({\color{#347e9f}\theta}\)
-are fixed and does not vary across samples (no subscript \(i\)), wheras
-\({\color{#797979ff}\varepsilon}_i\) does vary from sample to sample.
-For the above equation to be true we need to assume that the expectation
-(i.e., the mean over repeated samples) of
-\({\color{#797979ff}\varepsilon}_i\) is zero such that,
-\(\mathbb{E}[{\color{#797979ff}\varepsilon}_i] = 0\). A consequence of
-this assumption is that the expectation of the observed effect size
-estimate is
-\(\mathbb{E}[h_i]={\color{#cb427b}\alpha} {\color{#347e9f}\theta}\). We
-will label the term \({\color{#cb427b}\alpha} {\color{#347e9f}\theta}\)
-as the \textbf{contaminated population effect size} as it is a fixed
-value that encompasses the target effect size and systematic error.
+Note that \(\alpha\) and \(\theta\) are fixed and does not vary across
+samples (no subscript \(i\)), wheras \(\varepsilon_i\) does vary from
+sample to sample. For the above equation to be true we need to assume
+that the expectation (i.e., the mean over repeated samples) of
+\(\varepsilon_i\) is zero such that, \(\mathbb{E}[\varepsilon_i] = 0\).
+A consequence of this assumption is that the expectation of the observed
+effect size estimate is \(\mathbb{E}[h_i]=\alpha \theta\). We will label
+the term \(\alpha \theta\) as the \textbf{contaminated population effect
+size} as it is a fixed value that encompasses the target effect size and
+systematic error.
 
-The artifact attenuation/inflation factor, \({\color{#cb427b}\alpha}\),
-completely describes the net systematic error in the observed effect
-size estimates. The value of \(\alpha\) can indicate whether \(h_i\) is
-an unbiased (\({\color{#cb427b}\alpha} = 0\)), attenuated
-(\({\color{#cb427b}\alpha} < 1\)), or inflated estimator
-(\({\color{#cb427b}\alpha} > 1\)).
+The artifact attenuation/inflation factor, \(\alpha\), completely
+describes the net systematic error in the observed effect size
+estimates. The value of \(\alpha\) can indicate whether \(h_i\) is an
+unbiased (\(\alpha = 0\)), attenuated (\(\alpha < 1\)), or inflated
+estimator (\(\alpha > 1\)).
 
 Because of random sampling error, the observed effect size estimate will
 differ from sample to sample (\(h_1\neq\) \(h_2\neq\) \(h_3\neq...\)).
 The extent to which estimates fluctuate across samples can be quantified
 by the variance of the effect size estimator, denoted as
 \(\text{var}(h_i)\). Remember that the contaminated population effect
-size (\({\color{#cb427b}\alpha} {\color{#347e9f}\theta}\)) fixed across
-samples, this would result in variation in random sampling errors to be
-solely responsible for the variation in observed effect sizes such that,
-\(\text{var}(h_i)=\text{var}({\color{#797979ff}\varepsilon}_i)\).
+size (\(\alpha \theta\)) fixed across samples, this would result in
+variation in random sampling errors to be solely responsible for the
+variation in observed effect sizes such that,
+\(\text{var}(h_i)=\text{var}(\varepsilon_i)\).
 
-\hypertarget{correcting-effect-sizes}{%
-\section{Correcting Effect Sizes}\label{correcting-effect-sizes}}
+\section{Correcting Effect Sizes}\label{correcting-effect-sizes}
 
 In principle, if we know the value of the artifact attenuation/inflation
-factor \({\color{#cb427b}\alpha}\) then we could correct the observed
-effect size for systematic errors. However, \({\color{#cb427b}\alpha}\)
-is unknown and must be estimated. An estimate of
-\({\color{#cb427b}\alpha}\) will be denoted by the English letter
-\({\color{#cb427b}a}\). According to the model described in
-Equation~\ref{eq-model}, \({\color{#cb427b}\alpha}\) is a fixed value
-that does not vary from sample to sample, however it's sample estimate
-will:
+factor \(\alpha\) then we could correct the observed effect size for
+systematic errors. However, \(\alpha\) is unknown and must be estimated.
+An estimate of \(\alpha\) will be denoted by the English letter \(a\).
+According to the model described in Equation~\ref{eq-model}, \(\alpha\)
+is a fixed value that does not vary from sample to sample, however it's
+sample estimate will:
 
-\begin{equation}\protect\hypertarget{eq-a}{}{
-{\color{#cb427b}a}_i = {\color{#cb427b}\alpha} + {\color{#797979ff}\xi}_i,
-}\label{eq-a}\end{equation}
+\begin{equation}\phantomsection\label{eq-a}{
+a_i = \alpha + \xi_i,
+}\end{equation}
 
-where \({\color{#797979ff}\xi}_i\) denotes the sampling error in
-\({\color{#cb427b}a}_i\). The corrected effect size can thus be
-calculated by dividing the observed effect size by the estimated
-artifact factor,
+where \(\xi_i\) denotes the sampling error in \(a_i\). The corrected
+effect size can thus be calculated by dividing the observed effect size
+by the estimated artifact factor,
 
-\begin{equation}\protect\hypertarget{eq-correction}{}{
-{\color{#347e9f}h_c}_{_i} = \frac{h_i}{{\color{#cb427b}a}_i},
-}\label{eq-correction}\end{equation}
+\begin{equation}\phantomsection\label{eq-correction}{
+h_{c_i} = \frac{h_i}{a_i},
+}\end{equation}
 
-Sampling variance of the corrected effect size will depend on the
-estimation procedure of the effect size and the artifact factor.
-Sampling variance for corrected correlations will be discussed in more
+The corrected effect size will only be an asymptotically (as the sample
+size approaches infinity) unbiased estimator of the target population
+value. As we will see in future chapters, corrections will also impose
+additional distributional assumptions on the data.
+
+Sampling variance of the corrected effect size will depend greatly on
+the estimation procedure of the effect size and the artifact factor.
+Sampling variance for corrected effect sizes will be discussed in more
 detail for each artifact correction chapter.
 
-\hypertarget{effect-size-types}{%
-\section{Effect Size Types}\label{effect-size-types}}
+\section{Effect Size Types}\label{effect-size-types}
 
 Although there are many types of effect sizes we can use to quantify
 research findings, we will primarily focus on two: correlations and
 standardized mean differences (SMD).
 
-\hypertarget{correlations}{%
-\subsection{Correlations}\label{correlations}}
+\subsection{Correlations}\label{correlations}
 
 A correlation describes the relationship between two continuous
 variables. The population correlation (\(\rho\)) between variables,
@@ -650,17 +1097,17 @@ divided by the product of the standard deviations of \(X\)
 (\(\sigma_{X}\)) and \(Y\) (\(\sigma_{Y}\)) (Cooper, Hedges, and
 Valentine 2009, equation 11.21; Jacobs and Viechtbauer 2017, eq. 1),
 
-\begin{equation}\protect\hypertarget{eq-pop-r}{}{
+\begin{equation}\phantomsection\label{eq-pop-r}{
 \rho = \frac{\sigma_{XY}}{\sigma_{X}\sigma_{Y}}.
-}\label{eq-pop-r}\end{equation}
+}\end{equation}
 
 A sample estimate of the population correlation can be defined as the
 \emph{sample} covariance (\(S_{XY}\)) divided by the product of the
 \emph{sample} standard deviations (Jacobs and Viechtbauer 2017, eq. 2),
 
-\begin{equation}\protect\hypertarget{eq-sam-r}{}{
+\begin{equation}\phantomsection\label{eq-sam-r}{
 r = \frac{S_{XY}}{S_XS_Y}
-}\label{eq-sam-r}\end{equation}
+}\end{equation}
 
 This is commonly referred to as the Pearson correlation coefficient. The
 Pearson correlation coefficient was first introduced by Auguste Bravais
@@ -670,7 +1117,9 @@ variables.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{intro_files/figure-pdf/fig-r-1.pdf}
+\centering{
+
+\includegraphics{chapters/01-definitions/01-definitions_files/figure-pdf/fig-r-1.pdf}
 
 }
 
@@ -680,15 +1129,15 @@ and the right panel shows a positive correlation. The ellipses show the
 contour of a bivariate normal distribution which the data points are
 sampled from.}
 
-\end{figure}
+\end{figure}%
 
 Assuming that the variables follow a bivariate normal distribution, the
 asymptotic variance in an observed correlation with \(n\) observations
 is (Pearson and Filon 1898, 174; Jacobs and Viechtbauer 2017, eq. 9),
 
-\begin{equation}\protect\hypertarget{eq-asymp-var-r}{}{
+\begin{equation}\phantomsection\label{eq-asymp-var-r}{
 \text{var}(r_i) \overset{_\infty}{=} \frac{\left(1 - \rho^2\right)^2}{n},
-}\label{eq-asymp-var-r}\end{equation}
+}\end{equation}
 
 Since the population correlation is unavailable in practice, an accurate
 estimate of the variance for a given sample \(i\) uses the sample
@@ -697,41 +1146,38 @@ freedom, \(n-1\), in the denominator instead of the sample size (Cooper,
 Hedges, and Valentine 2009, eq. 12.27; Jacobs and Viechtbauer 2017, eq.
 10),
 
-\begin{equation}\protect\hypertarget{eq-est-var-r}{}{
+\begin{equation}\phantomsection\label{eq-est-var-r}{
 \widehat{\text{var}}(r_i) = \frac{\left(1 - r_i^2\right)^2}{n-1}
-}\label{eq-est-var-r}\end{equation}
+}\end{equation}
 
 Within the context of a research study that is contaminated with
 artifacts, we can model an observed correlation for a sample \(i\) as
 similarly to an Equation~\ref{eq-model},
 
-\begin{equation}\protect\hypertarget{eq-model-r}{}{
-r_i = {\color{#cb427b}\alpha} {\color{#347e9f}\rho} + 
-{\color{#797979ff}\varepsilon}_i.
-}\label{eq-model-r}\end{equation}
+\begin{equation}\phantomsection\label{eq-model-r}{
+r_i = \alpha \rho + \varepsilon_i.
+}\end{equation}
 
-Where \({\color{#347e9f}\rho}\) is the {target population effect size
-(the estimand)}, \({\color{#cb427b}\alpha}\) is the {artifact
-attenuation/inflation factor}, and \({\color{#797979ff}\varepsilon}_i\)
-denotes the {sampling errors}. The observed correlation is biased
-relative to the target population correlation as a function of
-\({\color{#cb427b}\alpha}\), and therefore a corrected correlation can
-calculated by,
+Where \(\rho\) is the target population correlation (the estimand),
+\(\alpha\) is the artifact attenuation/inflation factor, and
+\(\varepsilon_i\) denotes the sampling errors. The observed correlation
+is biased relative to the target population correlation as a function of
+\(\alpha\), and therefore a corrected correlation can calculated by,
 
-\begin{equation}\protect\hypertarget{eq-corr-r}{}{
-{\color{#347e9f}r_c}_{_i} = \frac{r_i}{{\color{#cb427b}a}_i}.
-}\label{eq-corr-r}\end{equation}
+\begin{equation}\phantomsection\label{eq-corr-r}{
+r_{c_i} = \frac{r_i}{a_i}.
+}\end{equation}
 
 For example, we will see in Chapter~\ref{sec-dichotomization} that if
 \(X\) and \(Y\) are bivariate normal and \(X\) undergoes dichotomization
 through a median split (i.e., dividing observations into two groups
 based on the median of \(X\)) the observed correlation will be
 attenuated. In this scenario, the artifact attenuation/inflation factor
-is \({\color{#cb427b}a} = 2/\sqrt{2\pi} \approx .80\), and therefore if
-the observed correlation is \(r = .40\) then the corrected correlation
-would be estimated as \(r_c=r/{\color{#cb427b}a}=.40/.80=.50\).
+is \(a = 2/\sqrt{2\pi} \approx .80\), and therefore if the observed
+correlation is \(r = .40\) then the corrected correlation would be
+estimated as \(r_c=r/a=.40/.80=.50\).
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Computing Correlations in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Computing Correlations in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's load in the \texttt{iris} data set that contains various physical
 measurements of three species of plants. We can also subset the data set
@@ -800,9 +1246,8 @@ error, we can use the \texttt{var\_error\_r()} function in the
 
 \end{tcolorbox}
 
-\hypertarget{standardized-mean-difference}{%
 \subsection{Standardized Mean
-Difference}\label{standardized-mean-difference}}
+Difference}\label{standardized-mean-difference}
 
 The standardized mean differences (SMD) is used to quantify the
 difference between the average value between two groups. In the
@@ -811,9 +1256,9 @@ group \(A\) (\(\mu_A\)) and group \(B\) (\(\mu_B\)) is standardized by
 the population within group standard deviation (\(\sigma\)) (Cohen 1988,
 eq. 2.2.1),
 
-\begin{equation}\protect\hypertarget{eq-delta}{}{
+\begin{equation}\phantomsection\label{eq-delta}{
 \delta = \frac{\mu_A - \mu_B}{\sigma}.
-}\label{eq-delta}\end{equation}
+}\end{equation}
 
 Dividing by the population within-group standard deviation assumes that
 the standard deviations within both groups are fixed and equal (i.e.,
@@ -822,7 +1267,9 @@ Figure~\ref{fig-d}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{intro_files/figure-pdf/fig-d-1.pdf}
+\centering{
+
+\includegraphics{chapters/01-definitions/01-definitions_files/figure-pdf/fig-d-1.pdf}
 
 }
 
@@ -834,16 +1281,16 @@ respectively. Whereas mean and standard deviation of group \(B\) is
 standardized mean difference is \(\delta = (9-12)/4=-.75\). Note that
 \(\sigma_A=\sigma_B\).}
 
-\end{figure}
+\end{figure}%
 
 Cohen (1988) developed a sample estimator of \(\delta\) that is commonly
 referred to as Cohen's \(d\). Within a sample, we can estimate
 \(\delta\) with the sample estimator (Cooper, Hedges, and Valentine
 2009, eq. 11.96),
 
-\begin{equation}\protect\hypertarget{eq-d}{}{
+\begin{equation}\phantomsection\label{eq-d}{
 d = \frac{\overline{Y}_A-\overline{Y}_B}{S_p},
-}\label{eq-d}\end{equation}
+}\end{equation}
 
 where \(S_p\) is the pooled sample standard deviation and the bars
 indicate the sample mean. The pooled standard deviation computes a
@@ -851,9 +1298,9 @@ weighted average (weighted by the within-group degrees of freedom, e.g.,
 \(n_{A}-1\)) of the within-group sample variance and then takes the
 square root (Cooper, Hedges, and Valentine 2009, eq. 12.12),
 
-\begin{equation}\protect\hypertarget{eq-pooled-sd}{}{
+\begin{equation}\phantomsection\label{eq-pooled-sd}{
 S_p = \sqrt{\frac{(n_A-1)S_A^2 + (n_B-1)S_B^2}{n-2}}
-}\label{eq-pooled-sd}\end{equation}
+}\end{equation}
 
 Where \(n_A\), \(n_B\), and \(n\) represent the sample size within group
 \(A\), group \(B\), and the total sample size (\(n = n_A+n_B\)),
@@ -861,17 +1308,17 @@ respectively. Assuming that \(Y\) is normally distributed within each
 group and the within-group variances are equal, the asymptotic sampling
 variance of an SMD is (Hedges and Olkin 1985, eq. 14),
 
-\begin{equation}\protect\hypertarget{eq-var-d}{}{
+\begin{equation}\phantomsection\label{eq-var-d}{
 \text{var}(d_i) \overset{_\infty}{=} \frac{n}{n_An_B} + \frac{\delta^2}{2n}.
-}\label{eq-var-d}\end{equation}
+}\end{equation}
 
 Since the population SMD is unknown, we can estimate it with the sample
 \(d\) value. Therefore the estimated variance can be computed as (J. E.
 Hunter and Schmidt 2015, eq. 7.23),
 
-\begin{equation}\protect\hypertarget{eq-var-d-est}{}{
+\begin{equation}\phantomsection\label{eq-var-d-est}{
 \widehat{\text{var}}(d_i) = \left(\frac{n - 1}{n - 3}\right)\left(\frac{n}{n_An_B} + \frac{\delta^2}{2n}\right).
-}\label{eq-var-d-est}\end{equation}
+}\end{equation}
 
 Note that the multiplier, \((n_A+n_B - 1)/(n_A+n_B - 3)\), is to account
 for slight underestimation of the sampling variance in small sample
@@ -880,23 +1327,22 @@ sizes (Goulet-Pelletier and Cousineau 2018).
 In a study contaminated by artifacts, we can model an observed SMD for a
 sample \(i\) as similarly to an Equation~\ref{eq-model},
 
-\begin{equation}\protect\hypertarget{eq-model-d}{}{
-d_i = {\color{#cb427b}\alpha} {\color{#347e9f}\delta} + 
-{\color{#797979ff}\varepsilon}_i.
-}\label{eq-model-d}\end{equation}
+\begin{equation}\phantomsection\label{eq-model-d}{
+d_i =\alpha \delta + 
+\varepsilon_i.
+}\end{equation}
 
-Where \({\color{#347e9f}\delta}\) is the {target population effect size
-(the estimand)}, \({\color{#cb427b}\alpha}\) is the {artifact
-attenuation/inflation factor}, and \({\color{#797979ff}\varepsilon}_i\)
-denotes the {sampling errors}. The observed SMD is biased relative to
-the target population SMD as a function of \({\color{#cb427b}\alpha}\).
-However, \({\color{#cb427b}\alpha}\) is not available in practice and so
+Where \(\delta\) is the {target population SMD (the estimand)},
+\(\alpha\) is the {artifact attenuation/inflation factor}, and
+\(\varepsilon_i\) denotes the {sampling errors}. The observed SMD is
+biased relative to the target population SMD as a function of
+\(\alpha\). However, \(\alpha\) is not available in practice and so
 therefore the observed SMD can be corrected by dividing by an estimate
-of \({\color{#cb427b}\alpha}\),
+of \(\alpha\),
 
-\begin{equation}\protect\hypertarget{eq-corr-d}{}{
-{\color{#347e9f}d_c}_{_i} = \frac{d_i}{{\color{#cb427b}a}_i}.
-}\label{eq-corr-d}\end{equation}
+\begin{equation}\phantomsection\label{eq-corr-d}{
+d_{c_i} = \frac{d_i}{a_i}.
+}\end{equation}
 
 Occasionally, corrections can not be applied to the contaminated \(d\)
 value directly. In such cases, we may have to correct \(d\) by first
@@ -915,9 +1361,9 @@ procedure can be applied as follows:
   equation 9),
 \end{enumerate}
 
-\begin{equation}\protect\hypertarget{eq-three-step-1}{}{
+\begin{equation}\phantomsection\label{eq-three-step-1}{
 r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i}}.
-}\label{eq-three-step-1}\end{equation}
+}\end{equation}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -928,7 +1374,7 @@ r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i}}.
 \end{enumerate}
 
 \[
-{\color{#347e9f}r_c}_{_i} = \frac{r_i}{{\color{#cb427b}a}_i}.
+{\color{#347e9f}r_c}_{_i} = \frac{r_i}{a_i}.
 \]
 
 \begin{enumerate}
@@ -944,15 +1390,14 @@ r_i = \frac{d_i}{\sqrt{\frac{1}{p_i(1-p_i)}+d_i}}.
   equation 10)
 \end{enumerate}
 
-\begin{equation}\protect\hypertarget{eq-three-step-3}{}{
-{\color{#347e9f}d_c}_{_i} =  \frac{{\color{#347e9f}r}_{{\color{#347e9f}c}_i}}{\sqrt{p_i^*(1-p_i^*)(1-{\color{#347e9f}r}_{{\color{#347e9f}c}_i}^2)}} \approx \frac{{\color{#347e9f}r}_{{\color{#347e9f}c}_i}}{\sqrt{p_i(1-p_i)(1-{\color{#347e9f}r}_{{\color{#347e9f}c}_i}^2)}}.
-}\label{eq-three-step-3}\end{equation}
+\begin{equation}\phantomsection\label{eq-three-step-3}{
+d_{c_i} =  \frac{r_{c_i}}{\sqrt{p_i^*(1-p_i^*)(1-r_{c_i}^2)}} \approx \frac{r_{c_i}}{\sqrt{p_i(1-p_i)(1-r_{c_i}^2)}}.
+}\end{equation}
 
-The sampling variance of the corrected standardized mean difference can
-be quite complicated when there is sampling error in the artifact
-factor.
+The sampling variance of the corrected SMD can be quite complicated when
+there is sampling error in the artifact factor.
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Computing SMDs in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Computing SMDs in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's load in a data set for a plant growth experiment:
 
@@ -978,16 +1423,15 @@ Let's load in a data set for a plant growth experiment:
 
 We see that the data set contains two variables, weight of the plant and
 the experimental group. There are three two experimental groups present:
-a control group and two treatment groups. If we want to obtain the
-standardized mean difference between the each treatment group and the
-control group, we can use the \texttt{cohen.d} function \texttt{psych}
-package (William Revelle 2023):
+a control group and two treatment groups. If we want to obtain the SMD
+between the each treatment group and the control group, we can use the
+\texttt{cohen.d} function \texttt{psych} package (William Revelle 2023):
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(psych)}
 
-\CommentTok{\# estimate standardized mean difference for first treatment group}
+\CommentTok{\# estimate SMD for first treatment group}
 \NormalTok{d1 }\OtherTok{\textless{}{-}} \FunctionTok{cohen.d}\NormalTok{(weight }\SpecialCharTok{\textasciitilde{}}\NormalTok{ group,}
              \AttributeTok{data =} \FunctionTok{subset}\NormalTok{(PlantGrowth, group }\SpecialCharTok{==} \StringTok{\textquotesingle{}ctrl\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ group }\SpecialCharTok{==} \StringTok{\textquotesingle{}trt1\textquotesingle{}}\NormalTok{))}
 \NormalTok{d1}\SpecialCharTok{$}\NormalTok{cohen.d}
@@ -1001,9 +1445,9 @@ weight -1.44938 -0.5615655 0.3411078
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# estimate standardized mean difference for first treatment group}
+\CommentTok{\# estimate SMD for first treatment group}
 \NormalTok{d2 }\OtherTok{\textless{}{-}} \FunctionTok{cohen.d}\NormalTok{(weight }\SpecialCharTok{\textasciitilde{}}\NormalTok{ group,}
-             \AttributeTok{data =} \FunctionTok{subset}\NormalTok{(PlantGrowth, group }\SpecialCharTok{==} \StringTok{\textquotesingle{}ctrl\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ group }\SpecialCharTok{==} \StringTok{\textquotesingle{}trt2\textquotesingle{}}\NormalTok{))}
+              \AttributeTok{data =} \FunctionTok{subset}\NormalTok{(PlantGrowth, group }\SpecialCharTok{==} \StringTok{\textquotesingle{}ctrl\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ group }\SpecialCharTok{==} \StringTok{\textquotesingle{}trt2\textquotesingle{}}\NormalTok{))}
 \NormalTok{d2}\SpecialCharTok{$}\NormalTok{cohen.d}
 \end{Highlighting}
 \end{Shaded}
@@ -1015,42 +1459,41 @@ weight 0.05850126 1.005987 1.929048
 
 We see that the first treatment showed a negative effect on plant growth
 (\(d=-0.56\)) and the second treatment shows a positive effect
-(\(d=1.01\)). For our purposes we want the estimate and the standard
-error of the estimate, therefore we can extract that information:
+(\(d=1.01\)). For our purposes we want the estimate and the sampling
+variance of the estimator, therefore we can extract that information
+from the output of \texttt{cohen.d()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{d =}\NormalTok{ d1}\SpecialCharTok{$}\NormalTok{cohen.d[,}\StringTok{\textquotesingle{}effect\textquotesingle{}}\NormalTok{], }
-           \AttributeTok{se.d =}\NormalTok{ d1}\SpecialCharTok{$}\NormalTok{se)}
+           \AttributeTok{var.d =}\NormalTok{ d1}\SpecialCharTok{$}\NormalTok{se}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-           d      se.d
-1 -0.5615655 0.8952442
+           d     var.d
+1 -0.5615655 0.8014621
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{d =}\NormalTok{ d2}\SpecialCharTok{$}\NormalTok{cohen.d[,}\StringTok{\textquotesingle{}effect\textquotesingle{}}\NormalTok{], }
-           \AttributeTok{se.d =}\NormalTok{ d2}\SpecialCharTok{$}\NormalTok{se)}
+           \AttributeTok{var.d =}\NormalTok{ d2}\SpecialCharTok{$}\NormalTok{se}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-         d      se.d
-1 1.005987 0.9352736
+         d     var.d
+1 1.005987 0.8747367
 \end{verbatim}
 
 \end{tcolorbox}
 
-\part{Artifact Corrections}
+\bookmarksetup{startatroot}
 
-\hypertarget{small-samples}{%
-\chapter{Small Samples}\label{small-samples}}
+\chapter{Small Samples}\label{small-samples}
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction-1}
 
 The purpose of sample statistics is to draw meaningful inferences about
 the population. However, effect size estimators such as Pearson's
@@ -1058,22 +1501,19 @@ correlation coefficient and Cohen's \(d\) are biased in small sample
 sizes. This small sample bias is an artifact and can be adjusted with
 the appropriate correction factor.
 
-\hypertarget{when-correcting-alongside-other-artifacts}{%
 \section{When Correcting alongside other
-Artifacts}\label{when-correcting-alongside-other-artifacts}}
+Artifacts}\label{when-correcting-alongside-other-artifacts}
 
 The small sample bias should always be corrected for prior to applying
 any other artifact correction. It is independent of all other artifact
 corrections and therefore the corrected effect sizes in this section can
 be treated as the uncorrected effect sizes in other sections.
 
-\hypertarget{correcting-standardized-mean-differences-for-small-sample-bias}{%
 \section{Correcting Standardized Mean Differences for Small Sample
-Bias}\label{correcting-standardized-mean-differences-for-small-sample-bias}}
+Bias}\label{correcting-standardized-mean-differences-for-small-sample-bias}
 
-\hypertarget{defining-the-target-quantity}{%
 \subsection{Defining the Target
-Quantity}\label{defining-the-target-quantity}}
+Quantity}\label{defining-the-target-quantity}
 
 Our quantity of interest is the population standardized mean difference,
 \(\delta\), between groups \(A\) and \(B\). We can model the
@@ -1093,9 +1533,8 @@ standardized mean difference as follows,
 d_c = \frac{d}{\hat{a}}.
 \]
 
-\hypertarget{artifact-correction-for-d}{%
 \subsection{\texorpdfstring{Artifact Correction for
-\emph{d}}{Artifact Correction for d}}\label{artifact-correction-for-d}}
+\emph{d}}{Artifact Correction for d}}\label{artifact-correction-for-d}
 
 As the sample size approaches infinity, Cohen's estimator of the
 standardized mean difference is unbiased (Hedges 1981; Cohen 2013).
@@ -1113,9 +1552,9 @@ Where \(\bar{y}_A\) and \(\bar{y}_B\) are the observed arithmetic means
 of group \(A\) and group \(B\), respectively. A sample estimate of the
 standardized mean difference is,
 
-\begin{equation}\protect\hypertarget{eq-d}{}{
+\begin{equation}\phantomsection\label{eq-d}{
 d = \frac{\overline{Y}_A-\overline{Y}_B}{S_p}
-}\label{eq-d}\end{equation}
+}\end{equation}
 
 Where \(S_p\) is the pooled standard deviation (i.e., weighted average
 within-group standard deviation). The estimator, \(d\), is an
@@ -1182,7 +1621,9 @@ pronounced when the sample \(d\) value is larger (there is no bias at
 
 \begin{figure}[H]
 
-{\centering \includegraphics{small_samples_files/figure-pdf/fig-d-bias-1.pdf}
+\centering{
+
+\includegraphics{chapters/02-small-samples/02-small-samples_files/figure-pdf/fig-d-bias-1.pdf}
 
 }
 
@@ -1192,22 +1633,22 @@ mean difference computed in small samples. The X-axis is the sample size
 the the estimated standardized mean difference (\(d\)). The dark pink
 coloring indicates more bias.}
 
-\end{figure}
+\end{figure}%
 
 Using \(a\), we can correct the \(d\) value such that,
 
-\begin{equation}\protect\hypertarget{eq-d-corr}{}{
+\begin{equation}\phantomsection\label{eq-d-corr}{
 d_c = \frac{d}{a} = \frac{d}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}.
-}\label{eq-d-corr}\end{equation}
+}\end{equation}
 
 To obtain the standard error of \(d_c\) we can apply the same correction
 as above to the standard error of \(d\) (\(se\)),
 
-\begin{equation}\protect\hypertarget{eq-se-corr-d}{}{
+\begin{equation}\phantomsection\label{eq-se-corr-d}{
 se(d_c) = \frac{se(d)}{a} = \frac{se(d)}{ \left[\frac{\Gamma\left(\frac{n-3}{2}\right)\sqrt{\frac{n-2}{2}}}{\Gamma\left(\frac{n-2}{2}\right)}\right]}.
-}\label{eq-se-corr-d}\end{equation}
+}\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say we want to compute the mean difference of test scores between
 two classes. Class 1 has 11 students and class 2 has 10 students. We
@@ -1250,12 +1691,10 @@ The output shows a corrected standardized mean difference of
 
 \end{tcolorbox}
 
-\hypertarget{correcting-for-small-sample-bias-in-correlations}{%
 \section{Correcting for Small Sample Bias in
-Correlations}\label{correcting-for-small-sample-bias-in-correlations}}
+Correlations}\label{correcting-for-small-sample-bias-in-correlations}
 
-\hypertarget{defining-the-estimand}{%
-\subsection{Defining the Estimand}\label{defining-the-estimand}}
+\subsection{Defining the Estimand}\label{defining-the-estimand}
 
 Our quantity of interest is the population correlation, \(\rho\). We can
 model the relationship between the population correlation and our sample
@@ -1274,9 +1713,8 @@ follows,
 r_c = \frac{r}{a}
 \]
 
-\hypertarget{artifact-correction-for-r}{%
 \subsection{\texorpdfstring{Artifact Correction for
-\emph{r}}{Artifact Correction for r}}\label{artifact-correction-for-r}}
+\emph{r}}{Artifact Correction for r}}\label{artifact-correction-for-r}
 
 Let's first define the correlation in the population as the covariance
 between \(X\) and \(Y\) (\(\sigma_{XY}\)) standardized by the product of
@@ -1315,9 +1753,9 @@ directly Olkin and Pratt (equation 2.3, 1958), there is no need to
 obtain a noisy estimate of \(a\). Therefore \(a\) can be defined exactly
 as,
 
-\begin{equation}\protect\hypertarget{eq-a-r}{}{
+\begin{equation}\phantomsection\label{eq-a-r}{
 a = \frac{1}{F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right)}
-}\label{eq-a-r}\end{equation}
+}\end{equation}
 
 Where \(F(\cdot)\) is the hypergeometric function (for background see
 the Wikipedia page: ). The hypergeometric function is a complicated and
@@ -1346,7 +1784,9 @@ at \(r=0\) and \(r=\pm 1\)).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{small_samples_files/figure-pdf/fig-r-bias-1.pdf}
+\centering{
+
+\includegraphics{chapters/02-small-samples/02-small-samples_files/figure-pdf/fig-r-bias-1.pdf}
 
 }
 
@@ -1356,23 +1796,23 @@ vertical bars are indicative of each integer). The Y-axis is the the
 estimated Pearson correlation (\(r\)). The dark pink coloring indicates
 more bias.}
 
-\end{figure}
+\end{figure}%
 
 To correct for small sample bias, we can divide the sample correlation
 \(r\) by the attenuation factor \(a\),
 
-\begin{equation}\protect\hypertarget{eq-r-corr}{}{
+\begin{equation}\phantomsection\label{eq-r-corr}{
 r_c = \frac{r}{a} = \frac{r}{\left[\frac{1}{F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right)}\right]}
-}\label{eq-r-corr}\end{equation}
+}\end{equation}
 
 Where the standard error of \(r_c\) can be obtained by correcting the
 observed standard error (\(se\)),
 
-\begin{equation}\protect\hypertarget{eq-se-corr}{}{
+\begin{equation}\phantomsection\label{eq-se-corr}{
 se(r_c) = \frac{se(r)}{a} = \frac{se(r)}{\left[\frac{1}{F\left(\frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2\right)}\right]}
-}\label{eq-se-corr}\end{equation}
+}\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say we compute a correlation of \(r=.43\) between test scores and
 self-reported motivation in a small sample of students. In R, we can use
@@ -1411,11 +1851,16 @@ motivation of \(r_c=.454\) (\(se(r)^2=.063\)).
 
 \end{tcolorbox}
 
-\hypertarget{unreliability}{%
-\chapter{Unreliability}\label{unreliability}}
+\bookmarksetup{startatroot}
 
-\hypertarget{introduction-1}{%
-\section{Introduction}\label{introduction-1}}
+\chapter{Introduction to Measurement
+Error}\label{introduction-to-measurement-error}
+
+\bookmarksetup{startatroot}
+
+\chapter{Unreliability}\label{unreliability}
+
+\section{Introduction}\label{introduction-2}
 
 In general terms, measurement is the process of quantifying an attribute
 or characteristic of something. In scientific measurement, the measurand
@@ -1433,8 +1878,7 @@ scores. This section will review what reliability is in theory, how to
 estimate reliability, and how to correct effect sizes for measurement
 error.
 
-\hypertarget{sec-true-score-theory}{%
-\section{Reliability in True Score Theory}\label{sec-true-score-theory}}
+\section{Reliability in True Score Theory}\label{sec-true-score-theory}
 
 True score theory (or classical test theory) is a mathematical
 formalization of observed scores obtained from a measurement procedure.
@@ -1481,9 +1925,9 @@ independent (\(\sigma_{ET}=0\)). The independence between true scores
 and errors provide convenient parsing of the variance in observed
 scores,
 
-\begin{equation}\protect\hypertarget{eq-variance}{}{
+\begin{equation}\phantomsection\label{eq-variance}{
 \sigma_{X}^2 = \sigma_T^2 + \sigma_{E}^2.
-}\label{eq-variance}\end{equation}
+}\end{equation}
 
 In practice, the goal is to obtain observed scores that closely resemble
 true scores, therefore it is important to minimize measurement error
@@ -1505,9 +1949,9 @@ equivalent to the covariance between observed scores and true scores,
 \(\sigma_{XT}=\)\(\sigma_{(T+E)T}=\)\(\sigma^2_T + \sigma_{TE}=\)\(\sigma^2_T = \sigma_{XX'}\)
 (Haertel 2006),
 
-\begin{equation}\protect\hypertarget{eq-reliability}{}{
+\begin{equation}\phantomsection\label{eq-reliability}{
 \rho_{XX'} = \frac{\sigma_T^2}{\sigma_X^2} = \frac{\left(\sigma_T^2\right)^2}{\sigma_X^2 \sigma_T^2}= \frac{\sigma_{XT}^2}{\sigma^2_X\sigma^2_T} = \rho^2_{XT}.
-}\label{eq-reliability}\end{equation}
+}\end{equation}
 
 To visualize how reliability relates true scores and observed scores see
 the structural diagram Figure~\ref{fig-rel}.
@@ -1525,7 +1969,9 @@ but this true score does not mirror a tangible reality.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=4.16667in,height=\textheight]{figure/unreliability_diagram_1.png}
+\centering{
+
+\includegraphics[width=4.16667in,height=\textheight]{chapters/04-error-in-continuous-variables/figure/unreliability_diagram_1.png}
 
 }
 
@@ -1537,10 +1983,9 @@ the red \(E\) denotes error. Correlations between \(T\), \(X\), and
 \(X'\) are in terms of reliability (\(\rho_{XX'}\)). Note that
 \(\rho_{XX'}=\rho_{XT}^2\).}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{reliability-vs-validity}{%
-\section{Reliability vs Validity}\label{reliability-vs-validity}}
+\section{Reliability vs Validity}\label{reliability-vs-validity}
 
 Reliability and validity are distinct properties in measurement.
 Validity pertains to whether the scores produced by a measure reflects
@@ -1567,8 +2012,7 @@ income, occupation status, etc. Although SES is not causal to these
 indicators, SES can still be used as a predictor of important life
 outcomes.
 
-\hypertarget{estimating-reliability}{%
-\section{Estimating Reliability}\label{estimating-reliability}}
+\section{Estimating Reliability}\label{estimating-reliability}
 
 In practice, reliability must be estimated through indirect methods,
 this is due to the fact that true scores and errors are unknown. There
@@ -1576,9 +2020,8 @@ are many reliability estimators that can be used, however we will go
 over a selection of internal consistency estimators as well as
 test-retest stability estimators.
 
-\hypertarget{internal-consistency-estimators}{%
 \subsection{Internal Consistency
-Estimators}\label{internal-consistency-estimators}}
+Estimators}\label{internal-consistency-estimators}
 
 Taking multiple measurements and then averaging tends to provide a more
 stable estimate of true values. For instance, let's consider the case of
@@ -1611,13 +2054,13 @@ sample variances of each item (\(S^2_{x_m}\)), and the variance of the
 composite score (\(S^2_{X}\)). Coefficient alpha will estimate the
 reliability of the composite observed score (\(r_{XX'}\)),
 
-\begin{equation}\protect\hypertarget{eq-alpha}{}{
+\begin{equation}\phantomsection\label{eq-alpha}{
 _\alpha r_{XX'} = \frac{\kappa}{\kappa-1}\left( 1 - \frac{\sum_{m=1}^\kappa S^2_{x_m}}{S^2_{X}} \right).
-}\label{eq-alpha}\end{equation}
+}\end{equation}
 
 \begin{figure}[H]
 
-{\centering \includegraphics{unreliability_files/figure-pdf/unnamed-chunk-1-1.pdf}
+{\centering \includegraphics{chapters/04-error-in-continuous-variables/04-error-in-continuous-variables_files/figure-pdf/unnamed-chunk-1-1.pdf}
 
 }
 
@@ -1632,7 +2075,7 @@ reliability). The composite score (dark blue dot with error bars), shows
 narrow error bars illustrating the high precision of the observed
 score.}
 
-\end{figure}
+\end{figure}%
 
 With tighter assumptions (see Haertel 2006), the formula for coefficient
 alpha can be simplified to just two parameters: the number of
@@ -1641,16 +2084,16 @@ scores (\(\bar{r}_{x_i x_j}\), where \(i\neq j\)). This formula is known
 as Spearman-Brown's prophecy (see equation III of Charles Spearman 1910;
 or the last equation on page 299 of Brown 1910),
 
-\begin{equation}\protect\hypertarget{eq-sp-brown}{}{
+\begin{equation}\phantomsection\label{eq-sp-brown}{
 _\text{sb} r_{XX'}= \frac{\kappa \bar{r}_{x_i x_j}}{1+(\kappa-1)\bar{r}_{x_i x_j}}
-}\label{eq-sp-brown}\end{equation}
+}\end{equation}
 
 This can be simplified further if we have two observed item scores. This
 formulation is a variation of split-half reliability:
 
-\begin{equation}\protect\hypertarget{eq-split-half}{}{
+\begin{equation}\phantomsection\label{eq-split-half}{
 _\text{sh}r_{XX'}= \frac{2r_{x_1 x_2}}{1+r_{x_1 x_2}}
-}\label{eq-split-half}\end{equation}
+}\end{equation}
 
 All of these reliability estimators measure internal consistency,
 therefore they do not account for error outside of the
@@ -1660,7 +2103,7 @@ transient error or rater-specific error.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=4.16667in,height=\textheight]{figure/unreliability_diagram_2.png}
+{\centering \includegraphics[width=4.16667in,height=\textheight]{chapters/04-error-in-continuous-variables/figure/unreliability_diagram_2.png}
 
 }
 
@@ -1671,9 +2114,9 @@ measurements, and the red \(e\) denotes error. The dark blue hexagon,
 \(X\), indicates a composite score as a sum of the observed scores
 (\(\mathbb{x}_{1...\kappa}\)). Note that \(\rho_{XX'}=\rho_{XT}\).}
 
-\end{figure}
+\end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Using the \texttt{anxiety} data set from the \texttt{irr} package (Gamer
 et al. 2019), we can estimate the reliability of three raters evaluating
@@ -1732,9 +2175,8 @@ The output shows a very low reliability between raters
 
 \end{tcolorbox}
 
-\hypertarget{test-retest-stability-estimator}{%
 \subsection{Test-Retest Stability
-Estimator}\label{test-retest-stability-estimator}}
+Estimator}\label{test-retest-stability-estimator}
 
 Transient errors represent fluctuations in observed scores over time.
 These fluctuations, even if they are systematic (e.g., fatigue over the
@@ -1759,7 +2201,9 @@ high and low reliability.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{unreliability_files/figure-pdf/fig-test-retest-1.pdf}
+\centering{
+
+\includegraphics{chapters/04-error-in-continuous-variables/04-error-in-continuous-variables_files/figure-pdf/fig-test-retest-1.pdf}
 
 }
 
@@ -1770,10 +2214,9 @@ reliability, respectively. Bottom-left and bottom-right panels show the
 within-person change from time-point 1 to time-point 2 for scores with
 low and high reliability, respectively.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{sec-sources}{%
-\subsection{Sources of Measurement Error}\label{sec-sources}}
+\subsection{Sources of Measurement Error}\label{sec-sources}
 
 Measurement error can itself be broken down into multiple sources of
 error. Depending on the study, different sources of error may be more
@@ -1882,13 +2325,11 @@ theory (G-theory). Can incorporate any source of error if enough data is
 present. & X & X & X & X \\
 \end{longtable}
 
-\hypertarget{sec-correcting-correlations-me}{%
 \section{Correction for Bias in
-Correlations}\label{sec-correcting-correlations-me}}
+Correlations}\label{sec-correcting-correlations-me}
 
-\hypertarget{defining-the-target-quantity-1}{%
 \subsection{Defining the Target
-Quantity}\label{defining-the-target-quantity-1}}
+Quantity}\label{defining-the-target-quantity-1}
 
 Continuing with our emphasis on clearly defining our quantity of
 interest prior to applying any corrections, let us define it here. Our
@@ -1936,7 +2377,9 @@ The measurement model can be visualized in Figure~\ref{fig-corr-model}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/diagram-estimand-reliability-r.png}
+\centering{
+
+\includegraphics{chapters/04-error-in-continuous-variables/figure/diagram-estimand-reliability-r.png}
 
 }
 
@@ -1945,10 +2388,9 @@ between the true scores, observed scores, and error scores. The true
 score correlation is denoted by the curved arrow connecting the circles
 indicating true score variables, \(T\) and \(U\).}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{sec-r-corr}{%
-\subsection{Artifactual Correction for Unreliability}\label{sec-r-corr}}
+\subsection{Artifactual Correction for Unreliability}\label{sec-r-corr}
 
 Measurement error induces systematic bias in effect size estimates such
 as correlation coefficients C. Spearman (1904). In the population, let
@@ -1982,9 +2424,9 @@ observed scores is only attributable to the covariance between true
 scores, therefore \(\sigma_{XY} = \sigma_{TU}\). This means that the
 observed score correlation can be expressed as,
 
-\begin{equation}\protect\hypertarget{eq-bias}{}{
+\begin{equation}\phantomsection\label{eq-bias}{
 \rho_{XY} =\frac{\sigma_{TU}}{\sigma_{X} \sigma_{Y}}.
-}\label{eq-bias}\end{equation}
+}\end{equation}
 
 Now the only difference between the observed score correlation and the
 true score correlation is the standard deviations in the denominator. In
@@ -2005,9 +2447,9 @@ reliability inflates the observed variance,
 
 Therefore the observed standard deviation is,
 
-\begin{equation}\protect\hypertarget{eq-sd-me}{}{
+\begin{equation}\phantomsection\label{eq-sd-me}{
 \sigma_X = \frac{\sigma_{T}}{\sqrt{\rho_{XX'}}}.
-}\label{eq-sd-me}\end{equation}
+}\end{equation}
 
 Since the reliability, and its square root, will be less than 1, then
 the observed score variance will be larger than the If we use the
@@ -2031,7 +2473,9 @@ Note that this formulation requires that there is no correlation between
 
 \begin{figure}[H]
 
-{\centering \includegraphics{unreliability_files/figure-pdf/fig-attenuation-1.pdf}
+\centering{
+
+\includegraphics{chapters/04-error-in-continuous-variables/04-error-in-continuous-variables_files/figure-pdf/fig-attenuation-1.pdf}
 
 }
 
@@ -2052,7 +2496,7 @@ error. The darker red indicates a larger observed correlation, where it
 peaks at an observed score correlation of .50 (when reliability of \(X\)
 and \(Y\) is 1) which is equivalent to the true score correlation}
 
-\end{figure}
+\end{figure}%
 
 Let us recall that we can express the observed score correlation as a
 function of the true score population correlation (i.e., the target
@@ -2108,11 +2552,11 @@ se_c =  \frac{se}{\sqrt{r_{XX'}}\sqrt{r_{YY'}}}
   approximately (for the derivation, see the appendix of this section),
 \end{enumerate}
 
-\begin{equation}\protect\hypertarget{eq-se-me-r-tsa}{}{
+\begin{equation}\phantomsection\label{eq-se-me-r-tsa}{
 se(r_{TU}) = \sqrt{\frac{se(r_{XY})^2}{r_{XX'}r_{YY'}} + 
 \frac{r^2_{XY}\left(1-r^2_{XX'}\right)^2}{4(n_{r_{XX'}}-1)r_{XX'}^3r_{YY'}} + 
 \frac{r^2_{XY}\left(1-r^2_{YY'}\right)^2}{4(n_{r_{YY'}}-1)r_{XX'}r_{YY'}^3}}
-}\label{eq-se-me-r-tsa}\end{equation}
+}\end{equation}
 
 The two ways of calculating standard error are due to the fact that when
 the reliability and correlation coefficient are computed from the same
@@ -2121,7 +2565,7 @@ Note that if you only want to correct for unreliability in one variable,
 than you can set the reliability of the other variable to 1 in all the
 equations above.
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say we wanted to estimate the correlation between academic
 motivation and test performance among a sample of \(n=100\) students.
@@ -2163,14 +2607,12 @@ The estimate of the true score correlation is
 
 \end{tcolorbox}
 
-\hypertarget{correction-for-bias-in-standardized-mean-differences-d}{%
 \section{\texorpdfstring{Correction for Bias in Standardized Mean
 Differences
-(\emph{d})}{Correction for Bias in Standardized Mean Differences (d)}}\label{correction-for-bias-in-standardized-mean-differences-d}}
+(\emph{d})}{Correction for Bias in Standardized Mean Differences (d)}}\label{correction-for-bias-in-standardized-mean-differences-d}
 
-\hypertarget{defining-the-target-quantity-2}{%
 \subsection{Defining the Target
-Quantity}\label{defining-the-target-quantity-2}}
+Quantity}\label{defining-the-target-quantity-2}
 
 Prior to correcting for measurement error let us define our target. Our
 target is the difference in the means of group \(A\) and \(B\) with
@@ -2214,8 +2656,7 @@ observed standardized mean difference by dividing by an estimate of
 d_{gU} = \frac{d_{gY}}{\hat{a}}.
 \]
 
-\hypertarget{sec-d-SMD}{%
-\subsection{Artifact Correction for Unreliability}\label{sec-d-SMD}}
+\subsection{Artifact Correction for Unreliability}\label{sec-d-SMD}
 
 The population mean of true scores and observed scores are identical
 since measurement error only affects the variance in scores. Therefore
@@ -2241,9 +2682,9 @@ We know from Equation~\ref{eq-reliability} that the standard deviation
 of true scores, \(\sigma_U\), can be expressed as a function of
 reliability and the observed score standard deviation,
 
-\begin{equation}\protect\hypertarget{eq-sd-correction}{}{
+\begin{equation}\phantomsection\label{eq-sd-correction}{
 \sigma_U = \sigma_Y\sqrt{\rho_{YY'}}
-}\label{eq-sd-correction}\end{equation}
+}\end{equation}
 
 Therefore the true score standardized mean difference could be corrected
 for by dividing the observed score standardized mean difference by the
@@ -2274,8 +2715,7 @@ S_{Y_P} = \sqrt{\frac{(n_A+1)S^2_{Y_A}+(n_B+1)S^2_{Y_B}}{n_A + n_B - 2}}.
 Where \(n_A\) and \(n_B\) are the sample sizes within group \(A\) and
 group \(B\), respectively.
 
-\hypertarget{pooled-reliability}{%
-\subsubsection*{Pooled Reliability}\label{pooled-reliability}}
+\subsubsection*{Pooled Reliability}\label{pooled-reliability}
 \addcontentsline{toc}{subsubsection}{Pooled Reliability}
 
 To obtain the pooled standard deviation of true scores, we can correct
@@ -2335,13 +2775,12 @@ score estimate. The standard error can be computed one of two ways:
   following formulation (see appendix for derivation),
 \end{enumerate}
 
-\begin{equation}\protect\hypertarget{eq-se-me-d-tsa}{}{
+\begin{equation}\phantomsection\label{eq-se-me-d-tsa}{
 se(d_{gU}) = \sqrt{\frac{se(d_{gY})^2}{r_{YY'_P}} +\frac{d^2_{gY}\left(1-r^2_{YY'_P}\right)^2}{4\left(1-n_{r_{YY'_P}}\right)r^3_{YY'_P}}}
-}\label{eq-se-me-d-tsa}\end{equation}
+}\end{equation}
 
-\hypertarget{total-sample-reliability}{%
 \subsubsection*{Total Sample
-Reliability}\label{total-sample-reliability}}
+Reliability}\label{total-sample-reliability}
 \addcontentsline{toc}{subsubsection}{Total Sample Reliability}
 
 It is common that studies will only report the full sample reliability
@@ -2394,7 +2833,9 @@ coefficient.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{unreliability_files/figure-pdf/fig-d-attenuation-1.pdf}
+\centering{
+
+\includegraphics{chapters/04-error-in-continuous-variables/04-error-in-continuous-variables_files/figure-pdf/fig-d-attenuation-1.pdf}
 
 }
 
@@ -2407,9 +2848,9 @@ true scores (top panel). The true score standardized mean difference is
 deviation in observed scores relative to true scores (the mean
 difference does not change).}
 
-\end{figure}
+\end{figure}%
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Imagine we want to test the effectiveness of a drug that is meant to
 alleviate stress. Therefore we conduct a study and randomize a sample of
@@ -2448,9 +2889,8 @@ The output of psychmeta shows a slightly larger
 
 \end{tcolorbox}
 
-\hypertarget{sec-lim-information}{%
 \section{Estimating Reliability with Limited
-Information}\label{sec-lim-information}}
+Information}\label{sec-lim-information}
 
 Reliability estimates should preferably be calculated from within the
 study's sample, however there are a couple of ways to estimate
@@ -2468,13 +2908,11 @@ Where \(\kappa_{\text{ref}}\) and \(\kappa_{\text{study}}\) denote the
 number of items in the reference test and the test used in the study,
 respectively.
 
-\hypertarget{appendix}{%
-\section{Appendix}\label{appendix}}
+\section{Appendix}\label{appendix}
 
-\hypertarget{deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors}{%
 \paragraph*{Deriving the standard error of a corrected correlation with
 independent sampling
-errors}\label{deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors}}
+errors}\label{deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors}
 \addcontentsline{toc}{paragraph}{Deriving the standard error of a
 corrected correlation with independent sampling errors}
 
@@ -2490,21 +2928,20 @@ derivation can also be found in the Mathematica script,
 \frac{r^2_{XY}\left(1-r^2_{YY'}\right)^2}{4(n_{r_{YY'}}-1)r_{XX'}r_{YY'}^3}}}
 \end{aligned}\]
 
-\hypertarget{deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors-1}{%
 \paragraph*{Deriving the standard error of a corrected correlation with
 independent sampling
-errors}\label{deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors-1}}
+errors}\label{deriving-the-standard-error-of-a-corrected-correlation-with-independent-sampling-errors-1}
 \addcontentsline{toc}{paragraph}{Deriving the standard error of a
 corrected correlation with independent sampling errors}
 
 Equation~\ref{eq-se-me-d-tsa} - Found in \texttt{Derivations.nb},
 denoted as (SE.2).
 
-\hypertarget{group-misclassification}{%
-\chapter{Group Misclassification}\label{group-misclassification}}
+\bookmarksetup{startatroot}
 
-\hypertarget{introduction-2}{%
-\section{Introduction}\label{introduction-2}}
+\chapter{Group Misclassification}\label{group-misclassification}
+
+\section{Introduction}\label{introduction-3}
 
 Group misclassification describes a situation where true group
 membership (e.g., people with a disorder) does not perfectly match the
@@ -2514,9 +2951,8 @@ measurement error where instead of accounting for errors in continuous
 variables (i.e., unreliability), group misclassification accounts for
 errors in categorical variables.
 
-\hypertarget{defining-group-misclassification}{%
 \section{Defining Group
-Misclassification}\label{defining-group-misclassification}}
+Misclassification}\label{defining-group-misclassification}
 
 Misclassification can be defined as any deviations between true group
 membership and observed group membership. Let us imagine two groups,
@@ -2529,10 +2965,9 @@ performance of the classification procedure with a contingency table
 (see Table~\ref{tbl-class}) between actual group membership (\(G\)) and
 observed group membership (\(g\)):
 
-\hypertarget{tbl-class}{}
 \begin{longtable}[]{@{}ccc@{}}
-\caption{\label{tbl-class}Contingency table between assigned group
-membership and actual group membership.}\tabularnewline
+\caption{Contingency table between assigned group membership and actual
+group membership.}\label{tbl-class}\tabularnewline
 \toprule\noalign{}
 \endfirsthead
 \endhead
@@ -2556,8 +2991,7 @@ maximize \(p_{\text{acc}}\). Note that the proportion of people
 misclassified is inversely proportional to the proportion of people
 accurately classified such that, \(p_{\text{mis}} = 1-p_{\text{acc}}\).
 
-\hypertarget{classification-reliability}{%
-\section{Classification Reliability}\label{classification-reliability}}
+\section{Classification Reliability}\label{classification-reliability}
 
 Similar to quantifying reliability in continuous variables by
 calculating the correlation in parallel sets of observed scores, the
@@ -2627,7 +3061,7 @@ This approximation assumes that the group sizes are approximately equal
 groups. Otherwise, \(r_{gg'}\) will be overestimated (Wiernik and Dahlke
 2020).
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say that a researcher wants to calculate the reliability of a
 clinician's diagnoses of major depressive disorder. They hire two
@@ -2659,13 +3093,11 @@ reliability of \(r_{gg'}=.74\).
 
 \end{tcolorbox}
 
-\hypertarget{correcting-for-group-misclassification-in-standardized-mean-difference}{%
 \section{Correcting for Group Misclassification in Standardized Mean
-Difference}\label{correcting-for-group-misclassification-in-standardized-mean-difference}}
+Difference}\label{correcting-for-group-misclassification-in-standardized-mean-difference}
 
-\hypertarget{defining-our-target-quantity}{%
 \subsection{Defining our Target
-Quantity}\label{defining-our-target-quantity}}
+Quantity}\label{defining-our-target-quantity}
 
 Our quantity of interest is the true score population standardized mean
 difference, \(\delta_{GU}\), between actual members of group \(A\) and
@@ -2691,9 +3123,8 @@ factor,
 d_{GU} = \frac{d_{gY}}{\hat{a}}.
 \]
 
-\hypertarget{artifact-correction-for-standardized-mean-difference}{%
 \subsection{Artifact Correction for Standardized Mean
-Difference}\label{artifact-correction-for-standardized-mean-difference}}
+Difference}\label{artifact-correction-for-standardized-mean-difference}
 
 The standardized mean differences will become biased when subject's
 assigned groups differ from their actual group. This is partially due to
@@ -2726,7 +3157,9 @@ attenuation of the standardized mean difference.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{misclassification_files/figure-pdf/fig-no-mis-1.pdf}
+\centering{
+
+\includegraphics{chapters/05-misclassification/05-misclassification_files/figure-pdf/fig-no-mis-1.pdf}
 
 }
 
@@ -2735,7 +3168,7 @@ misclassification. True mean difference and observed mean differ only
 due to sampling error. Red squares denote actual group \(A\) members,
 blue circles denote actual group \(B\) members.}
 
-\end{figure}
+\end{figure}%
 
 If some individuals are assigned to the incorrect group, then we will
 see attenuation in the standardized mean difference as the means
@@ -2745,7 +3178,9 @@ is equivalent to a classification reliability of \(r_{gg'}=.64\).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{misclassification_files/figure-pdf/fig-mis-1.pdf}
+\centering{
+
+\includegraphics{chapters/05-misclassification/05-misclassification_files/figure-pdf/fig-mis-1.pdf}
 
 }
 
@@ -2756,7 +3191,7 @@ group \(A\) members, blue circles denote actual group \(B\) members.
 Note that a few members of group \(A\) (red squares) are within assigned
 group \(B\) and vice versa (indicative of misclassification).}
 
-\end{figure}
+\end{figure}%
 
 It is important to note that for many of the corrections converting the
 standardized mean difference to a point-biserial correlation is often a
@@ -2804,7 +3239,7 @@ incorporate each step into a single equation:
 \small{se(d_{GU}) = \frac {se(d_{gY})\times r_{GU}} {r_{gY}\sqrt{\left(1+d_{gY}^2p[1-p]\right)^2\left(d_{gY}^2+\frac{1}{p_g(1-p_g)}\right)p_G(1-p_G)(1-r_{GU}^2)^3}}.}
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 A researcher wants to compare the academic performance (measured by a
 standardized test) of people with and without Major Depressive Disorder
@@ -2841,11 +3276,11 @@ The corrected standardized mean difference is
 
 \end{tcolorbox}
 
-\hypertarget{sec-dichotomization}{%
-\chapter{Artificial Dichotomization}\label{sec-dichotomization}}
+\bookmarksetup{startatroot}
 
-\hypertarget{introduction-3}{%
-\section{Introduction}\label{introduction-3}}
+\chapter{Artificial Dichotomization}\label{sec-dichotomization}
+
+\section{Introduction}\label{introduction-4}
 
 Researchers occasionally split naturally continuous variables into two
 discrete groups to increase interpretability or conduct specific
@@ -2860,9 +3295,8 @@ examples of dichotomization where individuals are separated into either
 having the disorder or not even though individual differences in anxiety
 exist as a continuum.
 
-\hypertarget{artificial-dichotomization-induced-measurement-error}{%
 \section{Artificial Dichotomization Induced Measurement
-Error}\label{artificial-dichotomization-induced-measurement-error}}
+Error}\label{artificial-dichotomization-induced-measurement-error}
 
 Variables that are dichotomized contain measurement error. This can be
 demonstrated by the simple fact that dichotomized scores are not
@@ -2873,7 +3307,9 @@ between the two (see Figure~\ref{fig-dich}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{artificial_dichotomization_files/figure-pdf/fig-dich-1.pdf}
+\centering{
+
+\includegraphics{chapters/06-artificial-dichotomization/06-artificial-dichotomization_files/figure-pdf/fig-dich-1.pdf}
 
 }
 
@@ -2882,7 +3318,7 @@ artificially dichotomizing. Left panel shows a normally distributed
 variable split (at the median/mean) into a high scoring group and a low
 scoring group.}
 
-\end{figure}
+\end{figure}%
 
 Even with a perfectly reliable measure, dichotomization will introduce
 measurement error. Dichotomization occurs when data is split into two
@@ -2898,13 +3334,11 @@ X_D=
 \end{cases}
 \]
 
-\hypertarget{correcting-correlations-for-artificial-dichotomization}{%
 \section{Correcting Correlations for Artificial
-Dichotomization}\label{correcting-correlations-for-artificial-dichotomization}}
+Dichotomization}\label{correcting-correlations-for-artificial-dichotomization}
 
-\hypertarget{defining-the-target-quantity-3}{%
 \subsection{Defining the Target
-Quantity}\label{defining-the-target-quantity-3}}
+Quantity}\label{defining-the-target-quantity-3}
 
 We want to obtain the population correlation between continuous scores
 of the independent (\(X\)) and dependent variable (\(Y\)),
@@ -2932,9 +3366,8 @@ study correlation by an estimate of the artifact attenuation factor,
 r_{XY} = \frac{r_{X_D Y_D}}{a}.
 \]
 
-\hypertarget{sec-corr-artifacts}{%
 \subsection{Artifact Correction for
-Correlations}\label{sec-corr-artifacts}}
+Correlations}\label{sec-corr-artifacts}
 
 Correlations can suffer from dichotomization in one variable (univariate
 case) or both variables (bivariate case). This section will discuss the
@@ -2945,7 +3378,9 @@ bivariate dichotomization, see Figure~\ref{fig-dich-cases}.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{artificial_dichotomization_files/figure-pdf/fig-dich-cases-1.pdf}
+\centering{
+
+\includegraphics{chapters/06-artificial-dichotomization/06-artificial-dichotomization_files/figure-pdf/fig-dich-cases-1.pdf}
 
 }
 
@@ -2957,10 +3392,9 @@ shows the univariate case where only the independent variable, \(X\), is
 dichotomized. The last panel shows the bivariate case where both
 independent (\(X\)) and dependent (\(Y\)) variables are dichotomized.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{the-univariate-case}{%
-\subsubsection*{The Univariate Case}\label{the-univariate-case}}
+\subsubsection*{The Univariate Case}\label{the-univariate-case}
 \addcontentsline{toc}{subsubsection}{The Univariate Case}
 
 In the simplest case of dichotomization, only one variable is
@@ -2998,7 +3432,7 @@ p_X := p(X_i < C_X) = \frac{ n_{\text{L}} }{n_{\text{H}} + n_{\text{L}}}.
 Where \(n\) indicates the sample size within the low, \(L\), and high,
 \(H\), scoring groups.
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-tip-color-frame, title={Note}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Note}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 It will not matter whether you calculate the proportion of the sample in
 the high scoring group or the low scoring group for \(p_X\). Once you
@@ -3013,9 +3447,9 @@ distribution, \(s_X=\phi^{-1}[p_X]\). Using the location of the split on
 the standard normal, we can compute the artifact attenuation factor
 {[}an adaptation of equation 2, J. Hunter and Schmidt (1990){]},
 
-\begin{equation}\protect\hypertarget{eq-artifact-factor-dich}{}{
+\begin{equation}\phantomsection\label{eq-artifact-factor-dich}{
 \hat{a} =\frac{\varphi\left(s_X\right)}{\sqrt{p_X(1-p_X)}}.
-}\label{eq-artifact-factor-dich}\end{equation}
+}\end{equation}
 
 Where \(\varphi(\cdot)\) is the normal ordinate function (i.e.,
 probability density function of a standard normal distribution).
@@ -3024,7 +3458,9 @@ relate to a standard normal distribution.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{artificial_dichotomization_files/figure-pdf/fig-normal-density-1.pdf}
+\centering{
+
+\includegraphics{chapters/06-artificial-dichotomization/06-artificial-dichotomization_files/figure-pdf/fig-normal-density-1.pdf}
 
 }
 
@@ -3035,7 +3471,7 @@ quantile function, \(\phi^{-1}[p_X]\). The ordinate of the normal
 distribution at that cut-point is calculated with the normal ordinate
 function, \(\varphi\left(\phi^{-1}[p_X]\right)\).}
 
-\end{figure}
+\end{figure}%
 
 In the case of a median split, where the cut-point would be placed at
 zero of a standard normal (splitting the distribution in equal halves),
@@ -3046,12 +3482,12 @@ the attenuation factor would simplify to
 We can correct the study correlation using the estimated artifact
 factor, \(\hat{a}\), therefore the full correction equation is,
 
-\begin{equation}\protect\hypertarget{eq-dich-r}{}{
+\begin{equation}\phantomsection\label{eq-dich-r}{
 r_{XY} = \frac{r_{X_DY}}{\hat{a}} = \frac{r_{X_DY}}{\left[\frac{\varphi\left(s_X\right)}{\sqrt{p_X(1-p_X)}}\right]}.
-}\label{eq-dich-r}\end{equation}
+}\end{equation}
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-tip-color-frame, title={Converting to \(\boldsymbol{\mathsf{r_{X_{D}Y}}}\) from means and
-standard deviations}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Converting to \(\boldsymbol{\mathsf{r_{X_{D}Y}}}\) from means and
+standard deviations}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 It is common that studies do not report the correlation between
 dichotomized and continuous scores, \(r_{X_DY}\) (i.e., the
@@ -3097,7 +3533,7 @@ Soper (1914) also developed an approximation of the above formula,
 se(r_{XY}) \approx \sqrt{\frac{1}{n-1}} \left(\frac{\sqrt{p_X(1-p_X)}}{\varphi\left(s_X\right)}-r_{XY}^2\right).
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say we want to assess the relationship between a sales person's
 score on a job knowledge test and their job performance estimated as the
@@ -3175,8 +3611,7 @@ standard error (\(se(r_{XY})^2\)).
 
 \end{tcolorbox}
 
-\hypertarget{the-bivariate-case}{%
-\subsubsection*{The Bivariate Case}\label{the-bivariate-case}}
+\subsubsection*{The Bivariate Case}\label{the-bivariate-case}
 \addcontentsline{toc}{subsubsection}{The Bivariate Case}
 
 In some cases, both independent and dependent variables are
@@ -3187,9 +3622,8 @@ notation for dichotomized variables, \(\rho_{X_D X_D}\). Dichotomized
 data can be structured in a contingency table (see
 Table~\ref{tbl-biv-dich}).
 
-\hypertarget{tbl-biv-dich}{}
 \begin{longtable}[]{@{}ccc@{}}
-\caption{\label{tbl-biv-dich}Contingency table.}\tabularnewline
+\caption{Contingency table.}\label{tbl-biv-dich}\tabularnewline
 \toprule\noalign{}
 \endfirsthead
 \endhead
@@ -3205,7 +3639,9 @@ to an underlying continuous bivariate normal distribution.
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=0.6\textwidth,height=\textheight]{figure/diagram-dich.png}
+\centering{
+
+\includegraphics[width=0.6\textwidth,height=\textheight]{chapters/06-artificial-dichotomization/figure/diagram-dich.png}
 
 }
 
@@ -3216,7 +3652,7 @@ individuals populating the high-high and low-low cells rather than the
 high-low and low-high cells which can be seen by the area of the ellipse
 located in each quadrant.}
 
-\end{figure}
+\end{figure}%
 
 The corrected correlation coefficient for two dichotomized variables is
 commonly referred to as the tetrachoric correlation coefficient. The
@@ -3242,9 +3678,8 @@ different cases:
   The Phi coefficient is reported.
 \end{enumerate}
 
-\hypertarget{case-1-full-contingency-table-is-reported}{%
 \paragraph*{Case 1: Full contingency table is
-reported}\label{case-1-full-contingency-table-is-reported}}
+reported}\label{case-1-full-contingency-table-is-reported}
 \addcontentsline{toc}{paragraph}{Case 1: Full contingency table is
 reported}
 
@@ -3285,9 +3720,8 @@ function uses the method described by Kirk (1973).
 The results show a dichotomization corrected correlation of
 \(r_{XY} = .36\) and an estimated sampling variance of \(se_c^2=.016\).
 
-\hypertarget{case-2-odds-ratio-is-reported}{%
 \paragraph*{Case 2: odds ratio is
-reported}\label{case-2-odds-ratio-is-reported}}
+reported}\label{case-2-odds-ratio-is-reported}
 \addcontentsline{toc}{paragraph}{Case 2: odds ratio is reported}
 
 If the odds ratio is all that is available, then we can use the
@@ -3343,9 +3777,8 @@ odds ratio to a tetrachoric correlation.
 [1,] 0.2665276 0.11637
 \end{verbatim}
 
-\hypertarget{case-3-correlation-between-dichotomized-variables}{%
 \paragraph*{Case 3: Correlation between dichotomized
-variables}\label{case-3-correlation-between-dichotomized-variables}}
+variables}\label{case-3-correlation-between-dichotomized-variables}
 \addcontentsline{toc}{paragraph}{Case 3: Correlation between
 dichotomized variables}
 
@@ -3398,13 +3831,11 @@ correlation for dichotomization.
 The output shows the corrected correlation to be \(r_{XY}=.31\) and it's
 estimated sampling variance \(se_c^2=.023\).
 
-\hypertarget{correcting-standardized-mean-differences-for-artificial-dichotomization}{%
 \section{Correcting Standardized Mean Differences for Artificial
-Dichotomization}\label{correcting-standardized-mean-differences-for-artificial-dichotomization}}
+Dichotomization}\label{correcting-standardized-mean-differences-for-artificial-dichotomization}
 
-\hypertarget{defining-our-target-quantity-1}{%
 \subsection{Defining our Target
-Quantity}\label{defining-our-target-quantity-1}}
+Quantity}\label{defining-our-target-quantity-1}
 
 The target quantity is the standardized mean difference between groups
 of a naturally continuous variable. Our target can thus be defined as
@@ -3425,9 +3856,8 @@ the attenuation factor,
 d_{gY} = \frac{d_{gY_D}}{\hat{a}}
 \]
 
-\hypertarget{sec-corr-smd}{%
 \subsection{Artifact Correction for Standardized Mean
-Differences}\label{sec-corr-smd}}
+Differences}\label{sec-corr-smd}
 
 The simplest way to correct for dichotomization in a standardized mean
 difference is to first convert the observed \(d\) value of the
@@ -3468,9 +3898,8 @@ simplicity, we will consolidate this into one formula,
 se(d_{gY}) = \frac {se(d_{gY_D}) \times r_{XY}} {r_{x_DY_D}\sqrt{\left(1+d_{gY_D}^2p_g[1-p_g]\right)^3(1-r_{gY}^2)^3}}.
 \]
 
-\hypertarget{obtaining-standardized-mean-difference-from-odds-ratio}{%
 \subsubsection*{Obtaining Standardized Mean Difference from Odds
-Ratio}\label{obtaining-standardized-mean-difference-from-odds-ratio}}
+Ratio}\label{obtaining-standardized-mean-difference-from-odds-ratio}
 \addcontentsline{toc}{subsubsection}{Obtaining Standardized Mean
 Difference from Odds Ratio}
 
@@ -3491,9 +3920,9 @@ standardized mean difference (Cox 1989; Haddock, Rindskopf, and Shadish
 1998). Them method is quite simple as it just divides the log odds ratio
 by 1.65,
 
-\begin{equation}\protect\hypertarget{eq-or-d}{}{
+\begin{equation}\phantomsection\label{eq-or-d}{
 d_{gY} = \frac{\log(OR)}{1.65}
-}\label{eq-or-d}\end{equation}
+}\end{equation}
 
 and the corresponding sampling variance of the \(d\) value is,
 
@@ -3501,7 +3930,7 @@ and the corresponding sampling variance of the \(d\) value is,
 se(d_{gY}) = \frac{se(\log(OR))}{1.65}.
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's consider a hypothetical scenario where we want to examine the
 relationship between caffeine consumption and the occurrence of heart
@@ -3563,11 +3992,11 @@ We can see that the standardized mean difference is estimated to be
 
 \end{tcolorbox}
 
-\hypertarget{scale-coarseness}{%
-\chapter{Scale Coarseness}\label{scale-coarseness}}
+\bookmarksetup{startatroot}
 
-\hypertarget{introduction-4}{%
-\section{Introduction}\label{introduction-4}}
+\chapter{Scale Coarseness}\label{scale-coarseness}
+
+\section{Introduction}\label{introduction-5}
 
 Scale coarseness describes a situation where a variable that is
 naturally continuous (e.g., happiness) is binned into discrete values
@@ -3592,7 +4021,9 @@ underlying continuous scores.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{scale_coarseness_files/figure-pdf/fig-coarse-self-1.pdf}
+\centering{
+
+\includegraphics{chapters/07-scale-coarseness/07-scale-coarseness_files/figure-pdf/fig-coarse-self-1.pdf}
 
 }
 
@@ -3600,15 +4031,13 @@ underlying continuous scores.
 between coarse scores (on a 5-point scale) and the underlying continuous
 scores.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{correcting-for-coarseness-in-correlations}{%
 \section{Correcting for Coarseness in
-Correlations}\label{correcting-for-coarseness-in-correlations}}
+Correlations}\label{correcting-for-coarseness-in-correlations}
 
-\hypertarget{defining-our-target-quantity-2}{%
 \subsection{Defining our Target
-Quantity}\label{defining-our-target-quantity-2}}
+Quantity}\label{defining-our-target-quantity-2}
 
 Our quantity of interest is the population correlation, \(\rho\),
 between continuous independent variable, \(X\), and continuous dependent
@@ -3631,8 +4060,7 @@ correlation by an estimate of the attenuation factor,
 r_{XY} = \frac{r_{X_CY_C}}{\hat{a}}.
 \]
 
-\hypertarget{sec-coarse-cor}{%
-\subsection{Artifact Correction for Coarseness}\label{sec-coarse-cor}}
+\subsection{Artifact Correction for Coarseness}\label{sec-coarse-cor}
 
 Correlating a coarse score with another variable will cause attenuation
 of the correlation (MacCallum et al. 2002). Furthermore if we correlate
@@ -3643,7 +4071,9 @@ coarse and 2) the bivariate case where both variables are coarse.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{scale_coarseness_files/figure-pdf/fig-coarse-other-1.pdf}
+\centering{
+
+\includegraphics{chapters/07-scale-coarseness/07-scale-coarseness_files/figure-pdf/fig-coarse-other-1.pdf}
 
 }
 
@@ -3652,7 +4082,7 @@ variables as continuous and normal. The second plot shows coarseness
 (5-point scale) only on X, leaving Y continuous (\(r_{X_CY}=.47\)). Last
 plot shows coarseness on both variables (\(r_{X_CY_C}=.47\)).}
 
-\end{figure}
+\end{figure}%
 
 To correct the correlation between coarse scores for \(X\) and \(Y\), we
 need to know the correlation between coarse scores and their underlying
@@ -3677,13 +4107,13 @@ a given number of scale points. For the normal distribution correction,
 its been shown that even in cases of extreme skew, these correction
 factors perform well (Wylie 1976).
 
-\hypertarget{tbl-coarse}{}
 \begin{longtable}[]{@{}
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2466}}
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3699}}
   >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3836}}@{}}
-\caption{\label{tbl-coarse}Correlations between continuous and coarse
-scores (\(r_{XX_C}\)) from Peters and Voorhis (1940)}\tabularnewline
+\caption{Correlations between continuous and coarse scores
+(\(r_{XX_C}\)) from Peters and Voorhis
+(1940)}\label{tbl-coarse}\tabularnewline
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\centering
 Scale Points
@@ -3737,16 +4167,15 @@ variance as well,
 \sigma^2_{\varepsilon_c} = \frac{\sigma^2_{\varepsilon_o}}{a^2_x a^2_y}.
 \]
 
-\hypertarget{correcting-correlations-in-r}{%
 \subsection{Correcting Correlations in
-R}\label{correcting-correlations-in-r}}
+R}\label{correcting-correlations-in-r}
 
 To correct scale coarseness in R, we can use the table in
 Section~\ref{sec-coarse-cor}. Lets start by simulating a coarse data (5
 scale-points for x and 7 scale-points for y) set of 500 individuals with
 a true population correlation of \(\rho = .50\).
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Imagine that a researcher wants to relate depression and age. They
 collect a sample of 1,000 people from the general population and
@@ -3818,13 +4247,11 @@ standard error of \(se(r_{XY})=\sqrt{.0011}=0.034\).
 
 \end{tcolorbox}
 
-\hypertarget{correcting-for-coarseness-in-d-values}{%
 \section{\texorpdfstring{Correcting for Coarseness in \emph{d}
-values}{Correcting for Coarseness in d values}}\label{correcting-for-coarseness-in-d-values}}
+values}{Correcting for Coarseness in d values}}\label{correcting-for-coarseness-in-d-values}
 
-\hypertarget{defining-our-target-quantity-3}{%
 \subsection{Defining our Target
-Quantity}\label{defining-our-target-quantity-3}}
+Quantity}\label{defining-our-target-quantity-3}
 
 Our quantity of interest is the population standardized mean difference,
 \(\delta_{gY}\), between groups \(A\) and \(B\) on continuous variable,
@@ -3844,9 +4271,8 @@ correcting the observed standardized mean difference as follows,
 d_{gY} = \frac{d_{gY_C}}{\hat{a}}.
 \]
 
-\hypertarget{artifact-correction-for-coarseness}{%
 \subsection{Artifact Correction for
-Coarseness}\label{artifact-correction-for-coarseness}}
+Coarseness}\label{artifact-correction-for-coarseness}
 
 To correct a standardized mean difference for coarseness in dependent
 variable, we can use the correlation between coarse scores and
@@ -3863,7 +4289,7 @@ We must also adjust the standard error,
 se(d_{gY}) = \frac{se(d_{gY_C})}{r_{YY_C}}.
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say that a researcher wants to investigate gender differences in
 depression. The researcher administers a survey to a sample of men and
@@ -3921,11 +4347,16 @@ standard error of \(se(d_{gY})=.109\).
 
 \end{tcolorbox}
 
-\hypertarget{sec-direct_range_restriction}{%
-\chapter{Direct Selection}\label{sec-direct_range_restriction}}
+\bookmarksetup{startatroot}
 
-\hypertarget{introduction-5}{%
-\section{Introduction}\label{introduction-5}}
+\chapter{Introduction to Selection
+Effects}\label{introduction-to-selection-effects}
+
+\bookmarksetup{startatroot}
+
+\chapter{Direct Selection}\label{sec-direct_range_restriction}
+
+\section{Introduction}\label{introduction-6}
 
 Direct selection occurs when subjects are explicitly selected based on
 some eligibility criterion on the variables of interest (rather than a
@@ -3936,9 +4367,8 @@ there is \emph{more} variation in a sample then there is in the
 population. Direct range restriction/enhancement biases the variances
 and effect size estimates.
 
-\hypertarget{an-example-of-direct-range-restriction}{%
 \section{An Example of Direct Range
-Restriction}\label{an-example-of-direct-range-restriction}}
+Restriction}\label{an-example-of-direct-range-restriction}
 
 Imagine a tech company that wants to assess the correlation between
 years of experience and programming proficiency for their software
@@ -3959,9 +4389,7 @@ company. As we will see in later sections of this chapter, the observed
 correlation between years of experience and programming proficiency
 would be attenuated, underestimating the true correlation.
 
-\hypertarget{a-direct-selection-function}{%
-\section{A Direct Selection
-Function}\label{a-direct-selection-function}}
+\section{A Direct Selection Function}\label{a-direct-selection-function}
 
 A selection function described here is a type of indicator function that
 represents the mechanism of which observations are selected into a given
@@ -3974,7 +4402,9 @@ Figure~\ref{fig-direct-select-diag}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/direct_select_diagram.png}
+\centering{
+
+\includegraphics{chapters/09-direct-selection/figure/direct_select_diagram.png}
 
 }
 
@@ -3983,13 +4413,13 @@ selection function. The variable, \(X\), in the population is selected
 based on a function of itself. Therefore the variable under selection is
 conditional on the selection procedure \(X|\mathcal{S}(X)\).}
 
-\end{figure}
+\end{figure}%
 
 The functional form of the selection function is going to be described
 by some inequality of \(X\). The inequality will be dependent on the
 research context (e.g., the sampling procedure).
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-tip-color-frame, title={A Simple Example}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={A Simple Example}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's define the selection function as
 
@@ -4027,7 +4457,9 @@ function of both variables of interest, \(\mathcal{S}(X,Y)\).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{direct_range_restriction_files/figure-pdf/fig-pdf-1.pdf}
+\centering{
+
+\includegraphics{chapters/09-direct-selection/09-direct-selection_files/figure-pdf/fig-pdf-1.pdf}
 
 }
 
@@ -4038,12 +4470,11 @@ selection function. The selection function is based on the inequality,
 \(-1.0<X<1.5\). The bottom panel shows the distribution of \(X\) after
 selecting on \(X\) (i.e., \(X|\mathcal{S}(X)\)).}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{quantifying-direct-selection-induced-restrictionenhancement-with-the-u-ratio}{%
 \section{\texorpdfstring{Quantifying Direct Selection-Induced
 Restriction/Enhancement with the
-\emph{u}-ratio}{Quantifying Direct Selection-Induced Restriction/Enhancement with the u-ratio}}\label{quantifying-direct-selection-induced-restrictionenhancement-with-the-u-ratio}}
+\emph{u}-ratio}{Quantifying Direct Selection-Induced Restriction/Enhancement with the u-ratio}}\label{quantifying-direct-selection-induced-restrictionenhancement-with-the-u-ratio}
 
 The distribution of scores in the population of individuals will exhibit
 a greater (or lesser) degree of variability compared to the population
@@ -4098,13 +4529,11 @@ u_X = \sqrt{\frac{1-r_{XX'}}{1-r_{XX'|\mathcal{S}(X)}}}.
 Where \(r_{XX'|\mathcal{S}(X)}\) and \(r_{XX'}\) are the reliability
 estimates within the selected and reference sample respectively.
 
-\hypertarget{correcting-correlations-for-direct-range-restriction}{%
 \section{Correcting Correlations for Direct Range
-Restriction}\label{correcting-correlations-for-direct-range-restriction}}
+Restriction}\label{correcting-correlations-for-direct-range-restriction}
 
-\hypertarget{defining-our-target-quantity-4}{%
 \subsection{Defining our Target
-Quantity}\label{defining-our-target-quantity-4}}
+Quantity}\label{defining-our-target-quantity-4}
 
 We want to estimate the correlation in the target population between
 true scores of the independent (\(T\)) and dependent variable (\(U\)).
@@ -4138,11 +4567,9 @@ or
 r_{XY|\mathcal{S}(X,Y)} = a \rho_{TU} + e.
 \]
 
-\hypertarget{sec-corr-DDR}{%
-\subsection{Artifact Correction for Correlations}\label{sec-corr-DDR}}
+\subsection{Artifact Correction for Correlations}\label{sec-corr-DDR}
 
-\hypertarget{the-univariate-case-1}{%
-\subsubsection*{The Univariate Case}\label{the-univariate-case-1}}
+\subsubsection*{The Univariate Case}\label{the-univariate-case-1}
 \addcontentsline{toc}{subsubsection}{The Univariate Case}
 
 Range restriction (or enhancement) in either the independent or
@@ -4170,7 +4597,9 @@ correlation (\(r_{XY}\), indicative of \(a<1\)).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{direct_range_restriction_files/figure-pdf/fig-uvdrr-1.pdf}
+\centering{
+
+\includegraphics{chapters/09-direct-selection/09-direct-selection_files/figure-pdf/fig-uvdrr-1.pdf}
 
 }
 
@@ -4179,7 +4608,7 @@ correlation (\(r_{XY}\), indicative of \(a<1\)).
 dots indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 We can also visualize what happens to the correlation when the range is
 enhanced. Enhancement can be accomplished by selecting individuals at
@@ -4198,7 +4627,9 @@ independent variable.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{direct_range_restriction_files/figure-pdf/fig-uvdre-1.pdf}
+\centering{
+
+\includegraphics{chapters/09-direct-selection/09-direct-selection_files/figure-pdf/fig-uvdre-1.pdf}
 
 }
 
@@ -4207,7 +4638,7 @@ independent variable.
 dots indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 It starts to become apparent that if \(u_X>1\) (i.e.,
 \(S_X>S_{X|\mathcal{S}(X)}\)) the observed correlation is inflated and
@@ -4233,15 +4664,15 @@ Hunter, Schmidt, and Le (2006) and Wiernik and Dahlke (2020). To correct
 for the systematic bias in correlations, we can divide the correlation
 under selection by the attenuation factor,
 
-\begin{equation}\protect\hypertarget{eq-univariate}{}{
+\begin{equation}\phantomsection\label{eq-univariate}{
 r_{XY} = \frac{r_{XY|\mathcal{S}(X)}}{\hat{a}} = \frac{r_{XY|\mathcal{S}(X)}}{u_X\sqrt{1+r_{XY|\mathcal{S}(X)}^2\left(\frac{1}{u^2_X}-1\right)}}.
-}\label{eq-univariate}\end{equation}
+}\end{equation}
 
 Where the standard error of the corrected correlation is,
 
-\begin{equation}\protect\hypertarget{eq-univariate-se}{}{
+\begin{equation}\phantomsection\label{eq-univariate-se}{
 se(r_{XY}) = \frac{se\left(r_{XY|\mathcal{S}(X)}\right)}{\hat{a}}.
-}\label{eq-univariate-se}\end{equation}
+}\end{equation}
 
 If we want to also correct for measurement error in both samples, then
 we can also incorporate the reliability into these equations. Note that
@@ -4251,9 +4682,9 @@ sample (\(r_{XX'}\)). If the reliability coefficient comes from the
 reference sample, then we can estimate the selected (restricted or
 enhanced) sample reliability with the corresponding \(u\)-ratio,
 
-\begin{equation}\protect\hypertarget{eq-samp-reliability}{}{
+\begin{equation}\phantomsection\label{eq-samp-reliability}{
 r_{XX'|\mathcal{S}(X)} = 1-\frac{1-r_{XX'}}{u^2_X}.
-}\label{eq-samp-reliability}\end{equation}
+}\end{equation}
 
 Then we can use the reliability and \(u\)-ratios simultaneously to
 calculate a new attenuation/inflation factor that accounts for both bias
@@ -4288,7 +4719,7 @@ range restriction/enhancement observed in the non-selection variable (in
 our example this would be \(Y\)) is mediated by the range
 restriction/enhancement in the variable under selection (i.e., \(X\)).
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 To continue with our example of Mensa members (a high IQ society), let's
 say a researcher wants to know the correlation between IQ and test
@@ -4330,8 +4761,7 @@ The true score correlation in the target population is estimated to be
 
 \end{tcolorbox}
 
-\hypertarget{the-bivariate-case-1}{%
-\subsubsection*{The Bivariate Case}\label{the-bivariate-case-1}}
+\subsubsection*{The Bivariate Case}\label{the-bivariate-case-1}
 \addcontentsline{toc}{subsubsection}{The Bivariate Case}
 
 Bivariate direct range restriction/enhancement occurs when selection
@@ -4355,7 +4785,9 @@ to the unrestricted correlation (\(r_{XY}\)).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{direct_range_restriction_files/figure-pdf/fig-bvdrr-1.pdf}
+\centering{
+
+\includegraphics{chapters/09-direct-selection/09-direct-selection_files/figure-pdf/fig-bvdrr-1.pdf}
 
 }
 
@@ -4364,7 +4796,7 @@ to the unrestricted correlation (\(r_{XY}\)).
 indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 Likewise let's visualize what happens to the correlation when the range
 is enhanced. Enhancement in both variables can be accomplished by
@@ -4383,7 +4815,9 @@ variable.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{direct_range_restriction_files/figure-pdf/fig-bvdre-1.pdf}
+\centering{
+
+\includegraphics{chapters/09-direct-selection/09-direct-selection_files/figure-pdf/fig-bvdre-1.pdf}
 
 }
 
@@ -4392,32 +4826,32 @@ variable.
 indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 A bias correction formula for bivariate range restriction is much more
 complicated than the univariate formulation. To break down the
 correction formula into simpler parts, let us first define a factor we
 will denote with the Greek letter \(\psi\),
 
-\begin{equation}\protect\hypertarget{eq-biv-1}{}{
+\begin{equation}\phantomsection\label{eq-biv-1}{
 \psi = \frac{u_X u_Y\left(r_{XY|\mathcal{S}(X,Y)}^2-1\right)}{2r_{XY|\mathcal{S}(X,Y)}}
-}\label{eq-biv-1}\end{equation}
+}\end{equation}
 
 This factor contains all the parameters needed to correct the
 correlation coefficient under direct selection. An unbiased estimate of
 the target population correlation can obtained by the following
 correction formula (adapted from table 3 Wiernik and Dahlke 2020),
 
-\begin{equation}\protect\hypertarget{eq-biv-2}{}{
+\begin{equation}\phantomsection\label{eq-biv-2}{
 r_{XY} = \psi + \text{sign}\left[r_{XY|\mathcal{S}(X,Y)}\right]\sqrt{\psi^2+1}
-}\label{eq-biv-2}\end{equation}
+}\end{equation}
 
 Where the standard error can be computed from calculating the artifact
 factor (\(a\)) from the corrected and restricted/enhanced correlation,
 
-\begin{equation}\protect\hypertarget{eq-biv-se}{}{
+\begin{equation}\phantomsection\label{eq-biv-se}{
 se(r_{XY}) = \frac{se\left(r_{XY|\mathcal{S}(X,Y)}\right)}{\hat{a}}= \frac{se\left(r_{XY|\mathcal{S}(X,Y)}\right)}{\left[\frac{r_{XY|\mathcal{S}(X,Y)}}{r_{XY}}\right]}.
-}\label{eq-biv-se}\end{equation}
+}\end{equation}
 
 Now we can also incorporate measurement error into the correction
 formula. Note that the following equations will incorporate the
@@ -4447,7 +4881,7 @@ as,
 se(r_{TU}) = \frac{se\left(r_{XY|\mathcal{S}(X,Y)}\right)}{\hat{a}}= \frac{se\left(r_{XY|\mathcal{S}(X,Y)}\right)}{\left[\frac{r_{XY|\mathcal{S}(X,Y)}}{r_{TU}}\right]}.
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say we are the admissions department at an top-tier university.
 This university only admits students that have a high school GPA over
@@ -4487,13 +4921,11 @@ The correlation in the target population is estimated to be
 
 \end{tcolorbox}
 
-\hypertarget{correcting-standardized-mean-differences-for-direct-range-restriction}{%
 \section{Correcting Standardized Mean Differences for Direct Range
-Restriction}\label{correcting-standardized-mean-differences-for-direct-range-restriction}}
+Restriction}\label{correcting-standardized-mean-differences-for-direct-range-restriction}
 
-\hypertarget{defining-our-target-quantity-5}{%
 \subsection{Defining our Target
-Quantity}\label{defining-our-target-quantity-5}}
+Quantity}\label{defining-our-target-quantity-5}
 
 The quantity of interest is the target population standardized mean
 difference between actual members of groups \(A\) and \(B\) on true
@@ -4516,13 +4948,11 @@ from
 d_{GU} = \frac{ d_{gY|\mathcal{S}(Y)} }{ \hat{a}}.
 \]
 
-\hypertarget{artifact-correction-for-standardized-mean-difference-1}{%
 \subsection{Artifact Correction for Standardized Mean
-Difference}\label{artifact-correction-for-standardized-mean-difference-1}}
+Difference}\label{artifact-correction-for-standardized-mean-difference-1}
 
-\hypertarget{selection-on-the-continuous-variable}{%
 \subsubsection{Selection on the Continuous
-Variable}\label{selection-on-the-continuous-variable}}
+Variable}\label{selection-on-the-continuous-variable}
 
 To correct for direct selection on the continuous variable, we can first
 convert the observed standardized mean difference
@@ -4568,20 +4998,19 @@ also be computed with the observed and adjusted proportions such that,
 \small{se(d_{GU}) = \frac {se\left(d_{gY|\mathcal{S}(Y)}\right)\left(\frac{r_{GU}}{r_{gY|\mathcal{S}(Y)}}\right)^2} {\left(1+d_{gY|\mathcal{S}(Y)}^2p_g[1-p_g]\right)^2\left(d_o^2+\frac{1}{p_g(1-p_g)}\right)p^*(1-p_g^*)(1-r_{GU}^2)^3}.}
 \]
 
-\hypertarget{indirect-selection}{%
-\chapter{Indirect Selection}\label{indirect-selection}}
+\bookmarksetup{startatroot}
 
-\hypertarget{introduction-6}{%
-\section{Introduction}\label{introduction-6}}
+\chapter{Indirect Selection}\label{indirect-selection}
+
+\section{Introduction}\label{introduction-7}
 
 Indirect selection occurs when the selection process is not directly on
 the variable of interest, but rather on another related variable.
 Similar to direct range restriction, this will cause restriction (or
 enhancement) in the variable of interest.
 
-\hypertarget{an-example-of-indirect-range-restriction}{%
 \section{An Example of Indirect Range
-Restriction}\label{an-example-of-indirect-range-restriction}}
+Restriction}\label{an-example-of-indirect-range-restriction}
 
 Imagine a research team is conducting a study on academic motivation
 among college students using a survey that includes various questions
@@ -4605,8 +5034,7 @@ excluded individuals, who may have had lower academic motivation scores,
 are not accounted for in the analysis, resulting in an underestimation
 of the variability of academic motivation relative to the population.
 
-\hypertarget{selection-functions}{%
-\section{Selection Functions}\label{selection-functions}}
+\section{Selection Functions}\label{selection-functions}
 
 In the previous chapter we introduced the concept of a selection
 function for direct range restriction. Here we will expand on that
@@ -4619,7 +5047,9 @@ the selection process).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/indirect_select_diagram.png}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/figure/indirect_select_diagram.png}
 
 }
 
@@ -4628,7 +5058,7 @@ selection process. The variable, \(X\), is selected based on a function
 of itself. Therefore the variable under selection is conditional on the
 selection procedure \(X|\mathcal{S}(X)\).}
 
-\end{figure}
+\end{figure}%
 
 However, selecting on \(Z\) may affect the distribution of \(X\)
 depending on the relationship between \(X\) and \(Z\). Particularly, if
@@ -4654,7 +5084,7 @@ Figure~\ref{fig-indirect-select-diag})
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/selection_function_indirect.png}
+{\centering \includegraphics{chapters/10-indirect-selection/figure/selection_function_indirect.png}
 
 }
 
@@ -4664,7 +5094,7 @@ the plot denotes what values of \(Z\) are selected (i.e.,
 \(\mathcal{S}(Z)\)). The distributions on the right indicate the
 distribution of \(X\) (in black) and the distribution \(X\) after}
 
-\end{figure}
+\end{figure}%
 
 If there is no correlation between \(X\) and \(Z\), then the
 distribution of \(X|\mathcal{Z}\) would be left unchanged (see
@@ -4672,7 +5102,9 @@ Figure~\ref{fig-indirect-select-diag-no-corr}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/selection_function_indirect_no_corr.png}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/figure/selection_function_indirect_no_corr.png}
 
 }
 
@@ -4682,11 +5114,10 @@ selected based on a function of itself. Therefore the variable under
 selection is conditional on the selection procedure
 \(X|\mathcal{S}(X)\).}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{quantifying-selection-induced-restrictionenhancement}{%
 \section{Quantifying Selection-Induced
-Restriction/enhancement}\label{quantifying-selection-induced-restrictionenhancement}}
+Restriction/enhancement}\label{quantifying-selection-induced-restrictionenhancement}
 
 The distribution of scores in the target population may exhibit a
 greater (or lesser) degree of variability compared to the sample that
@@ -4757,7 +5188,9 @@ be visualized in Figure~\ref{fig-ux-uz}
 
 \begin{figure}[H]
 
-{\centering \includegraphics{indirect_range_restriction_files/figure-pdf/fig-ux-uz-1.pdf}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/10-indirect-selection_files/figure-pdf/fig-ux-uz-1.pdf}
 
 }
 
@@ -4773,15 +5206,13 @@ distribution of individuals in the selected sample. Notice that the
 distribution of the selected individual's in the high correlation case
 is a narrower distribution than the low correlation case.}
 
-\end{figure}
+\end{figure}%
 
-\hypertarget{correcting-correlations-for-indirect-range-restriction}{%
 \section{Correcting Correlations for Indirect Range
-Restriction}\label{correcting-correlations-for-indirect-range-restriction}}
+Restriction}\label{correcting-correlations-for-indirect-range-restriction}
 
-\hypertarget{defining-our-target-quantity-6}{%
 \subsection{Defining our Target
-Quantity}\label{defining-our-target-quantity-6}}
+Quantity}\label{defining-our-target-quantity-6}
 
 We want to estimate the population correlation of the true scores of the
 independent variable (\(T\)) and dependent variable (\(U\)). We can
@@ -4803,12 +5234,10 @@ under selection by an estimate of \(a\),
 r_{TU} = \frac{ r_{XY|\mathcal{S}(Z)} }{ \hat{a}}.
 \]
 
-\hypertarget{artifact-correction-for-correlations}{%
 \subsection{Artifact Correction for
-Correlations}\label{artifact-correction-for-correlations}}
+Correlations}\label{artifact-correction-for-correlations}
 
-\hypertarget{the-univariate-case-2}{%
-\subsubsection*{The Univariate Case}\label{the-univariate-case-2}}
+\subsubsection*{The Univariate Case}\label{the-univariate-case-2}
 \addcontentsline{toc}{subsubsection}{The Univariate Case}
 
 Range restriction (or enhancement) in either the independent or
@@ -4835,7 +5264,9 @@ In the following examples, we will simulate a correlation of
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/indirect_select_corr_model_uni.png}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/figure/indirect_select_corr_model_uni.png}
 
 }
 
@@ -4845,7 +5276,7 @@ is completely mediated by \(X\) (i.e., the partial correlation between
 \(Y\) and \(Z\), controlling for \(X\) is zero such that,
 \(\rho_{YZ.X}=0\)).}
 
-\end{figure}
+\end{figure}%
 
 Figure~\ref{fig-uvirr} shows a \(u\)-ratio of about \(u_X=0.75\) in the
 independent variable. We see that the sample correlation in the
@@ -4854,7 +5285,9 @@ to the unrestricted correlation (\(r_{XY}=.50\)).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{indirect_range_restriction_files/figure-pdf/fig-uvirr-1.pdf}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/10-indirect-selection_files/figure-pdf/fig-uvirr-1.pdf}
 
 }
 
@@ -4863,7 +5296,7 @@ to the unrestricted correlation (\(r_{XY}=.50\)).
 dots indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 We can also visualize what happens to the correlation when the range is
 enhanced. Enhancement can be accomplished by selecting individuals at
@@ -4882,7 +5315,9 @@ about \(u_X=1.32\) in the independent variable.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{indirect_range_restriction_files/figure-pdf/fig-uvire-1.pdf}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/10-indirect-selection_files/figure-pdf/fig-uvire-1.pdf}
 
 }
 
@@ -4891,7 +5326,7 @@ about \(u_X=1.32\) in the independent variable.
 dots indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 In summary, if \(u_X>1\) (i.e., \(S_{X|\mathcal{S}(Z)}>S_{X}\)) the
 observed correlation is inflated relative to the correlation in the
@@ -4906,9 +5341,9 @@ restriction/enhancement (equation 5, Le and Schmidt 2006).
 \] Using the estimated attenuation/inflation factor, we can correct the
 observed correlation for bias induced by indirect selection
 
-\begin{equation}\protect\hypertarget{eq-univariate}{}{
+\begin{equation}\phantomsection\label{eq-univariate}{
 r_{XY} = \frac{r_{XY|\mathcal{S}(Z)}}{\hat{a}} = \frac{r_{XY|\mathcal{S}(Z)}}{\sqrt{r_{XY|\mathcal{S}(Z)}^2 + u_{X}^2 (1- r_{XY|\mathcal{S}(Z)}^2)  }}
-}\label{eq-univariate}\end{equation}
+}\end{equation}
 
 If we wants to correct for range restriction/enhancement \emph{and}
 measurement error, we can incorporate the reliability coefficients
@@ -4932,13 +5367,13 @@ not suffer selection effects, we can estimate the reliability under
 selection using the following formulas (equation 11 and 12 Le and
 Schmidt 2006):
 
-\begin{equation}\protect\hypertarget{eq-rel-x}{}{
+\begin{equation}\phantomsection\label{eq-rel-x}{
 r_{XX'|\mathcal{S}(Z)} = 1-\frac{1-r_{XX'}}{u_X^2}
-}\label{eq-rel-x}\end{equation}
+}\end{equation}
 
-\begin{equation}\protect\hypertarget{eq-rel-y}{}{
+\begin{equation}\phantomsection\label{eq-rel-y}{
 r_{YY'|\mathcal{S}(Z)} = 1-\frac{1-r_{YY'}}{u_Y^2}
-}\label{eq-rel-y}\end{equation}
+}\end{equation}
 
 We now need to adjust the standard error for the corrected correlation
 coefficient. To do this, we can either divide the observed standard
@@ -4949,7 +5384,7 @@ correlation divided by the corrected correlation),
 se(r_{TU}) = \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\hat{a}}= \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\left[\frac{r_{XY|\mathcal{S}(Z)}}{r_{TU}}\right]}.
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's say a university admits students based on some criterion upon a
 composite of multiple measures of performance (\(Z\)). One of those
@@ -4997,8 +5432,7 @@ The true score correlation in the target population is estimated to be
 
 \end{tcolorbox}
 
-\hypertarget{the-bivariate-case-2}{%
-\subsubsection*{The Bivariate Case}\label{the-bivariate-case-2}}
+\subsubsection*{The Bivariate Case}\label{the-bivariate-case-2}
 \addcontentsline{toc}{subsubsection}{The Bivariate Case}
 
 Bivariate indirect range restriction/enhancement occurs when the
@@ -5021,7 +5455,9 @@ Figure~\ref{fig-corr-model-biv}).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/indirect_select_corr_model_biv.png}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/figure/indirect_select_corr_model_biv.png}
 
 }
 
@@ -5031,7 +5467,7 @@ is completely mediated by \(X\) (i.e., the partial correlation between
 \(Y\) and \(Z\), controlling for \(X\) is zero such that,
 \(\rho_{YZ.X}=0\)).}
 
-\end{figure}
+\end{figure}%
 
 The scenario displayed in Figure~\ref{fig-bvirr}, shows a \(u\)-ratio of
 about \(u_X=u_Y=0.81\) in the independent variable and dependent
@@ -5041,7 +5477,9 @@ relative to the target population correlation (\(\rho_{XY}=.50\)).
 
 \begin{figure}[H]
 
-{\centering \includegraphics{indirect_range_restriction_files/figure-pdf/fig-bvirr-1.pdf}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/10-indirect-selection_files/figure-pdf/fig-bvirr-1.pdf}
 
 }
 
@@ -5050,7 +5488,7 @@ relative to the target population correlation (\(\rho_{XY}=.50\)).
 dots indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 Likewise let's visualize what happens to the correlation when the range
 is enhanced. Enhancement in both variables can be accomplished by
@@ -5070,7 +5508,9 @@ and dependent variable.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{indirect_range_restriction_files/figure-pdf/fig-bvire-1.pdf}
+\centering{
+
+\includegraphics{chapters/10-indirect-selection/10-indirect-selection_files/figure-pdf/fig-bvire-1.pdf}
 
 }
 
@@ -5079,7 +5519,7 @@ and dependent variable.
 dots indicate the selected sample and the transparent dots indicate the
 rejected sample.}
 
-\end{figure}
+\end{figure}%
 
 A bias correction formula for bivariate range restriction is much more
 complicated than the univariate formulation. In the univariate case, we
@@ -5134,7 +5574,7 @@ variance (\(\sigma^2_{\varepsilon_o}\)),
 se(r_{TU}) = \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\hat{a}}= \frac{se\left(r_{XY|\mathcal{S}(Z)}\right)}{\left[\frac{r_{XY|\mathcal{S}(Z)}}{r_{TU}}\right]}.
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Continuing with the example from the univariate case, a university
 admits applicants based on some criterion upon a composite of multiple
@@ -5179,8 +5619,7 @@ The true score correlation in the target population is estimated to be
 
 \end{tcolorbox}
 
-\hypertarget{beware-of-assumptions}{%
-\section*{Beware of assumptions}\label{beware-of-assumptions}}
+\section*{Beware of assumptions}\label{beware-of-assumptions}
 \addcontentsline{toc}{section}{Beware of assumptions}
 
 \markright{Beware of assumptions}
@@ -5189,14 +5628,12 @@ Note that these corrections require the following assumptions: 1)
 linearity between \(X\) and \(Y\), 2) homoskedasticity, that is, equal
 variance in \(Y\) at every level of \(X\).
 
-\part{Application to Meta-Analysis}
+\bookmarksetup{startatroot}
 
-\hypertarget{sec-metaanalysis_intro}{%
 \chapter{Introduction to Meta-Analysis
-Methods}\label{sec-metaanalysis_intro}}
+Methods}\label{sec-metaanalysis_intro}
 
-\hypertarget{introduction-7}{%
-\section{Introduction}\label{introduction-7}}
+\section{Introduction}\label{introduction-8}
 
 Meta-analysis is an analytic tool to synthesize quantitative evidence
 from multiple studies. By systematically combining and analyzing the
@@ -5215,8 +5652,7 @@ meta-analyses that have their strengths and weaknesses
 (\textbf{hedges2014?}; Callender and Osburn 1980; Johnson, Mullen, and
 Salas 1995).
 
-\hypertarget{common-effect-model}{%
-\section{Common-Effect Model}\label{common-effect-model}}
+\section{Common-Effect Model}\label{common-effect-model}
 
 A common effect model is the simplest form of meta-analysis. It assumes
 that all the variation in observed effect sizes is attributable to
@@ -5233,7 +5669,9 @@ provide the same parameter estimates, yet the interpretation differs
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/fixed_effects_diagram.png}
+\centering{
+
+\includegraphics{chapters/11-introduction-to-meta-analysis/figure/fixed_effects_diagram.png}
 
 }
 
@@ -5241,15 +5679,15 @@ provide the same parameter estimates, yet the interpretation differs
 effect meta-analysis of five studies. The study effect sizes are
 homogenous and all estimate a single true population effect size.}
 
-\end{figure}
+\end{figure}%
 
 The common effect model can be modeled such that population effect size
 \(\theta\) is held constant each study effect size estimate (\(h_i\)),
 such that,
 
-\begin{equation}\protect\hypertarget{eq-fixed-mdl}{}{
+\begin{equation}\phantomsection\label{eq-fixed-mdl}{
 h_i  = \theta + e_i
-}\label{eq-fixed-mdl}\end{equation}
+}\end{equation}
 
 Where \(e_i\) indicates sampling error and the subscript \(i\) denotes
 each study. Similar to the true score theory model that we discussed in
@@ -5263,9 +5701,9 @@ out as,
 However in our common effect model, the population effect size is fixed
 across studies and will not vary, simplifying the formula to,
 
-\begin{equation}\protect\hypertarget{eq-var-fixed}{}{
+\begin{equation}\phantomsection\label{eq-var-fixed}{
 \sigma^2_h = \sigma^2_e
-}\label{eq-var-fixed}\end{equation}
+}\end{equation}
 
 Therefore the only source of variation in the observed effect sizes, is
 sampling error.
@@ -5309,7 +5747,7 @@ meta-analytic point estimate:
 CI_{95} = \hat{\theta}\pm 1.96 \cdot se(\hat{\theta})
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Lets use a meta-analytic data set investigating the the effectiveness of
 a writing-to-learn intervention on academic achievement from
@@ -5371,8 +5809,7 @@ The results show an estimated population effect of
 
 \end{tcolorbox}
 
-\hypertarget{random-effects-model}{%
-\section{Random Effects Model}\label{random-effects-model}}
+\section{Random Effects Model}\label{random-effects-model}
 
 The random-effects model refers to a model that allows for the
 population effect size to vary from study to study (see
@@ -5396,7 +5833,9 @@ taken from Hunter-Schmidt.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/random_effects_diagram.png}
+\centering{
+
+\includegraphics{chapters/11-introduction-to-meta-analysis/figure/random_effects_diagram.png}
 
 }
 
@@ -5405,7 +5844,7 @@ random-effects meta-analysis of five studies. Effect sizes are more
 variable than the common effect meta-analysis since effect sizes vary
 due to sampling error \emph{and} population effect sizes.}
 
-\end{figure}
+\end{figure}%
 
 The model from Equation~\ref{eq-fixed-mdl} can be changed slightly to
 encompass variation of the population effect size from study to study:
@@ -5420,9 +5859,9 @@ Equation~\ref{eq-var-fixed}). However in the random-effects model the
 variance in population effect sizes (\(\sigma^2_\theta\)) is allowed to
 be greater than zero. The variance components can be written out as,
 
-\begin{equation}\protect\hypertarget{eq-var-random}{}{
+\begin{equation}\phantomsection\label{eq-var-random}{
 \sigma^2_h=\sigma^2_\theta + \sigma^2_e.
-}\label{eq-var-random}\end{equation}
+}\end{equation}
 
 Estimating variance components can be done computationally through an
 iterative estimation procedure called REstricted Maximum Likelihood
@@ -5434,7 +5873,7 @@ variance weights alongside
 w_i = \frac{1}{se(h_i)^2 + \hat{\sigma}^2_\theta}
 \]
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-tip-color-frame, title={Calculating Standard Errors}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Calculating Standard Errors}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 The standard error for a given study often uses the sample estimate in
 the sampling variance equation. For example, a study correlation,
@@ -5516,7 +5955,7 @@ single realized interval (Vos and Holbert 2022), if there is more than
 one interval obtained from the same population of studies, then the
 interpretation does not hold (this would be a rare in a meta-analysis).
 
-\begin{tcolorbox}[enhanced jigsaw, toptitle=1mm, titlerule=0mm, arc=.35mm, breakable, colframe=quarto-callout-note-color-frame, title={Applied Example in R}, opacitybacktitle=0.6, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, coltitle=black, bottomtitle=1mm, colback=white, bottomrule=.15mm, rightrule=.15mm, toprule=.15mm, leftrule=.75mm, left=2mm]
+\begin{tcolorbox}[enhanced jigsaw, opacityback=0, coltitle=black, toprule=.15mm, colframe=quarto-callout-note-color-frame, bottomtitle=1mm, rightrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, left=2mm, bottomrule=.15mm, breakable, title={Applied Example in R}, colback=white, opacitybacktitle=0.6, titlerule=0mm, arc=.35mm, leftrule=.75mm, toptitle=1mm]
 
 Let's continue looking at the meta-analysis from Bangert-Drowns, Hurley,
 and Wilkinson (2004). This data set has standardized mean differences
@@ -5576,11 +6015,11 @@ The results show an estimated population effect of
 
 \end{tcolorbox}
 
-\hypertarget{sec-artifact}{%
-\chapter{Artifact Correction Meta-Analysis}\label{sec-artifact}}
+\bookmarksetup{startatroot}
 
-\hypertarget{introduction-8}{%
-\section{Introduction}\label{introduction-8}}
+\chapter{Artifact Correction Meta-Analysis}\label{sec-artifact}
+
+\section{Introduction}\label{introduction-9}
 
 Artifact correction meta-analysis, also referred to as psychometric
 meta-analysis, is a form of meta-analysis where effect sizes are
@@ -5600,9 +6039,8 @@ use the correction methods used below. Once you apply the corrections to
 the converted correlations they can then be converted back to a
 standardized mean difference.
 
-\hypertarget{bare-bones-vs-artifact-correction-meta-analysis}{%
 \section{Bare Bones vs Artifact Correction
-Meta-Analysis}\label{bare-bones-vs-artifact-correction-meta-analysis}}
+Meta-Analysis}\label{bare-bones-vs-artifact-correction-meta-analysis}
 
 Chapter 11 focused on bare-bones meta-analysis, that is, meta-analyses
 that do not correct for biases in effect size estimates. This section
@@ -5623,7 +6061,7 @@ correction meta-analysis is preferable.
   Bare-Bones Meta-Analysis: In a bare-bones meta-analysis, the focus is
   on aggregating effect sizes from various studies without explicitly
   correcting for potential biases in these effect size estimates (see
-  first panel of \textbf{?@fig-art-corr-mdl}).
+  first panel of Figure~\ref{fig-art-corr-mdl}).
 \item
   Artifact Correction Meta-Analysis: In contrast, an artifact correction
   meta-analysis takes into account and attempts to correct for biases
@@ -5634,7 +6072,7 @@ correction meta-analysis is preferable.
   accurate and unbiased estimate of the true effect size. Although it is
   important to note that this method will require additional assumptions
   about the nature of the data (see second panel of
-  \textbf{?@fig-art-corr-mdl}).
+  Figure~\ref{fig-art-corr-mdl}).
 \end{enumerate}
 
 Note that the bare-bones model does not assume that there is no bias,
@@ -5643,15 +6081,18 @@ is, the population effect size.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{figure/correction_forest.png}
+\centering{
+
+\captionsetup{labelsep=none}\includegraphics{chapters/12-artifact-correction-meta-analysis/figure/correction_forest.png}
 
 }
 
-\end{figure}
+\caption{\label{fig-art-corr-mdl}}
 
-\hypertarget{individual-artifact-correction-model}{%
+\end{figure}%
+
 \section{Individual Artifact Correction
-Model}\label{individual-artifact-correction-model}}
+Model}\label{individual-artifact-correction-model}
 
 The individual artifact correction model corrects each effect size
 individually prior to conducting the meta-analysis. Let us recall the
@@ -5666,18 +6107,18 @@ then we can construct an artifact correction model. In the artifact
 correction model, we can incorporate an artifact attenuation/inflation
 factor, \(a\), to the bare-bones formula such that,
 
-\begin{equation}\protect\hypertarget{eq-art-mdl}{}{
+\begin{equation}\phantomsection\label{eq-art-mdl}{
 h_{i} = a_i\theta_i + e_i
-}\label{eq-art-mdl}\end{equation}
+}\end{equation}
 
 The attenuation/inflation factor, \(a_i\), must be estimated for each
 study, \(i\). Using estimates of \(a\), Equation~\ref{eq-art-mdl} can be
 re-arranged to obtain unbiased estimates of the target population effect
 size:
 
-\begin{equation}\protect\hypertarget{eq-correction-mdl}{}{
+\begin{equation}\phantomsection\label{eq-correction-mdl}{
 \frac{h_i}{\hat{a}_i} = \theta_i + \frac{e_i}{\hat{a}_i}
-}\label{eq-correction-mdl}\end{equation}
+}\end{equation}
 
 This division of \(\hat{a}_i\) will provide us with our corrected effect
 size estimates that we can denote with the subscript, \(c\),
@@ -5688,22 +6129,22 @@ h_{c_i} = \frac{h_{i}}{\hat{a}_i}
 
 and of course we must also correct the sampling error term,
 
-\begin{equation}\protect\hypertarget{eq-error}{}{
+\begin{equation}\phantomsection\label{eq-error}{
 e_{c_i} = \frac{e_{i}}{\hat{a}_i}.
-}\label{eq-error}\end{equation}
+}\end{equation}
 
 Therefore Equation~\ref{eq-correction-mdl} can be expressed as,
 
-\begin{equation}\protect\hypertarget{eq-correction-formula}{}{
+\begin{equation}\phantomsection\label{eq-correction-formula}{
 h_{c_i} = \theta_i + e_{c_i} 
-}\label{eq-correction-formula}\end{equation}
+}\end{equation}
 
 Like we saw in chapter 11, we can breakdown the variance components of
 the model,
 
-\begin{equation}\protect\hypertarget{eq-corrected-var}{}{
+\begin{equation}\phantomsection\label{eq-corrected-var}{
 \sigma^2_{h_c} = \sigma^2_{\theta} + \sigma^2_{e_c}
-}\label{eq-corrected-var}\end{equation}
+}\end{equation}
 
 To obtain these variance components, we can start by correcting the
 standard errors from each study. We can calculate the corrected standard
@@ -5784,9 +6225,8 @@ addressed in the current meta-analysis. Although it is important to
 point out that this is simply a rule of thumb rather than a mathematical
 property.
 
-\hypertarget{individual-corrections-in-correlations}{%
 \subsection{Individual Corrections in
-Correlations}\label{individual-corrections-in-correlations}}
+Correlations}\label{individual-corrections-in-correlations}
 
 For correlation coefficients we can define the model similarly to
 Equation~\ref{eq-art-mdl}, with the only difference being that we will
@@ -5877,8 +6317,7 @@ Which can then be used to calculate 95\% confidence intervals:
 \bar{\rho}_\text{Lower} = \hat{\bar{\rho}} - 1.96\cdot SE_{\hat{\bar{\rho}}}
 \]
 
-\hypertarget{applied-example-in-r-16}{%
-\subsection{Applied Example in R}\label{applied-example-in-r-16}}
+\subsection{Applied Example in R}\label{applied-example-in-r-16}
 
 Lets conduct an individual correction meta-analysis in r using the data
 set by Roth (2015). This data set consists of correlations between
@@ -6039,9 +6478,7 @@ attenuated in the observed values. This is due to the fact tests of
 intelligence are not perfectly reliable and the scores were restricted
 in their range.
 
-\hypertarget{artifact-distribution-model}{%
-\section{Artifact Distribution
-Model}\label{artifact-distribution-model}}
+\section{Artifact Distribution Model}\label{artifact-distribution-model}
 
 When we observe a lot of missingness in artifact values (e.g., studies
 not reporting reliability), we may choose to use an artifact
@@ -6054,8 +6491,7 @@ custom-tailored to estimate the sampling variance of corrected
 correlations, we will skip the general case to focus on its application
 to correlations.
 
-\hypertarget{the-correlational-case}{%
-\subsection{The Correlational Case}\label{the-correlational-case}}
+\subsection{The Correlational Case}\label{the-correlational-case}
 
 The model here can be broken down into two parts, the first part
 aggregates the observed effect sizes and the second part aggregates the
@@ -6137,9 +6573,8 @@ the square root of the reliability for \(x\) and \(y\), we can now
 attempt to correct the point-estimate and the variance of population
 correlations.
 
-\hypertarget{correcting-using-summary-values}{%
 \paragraph*{Correcting Using Summary
-Values}\label{correcting-using-summary-values}}
+Values}\label{correcting-using-summary-values}
 \addcontentsline{toc}{paragraph}{Correcting Using Summary Values}
 
 First, we can start by correcting the overall point-estimate for the
@@ -6195,8 +6630,7 @@ materials of Dahlke and Wiernik (2020) for detailed Taylor series
 approximation derivations for the immensely more complicated bivariate
 indirect range restriction plus measurement error correction.
 
-\hypertarget{applied-example-in-r-17}{%
-\subsection{Applied Example in R}\label{applied-example-in-r-17}}
+\subsection{Applied Example in R}\label{applied-example-in-r-17}
 
 Lets conduct an artifact distribution correction meta-analysis in R,
 instead using data from the meta-analysis by McDaniel et al. (1994).
@@ -6303,13 +6737,11 @@ Lets compare these results to the bare-bones model. In
 reports the bare-bones results as well. Therefore we can just extract
 the necessary statistics from the model.
 
-\part{Conclusion}
+\bookmarksetup{startatroot}
 
-\hypertarget{conclusion-1}{%
-\chapter{Conclusion}\label{conclusion-1}}
+\chapter{Conclusion}\label{conclusion}
 
-\hypertarget{future-directions}{%
-\subsubsection*{Future Directions}\label{future-directions}}
+\subsubsection*{Future Directions}\label{future-directions}
 \addcontentsline{toc}{subsubsection}{Future Directions}
 
 This book is a living resource and it will add new content with each
@@ -6343,8 +6775,7 @@ submitting an issue to the
 \href{https://github.com/MatthewBJane/artifact-corrections-for-effect-sizes/}{Github
 repository}.
 
-\hypertarget{limitations}{%
-\subsubsection*{Limitations}\label{limitations}}
+\subsubsection*{Limitations}\label{limitations}
 \addcontentsline{toc}{subsubsection}{Limitations}
 
 Applying artifact corrections has trade-offs that should be considered
@@ -6373,8 +6804,7 @@ correcting the correlation for measurement errors in test scores will
 over-estimate the predictive utility. Researchers should ensure that the
 ultimate research goals align with the correction procedure.
 
-\hypertarget{concluding-remarks}{%
-\subsubsection*{Concluding Remarks}\label{concluding-remarks}}
+\subsubsection*{Concluding Remarks}\label{concluding-remarks}
 \addcontentsline{toc}{subsubsection}{Concluding Remarks}
 
 Imperfections in studies can obscure our view of reality, inhibit us
@@ -6424,8 +6854,7 @@ deeper awareness of these issues when confronted with them.
 We want our research findings to accurately describe reality. Artifact
 corrections help us get closer to that goal.
 
-\hypertarget{acknowledgements}{%
-\subsubsection*{Acknowledgements}\label{acknowledgements}}
+\subsubsection*{Acknowledgements}\label{acknowledgements}
 \addcontentsline{toc}{subsubsection}{Acknowledgements}
 
 Thank you to Dr.~Blair T. Johnson, Dr.~Christopher Rhoads, and
@@ -6436,362 +6865,372 @@ extremely valuable feedback over the course of writing this book.
 
 \href{https://x.com/MatthewBJane}{\faIcon{twitter} @MatthewBJane}
 
-\part{References}
+\bookmarksetup{startatroot}
 
-\hypertarget{references-1}{%
-\chapter*{References}\label{references-1}}
+\chapter*{References}\label{references}
 \addcontentsline{toc}{chapter}{References}
 
 \markboth{References}{References}
 
-\hypertarget{refs}{}
+\phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-aguinis2009}{}}%
+\bibitem[\citeproctext]{ref-aguinis2009}
 Aguinis, Herman, Charles A Pierce, and Steven A Culpepper. 2009.
 {``Scale Coarseness as a Methodological Artifact,''} September.
 
-\leavevmode\vadjust pre{\hypertarget{ref-bangert-drowns2004}{}}%
+\bibitem[\citeproctext]{ref-bangert-drowns2004}
 Bangert-Drowns, Robert L, Marlene M Hurley, and Barbara Wilkinson. 2004.
 {``The Effects of School-Based Writing-to-Learn Interventions on
 Academic Achievement: A Meta-Analysis.''} \emph{Review of Educational
 Research} 74 (1): 29--58.
 \url{https://doi.org/10.3102/00346543074001029}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-barraza2019}{}}%
+\bibitem[\citeproctext]{ref-barraza2019}
 Barraza, Felipe, Marcelo Arancibia, Eva Madrid, and Cristian Papuzinski.
 2019. {``General Concepts in Biostatistics and Clinical Epidemiology:
 Random Error and Systematic Error.''} \emph{Medwave} 19 (7): e7687.
 \url{https://doi.org/10.5867/medwave.2019.07.7687}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-bobko1980}{}}%
+\bibitem[\citeproctext]{ref-bobko1980}
 Bobko, Philip, and Angela Rieck. 1980. {``Large Sample Estimators for
 Standard Errors of Functions of Correlation Coefficients.''}
 \emph{Applied Psychological Measurement} 4 (3): 385--98.
 \url{https://doi.org/10.1177/014662168000400309}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-bonett2005}{}}%
+\bibitem[\citeproctext]{ref-bonett2005}
 Bonett, Douglas G., and Robert M. Price. 2005. {``Inferential Methods
 for the Tetrachoric Correlation Coefficient.''} \emph{Journal of
 Educational and Behavioral Statistics} 30 (2): 213--25.
 \url{https://www.jstor.org/stable/3701350}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-borenstein2010}{}}%
+\bibitem[\citeproctext]{ref-borenstein2010}
 Borenstein, Michael, Larry V. Hedges, Julian P. T. Higgins, and Hannah
 R. Rothstein. 2010. {``A Basic Introduction to Fixed-Effect and
 Random-Effects Models for Meta-Analysis.''} \emph{Research Synthesis
 Methods} 1 (2): 97--111. \url{https://doi.org/10.1002/jrsm.12}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-borsboom2002}{}}%
+\bibitem[\citeproctext]{ref-borsboom2002}
 Borsboom, Denny, and Gideon J Mellenbergh. 2002. {``True Scores, Latent
 Variables, and Constructs: A Comment on Schmidt and Hunter.''}
 
-\leavevmode\vadjust pre{\hypertarget{ref-borsboom2004}{}}%
+\bibitem[\citeproctext]{ref-borsboom2004}
 Borsboom, Denny, Gideon J. Mellenbergh, and Jaap Van Heerden. 2004.
 {``The Concept of Validity.''} \emph{Psychological Review} 111 (4):
 1061--71. \url{https://doi.org/10.1037/0033-295X.111.4.1061}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-brannick2019}{}}%
+\bibitem[\citeproctext]{ref-brannick2019}
 Brannick, Michael T., Sean M. Potter, Bryan Benitez, and Scott B.
 Morris. 2019. {``Bias and Precision of Alternate Estimators in
 Meta-Analysis: Benefits of Blending Schmidt-Hunter and Hedges
 Approaches.''} \emph{Organizational Research Methods} 22 (2): 490--514.
 \url{https://doi.org/10.1177/1094428117741966}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-bravais1844}{}}%
+\bibitem[\citeproctext]{ref-bravais1844}
 Bravais, A. 1844. \emph{Analyse mathématique sur les probabilités des
 erreurs de situation d'un point}. Impr. Royale.
 
-\leavevmode\vadjust pre{\hypertarget{ref-brown1910}{}}%
+\bibitem[\citeproctext]{ref-brown1910}
 Brown, William. 1910. {``Some Experimental Results in the Correlation of
 Mental Abilities1.''} \emph{British Journal of Psychology, 1904-1920} 3
 (3): 296--322. \url{https://doi.org/10.1111/j.2044-8295.1910.tb00207.x}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-callender1980}{}}%
+\bibitem[\citeproctext]{ref-callender1980}
 Callender, John C., and H. G. Osburn. 1980. {``Development and Test of a
 New Model for Validity Generalization.''} \emph{Journal of Applied
 Psychology} 65 (5): 543--58.
 \url{https://doi.org/10.1037/0021-9010.65.5.543}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cohen1988}{}}%
+\bibitem[\citeproctext]{ref-cohen1988}
 Cohen, Jacob. 1988. \emph{Statistical Power Analysis for the Behavioral
 Sciences}. Academic Press.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cohen1977}{}}%
+\bibitem[\citeproctext]{ref-cohen1977}
 ---------. 2013. \emph{Statistical Power Analysis for the Behavioral
 Sciences}. Academic Press.
 
-\leavevmode\vadjust pre{\hypertarget{ref-thehand2009}{}}%
+\bibitem[\citeproctext]{ref-thehand2009}
 Cooper, Harris M., Larry V. Hedges, and Jeff C. Valentine, eds. 2009.
 \emph{The Handbook of Research Synthesis and Meta-Analysis}. 2nd ed. New
 York: Russell Sage Foundation.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cox1989}{}}%
+\bibitem[\citeproctext]{ref-cox1989}
 Cox, D. R. 1989. \emph{Analysis of Binary Data}. 2nd ed. New York:
 Routledge. \url{https://doi.org/10.1201/9781315137391}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cronbach1951}{}}%
+\bibitem[\citeproctext]{ref-cronbach1951}
 Cronbach, Lee J. 1951. {``Coefficient Alpha and the Internal Structure
 of Tests.''} \emph{Psychometrika} 16 (3): 297--334.
 \url{https://doi.org/10.1007/BF02310555}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cronbach1955}{}}%
+\bibitem[\citeproctext]{ref-cronbach1955}
 Cronbach, Lee J., and Paul E. Meehl. 1955. {``Construct Validity in
 Psychological Tests.''} \emph{Psychological Bulletin} 52 (4): 281--302.
 \url{https://doi.org/10.1037/h0040957}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-dahlke2019}{}}%
+\bibitem[\citeproctext]{ref-dahlke2019}
 Dahlke, Jeffrey A., and Brenton M. Wiernik. 2019. {``Psychmeta: An R
 Package for Psychometric Meta-Analysis.''} \emph{Applied Psychological
 Measurement} 43 (5): 415--16.
 \url{https://doi.org/10.1177/0146621618795933}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-dahlke2020}{}}%
+\bibitem[\citeproctext]{ref-dahlke2020}
 ---------. 2020. {``Not Restricted to Selection Research: Accounting for
 Indirect Range Restriction in Organizational Research.''}
 \emph{Organizational Research Methods} 23 (4): 717--49.
 \url{https://doi.org/10.1177/1094428119859398}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-dersimonian2007}{}}%
+\bibitem[\citeproctext]{ref-dersimonian2007}
 DerSimonian, Rebecca, and Raghu N. Kacker. 2007. {``Random-Effects Model
 for Meta-Analysis of Clinical Trials: An Update.''} \emph{NIST} 28
 (January): 105--14.
 \url{https://www.nist.gov/publications/random-effects-model-meta-analysis-clinical-trials-update}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-galton1907}{}}%
+\bibitem[\citeproctext]{ref-galton1907}
 Galton, Francis. 1907. {``Vox Populi.''} \emph{Nature} 75 (1949):
 450--51. \url{https://doi.org/10.1038/075450a0}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-irr}{}}%
+\bibitem[\citeproctext]{ref-irr}
 Gamer, Matthias, Jim Lemon, Ian Fellows, and Puspendra Singh. 2019.
 \emph{Irr: Various Coefficients of Interrater Reliability and
 Agreement}. \url{https://CRAN.R-project.org/package=irr}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-goulet-pelletier2018}{}}%
+\bibitem[\citeproctext]{ref-goulet-pelletier2018}
 Goulet-Pelletier, Jean-Christophe, and Denis Cousineau. 2018. {``A
 Review of Effect Sizes and Their Confidence Intervals, Part i: The
 Cohen{'}s d Family.''} \emph{The Quantitative Methods for Psychology} 14
 (4): 242--65. \url{https://doi.org/10.20982/tqmp.14.4.p242}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-haddock1998}{}}%
+\bibitem[\citeproctext]{ref-haddock1998}
 Haddock, C. Keith, David Rindskopf, and William R. Shadish. 1998.
 {``Using Odds Ratios as Effect Sizes for Meta-Analysis of Dichotomous
 Data: A Primer on Methods and Issues.''} \emph{Psychological Methods} 3
 (3): 339--53. \url{https://doi.org/10.1037/1082-989X.3.3.339}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-haertel2006}{}}%
+\bibitem[\citeproctext]{ref-haertel2006}
 Haertel, Edward H. 2006. {``3. Reliability.''} In, 4th ed.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hedges1981}{}}%
+\bibitem[\citeproctext]{ref-hedges1981}
 Hedges, Larry V. 1981. {``Distribution Theory for Glass's Estimator of
 Effect Size and Related Estimators.''} \emph{Journal of Educational
 Statistics} 6 (2): 107--28.
 \url{https://doi.org/10.3102/10769986006002107}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hedges1989}{}}%
+\bibitem[\citeproctext]{ref-hedges1989}
 ---------. 1989. {``An Unbiased Correction for Sampling Error in
 Validity Generalization Studies.''} \emph{Journal of Applied Psychology}
 74 (3): 469--77. \url{https://doi.org/10.1037/0021-9010.74.3.469}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hedges1985}{}}%
+\bibitem[\citeproctext]{ref-hedges1985}
 Hedges, Larry V., and Ingram Olkin. 1985. \emph{Statistical Methods for
 Meta-Analysis}. Academic press.
-\url{https://books.google.com/books?hl=en\&lr=\&id=7GviBQAAQBAJ\&oi=fnd\&pg=PP1\&dq=info:e6P1zfh2T6QJ:scholar.google.com\&ots=Dx-YqN6_9B\&sig=-39HgbYdWPp_BwSTzA9cRODs2Q0}.
+\url{https://books.google.com/books?hl=en&lr=&id=7GviBQAAQBAJ&oi=fnd&pg=PP1&dq=info:e6P1zfh2T6QJ:scholar.google.com&ots=Dx-YqN6_9B&sig=-39HgbYdWPp_BwSTzA9cRODs2Q0}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hedges1998}{}}%
+\bibitem[\citeproctext]{ref-hedges1998}
 Hedges, Larry V., and Jack L. Vevea. 1998. {``Fixed- and Random-Effects
 Models in Meta-Analysis.''} \emph{Psychological Methods} 3 (4):
 486--504. \url{https://doi.org/10.1037/1082-989X.3.4.486}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-holtzman1950}{}}%
+\bibitem[\citeproctext]{ref-holtzman1950}
 Holtzman, Wayne H. 1950. {``The Unbiased Estimate of the Population
 Variance and Standard Deviation.''} \emph{The American Journal of
 Psychology} 63 (4): 615--17. \url{https://doi.org/10.2307/1418879}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hunter1990a}{}}%
+\bibitem[\citeproctext]{ref-hunter1990a}
 Hunter, John E., and Frank L. Schmidt. 2015. \emph{Methods of
 meta-analysis: correcting error and bias in research findings (third)}.
 Third. Thousand Oaks, California: Sage Publications.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hunter2006}{}}%
+\bibitem[\citeproctext]{ref-hunter2006}
 Hunter, John E., Frank L. Schmidt, and Huy Le. 2006. {``Implications of
 Direct and Indirect Range Restriction for Meta-Analysis Methods and
 Findings.''} \emph{Journal of Applied Psychology} 91 (3): 594--612.
 \url{https://doi.org/10.1037/0021-9010.91.3.594}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-hunter1990}{}}%
+\bibitem[\citeproctext]{ref-hunter1990}
 Hunter, John, and Frank Schmidt. 1990. {``Dichotomization of Continuous
 Variables: The Implications for Meta-Analysis.''} \emph{Journal of
 Applied Psychology} 75 (June): 334--49.
 \url{https://doi.org/10.1037/0021-9010.75.3.334}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-jacobs2017}{}}%
+\bibitem[\citeproctext]{ref-jacobs2017}
 Jacobs, Perke, and Wolfgang Viechtbauer. 2017. {``Estimation of the
 Biserial Correlation and Its Sampling Variance for Use in
 Meta-Analysis.''} \emph{Research Synthesis Methods} 8 (2): 161--80.
 \url{https://doi.org/10.1002/jrsm.1218}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-johnson1995}{}}%
+\bibitem[\citeproctext]{ref-johnson1995}
 Johnson, Blair T., Brian Mullen, and Eduardo Salas. 1995. {``Comparison
 of Three Major Meta-Analytic Approaches.''} \emph{Journal of Applied
 Psychology} 80 (1): 94--106.
 \url{https://doi.org/10.1037/0021-9010.80.1.94}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-kelley1927}{}}%
+\bibitem[\citeproctext]{ref-kelley1927}
 Kelley, Truman Lee. 1927. \emph{Interpretation of Educational
 Measurements}. World Book Company.
 
-\leavevmode\vadjust pre{\hypertarget{ref-vankempen2000}{}}%
+\bibitem[\citeproctext]{ref-vankempen2000}
 Kempen, G.m.p. van, and L.j. van Vliet. 2000. {``Mean and Variance of
 Ratio Estimators Used in Fluorescence Ratio Imaging.''} \emph{Cytometry}
 39 (4): 300--305.
 \url{https://doi.org/10.1002/(SICI)1097-0320(20000401)39:4\%3C300::AID-CYTO8\%3E3.0.CO;2-O}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-kirk1973}{}}%
+\bibitem[\citeproctext]{ref-kirk1973}
 Kirk, David B. 1973. {``On the Numerical Approximation of the Bivariate
 Normal (Tetrachoric) Correlation Coefficient.''} \emph{Psychometrika} 38
 (2): 259--68. \url{https://doi.org/10.1007/BF02291118}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-kroenke2003}{}}%
+\bibitem[\citeproctext]{ref-kroc2020}
+Kroc, Edward, and Bruno D. Zumbo. 2020. {``A Transdisciplinary View of
+Measurement Error Models and the Variations of x=t+e.''} \emph{Journal
+of Mathematical Psychology} 98 (September): 102372.
+\url{https://doi.org/10.1016/j.jmp.2020.102372}.
+
+\bibitem[\citeproctext]{ref-kroenke2003}
 Kroenke, Kurt, Robert L. Spitzer, and Janet B. W. Williams. 2003. {``The
 Patient Health Questionnaire-2: Validity of a Two-Item Depression
 Screener.''} \emph{Medical Care} 41 (11): 1284--92.
 \url{https://www.jstor.org/stable/3768417}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-laird1990}{}}%
+\bibitem[\citeproctext]{ref-laird1990}
 Laird, Nan M., and Frederick Mosteller. 1990. {``Some Statistical
 Methods for Combining Experimental Results.''} \emph{International
 Journal of Technology Assessment in Health Care} 6 (1): 5--30.
 \url{https://doi.org/10.1017/S0266462300008916}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-le2006}{}}%
+\bibitem[\citeproctext]{ref-le2006}
 Le, Huy, and Frank L. Schmidt. 2006. {``Correcting for Indirect Range
 Restriction in Meta-Analysis: Testing a New Meta-Analytic Procedure.''}
 \emph{Psychological Methods} 11 (4): 416--38.
 \url{https://doi.org/10.1037/1082-989X.11.4.416}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-lundberg2021}{}}%
+\bibitem[\citeproctext]{ref-lundberg2021}
 Lundberg, Ian, Rebecca Johnson, and Brandon M. Stewart. 2021. {``What Is
 Your Estimand? Defining the Target Quantity Connects Statistical
 Evidence to Theory.''} \emph{American Sociological Review} 86 (3):
 532--65. \url{https://doi.org/10.1177/00031224211004187}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-maccallum2002}{}}%
+\bibitem[\citeproctext]{ref-maccallum2002}
 MacCallum, Robert C., Shaobo Zhang, Kristopher J. Preacher, and Derek D.
 Rucker. 2002. {``On the Practice of Dichotomization of Quantitative
 Variables.''} \emph{Psychological Methods} 7: 19--40.
 \url{https://doi.org/10.1037/1082-989X.7.1.19}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-maxwell1993}{}}%
+\bibitem[\citeproctext]{ref-maxwell1993}
 Maxwell, Scott, and Harold Delaney. 1993. {``Bivariate Median Splits and
 Spurious Statistical Significance.''} \emph{Psychological Bulletin} 113
 (January): 181--90. \url{https://doi.org/10.1037/0033-2909.113.1.181}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-mcdaniel1994}{}}%
+\bibitem[\citeproctext]{ref-mcdaniel1994}
 McDaniel, Michael A., Deborah L. Whetzel, Frank L. Schmidt, and Steven
 D. Maurer. 1994. {``The Validity of Employment Interviews: A
 Comprehensive Review and Meta-Analysis.''} \emph{Journal of Applied
 Psychology} 79 (4): 599--616.
 \url{https://doi.org/10.1037/0021-9010.79.4.599}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-mendoza1987}{}}%
+\bibitem[\citeproctext]{ref-mendoza1987}
 Mendoza, Jorge L., and Michael Mumford. 1987. {``Corrections for
 Attenuation and Range Restriction on the Predictor.''} \emph{Journal of
 Educational Statistics} 12 (3): 282--93.
 \url{https://doi.org/10.3102/10769986012003282}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-morris2014}{}}%
+\bibitem[\citeproctext]{ref-morris2014}
 Morris, Scott, Rebecca Daisley, Megan Wheeler, and Peggy Boyer. 2014.
 {``A Meta-Analysis of the Relationship Between Individual Assessments
 and Job Performance.''} \emph{The Journal of Applied Psychology} 100
 (May). \url{https://doi.org/10.1037/a0036938}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-olkin1958}{}}%
+\bibitem[\citeproctext]{ref-olkin1958}
 Olkin, Ingram, and John W. Pratt. 1958. {``Unbiased Estimation of
 Certain Correlation Coefficients.''} \emph{The Annals of Mathematical
 Statistics} 29 (1): 201--11. \url{https://www.jstor.org/stable/2237306}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-pearson1903}{}}%
-Pearson, Karl. 1903. {``I. Mathematical Contributions to the Theory of
+\bibitem[\citeproctext]{ref-pearson1895}
+Pearson, Karl. 1895. {``Notes on the History of Correlation.''}
+\emph{Society of Biometricians and Mathematical Statisticians}.
+\url{https://doi.org/10.2307/2331722}.
+
+\bibitem[\citeproctext]{ref-pearson1903}
+---------. 1903. {``I. Mathematical Contributions to the Theory of
 Evolution. {\textemdash}XI. On the Influence of Natural Selection on the
 Variability and Correlation of Organs.''} \emph{Philosophical
 Transactions of the Royal Society of London. Series A, Containing Papers
 of a Mathematical or Physical Character} 200 (321-330): 1--66.
 \url{https://doi.org/10.1098/rsta.1903.0001}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-pearson1898}{}}%
+\bibitem[\citeproctext]{ref-pearson1898}
 Pearson, Karl, and L. N. G. Filon. 1898. {``Mathematical Contributions
 to the Theory of Evolution. IV. On the Probable Errors of Frequency
 Constants and on the Influence of Random Selection on Variation and
 Correlation. {[}Abstract{]}.''} \emph{Proceedings of the Royal Society
 of London} 62: 173--76. \url{https://www.jstor.org/stable/115709}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-peters1940}{}}%
+\bibitem[\citeproctext]{ref-peters1940}
 Peters, Charles C., and Walter R. Van Voorhis. 1940. {``Further Methods
 of Correlation.''} In, 362--403. New York, NY, US: McGraw-Hill Book
 Company. \url{https://doi.org/10.1037/13596-013}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-raju1991}{}}%
+\bibitem[\citeproctext]{ref-raju1991}
 Raju, Nambury, Michael Burke, Jacques Normand, and George Langlois.
 1991. {``A New Meta-Analytic Approach.''} \emph{Journal of Applied
 Psychology} 76 (June): 432--46.
 \url{https://doi.org/10.1037/0021-9010.76.3.432}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-roth2015}{}}%
+\bibitem[\citeproctext]{ref-roth2015}
 Roth, Bettina. 2015. {``Intelligence and School Grades: A
 Meta-Analysis.''}
 
-\leavevmode\vadjust pre{\hypertarget{ref-rubin1992}{}}%
+\bibitem[\citeproctext]{ref-rubin1992}
 Rubin, Donald B. 1992. {``Meta-Analysis: Literature Synthesis or
 Effect-Size Surface Estimation?''} \emph{Journal of Educational
 Statistics} 17 (4): 363--74.
 \url{https://doi.org/10.3102/10769986017004363}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-sackett2000}{}}%
+\bibitem[\citeproctext]{ref-sackett2000}
 Sackett, Paul R., and Hyuckseung Yang. 2000. {``Correction for Range
 Restriction: An Expanded Typology.''} \emph{Journal of Applied
 Psychology} 85 (1): 112--18.
 \url{https://doi.org/10.1037/0021-9010.85.1.112}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-schmidt1977}{}}%
+\bibitem[\citeproctext]{ref-schmidt1977}
 Schmidt, Frank, and John Hunter. 1977. {``Development of a General
 Solution to the Problem of Validity Generalization.''} \emph{Journal of
 Applied Psychology} 62 (October): 529--40.
 \url{https://doi.org/10.1037/0021-9010.62.5.529}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-soper1914}{}}%
+\bibitem[\citeproctext]{ref-soper1914}
 Soper, H. E. 1914. {``On the Probable Error of the Bi-Serial Expression
 for the Correlation Coefficient.''} \emph{Biometrika} 10 (2/3): 384--90.
 \url{https://doi.org/10.2307/2331789}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-spearman1904}{}}%
+\bibitem[\citeproctext]{ref-spearman1904}
 Spearman, C. 1904. {``The Proof and Measurement of Association Between
 Two Things.''} \emph{International Journal of Epidemiology} 39 (5):
 1137--50. \url{https://doi.org/10.1093/ije/dyq191}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-spearman1910}{}}%
+\bibitem[\citeproctext]{ref-spearman1910}
 Spearman, Charles. 1910. {``Correlation Calculated from Faulty Data.''}
 \emph{British Journal of Psychology} 3 (3): 271295.
 \url{https://www.proquest.com/docview/1293688112/citation/7E133DC1091D4E47PQ/1}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-marco2021}{}}%
+\bibitem[\citeproctext]{ref-marco2021}
 Taboga, Marco. 2021. {``Gamma Function.''}
 \url{https://www.statlect.com/mathematical-tools/gamma-function}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-taylor1976}{}}%
+\bibitem[\citeproctext]{ref-taylor1976}
 Taylor, Erwin K., and Thomas Griess. 1976. {``The Missing Middle in
 Validation Research.''} \emph{Personnel Psychology} 29 (1): 5--11.
 \url{https://doi.org/10.1111/j.1744-6570.1976.tb00397.x}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-viechtbauer2010}{}}%
+\bibitem[\citeproctext]{ref-viechtbauer2010}
 Viechtbauer, Wolfgang. 2010. {``Conducting meta-analyses in R with the
 metafor package.''} \emph{Journal of Statistical Software} 36 (3):
 1--48. \url{https://doi.org/10.18637/jss.v036.i03}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-viechtbauer}{}}%
+\bibitem[\citeproctext]{ref-viechtbauer}
 ---------. n.d. {``Fixed-Effects and Random-Effects Models in
 Meta-Analysis.''} \url{https://wviechtb.github.io/metafor/index.html}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-viswesvaran2014}{}}%
+\bibitem[\citeproctext]{ref-viswesvaran2014}
 Viswesvaran, Chockalingam, Deniz S. Ones, Frank L. Schmidt, Huy Le, and
 In-Sue Oh. 2014. {``Measurement Error Obfuscates Scientific Knowledge:
 Path to Cumulative Knowledge Requires Corrections for Unreliability and
@@ -6799,42 +7238,47 @@ Psychometric Meta-Analyses.''} \emph{Industrial and Organizational
 Psychology} 7 (4): 507--18.
 \url{https://doi.org/10.1017/S1754942600006799}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-vos2022}{}}%
+\bibitem[\citeproctext]{ref-vos2022}
 Vos, Paul, and Don Holbert. 2022. {``Frequentist Statistical Inference
 Without Repeated Sampling.''} \emph{Synthese} 200 (2): 89.
 \url{https://doi.org/10.1007/s11229-022-03560-x}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-wechsler2008}{}}%
+\bibitem[\citeproctext]{ref-wechsler2008}
 Wechsler, David. 2008. \emph{Wechsler Adult Intelligence Scale--Fourth
 Edition}. 4th ed. \url{https://doi.org/10.1037/t15169-000}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-metadat}{}}%
+\bibitem[\citeproctext]{ref-metadat}
 White, Thomas, Daniel Noble, Alistair Senior, W. Kyle Hamilton, and
 Wolfgang Viechtbauer. 2022. \emph{Metadat: Meta-Analysis Datasets}.
 \url{https://CRAN.R-project.org/package=metadat}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-whitener1990}{}}%
+\bibitem[\citeproctext]{ref-whitener1990}
 Whitener, Ellen M. 1990. {``Confusion of Confidence Intervals and
 Credibility Intervals in Meta-Analysis.''} \emph{Journal of Applied
 Psychology} 75 (3): 315--21.
 \url{https://doi.org/10.1037/0021-9010.75.3.315}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-wiernik2020}{}}%
+\bibitem[\citeproctext]{ref-wiernik2020}
 Wiernik, Brenton M., and Jeffrey A. Dahlke. 2020. {``Obtaining Unbiased
 Results in Meta-Analysis: The Importance of Correcting for Statistical
 Artifacts.''} \emph{Advances in Methods and Practices in Psychological
 Science} 3 (1): 94--123. \url{https://doi.org/10.1177/2515245919885611}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-psych}{}}%
+\bibitem[\citeproctext]{ref-psych}
 William Revelle. 2023. \emph{Psych: Procedures for Psychological,
 Psychometric, and Personality Research}. Evanston, Illinois:
 Northwestern University. \url{https://CRAN.R-project.org/package=psych}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-wylie1976}{}}%
+\bibitem[\citeproctext]{ref-wylie1976}
 Wylie, Peter B. 1976. {``Effects of Coarse Grouping and Skewed Marginal
 Distributions on the Pearson Product Moment Correlation Coefficient.''}
 \emph{Educational and Psychological Measurement} 36 (1): 1--7.
 \url{https://doi.org/10.1177/001316447603600101}.
+
+\bibitem[\citeproctext]{ref-zimmerman1975}
+Zimmerman, Donald W. 1975. {``Probability Spaces, Hilbert Spaces, and
+the Axioms of Test Theory.''} \emph{Psychometrika} 40 (3): 395--412.
+\url{https://doi.org/10.1007/BF02291765}.
 
 \end{CSLReferences}
 
